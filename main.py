@@ -622,15 +622,11 @@ def main():
         print("✅ Final Z Position:", hmc.z_current_position)
         hmc.on_startup() #after the plot is completed, it sends all the axis to home position
     elif response == 7:
-        hmc.ser.close()
-        time.sleep(0.2)
-        hmc.ser.open()
-
-        hmc.set_speed(5000, 5000, 5000)  # You can change speed if needed
+        hmc.set_speed(5000, 5000, 5000)  
 
         step_size = 0.2  # microns
         steps = 1000     # number of steps
-        total_distance = step_size * steps  # 200 microns
+        total_distance = step_size * steps
 
         # Move X axis
         print("[INFO] Moving X axis...")
@@ -680,7 +676,7 @@ def main():
                 time.sleep(0.1)
             app.hmcControl.run_thread.join()
 
-        print("✅ XYZ step movements complete.")
+        print(" XYZ step movements complete.")
 
 
 if __name__ == "__main__":
