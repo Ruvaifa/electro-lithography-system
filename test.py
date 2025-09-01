@@ -201,7 +201,7 @@ def shift_coordinates(input_file, output_file, buffer=10000):
                 outfile.write(f"{x:.3f}, {y:.3f}, {flag}\n")
     print("done")
 # Example usage
-shift_coordinates("parallel.txt", "parallel_large.txt")
+#shift_coordinates("parallel.txt", "parallel_large.txt")
 
 ##------------------------------------------------------------------------------------------------------------------------------------------
 #GENERATE PARALLEL LINES
@@ -272,4 +272,48 @@ line_spacing = 200   # Distance between two lines
 #generate_grid_lines_to_file(n_horizontal, n_vertical, line_length, point_spacing, line_spacing)
 
 
+#-------------------------------------------------
+import math
+import csv
+
+def generate_circle_coordinates(
+    radius=20000,
+    center_x=25000,
+    center_y=25000,
+    num_points=1000,
+    output_file="circle_relative.csv"
+):
+    # Generate absolute circle coordinates
+    coords = []
+    for i in range(num_points):
+        angle = 2 * math.pi * i / num_points
+        x = center_x + radius * math.cos(angle)
+        y = center_y + radius * math.sin(angle)
+        coords.append((x, y))
+    
+    # Convert to relative coordinates (differences), rounded
+    relative_coords = []
+    prev_x, prev_y = coords[0]
+    for x, y in coords[1:]:
+        dx = round(x - prev_x)
+        dy = round(y - prev_y)
+        relative_coords.append((dx, dy))
+        prev_x, prev_y = x, y
+
+    # Close the circle (last point back to start)
+    dx = round(coords[0][0] - prev_x)
+    dy = round(coords[0][1] - prev_y)
+    relative_coords.append((dx, dy))
+    
+    # Save to CSV
+    with open(output_file, mode="w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(["dx", "dy"])
+        writer.writerows(relative_coords)
+    
+    print(f"[✅] Generated {len(relative_coords)} relative coordinates for circle.")
+    print(f"[💾] Saved to '{output_file}'")
+
+# Example usage
+generate_circle_coordinates()
 

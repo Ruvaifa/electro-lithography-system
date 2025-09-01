@@ -62,6 +62,8 @@ This project aims to provide:
 - (Planned) **Microscope Camera Integration**
 
 ---
+## Report
+   [![View Report](https://img.shields.io/badge/Open-PDF-red)](Report.pdf)
 
 ## 📈 Future Work
 
