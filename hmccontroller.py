@@ -12,56 +12,112 @@ class App(ttk.Frame):
         super().__init__(master)
         self.master = master
         self.command = ""
-        # self.create_widgets()
         self.x_value = 0
-        self.y_value =0
-        self.z_value=0
+        self.y_value = 0
+        self.z_value = 0
         self.success = False
+        self.x_hmc = None
+        self.y_hmc = None
+        self.z_hmc = None
+
+    def _get_controllers(self):
+        controllers = []
+        for c in [self.x_hmc, self.y_hmc, self.z_hmc]:
+            if c is not None:
+                controllers.append(c)
+        if not controllers and hasattr(self, 'hmcControl') and self.hmcControl:
+            controllers.append(self.hmcControl)
+        return controllers
 
     def stop_process(self):
-        # time.sleep(0.1)
-        self.hmcControl.stop_thread = True
+        for c in self._get_controllers():
+            c.stop_thread = True
         self.stop = True
 
     def check_thread_is_alive(self):
-        if self.hmcControl.run_thread != None:
-            if self.hmcControl.run_thread.is_alive():
+        controller = self.hmcControl if hasattr(self, 'hmcControl') and self.hmcControl else (self.z_hmc or self.y_hmc or self.x_hmc)
+        if controller and controller.run_thread is not None:
+            if controller.run_thread.is_alive():
                 print("Error,A movement already in progress!")
                 return True
         return False
     
     def start_thread(self):
-        self.hmcControl.run_thread = Thread(target=self.start_process)
-        self.hmcControl.run_thread.start()
+        controller = self.hmcControl if hasattr(self, 'hmcControl') and self.hmcControl else (self.z_hmc or self.y_hmc or self.x_hmc)
+        controller.run_thread = Thread(target=self.start_process)
+        controller.run_thread.start()
 
     def start_process(self):
         try:
-            self.hmcControl.stop_thread = False
-            self.hmcControl.force_stop_thread = False
+            controllers = self._get_controllers()
+            for c in controllers:
+                c.stop_thread = False
+                c.force_stop_thread = False
             self.stop = False
 
-            if self.hmcControl.connect:
-                
+            all_connected = all(c.connect for c in controllers)
+
+            if all_connected:
                 match self.command:
                     case "1":
-        
-                        self.hmcControl.move(self.x_value, self.y_value, -self.z_value)
+                        if len(controllers) > 1 and self.x_hmc and self.y_hmc and self.z_hmc:
+                            threads = []
+                            if self.x_value != 0:
+                                threads.append(Thread(target=self.x_hmc.move, args=(self.x_value, 0, 0)))
+                            if self.y_value != 0:
+                                threads.append(Thread(target=self.y_hmc.move, args=(0, self.y_value, 0)))
+                            if self.z_value != 0:
+                                threads.append(Thread(target=self.z_hmc.move, args=(0, 0, self.z_value)))
+                            for t in threads:
+                                t.start()
+                            for t in threads:
+                                t.join()
+                        else:
+                            for c in controllers:
+                                if self.x_hmc and c == self.x_hmc:
+                                    c.move(self.x_value, 0, 0)
+                                elif self.y_hmc and c == self.y_hmc:
+                                    c.move(0, self.y_value, 0)
+                                elif self.z_hmc and c == self.z_hmc:
+                                    c.move(0, 0, self.z_value)
+                                else:
+                                    c.move(self.x_value, self.y_value, self.z_value)
 
                     case "2":
-
-                        self.hmcControl.contact_point_move(self.x_value,self.y_value,self.z_value)
-                
+                        if len(controllers) > 1 and self.x_hmc and self.y_hmc and self.z_hmc:
+                            threads = []
+                            if self.x_value != 0:
+                                threads.append(Thread(target=self.x_hmc.contact_point_move, args=(self.x_value, 0, 0)))
+                            if self.y_value != 0:
+                                threads.append(Thread(target=self.y_hmc.contact_point_move, args=(0, self.y_value, 0)))
+                            if self.z_value != 0:
+                                threads.append(Thread(target=self.z_hmc.contact_point_move, args=(0, 0, self.z_value)))
+                            for t in threads:
+                                t.start()
+                            for t in threads:
+                                t.join()
+                        else:
+                            for c in controllers:
+                                if self.x_hmc and c == self.x_hmc:
+                                    c.contact_point_move(self.x_value, 0, 0)
+                                elif self.y_hmc and c == self.y_hmc:
+                                    c.contact_point_move(0, self.y_value, 0)
+                                elif self.z_hmc and c == self.z_hmc:
+                                    c.contact_point_move(0, 0, self.z_value)
+                                else:
+                                    c.contact_point_move(self.x_value, self.y_value, self.z_value)
             else:
-                # self.update_status("Done")
                 print("exception detected")
         except Exception as e:
             print(f"[EXCEPTION] {e}")
-            hmc.stop_thread = True
-            if hmc.run_thread and hmc.run_thread.is_alive():
-                hmc.run_thread.join()    
+            for c in self._get_controllers():
+                c.stop_thread = True
+                if c.run_thread and c.run_thread.is_alive():
+                    c.run_thread.join()    
 
 class HmcControlCs:
-    def __init__(self):
+    def __init__(self, axis=None):
+        self.axis = axis  # 'x', 'y', or 'z' for single-axis mode; None for legacy 3-axis mode
         #GENERAL STATE
         self.dummy = False
         self.run_thread = None
@@ -138,33 +194,53 @@ class HmcControlCs:
         self.serial_lock = threading.Lock()
  
     def on_startup(self):
-        print("Sending all axes to home position...")
-        self.set_speed(5000, 5000, 5000)
+        if self.axis:
+            speed = 5000
+            if self.axis == 'x':
+                print("Sending X to Home")
+                self.set_speed(speed, 0, 0)
+                print("X speed set, starting move_home")
+                self.move_home(-self.maximum_steps, 0, 0)
+                print("X move_home done")
+            elif self.axis == 'y':
+                print("Sending Y to Home")
+                self.set_speed(0, speed, 0)
+                print("Y speed set, starting move_home")
+                self.move_home(0, -self.maximum_steps, 0)
+                print("Y move_home done")
+            elif self.axis == 'z':
+                print("Sending Z to Home")
+                self.set_speed(0, 0, speed)
+                self.move_home(0, 0, -self.maximum_steps)
+                print("Z move_home done")
+            self.initialise_current_position()
+        else:
+            print("Sending all axes to home position...")
+            self.set_speed(5000, 5000, 5000)
 
-        print("Sending Z to home")
-        self.ser.close()
-        self.ser.open()
-        # self.move_home(0,0,-self.maximum_steps)
-        self.move_home(0,0,self.maximum_steps)
-        self.ser.close()
-        self.ser.open()
-        
-        
-        print("Sending X to Home")
-        self.move_home(-self.maximum_steps,0,0),
-        
-        self.ser.close()
-        self.ser.open()
-        print("Sending Y to home")
-        self.move_home(0,-self.maximum_steps,0)
-        
-        
-        print("Homing complete.")
-        self.ser.close()
-        print("port closed")
-        self.ser.open()
-        print("port opend")
-        self.initialise_current_position()
+            print("Sending Z to home")
+            self.ser.close()
+            self.ser.open()
+            self.ser.reset_input_buffer()
+            self.move_home(0,0,self.maximum_steps)
+            self.ser.close()
+            self.ser.open()
+            self.ser.reset_input_buffer()
+            
+            print("Sending X to Home")
+            self.move_home(-self.maximum_steps,0,0)
+            
+            self.ser.close()
+            self.ser.open()
+            self.ser.reset_input_buffer()
+            print("Sending Y to home")
+            self.move_home(0,-self.maximum_steps,0)
+            
+            print("Homing complete.")
+            self.ser.close()
+            self.ser.open()
+            self.ser.reset_input_buffer()
+            self.initialise_current_position()
       
 
     def config_serial_port(self, port):  # Returns true if connection is successful, else false
@@ -182,6 +258,7 @@ class HmcControlCs:
             if self.ser.is_open:
                 self.ser.close()
             self.ser.open()
+            self.ser.reset_input_buffer()
 
             print("Serial port initialized")
             self.com_open = True
@@ -209,20 +286,6 @@ class HmcControlCs:
             break
         if In != ack:
             raise Exception('Invalid Ack ' + str(In) + ' given ack ' + str(ack))
-    # def read_ack(self,expected_ack, retries=5):
-    #     for attempt in range(retries):
-    #         In = self.ser.read(1)
-    #         if not In:
-    #             print(f"[WARN] Timeout waiting for ACK (attempt {attempt + 1})")
-    #             continue
-    #         if In == bytes([expected_ack]):
-    #             return
-    #         else:
-    #             print(f"[WARN] Invalid Ack {In} (int={ord(In)}) on attempt {attempt + 1}, expected {expected_ack}")
-    #             time.sleep(0.2)
-    #             self.ser.reset_input_buffer()  # Flush junk
-    #     raise Exception('Invalid Ack ' + str(In) + ' given ack ' + str(expected_ack))
-       
 
     def read_value(self): #reads a single byte from serial port, loops until a valid byte or stop_thread is detected, stores value in self.indata and returns it
         #Used for movement status and limit detection
@@ -296,136 +359,111 @@ class HmcControlCs:
 
     def move(self, move_a, move_b, move_c): #moves by given distances in microns
 
-        # self.ser.close()
-        # self.ser.open()
         if self.dummy:
             time.sleep(0.1)
             return
 
-        self.x_home_reached = False
-        self.x_far_reached = False
-        self.y_home_reached = False
-        self.y_far_reached = False
-        self.z_home_reached = False
-        self.z_far_reached = False
+        if self.axis in (None, 'x'):
+            self.x_home_reached = False
+            self.x_far_reached = False
+        if self.axis in (None, 'y'):
+            self.y_home_reached = False
+            self.y_far_reached = False
+        if self.axis in (None, 'z'):
+            self.z_home_reached = False
+            self.z_far_reached = False
 
         self.movement_completed = False
-        if ((move_a>0) and (50000- self.current_x- move_a)<0):
-            print("Value exceeds possible limit for X, enter valid value")
-            return
-        elif((move_b>0) and (50000- self.current_y-move_b)<0):
-            print("Value exceeds possible limit for Y, enter valid value")
-            return
-        #elif((move_c>0) and (50000- self.z_current_position-move_c)<0):
-        elif((move_c>0) and (self.current_z- move_c)<0):
-            print(f"hmc z_current_position: {self.z_current_position}")
-            print(f"hmc current_z={self.current_z}")
-            print(f"hmc move_c={move_c}")
-            print(50000-self.current_z-move_c)
-            print("Value exceeds possible limit for -Z, enter valid value")
-            return
-        
-        elif((move_a<0) and(self.current_x + move_a)<0):
-            print("Value exceeds possible limit for -X, enter valid value")
-            return
-        elif((move_b<0)and(self.current_y +move_b)<0):
-            print("Value exceeds possible limit for -Y, enter valid value")
-            return
-        #elif((move_c<0)and(self.current_z +move_c)<0):
-        elif((move_c<0)and(self.current_z +abs(move_c) - 50000> 0)):
-            print("Value exceeds possible limit for +Z, enter valid value")
-            return
-        
-        self.set_move_data(move_a, move_b, move_c) #sends these distances to controller
 
-        #self.acceleration_and_deceleration(acc_enable, dec_enable)
+        if self.axis in (None, 'x'):
+            if ((move_a>0) and (50000- self.current_x- move_a)<0):
+                print("Value exceeds possible limit for X, enter valid value")
+                return
+            elif((move_a<0) and(self.current_x + move_a)<0):
+                print("Value exceeds possible limit for -X, enter valid value")
+                return
+        if self.axis in (None, 'y'):
+            if ((move_b>0) and (50000- self.current_y-move_b)<0):
+                print("Value exceeds possible limit for Y, enter valid value")
+                return
+            elif((move_b<0)and(self.current_y +move_b)<0):
+                print("Value exceeds possible limit for -Y, enter valid value")
+                return
+        if self.axis in (None, 'z'):
+            if ((move_c>0) and (50000 - self.current_z - move_c) < 0):
+                print("Value exceeds possible limit for +Z, enter valid value")
+                return
+            elif((move_c<0)and(self.current_z + move_c)<0):
+                print("Value exceeds possible limit for -Z, enter valid value")
+                return
+        
+        self.set_move_data(move_a, move_b, move_c)
 
         self.indata = 0
         while self.indata == 0 and not self.stop_thread:
-            self.indata = self.move_status()      #waits for movement status
+            self.indata = self.move_status()
 
-        #Handling limit switches or stop requests
         if self.indata == 0 and self.stop_thread:   
             print("Stop Enabled")
             self.write_port(self.stop)
             self.read_ack(self.stop_ack)
 
-        if self.indata == self.x_home_limit:
+        if self.indata in (self.x_home_limit, self.y_home_limit, self.z_home_limit):
             self.write_port(self.stop)
             self.read_ack(self.stop_ack)
-            print("X home limit reached")
-            self.x_home_reached = True
+            print("Home limit reached")
+            if self.axis == 'x':
+                self.x_home_reached = True
+            elif self.axis == 'y':
+                self.y_home_reached = True
+            elif self.axis == 'z':
+                self.z_home_reached = True
 
-        if self.indata == self.x_far_limit:
+        if self.indata in (self.x_far_limit, self.y_far_limit, self.z_far_limit):
             self.write_port(self.stop)
             self.read_ack(self.stop_ack)
-            print("X far limit reached")
-            self.x_far_reached = True
-
-        if self.indata == self.y_home_limit:
-            self.write_port(self.stop)
-            self.read_ack(self.stop_ack)
-            print("Y home limit reached")
-            self.y_home_reached = True
-
-        if self.indata == self.y_far_limit:
-            self.write_port(self.stop)
-            self.read_ack(self.stop_ack)
-            print("Y far limit reached")
-            self.y_far_reached = True
-
-        if self.indata == self.z_home_limit:
-            self.write_port(self.stop)
-            self.read_ack(self.stop_ack)
-            print("Z home limit reached")
-            self.z_home_reached = True
-
-        if self.indata == self.z_far_limit:
-            self.write_port(self.stop)
-            self.read_ack(self.stop_ack)
-            print("Z far limit reached")
-            self.z_far_reached = True
-
+            print("Far limit reached")
+            if self.axis == 'x':
+                self.x_far_reached = True
+            elif self.axis == 'y':
+                self.y_far_reached = True
+            elif self.axis == 'z':
+                self.z_far_reached = True
 
         if self.indata == self.move_completed:
             self.movement_completed = True
 
-        
+        self.ser.reset_input_buffer()
         self.read_move_bytes()
 
-        #---------------------------
-        
-        #Updates internal positions
-        if self.indata == self.x_home_limit:
+        if self.indata in (self.x_home_limit, self.y_home_limit, self.z_home_limit):
             self.x_current_position = 0
-            #print(f"...1{self.x_current_position}")
-        else:
-            if move_a > 0:
-                self.x_current_position = self.x_current_position + self.x_moving
-                #print(f"...2{self.x_current_position}")
-            else:
-                self.x_current_position = self.x_current_position - self.x_moving
-                #print(f"...3{self.x_current_position}")
-        if self.indata == self.y_home_limit:
             self.y_current_position = 0
-        else:
-            if move_b > 0:
-                self.y_current_position = self.y_current_position + self.y_moving
-            else:
-                self.y_current_position = self.y_current_position- self.y_moving
-
-        if self.indata == self.z_home_limit:
             self.z_current_position = 0
+            self.current_x = 0
+            self.current_y = 0
+            self.current_z = 0
         else:
-            if move_c > 0:
-                self.z_current_position = self.z_current_position+ self.z_moving
-            else:
-                self.z_current_position = self.z_current_position- self.z_moving
+            if self.axis in (None, 'x'):
+                if move_a > 0:
+                    self.x_current_position += self.x_moving
+                else:
+                    self.x_current_position -= self.x_moving
+            if self.axis in (None, 'y'):
+                if move_b > 0:
+                    self.y_current_position += self.y_moving
+                else:
+                    self.y_current_position -= self.y_moving
+            if self.axis in (None, 'z'):
+                if move_c > 0:
+                    self.z_current_position += self.z_moving
+                else:
+                    self.z_current_position -= self.z_moving
+            self.current_x = self.x_current_position
+            self.current_y = self.y_current_position
+            self.current_z = self.z_current_position
 
-        # print(f"indata: {self.indata}")
-        # print(f"z_moving: {self.z_moving}")
         print(f"z_current_position: {self.z_current_position}")
-        self.update_current_position(move_a, move_b , move_c)
         
     def acceleration_and_deceleration(self, acc_enable: bool, dec_enable: bool) -> bool:
         if acc_enable:
@@ -454,22 +492,37 @@ class HmcControlCs:
             time.sleep(0.1)
             return
 
+        print(f"[DEBUG] set_move_data: sending Move command, axis={self.axis}")
         self.write_port(self.Move)
         self.read_ack(self.ok)
+        print("[DEBUG] set_move_data: Move ACK received")
         
-        steps = (16777216) if abs(A_steps) == 16777216 else int(A_steps / self.Resolution_A)
-        self.send_axis_data(steps,A_steps)
-        self.move_x = steps
-        #print(f"x_steps:{self.move_x} ")
-        
-        steps = (16777216) if abs(B_steps) == 16777216 else int(B_steps / self.Resolution_B)
-        self.send_axis_data(steps,B_steps)
-        self.move_y = steps
-        
-        steps = (16777216) if abs(C_steps) == 16777216 else int(C_steps / self.Resolution_C)
-        self.send_axis_data(steps,C_steps)
-        self.move_z = steps
+        if self.axis == 'x':
+            steps = (16777216) if abs(A_steps) == 16777216 else int(A_steps / self.Resolution_A)
+            self.send_axis_data(steps, A_steps)
+            self.move_x = steps
+        elif self.axis == 'y':
+            steps = (16777216) if abs(B_steps) == 16777216 else int(B_steps / self.Resolution_B)
+            self.send_axis_data(steps, B_steps)
+            self.move_y = steps
+        elif self.axis == 'z':
+            steps = (16777216) if abs(C_steps) == 16777216 else int(C_steps / self.Resolution_C)
+            self.send_axis_data(steps, C_steps)
+            self.move_z = steps
+        else:
+            steps = (16777216) if abs(A_steps) == 16777216 else int(A_steps / self.Resolution_A)
+            self.send_axis_data(steps, A_steps)
+            self.move_x = steps
+            
+            steps = (16777216) if abs(B_steps) == 16777216 else int(B_steps / self.Resolution_B)
+            self.send_axis_data(steps, B_steps)
+            self.move_y = steps
+            
+            steps = (16777216) if abs(C_steps) == 16777216 else int(C_steps / self.Resolution_C)
+            self.send_axis_data(steps, C_steps)
+            self.move_z = steps
 
+        print("[DEBUG] set_move_data: all axis data sent")
         return
 
     def send_axis_data(self, data, direction): #sends step size and direction for one axis
@@ -497,52 +550,68 @@ class HmcControlCs:
         self.read_ack(self.ok)
 
     def read_move_bytes(self): #asks controller to send actual number of steps moved on each axis, calculate and stores how far each axis has moved
-        # self.ser.reset_input_buffer()
+        print("[DEBUG] read_move_bytes: sending READ command")
         self.write_port(self.READ)
         self.read_ack(self.READ_ACK)
+        print("[DEBUG] read_move_bytes: READ_ACK received")
 
+        if self.axis == 'x':
+            self.x_moving = self.Read_axis_data()
+            self.x_moving *= self.Resolution_A
+        elif self.axis == 'y':
+            self.y_moving = self.Read_axis_data()
+            self.y_moving *= self.Resolution_B
+        elif self.axis == 'z':
+            self.z_moving = self.Read_axis_data()
+            self.z_moving *= self.Resolution_C
+        else:
+            self.x_moving = self.Read_axis_data()
+            self.x_moving *= self.Resolution_A
 
-        self.x_moving = self.Read_axis_data()
-        #self.x_moving = abs(self.move_x - self.x_moving)
-        self.x_moving = self.x_moving
-        self.x_moving *= self.Resolution_A
+            self.y_moving = self.Read_axis_data()
+            self.y_moving *= self.Resolution_B
 
-        self.y_moving = self.Read_axis_data()
-        #self.y_moving = abs(self.move_y - self.y_moving)
-        
-        self.y_moving *= self.Resolution_B
-
-        self.z_moving = self.Read_axis_data()
-        #print(f"Z moving from read move byte : {self.z_moving}")
-        #print(f"move_z = {self.move_z}")
-        self.z_moving = abs(self.move_z - self.z_moving)
-        self.z_moving *= self.Resolution_C
+            self.z_moving = self.Read_axis_data()
+            self.z_moving = self.Read_axis_data()
+            self.z_moving *= self.Resolution_C
+        print("[DEBUG] read_move_bytes: done")
 
 
     def Read_axis_data(self): #reads 4 bytes for one axis and combine them into a full step value
         self.write_port(self.ok)
         self.axis_read_value()
         byte0 = self.indata
-        #print(f"bytr 0 : {byte0}")
 
         self.write_port(self.ok)
         self.axis_read_value()
         byte1 = self.indata
-        #print(f"bytr 1 : {byte0}")
 
         self.write_port(self.ok)
         self.axis_read_value()
         byte2 = self.indata
-        #print(f"bytr 2 : {byte0}")
 
         self.write_port(self.ok)
         self.axis_read_value()
         byte3 = self.indata
-        #print(f"bytr 3 : {byte0}")
         # (byte2 * 65535) + (byte1 * 255) + byte0
         steps = (byte3 * 16777216) + (byte2 * 65536) + (byte1 * 256) + byte0
         return steps
 
+
+    def _send_axis_speed(self, speed_value, resolution):
+        speed_steps = int(float(speed_value) / resolution)
+        print(f"[DEBUG] _send_axis_speed: sending speed cmd, steps={speed_steps}")
+        self.write_port(self.speed)
+        self.read_ack(self.ok)
+        print("[DEBUG] _send_axis_speed: speed ACK received")
+        datas = self.msb_csb_lsb(abs(speed_steps))
+        self.write_port(datas[0])
+        self.read_ack(self.ok)
+        self.write_port(datas[1])
+        self.read_ack(self.ok)
+        self.write_port(datas[2])
+        self.read_ack(self.ok)
+        print("[DEBUG] _send_axis_speed: done")
 
     def set_speed(self, x_value, y_value, z_value): #sends speed settings to the controller in steps/sec, convert microns/sec to step/sec
         print(f"[DEBUG] z_speed_steps = {z_value}")
@@ -551,49 +620,46 @@ class HmcControlCs:
             time.sleep(0.1)
             return
 
-        x_value = int(float(x_value) / self.Resolution_A)
-        y_value = int(float(y_value) / self.Resolution_B)
-        z_value = int(float(z_value) / self.Resolution_C)
+        if self.axis == 'x':
+            self._send_axis_speed(x_value, self.Resolution_A)
+        elif self.axis == 'y':
+            self._send_axis_speed(y_value, self.Resolution_B)
+        elif self.axis == 'z':
+            self._send_axis_speed(z_value, self.Resolution_C)
+        else:
+            x_steps = int(float(x_value) / self.Resolution_A)
+            y_steps = int(float(y_value) / self.Resolution_B)
+            z_steps = int(float(z_value) / self.Resolution_C)
 
-        #xy_speed = xy_speed * 120
-        self.write_port(self.speed)
-        self.read_ack(self.ok)
+            self.write_port(self.speed)
+            self.read_ack(self.ok)
 
-        datas = self.msb_csb_lsb(abs(x_value))
-        self.write_port(datas[0])
-        self.read_ack(self.ok)
+            datas = self.msb_csb_lsb(abs(x_steps))
+            self.write_port(datas[0])
+            self.read_ack(self.ok)
+            self.write_port(datas[1])
+            self.read_ack(self.ok)
+            self.write_port(datas[2])
+            self.read_ack(self.ok)
 
-        self.write_port(datas[1])
-        self.read_ack(self.ok)
+            datas = self.msb_csb_lsb(abs(y_steps))
+            self.write_port(datas[0])
+            self.read_ack(self.ok)
+            self.write_port(datas[1])
+            self.read_ack(self.ok)
+            self.write_port(datas[2])
+            self.read_ack(self.ok)
 
-        self.write_port(datas[2])
-        self.read_ack(self.ok)
-
-        datas = self.msb_csb_lsb(abs(y_value))
-        self.write_port(datas[0])
-        self.read_ack(self.ok)
-
-        self.write_port(datas[1])
-        self.read_ack(self.ok)
-
-        self.write_port(datas[2])
-        self.read_ack(self.ok)
-
-        datas = self.msb_csb_lsb(abs(z_value))
-        self.write_port(datas[0])
-        self.read_ack(self.ok)
-
-        self.write_port(datas[1])
-        self.read_ack(self.ok)
-
-        self.write_port(datas[2])
-        self.read_ack(self.ok)
+            datas = self.msb_csb_lsb(abs(z_steps))
+            self.write_port(datas[0])
+            self.read_ack(self.ok)
+            self.write_port(datas[1])
+            self.read_ack(self.ok)
+            self.write_port(datas[2])
+            self.read_ack(self.ok)
 
     def get_position(self):
         return {
-            # "x": self.x_current_position,
-            # "y": self.y_current_position,
-            # "z": self.z_current_position
             "x" : self.current_x,
             "y" : self.current_y,
             "z" : self.current_z
@@ -603,11 +669,16 @@ class HmcControlCs:
         self.current_x =0
         self.current_y=0
         self.current_z=0
+        self.x_current_position = 0
+        self.y_current_position = 0
+        self.z_current_position = 0
     def update_current_position(self,x,y,z):
         z= -z
         self.current_x += x
         self.current_y += y
         self.current_z += z
+        self.x_current_position = self.current_x
+        self.y_current_position = self.current_y
         self.z_current_position = self.current_z
 
     def safe_move(self, x, y, z):
@@ -627,84 +698,65 @@ class HmcControlCs:
 
     def move_home(self, move_a, move_b, move_c):
 
-        # self.ser.close()
-        # self.ser.open()
         if self.dummy:
             time.sleep(0.1)
             return
 
-        self.x_home_reached = False
-        self.x_far_reached = False
-        self.y_home_reached = False
-        self.y_far_reached = False
-        self.z_home_reached = False
-        self.z_far_reached = False
+        if self.axis in (None, 'x'):
+            self.x_home_reached = False
+            self.x_far_reached = False
+        if self.axis in (None, 'y'):
+            self.y_home_reached = False
+            self.y_far_reached = False
+        if self.axis in (None, 'z'):
+            self.z_home_reached = False
+            self.z_far_reached = False
 
         self.movement_completed = False
         
-        self.set_move_data(move_a, move_b, move_c) #sends these distances to controller
-
-        #self.acceleration_and_deceleration(acc_enable, dec_enable)
+        print("[DEBUG] move_home: sending set_move_data")
+        self.set_move_data(move_a, move_b, move_c)
+        print("[DEBUG] move_home: set_move_data done, waiting for move_status")
 
         self.indata = 0
         while self.indata == 0 and not self.stop_thread:
-            self.indata = self.move_status()      #waits for movement status
+            self.indata = self.move_status()
 
-        #Handling limit switches or stop requests
+        print(f"[DEBUG] move_home: move_status returned {self.indata}")
+
         if self.indata == 0 and self.stop_thread:   
             print("Stop Enabled")
             self.write_port(self.stop)
             self.read_ack(self.stop_ack)
 
-        if self.indata == self.x_home_limit:
+        if self.indata in (self.x_home_limit, self.y_home_limit, self.z_home_limit):
             self.write_port(self.stop)
             self.read_ack(self.stop_ack)
-            print("X home limit reached")
-            self.x_home_reached = True
+            print("Home limit reached")
+            if self.axis == 'x':
+                self.x_home_reached = True
+            elif self.axis == 'y':
+                self.y_home_reached = True
+            elif self.axis == 'z':
+                self.z_home_reached = True
 
-        if self.indata == self.x_far_limit:
+        if self.indata in (self.x_far_limit, self.y_far_limit, self.z_far_limit):
             self.write_port(self.stop)
             self.read_ack(self.stop_ack)
-            print("X far limit reached")
-            self.x_far_reached = True
-
-        if self.indata == self.y_home_limit:
-            self.write_port(self.stop)
-            self.read_ack(self.stop_ack)
-            print("Y home limit reached")
-            self.y_home_reached = True
-
-        if self.indata == self.y_far_limit:
-            self.write_port(self.stop)
-            self.read_ack(self.stop_ack)
-            print("Y far limit reached")
-            self.y_far_reached = True
-
-        if self.indata == self.z_home_limit:
-            self.write_port(self.stop)
-            self.read_ack(self.stop_ack)
-            print("Z home limit reached")
-            self.z_home_reached = True
-
-        if self.indata == self.z_far_limit:
-            self.write_port(self.stop)
-            self.read_ack(self.stop_ack)
-            print("Z far limit reached")
-            self.z_far_reached = True
-
+            print("Far limit reached")
+            if self.axis == 'x':
+                self.x_far_reached = True
+            elif self.axis == 'y':
+                self.y_far_reached = True
+            elif self.axis == 'z':
+                self.z_far_reached = True
 
         if self.indata == self.move_completed:
             self.movement_completed = True
 
-        
+        self.ser.reset_input_buffer()
         self.read_move_bytes()
 
-        #---------------------------
-        
-
-        #print(f"indata: {self.indata}")
-        #print(f"x_moving: {self.x_moving}")
-        #print(f"x_current_position: {self.x_current_position}")
         self.update_current_position(move_a, move_b , move_c)
 
 
@@ -714,63 +766,50 @@ class HmcControlCs:
             time.sleep(0.1)
             return
 
-        self.x_home_reached = False
-        self.x_far_reached = False
-        self.y_home_reached = False
-        self.y_far_reached = False
-        self.z_home_reached = False
-        self.z_far_reached = False
+        if self.axis in (None, 'x'):
+            self.x_home_reached = False
+            self.x_far_reached = False
+        if self.axis in (None, 'y'):
+            self.y_home_reached = False
+            self.y_far_reached = False
+        if self.axis in (None, 'z'):
+            self.z_home_reached = False
+            self.z_far_reached = False
 
         self.movement_completed = False
         
-        self.set_move_data(move_x, move_y, move_z) #sends these distances to controller
+        self.set_move_data(move_x, move_y, move_z)
 
         self.indata = 0
         while self.indata == 0 and not self.stop_thread:
-            self.indata = self.move_status()      #waits for movement status
+            self.indata = self.move_status()
 
-        #Handling limit switches or stop requests
         if self.indata == 0 and self.stop_thread:   
             print("Stop Enabled")
             self.write_port(self.stop)
             self.read_ack(self.stop_ack)
 
-        if self.indata == self.x_home_limit:
+        if self.indata in (self.x_home_limit, self.y_home_limit, self.z_home_limit):
             self.write_port(self.stop)
             self.read_ack(self.stop_ack)
-            print("X home limit reached")
-            self.x_home_reached = True
+            print("Home limit reached")
+            if self.axis == 'x':
+                self.x_home_reached = True
+            elif self.axis == 'y':
+                self.y_home_reached = True
+            elif self.axis == 'z':
+                self.z_home_reached = True
 
-        if self.indata == self.x_far_limit:
+        if self.indata in (self.x_far_limit, self.y_far_limit, self.z_far_limit):
             self.write_port(self.stop)
             self.read_ack(self.stop_ack)
-            print("X far limit reached")
-            self.x_far_reached = True
-
-        if self.indata == self.y_home_limit:
-            self.write_port(self.stop)
-            self.read_ack(self.stop_ack)
-            print("Y home limit reached ")
-            self.y_home_reached = True
-
-        if self.indata == self.y_far_limit:
-            self.write_port(self.stop)
-            self.read_ack(self.stop_ack)
-            print("Y far limit reached")
-            self.y_far_reached = True
-
-        if self.indata == self.z_home_limit:
-            self.write_port(self.stop)
-            self.read_ack(self.stop_ack)
-            print("Z home limit reached")
-            self.z_home_reached = True
-
-        if self.indata == self.z_far_limit:
-            self.write_port(self.stop)
-            self.read_ack(self.stop_ack)
-            print("Z far limit reached")
-            self.z_far_reached = True
-
+            print("Far limit reached")
+            if self.axis == 'x':
+                self.x_far_reached = True
+            elif self.axis == 'y':
+                self.y_far_reached = True
+            elif self.axis == 'z':
+                self.z_far_reached = True
 
         if self.indata == self.move_completed:
             self.movement_completed = True
@@ -782,9 +821,3 @@ if __name__ == "__main__":
     hmc = HmcControlCs()
     if hmc.config_serial_port("COM3"):
         print("Connected!")
-
-hmc = HmcControlCs()
-root = Tk()
-root.withdraw()  # Hide the GUI
-app = App(master=root)
-app.hmcControl = hmc

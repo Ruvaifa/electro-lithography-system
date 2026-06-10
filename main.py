@@ -171,50 +171,62 @@ def z_movement(hmc,app,total_distance, initial_speed, speed_queue):
             app.start_thread()
 def main():
     move_thread = None
-    hmc = HmcControlCs()
-    app = App()
-    app.hmcControl=hmc
     ports = list_ports()
     if not ports:
         return
 
-    index = int(input("Enter the number of the COM port to use: "))
-    selected_port = ports[index].device
+    x_index = int(input("Enter COM port number for X axis: "))
+    y_index = int(input("Enter COM port number for Y axis: "))
+    z_index = int(input("Enter COM port number for Z axis: "))
 
-    
-    if not hmc.config_serial_port(selected_port):
-        print("Failed to connect.")
+    x_hmc = HmcControlCs(axis='x')
+    y_hmc = HmcControlCs(axis='y')
+    z_hmc = HmcControlCs(axis='z')
+
+    if not x_hmc.config_serial_port(ports[x_index].device):
+        print("Failed to connect X axis.")
+        return
+    if not y_hmc.config_serial_port(ports[y_index].device):
+        print("Failed to connect Y axis.")
+        return
+    if not z_hmc.config_serial_port(ports[z_index].device):
+        print("Failed to connect Z axis.")
         return
 
-    def start_process(x,y,z):
-        try:
-            hmc.set_speed(5000, 5000, 5000)
-            hmc.move(x, y, z)
-            print("Move completed.")
-            print(f"Current position: {hmc.get_position()}")
-        except Exception as e:
-            print(f"[ERROR] Movement failed: {e}")
-        return
-    
-    def start_thread(x,y,z):
-        move_thread = Thread(target=start_process, args=(x,y,z))
-        move_thread.start()
-        return move_thread
+    app = App()
+    app.x_hmc = x_hmc
+    app.y_hmc = y_hmc
+    app.z_hmc = z_hmc
+    app.hmcControl = z_hmc
 
-    hmc.on_startup()
+    def set_all_speed(vx, vy, vz):
+        x_hmc.set_speed(vx, 0, 0)
+        y_hmc.set_speed(0, vy, 0)
+        z_hmc.set_speed(0, 0, vz)
+
+    def reset_all_serial():
+        for h in [x_hmc, y_hmc, z_hmc]:
+            h.ser.close()
+        time.sleep(0.2)
+        for h in [x_hmc, y_hmc, z_hmc]:
+            h.ser.open()
+            h.ser.reset_input_buffer()
+
+    def startup_all():
+        x_hmc.on_startup()
+        y_hmc.on_startup()
+        z_hmc.on_startup()
+
+    startup_all()
     response = int(input("Enter 1 to move specific distance, 2 to send to home, 3 to import data from text file, 4 to send probe:"))
     
     if response ==1:
-        hmc.ser.close()
-        time.sleep(0.2)
-        hmc.ser.open()
+        reset_all_serial()
         while True:
             x = float(input("Enter X movement (microns): "))
             y = float(input("Enter Y movement (microns): "))
             z = float(input("Enter Z movement (microns): "))
-            
-        
-            # move_thread= start_thread(x,y,z)
+
             app.command ='1'
             app.x_value =x
             app.y_value=y
@@ -226,19 +238,15 @@ def main():
             if app.hmcControl.run_thread:
                 app.hmcControl.run_thread.join()
             print("Final Position:")
-            # print(f"X: {hmc.current_x} µm")
-            # print(f"Y: {hmc.current_y} µm")
-            # print(f"Z: {hmc.current_z} µm")
-            print(f"X: {hmc.x_current_position} µm")
-            print(f"Y: {hmc.y_current_position} µm")
-            print(f"Z: {hmc.current_z} µm")
+            print(f"X: {x_hmc.x_current_position} µm")
+            print(f"Y: {y_hmc.y_current_position} µm")
+            print(f"Z: {z_hmc.current_z} µm")
 
     elif response ==2:
-        hmc.on_startup()
+        startup_all()
     elif response ==3:
         v = int(input("Enter velocity microns/sec:"))
-        hmc.ser.close()
-        hmc.ser.open()
+        reset_all_serial()
         filename = input("Enter txt filename:")
         with open(f"{filename}.txt", "r") as file:
             i=1
@@ -249,7 +257,6 @@ def main():
                 if len(parts) == 3:
                     x, y, z = map(float, parts)
 
-                    # Calculate relative movement
                     dx = x - prev_x
                     dy = y - prev_y
                     dz = z - prev_z
@@ -259,8 +266,8 @@ def main():
                     cos_theta = math.cos(theta)
                     vx = v*sin_theta
                     vy = v*cos_theta
-                    hmc.set_speed(vx,vy,v)
-                    prev_x, prev_y, prev_z = x, y, z  # Update for next step
+                    set_all_speed(vx, vy, v)
+                    prev_x, prev_y, prev_z = x, y, z
                     
                     try:
                         app.command = '1'
@@ -271,40 +278,33 @@ def main():
                         app.start_thread()
 
                         while app.hmcControl.run_thread.is_alive():
-                            #print("Waiting for move to complete...")
                             time.sleep(0.2)
 
                         if app.hmcControl.run_thread:
                             app.hmcControl.run_thread.join()
 
                         print("Final Position:")
-                        print(f"X: {hmc.x_current_position} µm")
-                        print(f"Y: {hmc.y_current_position} µm")
-                        print(f"Z: {hmc.z_current_position} µm")
+                        print(f"X: {x_hmc.x_current_position} µm")
+                        print(f"Y: {y_hmc.y_current_position} µm")
+                        print(f"Z: {z_hmc.z_current_position} µm")
                         print(f"{i} MOVE COMPLETED")
 
                     except Exception as e:
                         print(f"[ERROR] Move {i} failed: {e}")
-                        # Reset the serial port in case of error
-                        hmc.ser.close()
-                        time.sleep(0.2)
-                        print("serial port reset")
-                        hmc.ser.open()
-                        hmc.ser.reset_input_buffer()
+                        reset_all_serial()
+                        for h in [x_hmc, y_hmc, z_hmc]:
+                            h.ser.reset_input_buffer()
 
                     i += 1
     elif response ==4:
         z_move = 30000
         init_speed = int(input("Enter initial speed of the probe:"))
      
-       
-  
         speed_queue = queue.Queue()
 
         Thread(target=user_input_listener, args=(speed_queue,), daemon=True).start()
 
-        # Start motion loop
-        Thread(target=z_probe_move, args=(hmc, app, z_move, init_speed, speed_queue)).start()
+        Thread(target=z_probe_move, args=(z_hmc, app, z_move, init_speed, speed_queue)).start()
     elif response ==5:
         from threading import Event
 
@@ -313,9 +313,9 @@ def main():
 
         pause_event = Event()
         resume_event = Event()
-        resume_event.set()  # Initially allow movement
+        resume_event.set()
 
-        hmc.set_speed(1, 1, init_speed)
+        z_hmc.set_speed(0, 0, init_speed)
 
         app.command = '1'
         app.x_value = 0
@@ -336,12 +336,11 @@ def main():
                     pause_event.set()
                 elif cmd == 'r' and pause_event.is_set():
 
-
-                    current = hmc.z_current_position
+                    current = z_hmc.z_current_position
                     remaining = z_move - current
                     print(f"[INFO] Resuming movement: remaining {remaining} µm")
 
-                    hmc.set_speed(1, 1, init_speed)
+                    z_hmc.set_speed(0, 0, init_speed)
                     app.command = '1'
                     app.x_value = 0
                     app.y_value = 0
@@ -351,26 +350,23 @@ def main():
                     resume_event.set()
                     pause_event.clear()
 
-        # Start input listener
         Thread(target=input_listener, daemon=True).start()
 
-        # Keep main thread alive until motion finishes
         while True:
             if not app.hmcControl.run_thread or not app.hmcControl.run_thread.is_alive():
                 if not pause_event.is_set():
                     break
             time.sleep(0.2)
 
-        print("✅ Final Z Position:", hmc.z_current_position)
+        print("Final Z Position:", z_hmc.z_current_position)
 
     
     elif response == 6:
-        #z_move = 40000
         init_speed = 1000
 
         def find_contact_point_custom(smu, lower_current_ua, liftoff_height):
             step_size = liftoff_height -50
-            total_distance = hmc.z_current_position
+            total_distance = z_hmc.z_current_position
             print(f"[Z PROBE] Starting with {step_size} µm step, then 1 µm steps.")
             app.command = '1'
             app.x_value = 0
@@ -392,65 +388,57 @@ def main():
                 status = smumark2.check_current(smu, threshold_current_1=lower_current_ua * 1e-6)
                 if status == 1:
                     print(f"[CONTACT] Contact at {total_distance} µm")
-                    hmc.z_current_position = total_distance
+                    z_hmc.z_current_position = total_distance
                     return total_distance
                 time.sleep(0.1)
 
         def plot_from_file(v, filename, z_contact_point, smu, delta_z, voltage_threshold_1, voltage_threshold_2, volt_source, curr_comp, liftoff_height):
             smumark2.use_case_2(smu, voltage=volt_source, compliance_current_ua=curr_comp)
-            if hmc.ser and hmc.ser.is_open:
-                hmc.ser.close()
-            time.sleep(0.2)
-            hmc.ser.open()
-            prev_flag =0
+            reset_all_serial()
+            prev_flag = 0
             with open(f"{filename}.txt", "r") as file:
                 i = 1
                 prev_x, prev_y = 0, 0
                 prev_z = z_contact_point
-                liftoff =False
+                liftoff = False
                 for line in file:
                     parts = line.strip().replace(',', ' ').split()
                     if len(parts) >= 3:
-                        #x, y, flag = map(float, parts)
                         x, y, flag = float(parts[0]), float(parts[1]), int(parts[2])
                         dx = x - prev_x
                         dy = y - prev_y
                         print(f"flag:{flag}")
                         if i == 1:
-                            prev_x, prev_y=x,y
-                            prev_z= z_contact_point
+                            prev_x, prev_y = x, y
+                            prev_z = z_contact_point
                             i += 1
                             z = z_contact_point
                             continue
-                        elif flag ==1:
-                            if prev_flag ==0:
+                        elif flag == 1:
+                            if prev_flag == 0:
                                 print("[INFO] liftoff Initiated")
-                                z = prev_z -liftoff_height
+                                z = prev_z - liftoff_height
                                 liftoff = True
                             else:
                                 z = prev_z
-                        elif flag ==0:
+                        elif flag == 0:
                             if liftoff:
                                 print("[INFO] Finding new contact point...")
                                 z = find_contact_point_custom(smu, 0.2, liftoff_height)
                                 prev_z = z
                                 liftoff = False
-                            
                             else:
-                                #feedback- adjusting Z axis by a small step value depending on the current through SMU
                                 direction = smumark2.check_voltage(
-                                smu,
-                                threshold_voltage_1=voltage_threshold_1,
-                                threshold_voltage_2=voltage_threshold_2
+                                    smu,
+                                    threshold_voltage_1=voltage_threshold_1,
+                                    threshold_voltage_2=voltage_threshold_2
                                 )
                                 if direction == 2:
-                                    print("[FEEDBACK] Voltage too low — going down") #up
-                                    #z = prev_z + delta_z
+                                    print("[FEEDBACK] Voltage too low — going down")
                                     z = prev_z - delta_z
                                     print(f"Prev z: {prev_z}, delta z: {delta_z}, new z: {z}")
                                 elif direction == 3:
-                                    print("[FEEDBACK] Voltage too high — going up")#down
-                                    #z = prev_z - delta_z
+                                    print("[FEEDBACK] Voltage too high — going up")
                                     z = prev_z + delta_z
                                     print(f"Prev z: {prev_z}, delta z: {delta_z}, new z: {z}")
                                 else:
@@ -463,13 +451,11 @@ def main():
                                 threshold_voltage_2=voltage_threshold_2
                             )
                             if direction == 2:
-                                print("[FEEDBACK] Voltage too low — going down") #up
-                                #z = prev_z + delta_z
+                                print("[FEEDBACK] Voltage too low — going down")
                                 z = prev_z - delta_z
                                 print(f"Prev z: {prev_z}, delta z: {delta_z}, new z: {z}")
                             elif direction == 3:
-                                print("[FEEDBACK] Voltage too high — going up")#down
-                                #z = prev_z - delta_z
+                                print("[FEEDBACK] Voltage too high — going up")
                                 z = prev_z + delta_z
                                 print(f"Prev z: {prev_z}, delta z: {delta_z}, new z: {z}")
                             else:
@@ -477,15 +463,14 @@ def main():
                                 z = prev_z
 
                         dz = z - prev_z
-                        # finding relative veocity in x and y direction
                         theta = math.atan2(x - prev_x, y - prev_y)
                         sin_theta = math.sin(theta)
                         cos_theta = math.cos(theta)
                         vx = v * sin_theta
                         vy = v * cos_theta
-                        hmc.set_speed(vx, vy, 1000)
-                        if i ==1:
-                            hmc.set_speed(5000,5000,5000)
+                        set_all_speed(vx, vy, 1000)
+                        if i == 1:
+                            set_all_speed(5000, 5000, 5000)
                         prev_x, prev_y, prev_z = x, y, z
 
                         try:
@@ -496,38 +481,34 @@ def main():
                             app.start_thread()
 
                             while app.hmcControl.run_thread.is_alive():
-                                #print("Waiting for move to complete...")
                                 time.sleep(0.2)
 
                             if app.hmcControl.run_thread:
                                 app.hmcControl.run_thread.join()
 
                             print("Final Position:")
-                            print(f"X: {hmc.current_x} µm")
-                            print(f"Y: {hmc.current_y} µm")
-                            print(f"Z: {hmc.current_z} µm")
+                            print(f"X: {x_hmc.current_x} µm")
+                            print(f"Y: {y_hmc.current_y} µm")
+                            print(f"Z: {z_hmc.current_z} µm")
                             print(f"{i} MOVE COMPLETED")
 
                         except Exception as e:
                             print(f"[ERROR] Move {i} failed: {e}")
-                            hmc.ser.close()
-                            time.sleep(0.2)
-                            print("serial port reset")
-                            hmc.ser.open()
-                            hmc.ser.reset_input_buffer()
+                            reset_all_serial()
+                            for h in [x_hmc, y_hmc, z_hmc]:
+                                h.ser.reset_input_buffer()
                         prev_flag = flag
                         i += 1
                 smumark2.out_off(smu)
 
         def find_contact_point(initial_step_size, smu, lower_current_ua, step_queue):
             step_size = initial_step_size
-            total_distance =0
+            total_distance = 0
             i = 0
 
             print("[INFO] Starting Z probing. You can enter new step sizes any time.")
 
             while True:
-                # Check for updated step size
                 if not step_queue.empty():
                     step_size = step_queue.get()
                     print(f"[INFO] Updated step size: {step_size} µm")
@@ -544,7 +525,6 @@ def main():
 
                 total_distance += step_size
                 i += 1
-                #smumark2.reset_smu(smu)
                 status = smumark2.check_current(
                     smu,
                     threshold_current_1=lower_current_ua * 1e-6
@@ -552,13 +532,12 @@ def main():
 
                 if status == 1:
                     print("[CONTACT] Probe contact confirmed by current.")
-                    hmc.z_current_position = total_distance
+                    z_hmc.z_current_position = total_distance
                     return total_distance
 
                 time.sleep(0.1)
 
-
-        hmc.set_speed(1000, 1000, init_speed)
+        set_all_speed(1000, 1000, init_speed)
 
         curr = float(input("Enter current in micro amps (use case 1): "))
         volt = float(input("Enter volt in V (use case 1): "))
@@ -572,63 +551,54 @@ def main():
         liftoff_height = float(input("Enter liftoff height in µm: "))
         filename = input("Enter filename: ")
 
-        
-        smu = smumark2.init_smu()  #initialise the SMU
+        smu = smumark2.init_smu()
         smumark2.reset_smu(smu)
         smumark2.use_case_1(smu, current_ua=curr, compliance_voltage=volt) 
 
-        #moves x,y axis to the starting coordinates
         with open(f"{filename}.txt", "r") as file:
             for line in file:
                 parts = line.strip().replace(',', ' ').split()
                 if len(parts) >= 3:
-                    #first_x, first_y ,= map(float, parts)
                     first_x, first_y, flag = float(parts[0]), float(parts[1]), int(parts[2])
                     break
                 
-        #Move to first x, y (no Z movement)
-        dx = first_x - hmc.current_x
-        dy = first_y - hmc.current_y
-        hmc.set_speed(5000, 5000, 5000)
+        dx = first_x - x_hmc.current_x
+        dy = first_y - y_hmc.current_y
+        set_all_speed(5000, 5000, 5000)
 
-        #setting the x and y value in App class of hmccontroller.py
         app.command = '1'
         app.x_value = dx
         app.y_value = dy
-        app.z_value = 0  # No Z movement yet
-        app.start_thread() #starting the movement in a thread
+        app.z_value = 0
+        app.start_thread()
 
         while app.hmcControl.run_thread.is_alive():
             time.sleep(0.1)
         if app.hmcControl.run_thread:
             app.hmcControl.run_thread.join()
         
-        hmc.set_speed(speed, speed, init_speed)
-        #Now do Z contact
+        set_all_speed(speed, speed, init_speed)
 
         step_queue = queue.Queue()
         Thread(target=step_size_listener, args=(step_queue,), daemon=True).start()
 
-        #making z axis movements to find the contact point using current values 
-        z_contact_point = find_contact_point(initial_step_size=z_contact_step,smu=smu,lower_current_ua=0.2,step_queue=step_queue)
+        z_contact_point = find_contact_point(initial_step_size=z_contact_step, smu=smu, lower_current_ua=0.2, step_queue=step_queue)
 
-        hmc.current_z = z_contact_point
-        z_contact_point = hmc.z_current_position
+        z_hmc.current_z = z_contact_point
+        z_contact_point = z_hmc.z_current_position
         smumark2.reset_smu(smu)
 
-        #after the contact point is being found, starting the plott
         plot_from_file(speed, filename, z_contact_point, smu, delta_z, voltage_threshold_1, voltage_threshold_2, volt_source, curr_comp, liftoff_height)
 
-        print("✅ Final Z Position:", hmc.z_current_position)
-        hmc.on_startup() #after the plot is completed, it sends all the axis to home position
+        print("Final Z Position:", z_hmc.z_current_position)
+        startup_all()
     elif response == 7:
-        hmc.set_speed(5000, 5000, 5000)  
+        set_all_speed(5000, 5000, 5000)  
 
-        step_size = 0.2  # microns
-        steps = 1000     # number of steps
+        step_size = 0.2
+        steps = 1000
         total_distance = step_size * steps
 
-        # Move X axis
         print("[INFO] Moving X axis...")
         for i in range(steps):
             app.command = '1'
@@ -640,7 +610,6 @@ def main():
                 time.sleep(0.1)
             app.hmcControl.run_thread.join()
             print(f"{i} X movements completed")
-        # Move Y axis
         print("[INFO] Moving Y axis...")
         for i in range(steps):
             app.command = '1'
@@ -652,7 +621,6 @@ def main():
                 time.sleep(0.1)
             app.hmcControl.run_thread.join()
             print(f"{i} Y movements completed")
-        # Move Z axis
         print("[INFO] Moving Z axis...")
         for i in range(steps):
             app.command = '1'
@@ -664,7 +632,6 @@ def main():
                 time.sleep(0.1)
             app.hmcControl.run_thread.join()
             print(f"{i} Z movements completed")
-        # Move all XYZ axes together
         print("[INFO] Moving all X, Y, Z axes together...")
         for i in range(steps):
             app.command = '1'
