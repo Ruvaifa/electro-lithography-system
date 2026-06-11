@@ -161,6 +161,7 @@ class HmcControlCs:
         #MOVEMENT COMMANDS
         self.speed = 34
         self.z_speed = 34
+        self.max_travel_um = 50000
 
         self.Move = 19
         self.ACCELERATION = 20
@@ -209,10 +210,10 @@ class HmcControlCs:
                 self.move_home(0, -self.maximum_steps, 0)
                 print("Y move_home done")
             elif self.axis == 'z':
-                print("Sending Z to Home")
+                print("Sending Z to bottom home")
                 self.set_speed(0, 0, speed)
-                self.move_home(0, 0, -self.maximum_steps)
-                print("Z move_home done")
+                self.move_home(0, 0, self.maximum_steps)
+                print("Z bottom home done")
             self.initialise_current_position()
         else:
             print("Sending all axes to home position...")
@@ -376,28 +377,28 @@ class HmcControlCs:
         self.movement_completed = False
 
         if self.axis in (None, 'x'):
-            if ((move_a>0) and (50000- self.current_x- move_a)<0):
+            if ((move_a>0) and (self.max_travel_um - self.current_x - move_a)<0):
                 print("Value exceeds possible limit for X, enter valid value")
                 return
             elif((move_a<0) and(self.current_x + move_a)<0):
                 print("Value exceeds possible limit for -X, enter valid value")
                 return
         if self.axis in (None, 'y'):
-            if ((move_b>0) and (50000- self.current_y-move_b)<0):
+            if ((move_b>0) and (self.max_travel_um - self.current_y - move_b)<0):
                 print("Value exceeds possible limit for Y, enter valid value")
                 return
             elif((move_b<0)and(self.current_y +move_b)<0):
                 print("Value exceeds possible limit for -Y, enter valid value")
                 return
         if self.axis in (None, 'z'):
-            if ((move_c>0) and (50000 - self.current_z - move_c) < 0):
+            if ((move_c>0) and (self.max_travel_um - self.current_z - move_c) < 0):
                 print("Value exceeds possible limit for +Z, enter valid value")
                 return
             elif((move_c<0)and(self.current_z + move_c)<0):
                 print("Value exceeds possible limit for -Z, enter valid value")
                 return
         
-        self.set_move_data(move_a, move_b, move_c)
+        self.set_move_data(move_a, move_b, self._logical_z_to_motor_z(move_c))
 
         self.indata = 0
         while self.indata == 0 and not self.stop_thread:
@@ -436,34 +437,49 @@ class HmcControlCs:
         self.ser.reset_input_buffer()
         self.read_move_bytes()
 
-        if self.indata in (self.x_home_limit, self.y_home_limit, self.z_home_limit):
-            self.x_current_position = 0
-            self.y_current_position = 0
-            self.z_current_position = 0
-            self.current_x = 0
-            self.current_y = 0
-            self.current_z = 0
-        else:
-            if self.axis in (None, 'x'):
+        if self.axis in (None, 'x'):
+            if self.indata == self.x_home_limit:
+                self.x_current_position = 0
+            elif self.indata == self.x_far_limit:
+                self.x_current_position = self.max_travel_um
+            else:
                 if move_a > 0:
                     self.x_current_position += self.x_moving
                 else:
                     self.x_current_position -= self.x_moving
-            if self.axis in (None, 'y'):
+
+        if self.axis in (None, 'y'):
+            if self.indata == self.y_home_limit:
+                self.y_current_position = 0
+            elif self.indata == self.y_far_limit:
+                self.y_current_position = self.max_travel_um
+            else:
                 if move_b > 0:
                     self.y_current_position += self.y_moving
                 else:
                     self.y_current_position -= self.y_moving
-            if self.axis in (None, 'z'):
+
+        if self.axis in (None, 'z'):
+            if self.indata == self.z_home_limit:
+                self.z_current_position = self.max_travel_um
+            elif self.indata == self.z_far_limit:
+                self.z_current_position = 0
+            else:
                 if move_c > 0:
                     self.z_current_position += self.z_moving
                 else:
                     self.z_current_position -= self.z_moving
-            self.current_x = self.x_current_position
-            self.current_y = self.y_current_position
-            self.current_z = self.z_current_position
+
+        self.current_x = self.x_current_position
+        self.current_y = self.y_current_position
+        self.current_z = self.z_current_position
 
         print(f"z_current_position: {self.z_current_position}")
+
+    def _logical_z_to_motor_z(self, move_z):
+        if self.axis in (None, 'z'):
+            return -move_z
+        return move_z
         
     def acceleration_and_deceleration(self, acc_enable: bool, dec_enable: bool) -> bool:
         if acc_enable:
@@ -673,7 +689,6 @@ class HmcControlCs:
         self.y_current_position = 0
         self.z_current_position = 0
     def update_current_position(self,x,y,z):
-        z= -z
         self.current_x += x
         self.current_y += y
         self.current_z += z
@@ -778,7 +793,7 @@ class HmcControlCs:
 
         self.movement_completed = False
         
-        self.set_move_data(move_x, move_y, move_z)
+        self.set_move_data(move_x, move_y, self._logical_z_to_motor_z(move_z))
 
         self.indata = 0
         while self.indata == 0 and not self.stop_thread:
