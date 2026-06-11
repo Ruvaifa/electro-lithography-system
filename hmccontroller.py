@@ -508,10 +508,10 @@ class HmcControlCs:
             time.sleep(0.1)
             return
 
-        print(f"[DEBUG] set_move_data: sending Move command, axis={self.axis}")
+        #print(f"[DEBUG] set_move_data: sending Move command, axis={self.axis}")
         self.write_port(self.Move)
         self.read_ack(self.ok)
-        print("[DEBUG] set_move_data: Move ACK received")
+        #print("[DEBUG] set_move_data: Move ACK received")
         
         if self.axis == 'x':
             steps = (16777216) if abs(A_steps) == 16777216 else int(A_steps / self.Resolution_A)
@@ -538,7 +538,7 @@ class HmcControlCs:
             self.send_axis_data(steps, C_steps)
             self.move_z = steps
 
-        print("[DEBUG] set_move_data: all axis data sent")
+        #print("[DEBUG] set_move_data: all axis data sent")
         return
 
     def send_axis_data(self, data, direction): #sends step size and direction for one axis
@@ -566,10 +566,10 @@ class HmcControlCs:
         self.read_ack(self.ok)
 
     def read_move_bytes(self): #asks controller to send actual number of steps moved on each axis, calculate and stores how far each axis has moved
-        print("[DEBUG] read_move_bytes: sending READ command")
+        #print("[DEBUG] read_move_bytes: sending READ command")
         self.write_port(self.READ)
         self.read_ack(self.READ_ACK)
-        print("[DEBUG] read_move_bytes: READ_ACK received")
+        #print("[DEBUG] read_move_bytes: READ_ACK received")
 
         if self.axis == 'x':
             self.x_moving = self.Read_axis_data()
@@ -590,7 +590,7 @@ class HmcControlCs:
             self.z_moving = self.Read_axis_data()
             self.z_moving = self.Read_axis_data()
             self.z_moving *= self.Resolution_C
-        print("[DEBUG] read_move_bytes: done")
+        #print("[DEBUG] read_move_bytes: done")
 
 
     def Read_axis_data(self): #reads 4 bytes for one axis and combine them into a full step value
@@ -616,10 +616,10 @@ class HmcControlCs:
 
     def _send_axis_speed(self, speed_value, resolution):
         speed_steps = int(float(speed_value) / resolution)
-        print(f"[DEBUG] _send_axis_speed: sending speed cmd, steps={speed_steps}")
+        #print(f"[DEBUG] _send_axis_speed: sending speed cmd, steps={speed_steps}")
         self.write_port(self.speed)
         self.read_ack(self.ok)
-        print("[DEBUG] _send_axis_speed: speed ACK received")
+        #print("[DEBUG] _send_axis_speed: speed ACK received")
         datas = self.msb_csb_lsb(abs(speed_steps))
         self.write_port(datas[0])
         self.read_ack(self.ok)
@@ -627,10 +627,10 @@ class HmcControlCs:
         self.read_ack(self.ok)
         self.write_port(datas[2])
         self.read_ack(self.ok)
-        print("[DEBUG] _send_axis_speed: done")
+        #print("[DEBUG] _send_axis_speed: done")
 
     def set_speed(self, x_value, y_value, z_value): #sends speed settings to the controller in steps/sec, convert microns/sec to step/sec
-        print(f"[DEBUG] z_speed_steps = {z_value}")
+        #print(f"[DEBUG] z_speed_steps = {z_value}")
 
         if self.dummy:
             time.sleep(0.1)
@@ -729,15 +729,15 @@ class HmcControlCs:
 
         self.movement_completed = False
         
-        print("[DEBUG] move_home: sending set_move_data")
+        #print("[DEBUG] move_home: sending set_move_data")
         self.set_move_data(move_a, move_b, move_c)
-        print("[DEBUG] move_home: set_move_data done, waiting for move_status")
+        #print("[DEBUG] move_home: set_move_data done, waiting for move_status")
 
         self.indata = 0
         while self.indata == 0 and not self.stop_thread:
             self.indata = self.move_status()
 
-        print(f"[DEBUG] move_home: move_status returned {self.indata}")
+        #print(f"[DEBUG] move_home: move_status returned {self.indata}")
 
         if self.indata == 0 and self.stop_thread:   
             print("Stop Enabled")
