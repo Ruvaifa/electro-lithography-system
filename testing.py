@@ -76,7 +76,8 @@ def main():
         #z_move = 40000
         init_speed = 1000
 
-        def find_contact_point_custom(smu, lower_current_ua, liftoff_height):
+        def find_contact_point_custom(smu, contact_voltage, contact_compliance_current_ua, threshold_current_ua, liftoff_height):
+            smumark2.use_case_1(smu, voltage=contact_voltage, compliance_current_ua=contact_compliance_current_ua)
             step_size = liftoff_height -50
             total_distance = hmc.z_current_position
             print(f"[Z PROBE] Starting with {step_size} µm step, then 1 µm steps.")
@@ -97,14 +98,14 @@ def main():
                 app.hmcControl.run_thread.join()
                 total_distance += 1
 
-                status = smumark2.check_current(smu, threshold_current_1=lower_current_ua * 1e-6)
+                status = smumark2.check_current(smu, threshold_current_1=threshold_current_ua * 1e-6)
                 if status == 1:
                     print(f"[CONTACT] Contact at {total_distance} µm")
                     hmc.z_current_position = total_distance
                     return total_distance
                 time.sleep(0.1)
 
-        def plot_from_file(v, filename, z_contact_point, smu, delta_z, voltage_threshold_1, voltage_threshold_2, volt_source, curr_comp, liftoff_height):
+        def plot_from_file(v, filename, z_contact_point, smu, delta_z, voltage_threshold_1, voltage_threshold_2, volt_source, curr_comp, contact_voltage, contact_compliance_current_ua, threshold_current_ua, liftoff_height):
             smumark2.use_case_2(smu, voltage=volt_source, compliance_current_ua=curr_comp)
             if hmc.ser and hmc.ser.is_open:
                 hmc.ser.close()
@@ -140,7 +141,8 @@ def main():
                         elif flag ==0:
                             if liftoff:
                                 print("[INFO] Finding new contact point...")
-                                z = find_contact_point_custom(smu, 0.2, liftoff_height)
+                                z = find_contact_point_custom(smu, contact_voltage, contact_compliance_current_ua, threshold_current_ua, liftoff_height)
+                                smumark2.use_case_2(smu, voltage=volt_source, compliance_current_ua=curr_comp)
                                 prev_z = z
                                 liftoff = False
                             
@@ -227,7 +229,7 @@ def main():
                         i += 1
                 smumark2.out_off(smu)
 
-        def find_contact_point(initial_step_size, smu, lower_current_ua, step_queue):
+        def find_contact_point(initial_step_size, smu, threshold_current_ua, step_queue):
             step_size = initial_step_size
             total_distance =0
             i = 0
@@ -255,7 +257,7 @@ def main():
                 #smumark2.reset_smu(smu)
                 status = smumark2.check_current(
                     smu,
-                    threshold_current_1=lower_current_ua * 1e-6
+                    threshold_current_1=threshold_current_ua * 1e-6
                 )
 
                 if status == 1:
@@ -268,8 +270,9 @@ def main():
 
         hmc.set_speed(1000, 1000, init_speed)
 
-        curr = float(input("Enter current in micro amps (use case 1): "))
-        volt = float(input("Enter volt in V (use case 1): "))
+        contact_voltage = float(input("Enter source voltage in V for contact detection (use case 1): "))
+        contact_compliance_current_ua = float(input("Enter compliance current in micro amps for contact detection (use case 1): "))
+        threshold_current_ua = float(input("Enter threshold current in micro amps to detect contact: "))
         volt_source = float(input("Enter source voltage (use_case_2): "))
         curr_comp = float(input("Enter compliance current in micro amps (use_case_2): "))
         voltage_threshold_1 = float(input("Enter voltage lower threshold for feedback (V): "))
@@ -283,7 +286,7 @@ def main():
 
         smu = smumark2.init_smu()  #initialise the SMU
         smumark2.reset_smu(smu)
-        smumark2.use_case_1(smu, current_ua=curr, compliance_voltage=volt) 
+        smumark2.use_case_1(smu, voltage=contact_voltage, compliance_current_ua=contact_compliance_current_ua) 
 
         #moves x,y axis to the starting coordinates
         with open(f"{filename}.txt", "r") as file:
@@ -318,14 +321,14 @@ def main():
         Thread(target=step_size_listener, args=(step_queue,), daemon=True).start()
 
         #making z axis movements to find the contact point using current values 
-        z_contact_point = find_contact_point(initial_step_size=z_contact_step,smu=smu,lower_current_ua=0.2,step_queue=step_queue)
+        z_contact_point = find_contact_point(initial_step_size=z_contact_step,smu=smu,threshold_current_ua=threshold_current_ua,step_queue=step_queue)
 
         hmc.current_z = z_contact_point
         z_contact_point = hmc.z_current_position
         smumark2.reset_smu(smu)
 
         #after the contact point is being found, starting the plott
-        plot_from_file(speed, filename, z_contact_point, smu, delta_z, voltage_threshold_1, voltage_threshold_2, volt_source, curr_comp, liftoff_height)
+        plot_from_file(speed, filename, z_contact_point, smu, delta_z, voltage_threshold_1, voltage_threshold_2, volt_source, curr_comp, contact_voltage, contact_compliance_current_ua, threshold_current_ua, liftoff_height)
 
         print("✅ Final Z Position:", hmc.z_current_position)
         hmc.on_startup() #after the plot is completed, it sends all the axis to home position

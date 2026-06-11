@@ -18,13 +18,13 @@ def reset_smu(smu):
     smu.write('*RST')
     print("[INFO] SMU Reset complete.")
 
-def use_case_1(smu,current_ua = 105,compliance_voltage = 1): #set complaince volt and source curr
+def use_case_1(smu, voltage=1, compliance_current_ua=105): #set compliance current and source voltage
     reset_smu(smu)
-    smu.write("SOUR:FUNC CURR")
-    smu.write(f"SOUR:CURR {current_ua * 1e-6}")
-    smu.write(f"SENS:VOLT:PROT {compliance_voltage}")
+    smu.write("SOUR:FUNC VOLT")
+    smu.write(f"SOUR:VOLT {voltage}")
+    smu.write(f"SENS:CURR:PROT {compliance_current_ua * 1e-6}")
 
-    print(f"[INFO] Current set to {current_ua} micro A, Compliance Voltage: {compliance_voltage} V")
+    print(f"[INFO] Voltage set to {voltage} V, Compliance Current: {compliance_current_ua} micro A")
     return smu
 def use_case_2(smu,voltage = 1,compliance_current_ua = 1000): #set complaince curr nd source volt
     reset_smu(smu)
