@@ -217,22 +217,22 @@ class BaslerCamera:
 
     def _try_set_bool(self, node_name: str, value: bool) -> None:
         node = getattr(self.camera, node_name, None)
-        if node and node.IsWritable():
+        if node and pylon.IsWritable(node):
             node.SetValue(value)
 
     def _try_set_int(self, node_name: str, value: int) -> None:
         node = getattr(self.camera, node_name, None)
-        if node and node.IsWritable():
+        if node and pylon.IsWritable(node):
             minimum = node.GetMin()
             maximum = node.GetMax()
-            increment = max(node.GetInc(), 1)
+            increment = max(node.GetInc(), 1) if hasattr(node, "GetInc") else 1
             clamped = max(minimum, min(maximum, int(value)))
             aligned = minimum + ((clamped - minimum) // increment) * increment
             node.SetValue(aligned)
 
     def _try_set_float(self, node_name: str, value: float) -> None:
         node = getattr(self.camera, node_name, None)
-        if node and node.IsWritable():
+        if node and pylon.IsWritable(node):
             minimum = node.GetMin()
             maximum = node.GetMax()
             node.SetValue(max(minimum, min(maximum, float(value))))
