@@ -204,6 +204,7 @@ class BaslerCamera:
     def _apply_settings(self) -> None:
         assert self.camera is not None
 
+        self._try_set_enum("ExposureAuto", "Continuous")
         self._try_set_bool("CenterX", self.settings.center_x)
         self._try_set_bool("CenterY", self.settings.center_y)
         if self.settings.width is not None:
@@ -217,12 +218,12 @@ class BaslerCamera:
 
     def _try_set_bool(self, node_name: str, value: bool) -> None:
         node = getattr(self.camera, node_name, None)
-        if node and pylon.IsWritable(node):
+        if node and self._is_writable(node):
             node.SetValue(value)
 
     def _try_set_int(self, node_name: str, value: int) -> None:
         node = getattr(self.camera, node_name, None)
-        if node and pylon.IsWritable(node):
+        if node and self._is_writable(node):
             minimum = node.GetMin()
             maximum = node.GetMax()
             increment = max(node.GetInc(), 1) if hasattr(node, "GetInc") else 1
@@ -232,10 +233,32 @@ class BaslerCamera:
 
     def _try_set_float(self, node_name: str, value: float) -> None:
         node = getattr(self.camera, node_name, None)
-        if node and pylon.IsWritable(node):
+        if node and self._is_writable(node):
             minimum = node.GetMin()
             maximum = node.GetMax()
             node.SetValue(max(minimum, min(maximum, float(value))))
+
+    def _try_set_enum(self, node_name: str, value: str) -> None:
+        node = getattr(self.camera, node_name, None)
+        if node and self._is_writable(node):
+            try:
+                node.SetValue(value)
+            except Exception:
+                try:
+                    node.SetIntValue(node.GetEntryByName(value).GetValue())
+                except Exception:
+                    pass
+
+    def _is_writable(self, node: object) -> bool:
+        try:
+            access_mode = node.GetAccessMode()
+        except AttributeError:
+            return False
+        return access_mode in (
+            pylon.Accessibility_Ok,
+            pylon.Accessibility_Opened,
+            pylon.Accessibility_OpenedExclusively,
+        )
 
     def _require_open_camera(self) -> None:
         if not self.camera or not self.camera.IsOpen():

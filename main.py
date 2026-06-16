@@ -213,9 +213,9 @@ def main():
             h.ser.reset_input_buffer()
 
     def startup_all():
+        z_hmc.on_startup()
         x_hmc.on_startup()
         y_hmc.on_startup()
-        z_hmc.on_startup()
 
     startup_all()
     response = int(input("Enter 1 to move specific distance, 2 to send to home, 3 to import data from text file, 4 to send probe:"))
