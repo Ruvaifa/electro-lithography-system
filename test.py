@@ -201,7 +201,7 @@ def shift_coordinates(input_file, output_file, buffer=10000):
                 outfile.write(f"{x:.3f}, {y:.3f}, {flag}\n")
     print("done")
 # Example usage
-#shift_coordinates("parallel.txt", "parallel_large.txt")
+# shift_coordinates("parallel_var.txt", "parallel_var.txt.txt")
 
 ##------------------------------------------------------------------------------------------------------------------------------------------
 #GENERATE PARALLEL LINES
@@ -235,8 +235,44 @@ def generate_parallel_lines(
 #    num_lines=6,
 #    line_length=40000,      # microns or any units
 #    line_spacing=4000,      # spacing between lines
-#    point_spacing=100# spacing between any two points
+#    point_spacing=100 # spacing between any two points
 # )
+
+#---------------------------------------------------------------------------------
+# Generate 5 parallel lines with non-uniform spacing between each line
+
+def generate_parallel_lines_variable_spacing(
+    line_length,
+    point_spacing,
+    line_offsets,
+    start_x=10000,
+    start_y=10000,
+    output_file="parallel_variable_spacing.txt"
+):
+    coords = []
+    for offset in line_offsets:
+        y = start_y + offset
+        x = start_x
+        while x <= start_x + line_length:
+            coords.append((round(x, 3), round(y, 3)))
+            x += point_spacing
+
+    # Save to text file
+    with open(output_file, "w") as f:
+        for x, y in coords:
+            f.write(f"{x}, {y}\n")
+
+    print(f"[✅] Generated {len(coords)} points across {len(line_offsets)} parallel lines.")
+    print(f"[💾] Saved to '{output_file}'")
+
+# Example usage
+generate_parallel_lines_variable_spacing(
+   line_length=1000,
+   point_spacing=1,
+   line_offsets=[0, 200, 600, 1100, 1700],
+   start_x=10000,
+   start_y=10000
+)
 
 #---------------------------------------------------------------------------------
 #GENERATE HORIZONTAL AND VERTICAL LINES
@@ -315,5 +351,5 @@ def generate_circle_coordinates(
     print(f"[💾] Saved to '{output_file}'")
 
 # Example usage
-generate_circle_coordinates()
+#generate_circle_coordinates()
 
