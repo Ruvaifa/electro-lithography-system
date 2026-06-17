@@ -420,8 +420,7 @@ def main():
                 )
 
         def find_contact_point_custom(smu, contact_voltage, contact_compliance_current_ua, threshold_current_ua, liftoff_height, max_safe_z):
-            with time_block(timers, "smu.use_case_1"):
-                smumark2.use_case_1(smu, voltage=contact_voltage, compliance_current_ua=contact_compliance_current_ua)
+            smumark2.use_case_1(smu, voltage=contact_voltage, compliance_current_ua=contact_compliance_current_ua)
             step_size = liftoff_height -50
             total_distance = z_hmc.z_current_position
             ensure_z_below_limit(total_distance + step_size, max_safe_z, smu, "Re-probe coarse contact move")
