@@ -598,6 +598,7 @@ def main():
         z_contact_step = float(input("Enter Z adjustment step for finding contact point:"))
         speed = float(input("Enter speed for xy axis: "))
         liftoff_height = float(input("Enter liftoff height in µm: "))
+        max_safe_z_margin = float(input("Enter maximum allowed Z increase above first contact point (in um, e.g. 100): "))
         filename = input("Enter filename: ")
 
         smu = smumark2.init_smu()
@@ -635,7 +636,6 @@ def main():
 
         z_hmc.current_z = z_contact_point
         z_contact_point = z_hmc.z_current_position
-        max_safe_z_margin = float(input("Enter maximum allowed Z increase above first contact point (in um, e.g. 100): "))
         max_safe_z = z_contact_point + max_safe_z_margin
         print(f"[SAFETY] Patterning will abort if Z exceeds {max_safe_z} um.")
         smumark2.reset_smu(smu)
