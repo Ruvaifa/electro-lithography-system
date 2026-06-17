@@ -36,14 +36,21 @@ def use_case_2(smu,voltage = 1,compliance_current_ua = 1000): #set complaince cu
 
 def out_on(smu):
     smu.write('OUTP ON')
+    setattr(smu, "_output_enabled", True)
 
 
 def check_voltage(smu, threshold_voltage_1, threshold_voltage_2, ensure_output_on=True):
     alpha = 0
     try:
-        if ensure_output_on:
+        if ensure_output_on or not getattr(smu, "_output_enabled", False):
             smu.write("OUTP ON")
+            setattr(smu, "_output_enabled", True)
         response = smu.query('READ?').strip()
+        if not response:
+            smu.write("OUTP ON")
+            setattr(smu, "_output_enabled", True)
+            time.sleep(0.02)
+            response = smu.query('READ?').strip()
         voltage, current = map(float, response.split(',')[:2])
         print(f"[VOLTAGE] {voltage:.4f} V, [CURRENT] {current:.4e} A")
         if threshold_voltage_1 <voltage < threshold_voltage_2:
@@ -63,13 +70,20 @@ def check_voltage(smu, threshold_voltage_1, threshold_voltage_2, ensure_output_o
     except Exception as e:
         print(f"[ERROR] SMU read error: {e}")
         smu.write('OUTP OFF')
+        setattr(smu, "_output_enabled", False)
         return alpha
 
 def check_current(smu, threshold_current_1, ensure_output_on=True):
     beta = 0
-    if ensure_output_on:
+    if ensure_output_on or not getattr(smu, "_output_enabled", False):
         smu.write("OUTP ON")
+        setattr(smu, "_output_enabled", True)
     response = smu.query('READ?').strip()
+    if not response:
+        smu.write("OUTP ON")
+        setattr(smu, "_output_enabled", True)
+        time.sleep(0.02)
+        response = smu.query('READ?').strip()
     voltage, current = map(float, response.split(',')[:2])
     print(f"[VOLTAGE] {voltage:.4f} V, [CURRENT] {current:.4e} A")
     if  current > threshold_current_1:
@@ -95,6 +109,7 @@ def check_voltage_testing(smu,threshold_voltage = 0.9):
 
 def out_off(smu):
     smu.write('OUTP OFF')
+    setattr(smu, "_output_enabled", False)
 
 
 # volt = float(input("Enter voltage:"))
