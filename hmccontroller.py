@@ -192,6 +192,8 @@ class HmcControlCs:
         self.current_y = 0
         self.current_z =0
 
+        self._last_speed_signature = None
+
         self.serial_lock = threading.Lock()
  
     def on_startup(self):
@@ -637,15 +639,35 @@ class HmcControlCs:
             return
 
         if self.axis == 'x':
+            speed_steps = int(float(x_value) / self.Resolution_A)
+            signature = ("x", speed_steps)
+            if self._last_speed_signature == signature:
+                return
+            self._last_speed_signature = signature
             self._send_axis_speed(x_value, self.Resolution_A)
         elif self.axis == 'y':
+            speed_steps = int(float(y_value) / self.Resolution_B)
+            signature = ("y", speed_steps)
+            if self._last_speed_signature == signature:
+                return
+            self._last_speed_signature = signature
             self._send_axis_speed(y_value, self.Resolution_B)
         elif self.axis == 'z':
+            speed_steps = int(float(z_value) / self.Resolution_C)
+            signature = ("z", speed_steps)
+            if self._last_speed_signature == signature:
+                return
+            self._last_speed_signature = signature
             self._send_axis_speed(z_value, self.Resolution_C)
         else:
             x_steps = int(float(x_value) / self.Resolution_A)
             y_steps = int(float(y_value) / self.Resolution_B)
             z_steps = int(float(z_value) / self.Resolution_C)
+
+            signature = (x_steps, y_steps, z_steps)
+            if self._last_speed_signature == signature:
+                return
+            self._last_speed_signature = signature
 
             self.write_port(self.speed)
             self.read_ack(self.ok)

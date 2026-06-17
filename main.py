@@ -421,6 +421,7 @@ def main():
 
         def find_contact_point_custom(smu, contact_voltage, contact_compliance_current_ua, threshold_current_ua, liftoff_height, max_safe_z):
             smumark2.use_case_1(smu, voltage=contact_voltage, compliance_current_ua=contact_compliance_current_ua)
+            smumark2.out_on(smu)
             step_size = liftoff_height -50
             total_distance = z_hmc.z_current_position
             ensure_z_below_limit(total_distance + step_size, max_safe_z, smu, "Re-probe coarse contact move")
@@ -457,6 +458,7 @@ def main():
         def plot_from_file(v, filename, z_contact_point, smu, delta_z, voltage_threshold_1, voltage_threshold_2, volt_source, curr_comp, contact_voltage, contact_compliance_current_ua, threshold_current_ua, liftoff_height, max_safe_z):
             with time_block(timers, "smu.use_case_2"):
                 smumark2.use_case_2(smu, voltage=volt_source, compliance_current_ua=curr_comp)
+            smumark2.out_on(smu)
             prev_flag = 0
             pattern_start_time = time.perf_counter()
             xy_movement_time = 0
@@ -501,7 +503,8 @@ def main():
                                     direction = smumark2.check_voltage(
                                         smu,
                                         threshold_voltage_1=voltage_threshold_1,
-                                        threshold_voltage_2=voltage_threshold_2
+                                        threshold_voltage_2=voltage_threshold_2,
+                                        ensure_output_on=False
                                     )
                                 if direction == 2:
                                     print("[FEEDBACK] Voltage too low — going down")
@@ -519,7 +522,8 @@ def main():
                                 direction = smumark2.check_voltage(
                                     smu,
                                     threshold_voltage_1=voltage_threshold_1,
-                                    threshold_voltage_2=voltage_threshold_2
+                                    threshold_voltage_2=voltage_threshold_2,
+                                    ensure_output_on=False
                                 )
                             if direction == 2:
                                 print("[FEEDBACK] Voltage too low — going down")
@@ -609,7 +613,8 @@ def main():
                 with time_block(timers, "smu.check_current"):
                     status = smumark2.check_current(
                         smu,
-                        threshold_current_1=threshold_current_ua * 1e-6
+                        threshold_current_1=threshold_current_ua * 1e-6,
+                        ensure_output_on=False
                     )
 
                 if status == 1:
@@ -639,6 +644,7 @@ def main():
             smumark2.reset_smu(smu)
         with time_block(timers, "smu.use_case_1"):
             smumark2.use_case_1(smu, voltage=contact_voltage, compliance_current_ua=contact_compliance_current_ua) 
+        smumark2.out_on(smu)
 
         with time_block(timers, "file.read_first_point"):
             with open(f"{filename}.txt", "r") as file:

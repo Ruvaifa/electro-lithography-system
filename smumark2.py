@@ -34,11 +34,15 @@ def use_case_2(smu,voltage = 1,compliance_current_ua = 1000): #set complaince cu
     print(f"Voltage set as {voltage} V, Current set as {compliance_current_ua} micro A ")
     return smu
 
+def out_on(smu):
+    smu.write('OUTP ON')
 
-def check_voltage(smu, threshold_voltage_1, threshold_voltage_2):
+
+def check_voltage(smu, threshold_voltage_1, threshold_voltage_2, ensure_output_on=True):
     alpha = 0
     try:
-        smu.write("OUTP ON")
+        if ensure_output_on:
+            smu.write("OUTP ON")
         response = smu.query('READ?').strip()
         voltage, current = map(float, response.split(',')[:2])
         print(f"[VOLTAGE] {voltage:.4f} V, [CURRENT] {current:.4e} A")
@@ -61,9 +65,10 @@ def check_voltage(smu, threshold_voltage_1, threshold_voltage_2):
         smu.write('OUTP OFF')
         return alpha
 
-def check_current(smu, threshold_current_1):
+def check_current(smu, threshold_current_1, ensure_output_on=True):
     beta = 0
-    smu.write("OUTP ON")
+    if ensure_output_on:
+        smu.write("OUTP ON")
     response = smu.query('READ?').strip()
     voltage, current = map(float, response.split(',')[:2])
     print(f"[VOLTAGE] {voltage:.4f} V, [CURRENT] {current:.4e} A")
