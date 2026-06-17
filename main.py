@@ -397,6 +397,10 @@ def main():
         init_speed = 1000
         timers = defaultdict(float)
 
+        def set_fast_motion(enabled):
+            for h in (x_hmc, y_hmc, z_hmc):
+                h.fast_mode = enabled
+
         class PatternAbort(Exception):
             pass
 
@@ -654,6 +658,8 @@ def main():
             smumark2.use_case_1(smu, voltage=contact_voltage, compliance_current_ua=contact_compliance_current_ua) 
         smumark2.out_on(smu)
 
+        set_fast_motion(True)
+
         with time_block(timers, "file.read_first_point"):
             with open(f"{filename}.txt", "r") as file:
                 for line in file:
@@ -694,6 +700,7 @@ def main():
         except PatternAbort:
             print("[SAFETY] Patterning stopped because the Z safety limit was reached.")
 
+        set_fast_motion(False)
         print("Final Z Position:", z_hmc.z_current_position)
         startup_all()
     elif response == 7:
