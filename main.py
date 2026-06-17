@@ -12,6 +12,15 @@ import smumark2
 # app = App()
 # app.hmcControl=hmc
 
+def format_elapsed_time(seconds):
+    hours, remainder = divmod(seconds, 3600)
+    minutes, seconds = divmod(remainder, 60)
+    if hours >= 1:
+        return f"{int(hours)}h {int(minutes)}m {seconds:.2f}s"
+    if minutes >= 1:
+        return f"{int(minutes)}m {seconds:.2f}s"
+    return f"{seconds:.2f}s"
+
 def list_ports():
     ports = serial.tools.list_ports.comports()
     if not ports:
@@ -364,10 +373,33 @@ def main():
     elif response == 6:
         init_speed = 1000
 
-        def find_contact_point_custom(smu, contact_voltage, contact_compliance_current_ua, threshold_current_ua, liftoff_height):
+        class PatternAbort(Exception):
+            pass
+
+        def abort_patterning(smu, reason):
+            print(f"[ABORT] {reason}")
+            try:
+                app.stop_process()
+            except Exception as e:
+                print(f"[WARN] Could not stop active movement cleanly: {e}")
+            try:
+                smumark2.out_off(smu)
+            except Exception as e:
+                print(f"[WARN] Could not turn SMU output off cleanly: {e}")
+            raise PatternAbort(reason)
+
+        def ensure_z_below_limit(target_z, max_safe_z, smu, context):
+            if target_z > max_safe_z:
+                abort_patterning(
+                    smu,
+                    f"{context}: target Z {target_z} um exceeds safe limit {max_safe_z} um"
+                )
+
+        def find_contact_point_custom(smu, contact_voltage, contact_compliance_current_ua, threshold_current_ua, liftoff_height, max_safe_z):
             smumark2.use_case_1(smu, voltage=contact_voltage, compliance_current_ua=contact_compliance_current_ua)
             step_size = liftoff_height -50
             total_distance = z_hmc.z_current_position
+            ensure_z_below_limit(total_distance + step_size, max_safe_z, smu, "Re-probe coarse contact move")
             print(f"[Z PROBE] Starting with {step_size} µm step, then 1 µm steps.")
             app.command = '1'
             app.x_value = 0
@@ -378,6 +410,7 @@ def main():
             total_distance += step_size
 
             while True:
+                ensure_z_below_limit(total_distance + 1, max_safe_z, smu, "Re-probe fine contact move")
                 app.command = '1'
                 app.x_value = 0
                 app.y_value = 0
@@ -393,10 +426,14 @@ def main():
                     return total_distance
                 time.sleep(0.1)
 
-        def plot_from_file(v, filename, z_contact_point, smu, delta_z, voltage_threshold_1, voltage_threshold_2, volt_source, curr_comp, contact_voltage, contact_compliance_current_ua, threshold_current_ua, liftoff_height):
+        def plot_from_file(v, filename, z_contact_point, smu, delta_z, voltage_threshold_1, voltage_threshold_2, volt_source, curr_comp, contact_voltage, contact_compliance_current_ua, threshold_current_ua, liftoff_height, max_safe_z):
             smumark2.use_case_2(smu, voltage=volt_source, compliance_current_ua=curr_comp)
             reset_all_serial()
             prev_flag = 0
+            pattern_start_time = time.perf_counter()
+            xy_movement_time = 0
+            xy_move_count = 0
+            print("[TIMER] Patterning timer started.")
             with open(f"{filename}.txt", "r") as file:
                 i = 1
                 prev_x, prev_y = 0, 0
@@ -425,7 +462,7 @@ def main():
                         elif flag == 0:
                             if liftoff:
                                 print("[INFO] Finding new contact point...")
-                                z = find_contact_point_custom(smu, contact_voltage, contact_compliance_current_ua, threshold_current_ua, liftoff_height)
+                                z = find_contact_point_custom(smu, contact_voltage, contact_compliance_current_ua, threshold_current_ua, liftoff_height, max_safe_z)
                                 smumark2.use_case_2(smu, voltage=volt_source, compliance_current_ua=curr_comp)
                                 prev_z = z
                                 liftoff = False
@@ -464,6 +501,7 @@ def main():
                                 print("[FEEDBACK] Voltage in range — Z aligned")
                                 z = prev_z
 
+                        ensure_z_below_limit(z, max_safe_z, smu, f"Pattern move {i}")
                         dz = z - prev_z
                         theta = math.atan2(x - prev_x, y - prev_y)
                         sin_theta = math.sin(theta)
@@ -480,6 +518,7 @@ def main():
                             app.x_value = dx
                             app.y_value = dy
                             app.z_value = dz
+                            move_start_time = time.perf_counter()
                             app.start_thread()
 
                             while app.hmcControl.run_thread.is_alive():
@@ -487,6 +526,10 @@ def main():
 
                             if app.hmcControl.run_thread:
                                 app.hmcControl.run_thread.join()
+                            move_elapsed = time.perf_counter() - move_start_time
+                            if dx != 0 or dy != 0:
+                                xy_movement_time += move_elapsed
+                                xy_move_count += 1
 
                             print("Final Position:")
                             print(f"X: {x_hmc.current_x} µm")
@@ -502,6 +545,9 @@ def main():
                         prev_flag = flag
                         i += 1
                 smumark2.out_off(smu)
+            pattern_elapsed = time.perf_counter() - pattern_start_time
+            print(f"[TIMER] Patterning completed in {format_elapsed_time(pattern_elapsed)}.")
+            print(f"[TIMER] X/Y movement time: {format_elapsed_time(xy_movement_time)} across {xy_move_count} moves.")
 
         def find_contact_point(initial_step_size, smu, threshold_current_ua, step_queue):
             step_size = initial_step_size
@@ -589,9 +635,15 @@ def main():
 
         z_hmc.current_z = z_contact_point
         z_contact_point = z_hmc.z_current_position
+        max_safe_z_margin = float(input("Enter maximum allowed Z increase above first contact point (in um, e.g. 100): "))
+        max_safe_z = z_contact_point + max_safe_z_margin
+        print(f"[SAFETY] Patterning will abort if Z exceeds {max_safe_z} um.")
         smumark2.reset_smu(smu)
 
-        plot_from_file(speed, filename, z_contact_point, smu, delta_z, voltage_threshold_1, voltage_threshold_2, volt_source, curr_comp, contact_voltage, contact_compliance_current_ua, threshold_current_ua, liftoff_height)
+        try:
+            plot_from_file(speed, filename, z_contact_point, smu, delta_z, voltage_threshold_1, voltage_threshold_2, volt_source, curr_comp, contact_voltage, contact_compliance_current_ua, threshold_current_ua, liftoff_height, max_safe_z)
+        except PatternAbort:
+            print("[SAFETY] Patterning stopped because the Z safety limit was reached.")
 
         print("Final Z Position:", z_hmc.z_current_position)
         startup_all()
