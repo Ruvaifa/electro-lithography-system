@@ -1,22 +1,26 @@
+[FEEDBACK] Voltage too high — going up
+Prev z: 4798.0, delta z: 2.0, new z: 4800.0
+z_current_position: 0
+z_current_position: 4800.0
 Final Position:
 X: 11000.0 µm
 Y: 10000.0 µm
-Z: 6864.0 µm
+Z: 4800.0 µm
 1001 MOVE COMPLETED
-[TIMER] Patterning completed in 3m 44.01s.
-[TIMER] X/Y movement time: 2m 38.38s across 1000 moves.
+[TIMER] Patterning completed in 3m 43.60s.
+[TIMER] X/Y movement time: 2m 36.93s across 1000 moves.
 [TIMER] Detailed timing summary:
 [TIMER] file.read_first_point: 0.00s
-[TIMER] motion.set_speed: 0.07s
-[TIMER] motion.start_thread: 0.64s
-[TIMER] motion.wait_for_completion: 2m 39.80s
-[TIMER] smu.check_current: 0.37s
-[TIMER] smu.check_voltage: 1m 3.41s
+[TIMER] motion.set_speed: 0.08s
+[TIMER] motion.start_thread: 0.66s
+[TIMER] motion.wait_for_completion: 2m 38.33s
+[TIMER] smu.check_current: 0.19s
+[TIMER] smu.check_voltage: 1m 4.31s
 [TIMER] smu.init_smu: 0.06s
 [TIMER] smu.reset_smu: 0.00s
 [TIMER] smu.use_case_1: 0.00s
 [TIMER] smu.use_case_2: 0.00s
 [TIMER] Moves executed: 1000
 [TIMER] X/Y moves counted in movement timer: 1000
-Final Z Position: 6864.0
+Final Z Position: 4800.0
 Sending Z to bottom home
