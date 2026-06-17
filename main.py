@@ -7,6 +7,7 @@ import math
 import queue
 import smumark1
 import smumark2
+from collections import defaultdict
 
 # hmc = HmcControlCs()
 # app = App()
@@ -24,6 +25,24 @@ def format_elapsed_time(seconds):
 def wait_for_motion(app):
     if app.hmcControl.run_thread:
         app.hmcControl.run_thread.join()
+
+def time_block(timer_map, key):
+    class _Timer:
+        def __enter__(self_inner):
+            self_inner.start = time.perf_counter()
+            return self_inner
+
+        def __exit__(self_inner, exc_type, exc, tb):
+            timer_map[key] += time.perf_counter() - self_inner.start
+
+    return _Timer()
+
+def print_timing_summary(timer_map, move_count, xy_move_count):
+    print("[TIMER] Detailed timing summary:")
+    for key in sorted(timer_map.keys()):
+        print(f"[TIMER] {key}: {format_elapsed_time(timer_map[key])}")
+    print(f"[TIMER] Moves executed: {move_count}")
+    print(f"[TIMER] X/Y moves counted in movement timer: {xy_move_count}")
 
 def list_ports():
     ports = serial.tools.list_ports.comports()
@@ -376,6 +395,7 @@ def main():
     
     elif response == 6:
         init_speed = 1000
+        timers = defaultdict(float)
 
         class PatternAbort(Exception):
             pass
@@ -400,7 +420,8 @@ def main():
                 )
 
         def find_contact_point_custom(smu, contact_voltage, contact_compliance_current_ua, threshold_current_ua, liftoff_height, max_safe_z):
-            smumark2.use_case_1(smu, voltage=contact_voltage, compliance_current_ua=contact_compliance_current_ua)
+            with time_block(timers, "smu.use_case_1"):
+                smumark2.use_case_1(smu, voltage=contact_voltage, compliance_current_ua=contact_compliance_current_ua)
             step_size = liftoff_height -50
             total_distance = z_hmc.z_current_position
             ensure_z_below_limit(total_distance + step_size, max_safe_z, smu, "Re-probe coarse contact move")
@@ -409,8 +430,10 @@ def main():
             app.x_value = 0
             app.y_value = 0
             app.z_value = step_size
-            app.start_thread()
-            app.hmcControl.run_thread.join()
+            with time_block(timers, "motion.start_thread"):
+                app.start_thread()
+            with time_block(timers, "motion.wait_for_completion"):
+                app.hmcControl.run_thread.join()
             total_distance += step_size
 
             while True:
@@ -419,22 +442,27 @@ def main():
                 app.x_value = 0
                 app.y_value = 0
                 app.z_value = 1
-                app.start_thread()
-                app.hmcControl.run_thread.join()
+                with time_block(timers, "motion.start_thread"):
+                    app.start_thread()
+                with time_block(timers, "motion.wait_for_completion"):
+                    app.hmcControl.run_thread.join()
                 total_distance += 1
 
-                status = smumark2.check_current(smu, threshold_current_1=threshold_current_ua * 1e-6)
+                with time_block(timers, "smu.check_current"):
+                    status = smumark2.check_current(smu, threshold_current_1=threshold_current_ua * 1e-6)
                 if status == 1:
                     print(f"[CONTACT] Contact at {total_distance} µm")
                     z_hmc.z_current_position = total_distance
                     return total_distance
 
         def plot_from_file(v, filename, z_contact_point, smu, delta_z, voltage_threshold_1, voltage_threshold_2, volt_source, curr_comp, contact_voltage, contact_compliance_current_ua, threshold_current_ua, liftoff_height, max_safe_z):
-            smumark2.use_case_2(smu, voltage=volt_source, compliance_current_ua=curr_comp)
+            with time_block(timers, "smu.use_case_2"):
+                smumark2.use_case_2(smu, voltage=volt_source, compliance_current_ua=curr_comp)
             prev_flag = 0
             pattern_start_time = time.perf_counter()
             xy_movement_time = 0
             xy_move_count = 0
+            move_count = 0
             print("[TIMER] Patterning timer started.")
             with open(f"{filename}.txt", "r") as file:
                 i = 1
@@ -465,15 +493,17 @@ def main():
                             if liftoff:
                                 print("[INFO] Finding new contact point...")
                                 z = find_contact_point_custom(smu, contact_voltage, contact_compliance_current_ua, threshold_current_ua, liftoff_height, max_safe_z)
-                                smumark2.use_case_2(smu, voltage=volt_source, compliance_current_ua=curr_comp)
+                                with time_block(timers, "smu.use_case_2"):
+                                    smumark2.use_case_2(smu, voltage=volt_source, compliance_current_ua=curr_comp)
                                 prev_z = z
                                 liftoff = False
                             else:
-                                direction = smumark2.check_voltage(
-                                    smu,
-                                    threshold_voltage_1=voltage_threshold_1,
-                                    threshold_voltage_2=voltage_threshold_2
-                                )
+                                with time_block(timers, "smu.check_voltage"):
+                                    direction = smumark2.check_voltage(
+                                        smu,
+                                        threshold_voltage_1=voltage_threshold_1,
+                                        threshold_voltage_2=voltage_threshold_2
+                                    )
                                 if direction == 2:
                                     print("[FEEDBACK] Voltage too low — going down")
                                     z = prev_z - delta_z
@@ -486,11 +516,12 @@ def main():
                                     print("[FEEDBACK] Voltage in range — Z aligned")
                                     z = prev_z
                         else:
-                            direction = smumark2.check_voltage(
-                                smu,
-                                threshold_voltage_1=voltage_threshold_1,
-                                threshold_voltage_2=voltage_threshold_2
-                            )
+                            with time_block(timers, "smu.check_voltage"):
+                                direction = smumark2.check_voltage(
+                                    smu,
+                                    threshold_voltage_1=voltage_threshold_1,
+                                    threshold_voltage_2=voltage_threshold_2
+                                )
                             if direction == 2:
                                 print("[FEEDBACK] Voltage too low — going down")
                                 z = prev_z - delta_z
@@ -510,9 +541,11 @@ def main():
                         cos_theta = math.cos(theta)
                         vx = v * sin_theta
                         vy = v * cos_theta
-                        set_all_speed(vx, vy, 1000)
+                        with time_block(timers, "motion.set_speed"):
+                            set_all_speed(vx, vy, 1000)
                         if i == 1:
-                            set_all_speed(5000, 5000, 5000)
+                            with time_block(timers, "motion.set_speed"):
+                                set_all_speed(5000, 5000, 5000)
                         prev_x, prev_y, prev_z = x, y, z
 
                         try:
@@ -521,12 +554,15 @@ def main():
                             app.y_value = dy
                             app.z_value = dz
                             move_start_time = time.perf_counter()
-                            app.start_thread()
-                            wait_for_motion(app)
+                            with time_block(timers, "motion.start_thread"):
+                                app.start_thread()
+                            with time_block(timers, "motion.wait_for_completion"):
+                                wait_for_motion(app)
                             move_elapsed = time.perf_counter() - move_start_time
                             if dx != 0 or dy != 0:
                                 xy_movement_time += move_elapsed
                                 xy_move_count += 1
+                            move_count += 1
 
                             print("Final Position:")
                             print(f"X: {x_hmc.current_x} µm")
@@ -545,6 +581,7 @@ def main():
             pattern_elapsed = time.perf_counter() - pattern_start_time
             print(f"[TIMER] Patterning completed in {format_elapsed_time(pattern_elapsed)}.")
             print(f"[TIMER] X/Y movement time: {format_elapsed_time(xy_movement_time)} across {xy_move_count} moves.")
+            print_timing_summary(timers, move_count, xy_move_count)
 
         def find_contact_point(initial_step_size, smu, threshold_current_ua, step_queue):
             step_size = initial_step_size
@@ -570,10 +607,11 @@ def main():
 
                 total_distance += step_size
                 i += 1
-                status = smumark2.check_current(
-                    smu,
-                    threshold_current_1=threshold_current_ua * 1e-6
-                )
+                with time_block(timers, "smu.check_current"):
+                    status = smumark2.check_current(
+                        smu,
+                        threshold_current_1=threshold_current_ua * 1e-6
+                    )
 
                 if status == 1:
                     print("[CONTACT] Probe contact confirmed by current.")
@@ -596,16 +634,20 @@ def main():
         max_safe_z_margin = float(input("Enter maximum allowed Z increase above first contact point (in um, e.g. 100): "))
         filename = input("Enter filename: ")
 
-        smu = smumark2.init_smu()
-        smumark2.reset_smu(smu)
-        smumark2.use_case_1(smu, voltage=contact_voltage, compliance_current_ua=contact_compliance_current_ua) 
+        with time_block(timers, "smu.init_smu"):
+            smu = smumark2.init_smu()
+        with time_block(timers, "smu.reset_smu"):
+            smumark2.reset_smu(smu)
+        with time_block(timers, "smu.use_case_1"):
+            smumark2.use_case_1(smu, voltage=contact_voltage, compliance_current_ua=contact_compliance_current_ua) 
 
-        with open(f"{filename}.txt", "r") as file:
-            for line in file:
-                parts = line.strip().replace(',', ' ').split()
-                if len(parts) >= 3:
-                    first_x, first_y, flag = float(parts[0]), float(parts[1]), int(parts[2])
-                    break
+        with time_block(timers, "file.read_first_point"):
+            with open(f"{filename}.txt", "r") as file:
+                for line in file:
+                    parts = line.strip().replace(',', ' ').split()
+                    if len(parts) >= 3:
+                        first_x, first_y, flag = float(parts[0]), float(parts[1]), int(parts[2])
+                        break
                 
         dx = first_x - x_hmc.current_x
         dy = first_y - y_hmc.current_y
@@ -615,8 +657,10 @@ def main():
         app.x_value = dx
         app.y_value = dy
         app.z_value = 0
-        app.start_thread()
-        wait_for_motion(app)
+        with time_block(timers, "motion.start_thread"):
+            app.start_thread()
+        with time_block(timers, "motion.wait_for_completion"):
+            wait_for_motion(app)
         
         set_all_speed(speed, speed, init_speed)
 
@@ -629,7 +673,8 @@ def main():
         z_contact_point = z_hmc.z_current_position
         max_safe_z = z_contact_point + max_safe_z_margin
         print(f"[SAFETY] Patterning will abort if Z exceeds {max_safe_z} um.")
-        smumark2.reset_smu(smu)
+        with time_block(timers, "smu.reset_smu"):
+            smumark2.reset_smu(smu)
 
         try:
             plot_from_file(speed, filename, z_contact_point, smu, delta_z, voltage_threshold_1, voltage_threshold_2, volt_source, curr_comp, contact_voltage, contact_compliance_current_ua, threshold_current_ua, liftoff_height, max_safe_z)
