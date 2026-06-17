@@ -449,7 +449,12 @@ def main():
                 total_distance += 1
 
                 with time_block(timers, "smu.check_current"):
-                    status = smumark2.check_current(smu, threshold_current_1=threshold_current_ua * 1e-6)
+                    status = smumark2.check_current(
+                        smu,
+                        threshold_current_1=threshold_current_ua * 1e-6,
+                        ensure_output_on=False,
+                        verbose=False,
+                    )
                 if status == 1:
                     print(f"[CONTACT] Contact at {total_distance} µm")
                     z_hmc.z_current_position = total_distance
@@ -504,7 +509,8 @@ def main():
                                         smu,
                                         threshold_voltage_1=voltage_threshold_1,
                                         threshold_voltage_2=voltage_threshold_2,
-                                        ensure_output_on=False
+                                        ensure_output_on=False,
+                                        verbose=False,
                                     )
                                 if direction == 2:
                                     print("[FEEDBACK] Voltage too low — going down")
@@ -523,7 +529,8 @@ def main():
                                     smu,
                                     threshold_voltage_1=voltage_threshold_1,
                                     threshold_voltage_2=voltage_threshold_2,
-                                    ensure_output_on=False
+                                    ensure_output_on=False,
+                                    verbose=False,
                                 )
                             if direction == 2:
                                 print("[FEEDBACK] Voltage too low — going down")
@@ -615,6 +622,7 @@ def main():
                         smu,
                         threshold_current_1=threshold_current_ua * 1e-6,
                         ensure_output_on=False
+                        ,verbose=False
                     )
 
                 if status == 1:

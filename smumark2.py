@@ -39,7 +39,7 @@ def out_on(smu):
     setattr(smu, "_output_enabled", True)
 
 
-def check_voltage(smu, threshold_voltage_1, threshold_voltage_2, ensure_output_on=True):
+def check_voltage(smu, threshold_voltage_1, threshold_voltage_2, ensure_output_on=True, verbose=True):
     alpha = 0
     try:
         if ensure_output_on or not getattr(smu, "_output_enabled", False):
@@ -52,9 +52,11 @@ def check_voltage(smu, threshold_voltage_1, threshold_voltage_2, ensure_output_o
             time.sleep(0.02)
             response = smu.query('READ?').strip()
         voltage, current = map(float, response.split(',')[:2])
-        print(f"[VOLTAGE] {voltage:.4f} V, [CURRENT] {current:.4e} A")
+        if verbose:
+            print(f"[VOLTAGE] {voltage:.4f} V, [CURRENT] {current:.4e} A")
         if threshold_voltage_1 <voltage < threshold_voltage_2:
-            print(" Voltage in the range!")
+            if verbose:
+                print(" Voltage in the range!")
             #smu.write('OUTP OFF')
             alpha = 1
             return alpha
@@ -73,7 +75,7 @@ def check_voltage(smu, threshold_voltage_1, threshold_voltage_2, ensure_output_o
         setattr(smu, "_output_enabled", False)
         return alpha
 
-def check_current(smu, threshold_current_1, ensure_output_on=True):
+def check_current(smu, threshold_current_1, ensure_output_on=True, verbose=True):
     beta = 0
     if ensure_output_on or not getattr(smu, "_output_enabled", False):
         smu.write("OUTP ON")
@@ -85,9 +87,11 @@ def check_current(smu, threshold_current_1, ensure_output_on=True):
         time.sleep(0.02)
         response = smu.query('READ?').strip()
     voltage, current = map(float, response.split(',')[:2])
-    print(f"[VOLTAGE] {voltage:.4f} V, [CURRENT] {current:.4e} A")
+    if verbose:
+        print(f"[VOLTAGE] {voltage:.4f} V, [CURRENT] {current:.4e} A")
     if  current > threshold_current_1:
-        print(" current reached the right spot !!")
+        if verbose:
+            print(" current reached the right spot !!")
         beta = 1
         return beta
     return beta
