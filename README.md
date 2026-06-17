@@ -13,7 +13,7 @@ Electro lithography is a scanning probe, mask less lithography technique that us
 - A controlled electric field or current is applied through the tip, causing localized material transport, either by electromigration or electrochemical reactions at the probe sample interface .
 -  This enables direct writing of patterns (e.g., lines, dots, shapes) without requiring photomasks, often under ambient conditions and with resolutions below 10 nm
 
-## 🔬 Project Overview
+## 🔬 Project Overview.
 
 Electro lithography is a cutting edge nanofabrication technique where a conductive probe is brought into contact with a surface to define patterns. The system uses precise motor controls and current-based contact detection to create lithographic patterns.
 
