@@ -438,44 +438,43 @@ class HmcControlCs:
         if self.indata == self.move_completed:
             self.movement_completed = True
 
-        if self.fast_mode:
-            self.update_current_position(move_a, move_b, move_c)
-        else:
+        if not self.fast_mode:
             self.ser.reset_input_buffer()
-            self.read_move_bytes()
 
-            if self.axis in (None, 'x'):
-                if self.indata == self.x_home_limit:
-                    self.x_current_position = 0
-                elif self.indata == self.x_far_limit:
-                    self.x_current_position = self.max_travel_um
-                else:
-                    if move_a > 0:
-                        self.x_current_position += self.x_moving
-                    else:
-                        self.x_current_position -= self.x_moving
+        self.read_move_bytes()
 
-            if self.axis in (None, 'y'):
-                if self.indata == self.y_home_limit:
-                    self.y_current_position = 0
-                elif self.indata == self.y_far_limit:
-                    self.y_current_position = self.max_travel_um
+        if self.axis in (None, 'x'):
+            if self.indata == self.x_home_limit:
+                self.x_current_position = 0
+            elif self.indata == self.x_far_limit:
+                self.x_current_position = self.max_travel_um
+            else:
+                if move_a > 0:
+                    self.x_current_position += self.x_moving
                 else:
-                    if move_b > 0:
-                        self.y_current_position += self.y_moving
-                    else:
-                        self.y_current_position -= self.y_moving
+                    self.x_current_position -= self.x_moving
 
-            if self.axis in (None, 'z'):
-                if self.indata == self.z_home_limit:
-                    self.z_current_position = self.max_travel_um
-                elif self.indata == self.z_far_limit:
-                    self.z_current_position = 0
+        if self.axis in (None, 'y'):
+            if self.indata == self.y_home_limit:
+                self.y_current_position = 0
+            elif self.indata == self.y_far_limit:
+                self.y_current_position = self.max_travel_um
+            else:
+                if move_b > 0:
+                    self.y_current_position += self.y_moving
                 else:
-                    if move_c > 0:
-                        self.z_current_position += self.z_moving
-                    else:
-                        self.z_current_position -= self.z_moving
+                    self.y_current_position -= self.y_moving
+
+        if self.axis in (None, 'z'):
+            if self.indata == self.z_home_limit:
+                self.z_current_position = self.max_travel_um
+            elif self.indata == self.z_far_limit:
+                self.z_current_position = 0
+            else:
+                if move_c > 0:
+                    self.z_current_position += self.z_moving
+                else:
+                    self.z_current_position -= self.z_moving
 
         self.current_x = self.x_current_position
         self.current_y = self.y_current_position

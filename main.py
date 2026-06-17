@@ -401,6 +401,10 @@ def main():
             for h in (x_hmc, y_hmc, z_hmc):
                 h.fast_mode = enabled
 
+        def sync_serial_once():
+            for h in (x_hmc, y_hmc, z_hmc):
+                h.ser.reset_input_buffer()
+
         class PatternAbort(Exception):
             pass
 
@@ -658,6 +662,7 @@ def main():
             smumark2.use_case_1(smu, voltage=contact_voltage, compliance_current_ua=contact_compliance_current_ua) 
         smumark2.out_on(smu)
 
+        sync_serial_once()
         set_fast_motion(True)
 
         with time_block(timers, "file.read_first_point"):
