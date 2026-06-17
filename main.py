@@ -21,6 +21,10 @@ def format_elapsed_time(seconds):
         return f"{int(minutes)}m {seconds:.2f}s"
     return f"{seconds:.2f}s"
 
+def wait_for_motion(app):
+    if app.hmcControl.run_thread:
+        app.hmcControl.run_thread.join()
+
 def list_ports():
     ports = serial.tools.list_ports.comports()
     if not ports:
@@ -424,11 +428,9 @@ def main():
                     print(f"[CONTACT] Contact at {total_distance} µm")
                     z_hmc.z_current_position = total_distance
                     return total_distance
-                time.sleep(0.1)
 
         def plot_from_file(v, filename, z_contact_point, smu, delta_z, voltage_threshold_1, voltage_threshold_2, volt_source, curr_comp, contact_voltage, contact_compliance_current_ua, threshold_current_ua, liftoff_height, max_safe_z):
             smumark2.use_case_2(smu, voltage=volt_source, compliance_current_ua=curr_comp)
-            reset_all_serial()
             prev_flag = 0
             pattern_start_time = time.perf_counter()
             xy_movement_time = 0
@@ -520,12 +522,7 @@ def main():
                             app.z_value = dz
                             move_start_time = time.perf_counter()
                             app.start_thread()
-
-                            while app.hmcControl.run_thread.is_alive():
-                                time.sleep(0.2)
-
-                            if app.hmcControl.run_thread:
-                                app.hmcControl.run_thread.join()
+                            wait_for_motion(app)
                             move_elapsed = time.perf_counter() - move_start_time
                             if dx != 0 or dy != 0:
                                 xy_movement_time += move_elapsed
@@ -583,8 +580,6 @@ def main():
                     z_hmc.z_current_position = total_distance
                     return total_distance
 
-                time.sleep(0.1)
-
         set_all_speed(1000, 1000, init_speed)
 
         contact_voltage = float(input("Enter source voltage in V for contact detection (use case 1): "))
@@ -621,11 +616,7 @@ def main():
         app.y_value = dy
         app.z_value = 0
         app.start_thread()
-
-        while app.hmcControl.run_thread.is_alive():
-            time.sleep(0.1)
-        if app.hmcControl.run_thread:
-            app.hmcControl.run_thread.join()
+        wait_for_motion(app)
         
         set_all_speed(speed, speed, init_speed)
 
