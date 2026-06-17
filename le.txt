@@ -1,51 +1,22 @@
+Final Position:
+X: 11000.0 µm
+Y: 10000.0 µm
+Z: 6864.0 µm
 1001 MOVE COMPLETED
-[TIMER] Patterning completed in 4m 48.51s.
-[TIMER] X/Y movement time: 2m 38.71s across 1000 moves.
+[TIMER] Patterning completed in 3m 44.01s.
+[TIMER] X/Y movement time: 2m 38.38s across 1000 moves.
 [TIMER] Detailed timing summary:
 [TIMER] file.read_first_point: 0.00s
-[TIMER] motion.set_speed: 1m 16.53s
-[TIMER] motion.start_thread: 0.60s
-[TIMER] motion.wait_for_completion: 2m 40.15s
-[TIMER] smu.check_current: 0.63s
-[TIMER] smu.check_voltage: 51.18s
+[TIMER] motion.set_speed: 0.07s
+[TIMER] motion.start_thread: 0.64s
+[TIMER] motion.wait_for_completion: 2m 39.80s
+[TIMER] smu.check_current: 0.37s
+[TIMER] smu.check_voltage: 1m 3.41s
 [TIMER] smu.init_smu: 0.06s
 [TIMER] smu.reset_smu: 0.00s
 [TIMER] smu.use_case_1: 0.00s
 [TIMER] smu.use_case_2: 0.00s
 [TIMER] Moves executed: 1000
 [TIMER] X/Y moves counted in movement timer: 1000
-#####################
-Enter source voltage (use_case_2): 5
-Enter compliance current in micro amps (use_case_2): 0.3
-Enter voltage lower threshold for feedback (V): 2
-Enter voltage upper threshold for feedback (V): 4
-Enter Z adjustment step for plotting (in µm): 2
-Enter Z adjustment step for finding contact point:1000
-Enter speed for xy axis: 100
-Enter liftoff height in µm: 1000
-Enter maximum allowed Z increase above first contact point (in um, e.g. 100): 40000
-Enter filename: coords/test
-[INFO] SMU Reset complete.
-[INFO] SMU Reset complete.
-[INFO] SMU Reset complete.
-[INFO] Voltage set to 5.0 V, Compliance Current: 0.3 micro A
-z_current_position: 0
-z_current_position: 0
-[INFO] Starting Z probing. You can enter new step sizes any time.
-[STEP 1] Moving Z down by 1000.0 µm...
-Enter new Z step size (µm): z_current_position: 1000.0
-Traceback (most recent call last):
-  File "D:\Mask Writing System\python codes\main.py", line 746, in <module>
-    main()
-  File "D:\Mask Writing System\python codes\main.py", line 675, in main
-    z_contact_point = find_contact_point(initial_step_size=z_contact_step, smu=smu, threshold_current_ua=threshold_current_ua, step_queue=step_queue)
-                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Mask Writing System\python codes\main.py", line 614, in find_contact_point
-    status = smumark2.check_current(
-             ^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Mask Writing System\python codes\smumark2.py", line 73, in check_current
-    voltage, current = map(float, response.split(',')[:2])
-    ^^^^^^^^^^^^^^^^
-ValueError: could not convert string to float: ''
-
-D:\Mask Writing System\python codes>
+Final Z Position: 6864.0
+Sending Z to bottom home
