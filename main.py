@@ -25,6 +25,42 @@ def wait_for_motion(app):
     if app.hmcControl.run_thread:
         app.hmcControl.run_thread.join()
 
+def make_pattern_timing_stats():
+    return {
+        "pattern_move_time": 0,
+        "pattern_move_count": 0,
+        "xy_movement_time": 0,
+        "xy_move_count": 0,
+        "z_only_movement_time": 0,
+        "z_only_move_count": 0,
+        "set_speed_time": 0,
+        "set_speed_count": 0,
+        "smu_voltage_time": 0,
+        "smu_voltage_count": 0,
+        "smu_current_time": 0,
+        "smu_current_count": 0,
+        "smu_config_time": 0,
+        "smu_config_count": 0,
+        "console_print_time": 0,
+        "console_print_count": 0,
+        "file_parse_time": 0,
+        "file_line_count": 0,
+    }
+
+def add_timing(stats, key, elapsed, count_key=None):
+    stats[key] += elapsed
+    if count_key:
+        stats[count_key] += 1
+
+def timed_call(stats, time_key, count_key, func, *args, **kwargs):
+    start_time = time.perf_counter()
+    result = func(*args, **kwargs)
+    add_timing(stats, time_key, time.perf_counter() - start_time, count_key)
+    return result
+
+def profiled_print(stats, *args, **kwargs):
+    timed_call(stats, "console_print_time", "console_print_count", print, *args, **kwargs)
+
 def list_ports():
     ports = serial.tools.list_ports.comports()
     if not ports:
@@ -399,8 +435,16 @@ def main():
                     f"{context}: target Z {target_z} um exceeds safe limit {max_safe_z} um"
                 )
 
-        def find_contact_point_custom(smu, contact_voltage, contact_compliance_current_ua, threshold_current_ua, liftoff_height, max_safe_z):
-            smumark2.use_case_1(smu, voltage=contact_voltage, compliance_current_ua=contact_compliance_current_ua)
+        def find_contact_point_custom(smu, contact_voltage, contact_compliance_current_ua, threshold_current_ua, liftoff_height, max_safe_z, timing_stats):
+            timed_call(
+                timing_stats,
+                "smu_config_time",
+                "smu_config_count",
+                smumark2.use_case_1,
+                smu,
+                voltage=contact_voltage,
+                compliance_current_ua=contact_compliance_current_ua
+            )
             step_size = liftoff_height -50
             total_distance = z_hmc.z_current_position
             ensure_z_below_limit(total_distance + step_size, max_safe_z, smu, "Re-probe coarse contact move")
