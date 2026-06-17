@@ -476,6 +476,7 @@ def main():
             pattern_start_time = time.perf_counter()
             xy_movement_time = 0
             xy_move_count = 0
+            xy_commanded_distance = 0.0
             move_count = 0
             print("[TIMER] Patterning timer started.")
             with open(f"{filename}.txt", "r") as file:
@@ -554,6 +555,7 @@ def main():
 
                         ensure_z_below_limit(z, max_safe_z, smu, f"Pattern move {i}")
                         dz = z - prev_z
+                        segment_xy_distance = math.hypot(dx, dy)
                         theta = math.atan2(x - prev_x, y - prev_y)
                         sin_theta = math.sin(theta)
                         cos_theta = math.cos(theta)
@@ -580,6 +582,7 @@ def main():
                             if dx != 0 or dy != 0:
                                 xy_movement_time += move_elapsed
                                 xy_move_count += 1
+                                xy_commanded_distance += segment_xy_distance
                             move_count += 1
 
                             print("Final Position:")
@@ -599,6 +602,11 @@ def main():
             pattern_elapsed = time.perf_counter() - pattern_start_time
             print(f"[TIMER] Patterning completed in {format_elapsed_time(pattern_elapsed)}.")
             print(f"[TIMER] X/Y movement time: {format_elapsed_time(xy_movement_time)} across {xy_move_count} moves.")
+            if xy_move_count:
+                estimated_xy_travel = xy_commanded_distance / v if v else 0
+                print(f"[TIMER] Commanded XY distance: {xy_commanded_distance:.2f} µm")
+                print(f"[TIMER] Estimated pure XY travel at {v} µm/s: {format_elapsed_time(estimated_xy_travel)}")
+                print(f"[TIMER] Average XY distance per move: {xy_commanded_distance / xy_move_count:.2f} µm")
             print_timing_summary(timers, move_count, xy_move_count)
 
         def find_contact_point(initial_step_size, smu, threshold_current_ua, step_queue):
