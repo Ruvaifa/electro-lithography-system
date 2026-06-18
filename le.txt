@@ -1,25 +1,13 @@
-Enter maximum allowed Z increase above first contact point (in um, e.g. 100): 45000
-Enter filename: test
-[INFO] SMU Reset complete.
-[INFO] SMU Reset complete.
-[INFO] SMU Reset complete.
-[INFO] Voltage set to 5.0 V, Compliance Current: 0.3 micro A
-z_current_position: 0
-z_current_position: 0
-[INFO] Starting Z probing. You can enter new step sizes any time.
-[STEP 1] Moving Z down by 1000.0 µm...
-Enter new Z step size (µm): z_current_position: 1000.0
-[STEP 2] Moving Z down by 1000.0 µm...
-z_current_position: 2000.0
-[STEP 3] Moving Z down by 1000.0 µm...
-z_current_position: 3000.0
-[STEP 4] Moving Z down by 1000.0 µm...
-z_current_position: 4000.0
+z_current_position: 6000.0
+[VOLTAGE] 5.0000 V, [CURRENT] 1.5600e-09 A
+[STEP 7] Moving Z down by 1000.0 µm...
+z_current_position: 7000.0
+[VOLTAGE] -0.0011 V, [CURRENT] 2.9998e-07 A
+ current reached the right spot !!
 [CONTACT] Probe contact confirmed by current.
-[SAFETY] Patterning will abort if Z exceeds 49000.0 um.
+[SAFETY] Patterning will abort if Z exceeds 52000.0 um.
 [INFO] SMU Reset complete.
 [INFO] SMU Reset complete.
 Voltage set as 5.0 V, Current set as 0.3 micro A
 [INFO] Starting threaded straight-line motion with background SMU feedback...
-z_current_position: 3900.0
 [WARN] Z feedback move failed: Invalid Ack 10 given ack 164
