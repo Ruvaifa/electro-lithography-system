@@ -368,6 +368,8 @@ class HmcControlCs:
             time.sleep(0.1)
             return
 
+        self.ser.reset_input_buffer()
+
         if self.axis in (None, 'x'):
             self.x_home_reached = False
             self.x_far_reached = False
@@ -623,6 +625,7 @@ class HmcControlCs:
     def _send_axis_speed(self, speed_value, resolution):
         speed_steps = int(float(speed_value) / resolution)
         #print(f"[DEBUG] _send_axis_speed: sending speed cmd, steps={speed_steps}")
+        self.ser.reset_input_buffer()
         self.write_port(self.speed)
         self.read_ack(self.ok)
         #print("[DEBUG] _send_axis_speed: speed ACK received")
@@ -673,6 +676,7 @@ class HmcControlCs:
                 return
             self._last_speed_signature = signature
 
+            self.ser.reset_input_buffer()
             self.write_port(self.speed)
             self.read_ack(self.ok)
 
