@@ -951,8 +951,8 @@ def main():
                     status = smumark2.check_current(
                         smu,
                         threshold_current_1=threshold_current_ua * 1e-6,
-                        ensure_output_on=False,
-                        verbose=False,
+                        ensure_output_on=True,
+                        verbose=True,
                     )
 
                 if status == 1:
@@ -960,9 +960,10 @@ def main():
                     z_hmc.z_current_position = total_distance
                     return total_distance
 
-        def set_fast_motion(enabled):
-            for h in (x_hmc, y_hmc, z_hmc):
-                h.fast_mode = enabled
+        def set_fast_motion(xy_enabled, z_enabled=None):
+            x_hmc.fast_mode = xy_enabled
+            y_hmc.fast_mode = xy_enabled
+            z_hmc.fast_mode = xy_enabled if z_enabled is None else z_enabled
 
         def sync_serial_once():
             for h in (x_hmc, y_hmc, z_hmc):
@@ -1047,6 +1048,9 @@ def main():
             feedback_speed=init_speed,
         )
 
+        # Decouple Z axis controller from App during X/Y movement to prevent serial port collisions
+        app.z_hmc = None
+
         sampler.start()
         z_worker.start()
 
@@ -1061,6 +1065,8 @@ def main():
             print("[INFO] Starting threaded straight-line motion with background SMU feedback...")
             move_xy(line_dx, line_dy)
         finally:
+            # Re-couple Z axis controller to App
+            app.z_hmc = z_hmc
             feedback_stop.set()
             sampler.join(timeout=2)
             z_worker.join(timeout=2)
