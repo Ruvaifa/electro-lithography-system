@@ -10,13 +10,15 @@ def init_smu():
     smu.read_termination = '\n'
     smu.write('*CLS')
     smu.write('*RST')
-    print("[INFO] SMU Reset complete.")
+    smu.write(':SYST:FRES OFF')
+    print("[INFO] SMU Reset complete (2-wire mode forced).")
     return smu
 
 def reset_smu(smu):
     smu.write('*CLS')
     smu.write('*RST')
-    print("[INFO] SMU Reset complete.")
+    smu.write(':SYST:FRES OFF')
+    print("[INFO] SMU Reset complete (2-wire mode forced).")
 
 def use_case_1(smu, voltage=1, compliance_current_ua=105): #set compliance current and source voltage
     reset_smu(smu)
@@ -90,7 +92,7 @@ def check_current(smu, threshold_current_1, ensure_output_on=True, verbose=True)
     voltage, current = read_current_sample(smu, ensure_output_on=ensure_output_on)
     if verbose:
         print(f"[VOLTAGE] {voltage:.4f} V, [CURRENT] {current:.4e} A")
-    if  current > threshold_current_1:
+    if abs(current) > threshold_current_1:
         if verbose:
             print(" current reached the right spot !!")
         beta = 1
