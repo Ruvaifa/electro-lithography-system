@@ -38,20 +38,30 @@ def out_on(smu):
     smu.write('OUTP ON')
     setattr(smu, "_output_enabled", True)
 
+def _read_sample(smu, ensure_output_on=True):
+    if ensure_output_on or not getattr(smu, "_output_enabled", False):
+        smu.write("OUTP ON")
+        setattr(smu, "_output_enabled", True)
+    response = smu.query('READ?').strip()
+    if not response:
+        smu.write("OUTP ON")
+        setattr(smu, "_output_enabled", True)
+        time.sleep(0.02)
+        response = smu.query('READ?').strip()
+    voltage, current = map(float, response.split(',')[:2])
+    return voltage, current
+
+def read_voltage_sample(smu, ensure_output_on=True):
+    return _read_sample(smu, ensure_output_on=ensure_output_on)
+
+def read_current_sample(smu, ensure_output_on=True):
+    return _read_sample(smu, ensure_output_on=ensure_output_on)
+
 
 def check_voltage(smu, threshold_voltage_1, threshold_voltage_2, ensure_output_on=True, verbose=True):
     alpha = 0
     try:
-        if ensure_output_on or not getattr(smu, "_output_enabled", False):
-            smu.write("OUTP ON")
-            setattr(smu, "_output_enabled", True)
-        response = smu.query('READ?').strip()
-        if not response:
-            smu.write("OUTP ON")
-            setattr(smu, "_output_enabled", True)
-            time.sleep(0.02)
-            response = smu.query('READ?').strip()
-        voltage, current = map(float, response.split(',')[:2])
+        voltage, current = read_voltage_sample(smu, ensure_output_on=ensure_output_on)
         if verbose:
             print(f"[VOLTAGE] {voltage:.4f} V, [CURRENT] {current:.4e} A")
         if threshold_voltage_1 <voltage < threshold_voltage_2:
@@ -77,16 +87,7 @@ def check_voltage(smu, threshold_voltage_1, threshold_voltage_2, ensure_output_o
 
 def check_current(smu, threshold_current_1, ensure_output_on=True, verbose=True):
     beta = 0
-    if ensure_output_on or not getattr(smu, "_output_enabled", False):
-        smu.write("OUTP ON")
-        setattr(smu, "_output_enabled", True)
-    response = smu.query('READ?').strip()
-    if not response:
-        smu.write("OUTP ON")
-        setattr(smu, "_output_enabled", True)
-        time.sleep(0.02)
-        response = smu.query('READ?').strip()
-    voltage, current = map(float, response.split(',')[:2])
+    voltage, current = read_current_sample(smu, ensure_output_on=ensure_output_on)
     if verbose:
         print(f"[VOLTAGE] {voltage:.4f} V, [CURRENT] {current:.4e} A")
     if  current > threshold_current_1:

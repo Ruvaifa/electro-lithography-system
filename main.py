@@ -5,6 +5,8 @@ import threading
 from threading import Thread
 import math
 import queue
+from dataclasses import dataclass, field
+from typing import Optional
 import smumark1
 import smumark2
 from collections import defaultdict
@@ -43,6 +45,126 @@ def print_timing_summary(timer_map, move_count, xy_move_count):
         print(f"[TIMER] {key}: {format_elapsed_time(timer_map[key])}")
     print(f"[TIMER] Moves executed: {move_count}")
     print(f"[TIMER] X/Y moves counted in movement timer: {xy_move_count}")
+
+@dataclass
+class VoltageFeedbackState:
+    latest_voltage: Optional[float] = None
+    latest_current: Optional[float] = None
+    latest_direction: int = 0
+    update_id: int = 0
+    sample_time: float = 0.0
+    lock: threading.Lock = field(default_factory=threading.Lock, repr=False)
+
+    def update(self, voltage, current, direction):
+        with self.lock:
+            self.latest_voltage = voltage
+            self.latest_current = current
+            self.latest_direction = direction
+            self.sample_time = time.perf_counter()
+            self.update_id += 1
+
+    def snapshot(self):
+        with self.lock:
+            return {
+                "voltage": self.latest_voltage,
+                "current": self.latest_current,
+                "direction": self.latest_direction,
+                "update_id": self.update_id,
+                "sample_time": self.sample_time,
+            }
+
+def classify_voltage(voltage, threshold_voltage_1, threshold_voltage_2):
+    if threshold_voltage_1 < voltage < threshold_voltage_2:
+        return 1
+    if voltage < threshold_voltage_1:
+        return 2
+    if voltage > threshold_voltage_2:
+        return 3
+    return 0
+
+def read_voltage_sample(smu):
+    response = smu.query('READ?').strip()
+    if not response:
+        smu.write("OUTP ON")
+        time.sleep(0.02)
+        response = smu.query('READ?').strip()
+    voltage, current = map(float, response.split(',')[:2])
+    return voltage, current
+
+def read_first_last_point(filename):
+    first_point = None
+    last_point = None
+    with open(f"{filename}.txt", "r") as file:
+        for line in file:
+            parts = line.strip().replace(',', ' ').split()
+            if len(parts) >= 3:
+                point = (float(parts[0]), float(parts[1]))
+                if first_point is None:
+                    first_point = point
+                last_point = point
+    if first_point is None or last_point is None:
+        raise ValueError(f"No valid XY points found in {filename}.txt")
+    return first_point[0], first_point[1], last_point[0], last_point[1]
+
+class SmuVoltageSampler(Thread):
+    def __init__(self, smu, threshold_voltage_1, threshold_voltage_2, state, stop_event, sample_interval=0.05):
+        super().__init__(daemon=True)
+        self.smu = smu
+        self.threshold_voltage_1 = threshold_voltage_1
+        self.threshold_voltage_2 = threshold_voltage_2
+        self.state = state
+        self.stop_event = stop_event
+        self.sample_interval = sample_interval
+
+    def run(self):
+        while not self.stop_event.is_set():
+            try:
+                voltage, current = read_voltage_sample(self.smu)
+                direction = classify_voltage(voltage, self.threshold_voltage_1, self.threshold_voltage_2)
+                self.state.update(voltage, current, direction)
+            except Exception as e:
+                print(f"[WARN] SMU sampler error: {e}")
+                self.state.update(None, None, 0)
+            if self.stop_event.wait(self.sample_interval):
+                break
+
+class ZFeedbackWorker(Thread):
+    def __init__(self, z_hmc, state, stop_event, step_um, max_safe_z, feedback_speed=1000):
+        super().__init__(daemon=True)
+        self.z_hmc = z_hmc
+        self.state = state
+        self.stop_event = stop_event
+        self.step_um = step_um
+        self.max_safe_z = max_safe_z
+        self.feedback_speed = feedback_speed
+
+    def run(self):
+        last_applied_update = -1
+        self.z_hmc.set_speed(0, 0, self.feedback_speed)
+        while not self.stop_event.is_set():
+            snapshot = self.state.snapshot()
+            if snapshot["update_id"] == last_applied_update:
+                self.stop_event.wait(0.01)
+                continue
+
+            last_applied_update = snapshot["update_id"]
+            direction = snapshot["direction"]
+            if direction not in (2, 3):
+                continue
+
+            delta_z = -self.step_um if direction == 2 else self.step_um
+            predicted_z = self.z_hmc.z_current_position + delta_z
+            if predicted_z > self.max_safe_z:
+                print(f"[ABORT] Z feedback would exceed safe limit: {predicted_z} um > {self.max_safe_z} um")
+                self.stop_event.set()
+                break
+
+            try:
+                self.z_hmc.move(0, 0, delta_z)
+            except Exception as e:
+                print(f"[WARN] Z feedback move failed: {e}")
+                self.stop_event.set()
+                break
 
 def list_ports():
     ports = serial.tools.list_ports.comports()
@@ -768,6 +890,185 @@ def main():
             app.hmcControl.run_thread.join()
 
         print(" XYZ step movements complete.")
+
+    elif response == 8:
+        init_speed = 1000
+        timers = defaultdict(float)
+
+        sample_interval_ms = float(input("Enter SMU sample interval in milliseconds (e.g. 50): "))
+
+        class PatternAbort(Exception):
+            pass
+
+        def abort_patterning(smu, reason, stop_event=None):
+            print(f"[ABORT] {reason}")
+            if stop_event is not None:
+                stop_event.set()
+            try:
+                app.stop_process()
+            except Exception as e:
+                print(f"[WARN] Could not stop active movement cleanly: {e}")
+            try:
+                smumark2.out_off(smu)
+            except Exception as e:
+                print(f"[WARN] Could not turn SMU output off cleanly: {e}")
+            raise PatternAbort(reason)
+
+        def ensure_z_below_limit(target_z, max_safe_z, smu, context, stop_event=None):
+            if target_z > max_safe_z:
+                abort_patterning(
+                    smu,
+                    f"{context}: target Z {target_z} um exceeds safe limit {max_safe_z} um",
+                    stop_event=stop_event,
+                )
+
+        def find_contact_point(initial_step_size, smu, threshold_current_ua, step_queue):
+            step_size = initial_step_size
+            total_distance = 0
+            i = 0
+
+            print("[INFO] Starting Z probing. You can enter new step sizes any time.")
+
+            while True:
+                if not step_queue.empty():
+                    step_size = step_queue.get()
+                    print(f"[INFO] Updated step size: {step_size} µm")
+
+                print(f"[STEP {i+1}] Moving Z down by {step_size} µm...")
+                app.command = '1'
+                app.x_value = 0
+                app.y_value = 0
+                app.z_value = step_size
+                app.start_thread()
+
+                if app.hmcControl.run_thread:
+                    app.hmcControl.run_thread.join()
+
+                total_distance += step_size
+                i += 1
+                with time_block(timers, "smu.check_current"):
+                    status = smumark2.check_current(
+                        smu,
+                        threshold_current_1=threshold_current_ua * 1e-6,
+                        ensure_output_on=False,
+                        verbose=False,
+                    )
+
+                if status == 1:
+                    print("[CONTACT] Probe contact confirmed by current.")
+                    z_hmc.z_current_position = total_distance
+                    return total_distance
+
+        def set_fast_motion(enabled):
+            for h in (x_hmc, y_hmc, z_hmc):
+                h.fast_mode = enabled
+
+        def sync_serial_once():
+            for h in (x_hmc, y_hmc, z_hmc):
+                h.ser.reset_input_buffer()
+
+        def move_xy(dx, dy):
+            app.command = '1'
+            app.x_value = dx
+            app.y_value = dy
+            app.z_value = 0
+            with time_block(timers, "motion.start_thread"):
+                app.start_thread()
+            with time_block(timers, "motion.wait_for_completion"):
+                wait_for_motion(app)
+
+        set_all_speed(1000, 1000, init_speed)
+
+        contact_voltage = float(input("Enter source voltage in V for contact detection (use case 1): "))
+        contact_compliance_current_ua = float(input("Enter compliance current in micro amps for contact detection (use case 1): "))
+        threshold_current_ua = float(input("Enter threshold current in micro amps to detect contact: "))
+        volt_source = float(input("Enter source voltage (use_case_2): "))
+        curr_comp = float(input("Enter compliance current in micro amps (use_case_2): "))
+        voltage_threshold_1 = float(input("Enter voltage lower threshold for feedback (V): "))
+        voltage_threshold_2 = float(input("Enter voltage upper threshold for feedback (V): "))
+        delta_z = float(input("Enter Z adjustment step for plotting (in µm): "))
+        z_contact_step = float(input("Enter Z adjustment step for finding contact point:"))
+        speed = float(input("Enter speed for xy axis: "))
+        liftoff_height = float(input("Enter liftoff height in µm: "))
+        max_safe_z_margin = float(input("Enter maximum allowed Z increase above first contact point (in um, e.g. 100): "))
+        filename = input("Enter filename: ")
+
+        with time_block(timers, "smu.init_smu"):
+            smu = smumark2.init_smu()
+        with time_block(timers, "smu.reset_smu"):
+            smumark2.reset_smu(smu)
+        with time_block(timers, "smu.use_case_1"):
+            smumark2.use_case_1(smu, voltage=contact_voltage, compliance_current_ua=contact_compliance_current_ua)
+        smumark2.out_on(smu)
+
+        sync_serial_once()
+        set_fast_motion(True)
+
+        first_x, first_y, last_x, last_y = read_first_last_point(filename)
+        dx = first_x - x_hmc.current_x
+        dy = first_y - y_hmc.current_y
+
+        set_all_speed(5000, 5000, 5000)
+        move_xy(dx, dy)
+
+        set_all_speed(speed, speed, init_speed)
+
+        step_queue = queue.Queue()
+        Thread(target=step_size_listener, args=(step_queue,), daemon=True).start()
+
+        z_contact_point = find_contact_point(initial_step_size=z_contact_step, smu=smu, threshold_current_ua=threshold_current_ua, step_queue=step_queue)
+        z_hmc.current_z = z_contact_point
+        z_contact_point = z_hmc.z_current_position
+        max_safe_z = z_contact_point + max_safe_z_margin
+        print(f"[SAFETY] Patterning will abort if Z exceeds {max_safe_z} um.")
+        with time_block(timers, "smu.reset_smu"):
+            smumark2.reset_smu(smu)
+        with time_block(timers, "smu.use_case_2"):
+            smumark2.use_case_2(smu, voltage=volt_source, compliance_current_ua=curr_comp)
+        smumark2.out_on(smu)
+
+        feedback_state = VoltageFeedbackState()
+        feedback_stop = threading.Event()
+        sampler = SmuVoltageSampler(
+            smu,
+            voltage_threshold_1,
+            voltage_threshold_2,
+            feedback_state,
+            feedback_stop,
+            sample_interval=sample_interval_ms / 1000.0,
+        )
+        z_worker = ZFeedbackWorker(
+            z_hmc,
+            feedback_state,
+            feedback_stop,
+            delta_z,
+            max_safe_z,
+            feedback_speed=init_speed,
+        )
+
+        sampler.start()
+        z_worker.start()
+
+        try:
+            line_dx = last_x - first_x
+            line_dy = last_y - first_y
+            theta = math.atan2(line_dx, line_dy)
+            vx = speed * math.sin(theta)
+            vy = speed * math.cos(theta)
+            set_all_speed(vx, vy, init_speed)
+
+            print("[INFO] Starting threaded straight-line motion with background SMU feedback...")
+            move_xy(line_dx, line_dy)
+        finally:
+            feedback_stop.set()
+            sampler.join(timeout=2)
+            z_worker.join(timeout=2)
+            smumark2.out_off(smu)
+            set_fast_motion(False)
+
+        print("[INFO] Threaded straight-line feedback run complete.")
+        print("Final Z Position:", z_hmc.z_current_position)
+        startup_all()
 
 
 if __name__ == "__main__":
