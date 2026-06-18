@@ -519,9 +519,10 @@ def main():
         init_speed = 1000
         timers = defaultdict(float)
 
-        def set_fast_motion(enabled):
-            for h in (x_hmc, y_hmc, z_hmc):
-                h.fast_mode = enabled
+        def set_fast_motion(xy_enabled, z_enabled=None):
+            x_hmc.fast_mode = xy_enabled
+            y_hmc.fast_mode = xy_enabled
+            z_hmc.fast_mode = xy_enabled if z_enabled is None else z_enabled
 
         def sync_serial_once():
             for h in (x_hmc, y_hmc, z_hmc):
@@ -793,7 +794,7 @@ def main():
         smumark2.out_on(smu)
 
         sync_serial_once()
-        set_fast_motion(True)
+        set_fast_motion(True, False)
 
         with time_block(timers, "file.read_first_point"):
             with open(f"{filename}.txt", "r") as file:
@@ -1064,7 +1065,7 @@ def main():
             sampler.join(timeout=2)
             z_worker.join(timeout=2)
             smumark2.out_off(smu)
-            set_fast_motion(False)
+            set_fast_motion(False, False)
 
         print("[INFO] Threaded straight-line feedback run complete.")
         print("Final Z Position:", z_hmc.z_current_position)
