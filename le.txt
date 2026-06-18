@@ -23,3 +23,5 @@ Voltage set as 5.0 V, Current set as 0.3 micro A
 [INFO] Starting threaded straight-line motion with background SMU feedback...
 z_current_position: 3900.0
 [WARN] Z feedback move failed: Invalid Ack 10 given ack 164
+
+test
