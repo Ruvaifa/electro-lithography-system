@@ -60,13 +60,13 @@ class App(ttk.Frame):
             if all_connected:
                 match self.command:
                     case "1":
-                        if len(controllers) > 1 and self.x_hmc and self.y_hmc and self.z_hmc:
+                        if len(controllers) > 1:
                             threads = []
-                            if self.x_value != 0:
+                            if self.x_hmc and self.x_hmc in controllers and self.x_value != 0:
                                 threads.append(Thread(target=self.x_hmc.move, args=(self.x_value, 0, 0)))
-                            if self.y_value != 0:
+                            if self.y_hmc and self.y_hmc in controllers and self.y_value != 0:
                                 threads.append(Thread(target=self.y_hmc.move, args=(0, self.y_value, 0)))
-                            if self.z_value != 0:
+                            if self.z_hmc and self.z_hmc in controllers and self.z_value != 0:
                                 threads.append(Thread(target=self.z_hmc.move, args=(0, 0, self.z_value)))
                             for t in threads:
                                 t.start()

@@ -1060,7 +1060,8 @@ def main():
             theta = math.atan2(line_dx, line_dy)
             vx = speed * math.sin(theta)
             vy = speed * math.cos(theta)
-            set_all_speed(vx, vy, init_speed)
+            x_hmc.set_speed(vx, 0, 0)
+            y_hmc.set_speed(0, vy, 0)
 
             print("[INFO] Starting threaded straight-line motion with background SMU feedback...")
             move_xy(line_dx, line_dy)
