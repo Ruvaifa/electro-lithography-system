@@ -1004,7 +1004,7 @@ def main():
         smumark2.out_on(smu)
 
         sync_serial_once()
-        set_fast_motion(True)
+        set_fast_motion(True, False)
 
         first_x, first_y, last_x, last_y = read_first_last_point(filename)
         dx = first_x - x_hmc.current_x
