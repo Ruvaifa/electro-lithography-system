@@ -592,29 +592,41 @@ class HmcControlCs:
 
     def read_move_bytes(self): #asks controller to send actual number of steps moved on each axis, calculate and stores how far each axis has moved
         #print("[DEBUG] read_move_bytes: sending READ command")
-        self.write_port(self.READ)
-        self.read_ack(self.READ_ACK)
-        #print("[DEBUG] read_move_bytes: READ_ACK received")
+        last_error = None
+        for attempt in range(3):
+            try:
+                self.write_port(self.READ)
+                self.read_ack(self.READ_ACK)
+                #print("[DEBUG] read_move_bytes: READ_ACK received")
 
-        if self.axis == 'x':
-            self.x_moving = self.Read_axis_data()
-            self.x_moving *= self.Resolution_A
-        elif self.axis == 'y':
-            self.y_moving = self.Read_axis_data()
-            self.y_moving *= self.Resolution_B
-        elif self.axis == 'z':
-            self.z_moving = self.Read_axis_data()
-            self.z_moving *= self.Resolution_C
-        else:
-            self.x_moving = self.Read_axis_data()
-            self.x_moving *= self.Resolution_A
+                if self.axis == 'x':
+                    self.x_moving = self.Read_axis_data()
+                    self.x_moving *= self.Resolution_A
+                elif self.axis == 'y':
+                    self.y_moving = self.Read_axis_data()
+                    self.y_moving *= self.Resolution_B
+                elif self.axis == 'z':
+                    self.z_moving = self.Read_axis_data()
+                    self.z_moving *= self.Resolution_C
+                else:
+                    self.x_moving = self.Read_axis_data()
+                    self.x_moving *= self.Resolution_A
 
-            self.y_moving = self.Read_axis_data()
-            self.y_moving *= self.Resolution_B
+                    self.y_moving = self.Read_axis_data()
+                    self.y_moving *= self.Resolution_B
 
-            self.z_moving = self.Read_axis_data()
-            self.z_moving = self.Read_axis_data()
-            self.z_moving *= self.Resolution_C
+                    self.z_moving = self.Read_axis_data()
+                    self.z_moving = self.Read_axis_data()
+                    self.z_moving *= self.Resolution_C
+                return
+            except TimeoutError as e:
+                last_error = e
+                if attempt == 2:
+                    raise
+                time.sleep(0.05)
+                self.ser.reset_input_buffer()
+        if last_error:
+            raise last_error
         #print("[DEBUG] read_move_bytes: done")
 
 
