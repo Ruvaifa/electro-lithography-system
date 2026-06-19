@@ -371,7 +371,7 @@ class HmcControlCs:
         raise Exception('Device Not Connected ' + str(In))
 
 
-    def move(self, move_a, move_b, move_c): #moves by given distances in microns
+    def move(self, move_a, move_b, move_c, skip_readback=False): #moves by given distances in microns
 
         if self.dummy:
             time.sleep(0.1)
@@ -457,10 +457,20 @@ class HmcControlCs:
             if self.indata == self.move_completed:
                 self.movement_completed = True
 
-            if not self.fast_mode:
-                self.ser.reset_input_buffer()
-
-            self.read_move_bytes()
+            if skip_readback:
+                if self.axis in (None, 'x'):
+                    self.x_current_position += move_a
+                if self.axis in (None, 'y'):
+                    self.y_current_position += move_b
+                if self.axis in (None, 'z'):
+                    self.z_current_position += move_c
+                self.current_x = self.x_current_position
+                self.current_y = self.y_current_position
+                self.current_z = self.z_current_position
+            else:
+                if not self.fast_mode:
+                    self.ser.reset_input_buffer()
+                self.read_move_bytes()
 
             if self.axis in (None, 'x'):
                 if self.indata == self.x_home_limit:

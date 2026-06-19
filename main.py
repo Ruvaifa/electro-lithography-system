@@ -160,18 +160,18 @@ class ZFeedbackWorker(Thread):
         self.feedback_speed = feedback_speed
 
     def run(self):
-        last_applied_update = -1
         print(f"[Z FEEDBACK] Worker started, step={self.step_um} um, speed={self.feedback_speed} um/s")
         self.z_hmc.set_speed(0, 0, self.feedback_speed)
+        move_finish_time = time.perf_counter()
         while not self.stop_event.is_set():
             snapshot = self.state.snapshot()
-            if snapshot["update_id"] == last_applied_update:
+            if snapshot["sample_time"] <= move_finish_time:
                 self.stop_event.wait(0.001)
                 continue
 
-            last_applied_update = snapshot["update_id"]
             direction = snapshot["direction"]
             if direction not in (2, 3):
+                move_finish_time = time.perf_counter()
                 continue
 
             delta_z = -self.step_um if direction == 2 else self.step_um
@@ -189,7 +189,7 @@ class ZFeedbackWorker(Thread):
             try:
                 previous_timeout = self.z_hmc.motion_timeout_seconds
                 self.z_hmc.motion_timeout_seconds = max(5.0, abs(delta_z) / max(self.feedback_speed, 1) + 2.0)
-                self.z_hmc.move(0, 0, delta_z)
+                self.z_hmc.move(0, 0, delta_z, skip_readback=True)
                 print(f"[Z FEEDBACK] Move complete, Z={self.z_hmc.z_current_position:.3f} um")
             except Exception as e:
                 print(f"[WARN] Z feedback move failed: {e}")
@@ -197,6 +197,7 @@ class ZFeedbackWorker(Thread):
                 break
             finally:
                 self.z_hmc.motion_timeout_seconds = previous_timeout
+                move_finish_time = time.perf_counter()
 
 def list_ports():
     ports = serial.tools.list_ports.comports()
