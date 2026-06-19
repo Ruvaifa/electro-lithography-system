@@ -595,8 +595,25 @@ class HmcControlCs:
         last_error = None
         for attempt in range(3):
             try:
+                self.ser.reset_input_buffer()
                 self.write_port(self.READ)
-                self.read_ack(self.READ_ACK)
+                deadline = time.perf_counter() + self.ack_timeout_seconds
+                while True:
+                    r = self.ser.read(1)
+                    if r == b'':
+                        if time.perf_counter() >= deadline:
+                            raise TimeoutError("Timed out waiting for Ack 164")
+                        continue
+
+                    in_data = ord(r)
+                    if in_data == self.READ_ACK:
+                        break
+
+                    if in_data == self.ok:
+                        raise TimeoutError("Stale OK byte seen while waiting for READ_ACK")
+
+                    raise Exception('Invalid Ack ' + str(in_data) + ' given ack ' + str(self.READ_ACK))
+
                 #print("[DEBUG] read_move_bytes: READ_ACK received")
 
                 if self.axis == 'x':
@@ -619,7 +636,7 @@ class HmcControlCs:
                     self.z_moving = self.Read_axis_data()
                     self.z_moving *= self.Resolution_C
                 return
-            except TimeoutError as e:
+            except (TimeoutError, Exception) as e:
                 last_error = e
                 if attempt == 2:
                     raise
