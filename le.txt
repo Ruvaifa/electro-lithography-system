@@ -1,26 +1,28 @@
-[STEP 5] Moving Z down by 1000.0 µm...
 z_current_position: 5000.0
-[VOLTAGE] 5.0000 V, [CURRENT] -2.0000e-11 A
+[VOLTAGE] 5.0000 V, [CURRENT] -6.7200e-10 A
 [STEP 6] Moving Z down by 1000.0 µm...
 z_current_position: 6000.0
-[VOLTAGE] 5.0000 V, [CURRENT] 1.7690e-09 A
+[VOLTAGE] 5.0000 V, [CURRENT] 3.9800e-10 A
 [STEP 7] Moving Z down by 1000.0 µm...
 z_current_position: 7000.0
-[VOLTAGE] -0.0005 V, [CURRENT] 2.9998e-07 A
+[VOLTAGE] 5.0000 V, [CURRENT] -2.6800e-10 A
+[STEP 8] Moving Z down by 1000.0 µm...
+z_current_position: 8000.0
+[VOLTAGE] -0.0006 V, [CURRENT] 2.9998e-07 A
  current reached the right spot !!
 [CONTACT] Probe contact confirmed by current.
-[SAFETY] Patterning will abort if Z exceeds 52000.0 um.
+[SAFETY] Patterning will abort if Z exceeds 53000.0 um.
 [INFO] SMU Reset complete.
 [INFO] SMU Reset complete.
 Voltage set as 5.0 V, Current set as 0.3 micro A
 [SMU SAMPLE] Sampler started, interval=25.0 ms
 [Z FEEDBACK] Worker started, step=100.0 um, speed=1000 um/s
 [INFO] Starting threaded straight-line motion with background SMU feedback...
-[SMU SAMPLE] V=-0.0005 V, I=2.9998e-07 A, direction=low_lift_up
-[Z FEEDBACK] Applying -100.000 um from 7000.000 to 6900.000 for low_lift_up
-z_current_position: 6900.0
-[Z FEEDBACK] Move complete, Z=6900.000 um
-[Z FEEDBACK] Applying -100.000 um from 6900.000 to 6800.000 for low_lift_up
-[SMU SAMPLE] V=-0.0005 V, I=2.9998e-07 A, direction=low_lift_up
-[SMU SAMPLE] V=-0.0005 V, I=2.9998e-07 A, direction=low_lift_up
+[SMU SAMPLE] V=-0.0006 V, I=2.9998e-07 A, direction=low_lift_up
+[Z FEEDBACK] Applying -100.000 um from 8000.000 to 7900.000 for low_lift_up
+z_current_position: 7900.0
+[Z FEEDBACK] Move complete, Z=7900.000 um
+[Z FEEDBACK] Applying -100.000 um from 7900.000 to 7800.000 for low_lift_up
+[SMU SAMPLE] V=-0.0006 V, I=2.9998e-07 A, direction=low_lift_up
+[SMU SAMPLE] V=-0.0006 V, I=2.9998e-07 A, direction=low_lift_up
 [WARN] Z feedback move failed: Timed out waiting for Ack 164
