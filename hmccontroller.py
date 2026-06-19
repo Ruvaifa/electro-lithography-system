@@ -199,7 +199,7 @@ class HmcControlCs:
         self.axis_read_timeout_seconds = 2.0
         self.motion_timeout_seconds = None
 
-        self.serial_lock = threading.Lock()
+        self.serial_lock = threading.RLock()
  
     def on_startup(self):
         if self.axis:
@@ -377,128 +377,129 @@ class HmcControlCs:
             time.sleep(0.1)
             return
 
-        self.ser.reset_input_buffer()
-
-        if self.axis in (None, 'x'):
-            self.x_home_reached = False
-            self.x_far_reached = False
-        if self.axis in (None, 'y'):
-            self.y_home_reached = False
-            self.y_far_reached = False
-        if self.axis in (None, 'z'):
-            self.z_home_reached = False
-            self.z_far_reached = False
-
-        self.movement_completed = False
-
-        if self.axis in (None, 'x'):
-            if ((move_a>0) and (self.max_travel_um - self.current_x - move_a)<0):
-                print("Value exceeds possible limit for X, enter valid value")
-                return
-            elif((move_a<0) and(self.current_x + move_a)<0):
-                print("Value exceeds possible limit for -X, enter valid value")
-                return
-        if self.axis in (None, 'y'):
-            if ((move_b>0) and (self.max_travel_um - self.current_y - move_b)<0):
-                print("Value exceeds possible limit for Y, enter valid value")
-                return
-            elif((move_b<0)and(self.current_y +move_b)<0):
-                print("Value exceeds possible limit for -Y, enter valid value")
-                return
-        if self.axis in (None, 'z'):
-            if ((move_c>0) and (self.max_travel_um - self.current_z - move_c) < 0):
-                print("Value exceeds possible limit for +Z, enter valid value")
-                return
-            elif((move_c<0)and(self.current_z + move_c)<0):
-                print("Value exceeds possible limit for -Z, enter valid value")
-                return
-        
-        self.set_move_data(move_a, move_b, self._logical_z_to_motor_z(move_c))
-
-        self.indata = 0
-        move_start_time = time.perf_counter()
-        while self.indata == 0 and not self.stop_thread:
-            if self.motion_timeout_seconds is not None:
-                if time.perf_counter() - move_start_time > self.motion_timeout_seconds:
-                    raise TimeoutError(
-                        f"Timed out waiting for {self.axis or 'xyz'} move completion "
-                        f"after {self.motion_timeout_seconds:.1f}s"
-                    )
-            self.indata = self.move_status()
-
-        if self.indata == 0 and self.stop_thread:   
-            print("Stop Enabled")
-            self.write_port(self.stop)
-            self.read_ack(self.stop_ack)
-
-        if self.indata in (self.x_home_limit, self.y_home_limit, self.z_home_limit):
-            self.write_port(self.stop)
-            self.read_ack(self.stop_ack)
-            print("Home limit reached")
-            if self.axis == 'x':
-                self.x_home_reached = True
-            elif self.axis == 'y':
-                self.y_home_reached = True
-            elif self.axis == 'z':
-                self.z_home_reached = True
-
-        if self.indata in (self.x_far_limit, self.y_far_limit, self.z_far_limit):
-            self.write_port(self.stop)
-            self.read_ack(self.stop_ack)
-            print("Far limit reached")
-            if self.axis == 'x':
-                self.x_far_reached = True
-            elif self.axis == 'y':
-                self.y_far_reached = True
-            elif self.axis == 'z':
-                self.z_far_reached = True
-
-        if self.indata == self.move_completed:
-            self.movement_completed = True
-
-        if not self.fast_mode:
+        with self.serial_lock:
             self.ser.reset_input_buffer()
 
-        self.read_move_bytes()
+            if self.axis in (None, 'x'):
+                self.x_home_reached = False
+                self.x_far_reached = False
+            if self.axis in (None, 'y'):
+                self.y_home_reached = False
+                self.y_far_reached = False
+            if self.axis in (None, 'z'):
+                self.z_home_reached = False
+                self.z_far_reached = False
 
-        if self.axis in (None, 'x'):
-            if self.indata == self.x_home_limit:
-                self.x_current_position = 0
-            elif self.indata == self.x_far_limit:
-                self.x_current_position = self.max_travel_um
-            else:
-                if move_a > 0:
-                    self.x_current_position += self.x_moving
+            self.movement_completed = False
+
+            if self.axis in (None, 'x'):
+                if ((move_a>0) and (self.max_travel_um - self.current_x - move_a)<0):
+                    print("Value exceeds possible limit for X, enter valid value")
+                    return
+                elif((move_a<0) and(self.current_x + move_a)<0):
+                    print("Value exceeds possible limit for -X, enter valid value")
+                    return
+            if self.axis in (None, 'y'):
+                if ((move_b>0) and (self.max_travel_um - self.current_y - move_b)<0):
+                    print("Value exceeds possible limit for Y, enter valid value")
+                    return
+                elif((move_b<0)and(self.current_y +move_b)<0):
+                    print("Value exceeds possible limit for -Y, enter valid value")
+                    return
+            if self.axis in (None, 'z'):
+                if ((move_c>0) and (self.max_travel_um - self.current_z - move_c) < 0):
+                    print("Value exceeds possible limit for +Z, enter valid value")
+                    return
+                elif((move_c<0)and(self.current_z + move_c)<0):
+                    print("Value exceeds possible limit for -Z, enter valid value")
+                    return
+            
+            self.set_move_data(move_a, move_b, self._logical_z_to_motor_z(move_c))
+
+            self.indata = 0
+            move_start_time = time.perf_counter()
+            while self.indata == 0 and not self.stop_thread:
+                if self.motion_timeout_seconds is not None:
+                    if time.perf_counter() - move_start_time > self.motion_timeout_seconds:
+                        raise TimeoutError(
+                            f"Timed out waiting for {self.axis or 'xyz'} move completion "
+                            f"after {self.motion_timeout_seconds:.1f}s"
+                        )
+                self.indata = self.move_status()
+
+            if self.indata == 0 and self.stop_thread:   
+                print("Stop Enabled")
+                self.write_port(self.stop)
+                self.read_ack(self.stop_ack)
+
+            if self.indata in (self.x_home_limit, self.y_home_limit, self.z_home_limit):
+                self.write_port(self.stop)
+                self.read_ack(self.stop_ack)
+                print("Home limit reached")
+                if self.axis == 'x':
+                    self.x_home_reached = True
+                elif self.axis == 'y':
+                    self.y_home_reached = True
+                elif self.axis == 'z':
+                    self.z_home_reached = True
+
+            if self.indata in (self.x_far_limit, self.y_far_limit, self.z_far_limit):
+                self.write_port(self.stop)
+                self.read_ack(self.stop_ack)
+                print("Far limit reached")
+                if self.axis == 'x':
+                    self.x_far_reached = True
+                elif self.axis == 'y':
+                    self.y_far_reached = True
+                elif self.axis == 'z':
+                    self.z_far_reached = True
+
+            if self.indata == self.move_completed:
+                self.movement_completed = True
+
+            if not self.fast_mode:
+                self.ser.reset_input_buffer()
+
+            self.read_move_bytes()
+
+            if self.axis in (None, 'x'):
+                if self.indata == self.x_home_limit:
+                    self.x_current_position = 0
+                elif self.indata == self.x_far_limit:
+                    self.x_current_position = self.max_travel_um
                 else:
-                    self.x_current_position -= self.x_moving
+                    if move_a > 0:
+                        self.x_current_position += self.x_moving
+                    else:
+                        self.x_current_position -= self.x_moving
 
-        if self.axis in (None, 'y'):
-            if self.indata == self.y_home_limit:
-                self.y_current_position = 0
-            elif self.indata == self.y_far_limit:
-                self.y_current_position = self.max_travel_um
-            else:
-                if move_b > 0:
-                    self.y_current_position += self.y_moving
+            if self.axis in (None, 'y'):
+                if self.indata == self.y_home_limit:
+                    self.y_current_position = 0
+                elif self.indata == self.y_far_limit:
+                    self.y_current_position = self.max_travel_um
                 else:
-                    self.y_current_position -= self.y_moving
+                    if move_b > 0:
+                        self.y_current_position += self.y_moving
+                    else:
+                        self.y_current_position -= self.y_moving
 
-        if self.axis in (None, 'z'):
-            if self.indata == self.z_home_limit:
-                self.z_current_position = self.max_travel_um
-            elif self.indata == self.z_far_limit:
-                self.z_current_position = 0
-            else:
-                if move_c > 0:
-                    self.z_current_position += self.z_moving
+            if self.axis in (None, 'z'):
+                if self.indata == self.z_home_limit:
+                    self.z_current_position = self.max_travel_um
+                elif self.indata == self.z_far_limit:
+                    self.z_current_position = 0
                 else:
-                    self.z_current_position -= self.z_moving
+                    if move_c > 0:
+                        self.z_current_position += self.z_moving
+                    else:
+                        self.z_current_position -= self.z_moving
 
-        self.current_x = self.x_current_position
-        self.current_y = self.y_current_position
-        self.current_z = self.z_current_position
+            self.current_x = self.x_current_position
+            self.current_y = self.y_current_position
+            self.current_z = self.z_current_position
 
-        print(f"z_current_position: {self.z_current_position}")
+            print(f"z_current_position: {self.z_current_position}")
 
     def _logical_z_to_motor_z(self, move_z):
         if self.axis in (None, 'z'):
@@ -661,64 +662,65 @@ class HmcControlCs:
             time.sleep(0.1)
             return
 
-        if self.axis == 'x':
-            speed_steps = int(float(x_value) / self.Resolution_A)
-            signature = ("x", speed_steps)
-            if self._last_speed_signature == signature:
-                return
-            self._last_speed_signature = signature
-            self._send_axis_speed(x_value, self.Resolution_A)
-        elif self.axis == 'y':
-            speed_steps = int(float(y_value) / self.Resolution_B)
-            signature = ("y", speed_steps)
-            if self._last_speed_signature == signature:
-                return
-            self._last_speed_signature = signature
-            self._send_axis_speed(y_value, self.Resolution_B)
-        elif self.axis == 'z':
-            speed_steps = int(float(z_value) / self.Resolution_C)
-            signature = ("z", speed_steps)
-            if self._last_speed_signature == signature:
-                return
-            self._last_speed_signature = signature
-            self._send_axis_speed(z_value, self.Resolution_C)
-        else:
-            x_steps = int(float(x_value) / self.Resolution_A)
-            y_steps = int(float(y_value) / self.Resolution_B)
-            z_steps = int(float(z_value) / self.Resolution_C)
+        with self.serial_lock:
+            if self.axis == 'x':
+                speed_steps = int(float(x_value) / self.Resolution_A)
+                signature = ("x", speed_steps)
+                if self._last_speed_signature == signature:
+                    return
+                self._last_speed_signature = signature
+                self._send_axis_speed(x_value, self.Resolution_A)
+            elif self.axis == 'y':
+                speed_steps = int(float(y_value) / self.Resolution_B)
+                signature = ("y", speed_steps)
+                if self._last_speed_signature == signature:
+                    return
+                self._last_speed_signature = signature
+                self._send_axis_speed(y_value, self.Resolution_B)
+            elif self.axis == 'z':
+                speed_steps = int(float(z_value) / self.Resolution_C)
+                signature = ("z", speed_steps)
+                if self._last_speed_signature == signature:
+                    return
+                self._last_speed_signature = signature
+                self._send_axis_speed(z_value, self.Resolution_C)
+            else:
+                x_steps = int(float(x_value) / self.Resolution_A)
+                y_steps = int(float(y_value) / self.Resolution_B)
+                z_steps = int(float(z_value) / self.Resolution_C)
 
-            signature = (x_steps, y_steps, z_steps)
-            if self._last_speed_signature == signature:
-                return
-            self._last_speed_signature = signature
+                signature = (x_steps, y_steps, z_steps)
+                if self._last_speed_signature == signature:
+                    return
+                self._last_speed_signature = signature
 
-            self.ser.reset_input_buffer()
-            self.write_port(self.speed)
-            self.read_ack(self.ok)
+                self.ser.reset_input_buffer()
+                self.write_port(self.speed)
+                self.read_ack(self.ok)
 
-            datas = self.msb_csb_lsb(abs(x_steps))
-            self.write_port(datas[0])
-            self.read_ack(self.ok)
-            self.write_port(datas[1])
-            self.read_ack(self.ok)
-            self.write_port(datas[2])
-            self.read_ack(self.ok)
+                datas = self.msb_csb_lsb(abs(x_steps))
+                self.write_port(datas[0])
+                self.read_ack(self.ok)
+                self.write_port(datas[1])
+                self.read_ack(self.ok)
+                self.write_port(datas[2])
+                self.read_ack(self.ok)
 
-            datas = self.msb_csb_lsb(abs(y_steps))
-            self.write_port(datas[0])
-            self.read_ack(self.ok)
-            self.write_port(datas[1])
-            self.read_ack(self.ok)
-            self.write_port(datas[2])
-            self.read_ack(self.ok)
+                datas = self.msb_csb_lsb(abs(y_steps))
+                self.write_port(datas[0])
+                self.read_ack(self.ok)
+                self.write_port(datas[1])
+                self.read_ack(self.ok)
+                self.write_port(datas[2])
+                self.read_ack(self.ok)
 
-            datas = self.msb_csb_lsb(abs(z_steps))
-            self.write_port(datas[0])
-            self.read_ack(self.ok)
-            self.write_port(datas[1])
-            self.read_ack(self.ok)
-            self.write_port(datas[2])
-            self.read_ack(self.ok)
+                datas = self.msb_csb_lsb(abs(z_steps))
+                self.write_port(datas[0])
+                self.read_ack(self.ok)
+                self.write_port(datas[1])
+                self.read_ack(self.ok)
+                self.write_port(datas[2])
+                self.read_ack(self.ok)
 
     def get_position(self):
         return {
