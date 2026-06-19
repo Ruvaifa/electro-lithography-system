@@ -371,7 +371,7 @@ class HmcControlCs:
         raise Exception('Device Not Connected ' + str(In))
 
 
-    def move(self, move_a, move_b, move_c, skip_readback=False): #moves by given distances in microns
+    def move(self, move_a, move_b, move_c): #moves by given distances in microns
 
         if self.dummy:
             time.sleep(0.1)
@@ -457,20 +457,9 @@ class HmcControlCs:
             if self.indata == self.move_completed:
                 self.movement_completed = True
 
-            if skip_readback:
-                if self.axis in (None, 'x'):
-                    self.x_current_position += move_a
-                if self.axis in (None, 'y'):
-                    self.y_current_position += move_b
-                if self.axis in (None, 'z'):
-                    self.z_current_position += move_c
-                self.current_x = self.x_current_position
-                self.current_y = self.y_current_position
-                self.current_z = self.z_current_position
-            else:
-                if not self.fast_mode:
-                    self.ser.reset_input_buffer()
-                self.read_move_bytes()
+            if not self.fast_mode:
+                self.ser.reset_input_buffer()
+            self.read_move_bytes()
 
             if self.axis in (None, 'x'):
                 if self.indata == self.x_home_limit:
@@ -605,77 +594,79 @@ class HmcControlCs:
         last_error = None
         for attempt in range(3):
             try:
-                self.ser.reset_input_buffer()
-                self.write_port(self.READ)
-                deadline = time.perf_counter() + self.ack_timeout_seconds
-                while True:
-                    r = self.ser.read(1)
-                    if r == b'':
-                        if time.perf_counter() >= deadline:
-                            raise TimeoutError("Timed out waiting for Ack 164")
-                        continue
+                with self.serial_lock:
+                    self.ser.reset_input_buffer()
+                    self.ser.write(bytes([self.READ]))
+                    deadline = time.perf_counter() + self.ack_timeout_seconds
+                    while True:
+                        r = self.ser.read(1)
+                        if r == b'':
+                            if time.perf_counter() >= deadline:
+                                raise TimeoutError("Timed out waiting for Ack 164")
+                            continue
 
-                    in_data = ord(r)
-                    if in_data == self.READ_ACK:
-                        break
+                        in_data = ord(r)
+                        if in_data == self.READ_ACK:
+                            break
 
-                    if in_data == self.ok:
-                        raise TimeoutError("Stale OK byte seen while waiting for READ_ACK")
+                        if in_data == self.ok:
+                            raise TimeoutError("Stale OK byte seen while waiting for READ_ACK")
 
-                    raise Exception('Invalid Ack ' + str(in_data) + ' given ack ' + str(self.READ_ACK))
+                        raise Exception('Invalid Ack ' + str(in_data) + ' given ack ' + str(self.READ_ACK))
 
-                #print("[DEBUG] read_move_bytes: READ_ACK received")
+                    #print("[DEBUG] read_move_bytes: READ_ACK received")
 
-                if self.axis == 'x':
-                    self.x_moving = self.Read_axis_data()
-                    self.x_moving *= self.Resolution_A
-                elif self.axis == 'y':
-                    self.y_moving = self.Read_axis_data()
-                    self.y_moving *= self.Resolution_B
-                elif self.axis == 'z':
-                    self.z_moving = self.Read_axis_data()
-                    self.z_moving *= self.Resolution_C
-                else:
-                    self.x_moving = self.Read_axis_data()
-                    self.x_moving *= self.Resolution_A
+                    if self.axis == 'x':
+                        self.x_moving = self.Read_axis_data()
+                        self.x_moving *= self.Resolution_A
+                    elif self.axis == 'y':
+                        self.y_moving = self.Read_axis_data()
+                        self.y_moving *= self.Resolution_B
+                    elif self.axis == 'z':
+                        self.z_moving = self.Read_axis_data()
+                        self.z_moving *= self.Resolution_C
+                    else:
+                        self.x_moving = self.Read_axis_data()
+                        self.x_moving *= self.Resolution_A
 
-                    self.y_moving = self.Read_axis_data()
-                    self.y_moving *= self.Resolution_B
+                        self.y_moving = self.Read_axis_data()
+                        self.y_moving *= self.Resolution_B
 
-                    self.z_moving = self.Read_axis_data()
-                    self.z_moving = self.Read_axis_data()
-                    self.z_moving *= self.Resolution_C
+                        self.z_moving = self.Read_axis_data()
+                        self.z_moving *= self.Resolution_C
                 return
             except (TimeoutError, Exception) as e:
                 last_error = e
                 if attempt == 2:
                     raise
                 time.sleep(0.05)
-                self.ser.reset_input_buffer()
+                with self.serial_lock:
+                    self.ser.reset_input_buffer()
         if last_error:
             raise last_error
         #print("[DEBUG] read_move_bytes: done")
 
 
     def Read_axis_data(self): #reads 4 bytes for one axis and combine them into a full step value
-        self.write_port(self.ok)
-        self.axis_read_value()
-        byte0 = self.indata
+        with self.serial_lock:
+            self.ser.write(bytes([self.ok, self.ok, self.ok, self.ok]))
+            data = self.ser.read(4)
+            if len(data) < 4:
+                bytes_list = list(data)
+                deadline = time.perf_counter() + self.axis_read_timeout_seconds
+                while len(bytes_list) < 4 and not self.force_stop_thread:
+                    r = self.ser.read(1)
+                    if r != b'':
+                        bytes_list.append(ord(r))
+                    elif time.perf_counter() >= deadline:
+                        raise TimeoutError("Timed out waiting for axis read byte")
+                byte0, byte1, byte2, byte3 = bytes_list
+            else:
+                byte0, byte1, byte2, byte3 = data
 
-        self.write_port(self.ok)
-        self.axis_read_value()
-        byte1 = self.indata
-
-        self.write_port(self.ok)
-        self.axis_read_value()
-        byte2 = self.indata
-
-        self.write_port(self.ok)
-        self.axis_read_value()
-        byte3 = self.indata
-        # (byte2 * 65535) + (byte1 * 255) + byte0
         steps = (byte3 * 16777216) + (byte2 * 65536) + (byte1 * 256) + byte0
         return steps
+
 
 
     def _send_axis_speed(self, speed_value, resolution):

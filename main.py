@@ -189,7 +189,7 @@ class ZFeedbackWorker(Thread):
             try:
                 previous_timeout = self.z_hmc.motion_timeout_seconds
                 self.z_hmc.motion_timeout_seconds = max(5.0, abs(delta_z) / max(self.feedback_speed, 1) + 2.0)
-                self.z_hmc.move(0, 0, delta_z, skip_readback=True)
+                self.z_hmc.move(0, 0, delta_z)
                 print(f"[Z FEEDBACK] Move complete, Z={self.z_hmc.z_current_position:.3f} um")
             except Exception as e:
                 print(f"[WARN] Z feedback move failed: {e}")
