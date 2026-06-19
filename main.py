@@ -166,7 +166,7 @@ class ZFeedbackWorker(Thread):
         while not self.stop_event.is_set():
             snapshot = self.state.snapshot()
             if snapshot["update_id"] == last_applied_update:
-                self.stop_event.wait(0.01)
+                self.stop_event.wait(0.001)
                 continue
 
             last_applied_update = snapshot["update_id"]
@@ -1024,6 +1024,7 @@ def main():
         delta_z = float(input("Enter Z adjustment step for plotting (in µm): "))
         z_contact_step = float(input("Enter Z adjustment step for finding contact point:"))
         speed = float(input("Enter speed for xy axis: "))
+        z_feedback_speed = float(input("Enter speed for Z feedback in µm/s (e.g. 3000): "))
         liftoff_height = float(input("Enter liftoff height in µm: "))
         max_safe_z_margin = float(input("Enter maximum allowed Z increase above first contact point (in um, e.g. 100): "))
         filename = input("Enter filename: ")
@@ -1078,7 +1079,7 @@ def main():
             feedback_stop,
             delta_z,
             max_safe_z,
-            feedback_speed=init_speed,
+            feedback_speed=z_feedback_speed,
         )
 
         # Decouple Z axis controller from App during X/Y movement to prevent serial port collisions
