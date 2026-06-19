@@ -82,6 +82,15 @@ def classify_voltage(voltage, threshold_voltage_1, threshold_voltage_2):
         return 3
     return 0
 
+def feedback_direction_label(direction):
+    if direction == 1:
+        return "in_range"
+    if direction == 2:
+        return "low_move_down"
+    if direction == 3:
+        return "high_move_up"
+    return "unknown"
+
 def read_voltage_sample(smu):
     response = smu.query('READ?').strip()
     if not response:
@@ -107,7 +116,7 @@ def read_first_last_point(filename):
     return first_point[0], first_point[1], last_point[0], last_point[1]
 
 class SmuVoltageSampler(Thread):
-    def __init__(self, smu, threshold_voltage_1, threshold_voltage_2, state, stop_event, sample_interval=0.05):
+    def __init__(self, smu, threshold_voltage_1, threshold_voltage_2, state, stop_event, sample_interval=0.05, log_interval=1.0):
         super().__init__(daemon=True)
         self.smu = smu
         self.threshold_voltage_1 = threshold_voltage_1
@@ -115,13 +124,25 @@ class SmuVoltageSampler(Thread):
         self.state = state
         self.stop_event = stop_event
         self.sample_interval = sample_interval
+        self.log_interval = log_interval
 
     def run(self):
+        last_log_time = 0.0
+        last_direction = None
+        print(f"[SMU SAMPLE] Sampler started, interval={self.sample_interval * 1000:.1f} ms")
         while not self.stop_event.is_set():
             try:
                 voltage, current = read_voltage_sample(self.smu)
                 direction = classify_voltage(voltage, self.threshold_voltage_1, self.threshold_voltage_2)
                 self.state.update(voltage, current, direction)
+                now = time.perf_counter()
+                if direction != last_direction or now - last_log_time >= self.log_interval:
+                    print(
+                        f"[SMU SAMPLE] V={voltage:.4f} V, I={current:.4e} A, "
+                        f"direction={feedback_direction_label(direction)}"
+                    )
+                    last_log_time = now
+                    last_direction = direction
             except Exception as e:
                 print(f"[WARN] SMU sampler error: {e}")
                 self.state.update(None, None, 0)
@@ -140,6 +161,7 @@ class ZFeedbackWorker(Thread):
 
     def run(self):
         last_applied_update = -1
+        print(f"[Z FEEDBACK] Worker started, step={self.step_um} um, speed={self.feedback_speed} um/s")
         self.z_hmc.set_speed(0, 0, self.feedback_speed)
         while not self.stop_event.is_set():
             snapshot = self.state.snapshot()
@@ -154,6 +176,11 @@ class ZFeedbackWorker(Thread):
 
             delta_z = -self.step_um if direction == 2 else self.step_um
             predicted_z = self.z_hmc.z_current_position + delta_z
+            print(
+                f"[Z FEEDBACK] Applying {delta_z:+.3f} um from "
+                f"{self.z_hmc.z_current_position:.3f} to {predicted_z:.3f} "
+                f"for {feedback_direction_label(direction)}"
+            )
             if predicted_z > self.max_safe_z:
                 print(f"[ABORT] Z feedback would exceed safe limit: {predicted_z} um > {self.max_safe_z} um")
                 self.stop_event.set()
@@ -970,6 +997,7 @@ def main():
                 h.ser.reset_input_buffer()
 
         def move_xy(dx, dy):
+            app.hmcControl = x_hmc
             app.command = '1'
             app.x_value = dx
             app.y_value = dy
@@ -1068,6 +1096,7 @@ def main():
         finally:
             # Re-couple Z axis controller to App
             app.z_hmc = z_hmc
+            app.hmcControl = z_hmc
             feedback_stop.set()
             sampler.join(timeout=2)
             z_worker.join(timeout=2)
