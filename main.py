@@ -86,9 +86,9 @@ def feedback_direction_label(direction):
     if direction == 1:
         return "in_range"
     if direction == 2:
-        return "low_move_down"
+        return "low_lift_up"
     if direction == 3:
-        return "high_move_up"
+        return "high_move_down"
     return "unknown"
 
 def read_voltage_sample(smu):
@@ -187,11 +187,16 @@ class ZFeedbackWorker(Thread):
                 break
 
             try:
+                previous_timeout = self.z_hmc.motion_timeout_seconds
+                self.z_hmc.motion_timeout_seconds = max(5.0, abs(delta_z) / max(self.feedback_speed, 1) + 2.0)
                 self.z_hmc.move(0, 0, delta_z)
+                print(f"[Z FEEDBACK] Move complete, Z={self.z_hmc.z_current_position:.3f} um")
             except Exception as e:
                 print(f"[WARN] Z feedback move failed: {e}")
                 self.stop_event.set()
                 break
+            finally:
+                self.z_hmc.motion_timeout_seconds = previous_timeout
 
 def list_ports():
     ports = serial.tools.list_ports.comports()

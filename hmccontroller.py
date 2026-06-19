@@ -195,6 +195,9 @@ class HmcControlCs:
 
         self.fast_mode = False
         self._last_speed_signature = None
+        self.ack_timeout_seconds = 2.0
+        self.axis_read_timeout_seconds = 2.0
+        self.motion_timeout_seconds = None
 
         self.serial_lock = threading.Lock()
  
@@ -282,10 +285,13 @@ class HmcControlCs:
             self.ser.write(out)
     def read_ack(self, ack): #Waits for the controller to send acknowledgement byte and compares it with expected ack, if mismatched, raises an exception
         In = 0
+        deadline = time.perf_counter() + self.ack_timeout_seconds
         while True:
             r = self.ser.read(1)
             #print(str(r))
             if r == b'':
+                if time.perf_counter() >= deadline:
+                    raise TimeoutError(f"Timed out waiting for Ack {ack}")
                 continue
             In = ord(r)
             break
@@ -306,10 +312,13 @@ class HmcControlCs:
     def axis_read_value(self):
         #same as read_value but breaks off early if force_stop_thread is detected
         self.indata = 0
+        deadline = time.perf_counter() + self.axis_read_timeout_seconds
         while True and not self.force_stop_thread:
             r = self.ser.read(1)
             #print(str(r))
             if r == b'':
+                if time.perf_counter() >= deadline:
+                    raise TimeoutError("Timed out waiting for axis read byte")
                 continue
             self.indata = ord(r)
             return self.indata
@@ -407,7 +416,14 @@ class HmcControlCs:
         self.set_move_data(move_a, move_b, self._logical_z_to_motor_z(move_c))
 
         self.indata = 0
+        move_start_time = time.perf_counter()
         while self.indata == 0 and not self.stop_thread:
+            if self.motion_timeout_seconds is not None:
+                if time.perf_counter() - move_start_time > self.motion_timeout_seconds:
+                    raise TimeoutError(
+                        f"Timed out waiting for {self.axis or 'xyz'} move completion "
+                        f"after {self.motion_timeout_seconds:.1f}s"
+                    )
             self.indata = self.move_status()
 
         if self.indata == 0 and self.stop_thread:   
