@@ -154,12 +154,17 @@ class ZFeedbackWorker(Thread):
         self.step_um = step_um
         self.max_safe_z = max_safe_z
         self.feedback_speed = feedback_speed
+        self.enabled = threading.Event()
+        self.enabled.set()
 
     def run(self):
         print(f"[Z FEEDBACK] Worker started, step={self.step_um} um, speed={self.feedback_speed} um/s")
         self.z_hmc.set_speed(0, 0, self.feedback_speed)
         move_finish_time = time.perf_counter()
         while not self.stop_event.is_set():
+            if not self.enabled.is_set():
+                self.stop_event.wait(0.005)
+                continue
             snapshot = self.state.snapshot()
             if snapshot["sample_time"] <= move_finish_time:
                 self.stop_event.wait(0.001)
@@ -1044,7 +1049,19 @@ def main():
         sync_serial_once()
         set_fast_motion(True, False)
 
-        first_x, first_y, last_x, last_y = read_first_last_point(filename)
+        # Read the file points
+        lines = []
+        with open(f"{filename}.txt", "r") as file:
+            for line in file:
+                parts = line.strip().replace(',', ' ').split()
+                if len(parts) >= 3:
+                    lines.append((float(parts[0]), float(parts[1]), int(parts[2])))
+
+        if not lines:
+            print(f"[ERROR] No valid data found in {filename}.txt")
+            return
+
+        first_x, first_y, first_flag = lines[0]
         dx = first_x - x_hmc.current_x
         dy = first_y - y_hmc.current_y
 
@@ -1099,23 +1116,86 @@ def main():
         move_count = 0
 
         try:
-            line_dx = last_x - first_x
-            line_dy = last_y - first_y
-            theta = math.atan2(line_dx, line_dy)
-            vx = speed * math.sin(theta)
-            vy = speed * math.cos(theta)
-            x_hmc.set_speed(vx, 0, 0)
-            y_hmc.set_speed(0, vy, 0)
+            prev_x, prev_y = first_x, first_y
+            prev_flag = first_flag
+            liftoff = False
 
-            print("[INFO] Starting threaded straight-line motion with background SMU feedback...")
-            move_start_time = time.perf_counter()
-            move_xy(line_dx, line_dy)
-            move_elapsed = time.perf_counter() - move_start_time
+            for idx in range(1, len(lines)):
+                x, y, flag = lines[idx]
+                dx = x - prev_x
+                dy = y - prev_y
+                print(f"[MOVE {idx}] Target coordinates: X={x:.1f}, Y={y:.1f}, flag={flag}")
 
-            xy_movement_time += move_elapsed
-            xy_move_count += 1
-            xy_commanded_distance += math.hypot(line_dx, line_dy)
-            move_count += 1
+                if flag == 1:
+                    if prev_flag == 0:
+                        print("[INFO] liftoff Initiated")
+                        z_worker.enabled.clear()
+                        try:
+                            # Move Z up by liftoff_height
+                            z_hmc.move(0, 0, -liftoff_height)
+                            print(f"[LIFTOFF] Z moved up by {liftoff_height} um")
+                        except Exception as e:
+                            print(f"[WARN] Liftoff Z move failed: {e}")
+                        liftoff = True
+                    else:
+                        pass
+                else:
+                    # flag == 0
+                    if liftoff:
+                        print("[INFO] Finding new contact point...")
+                        z_worker.enabled.clear()
+                        # Couple Z back temporarily for find_contact_point
+                        app.z_hmc = z_hmc
+                        app.hmcControl = z_hmc
+                        
+                        z_contact_point = find_contact_point(initial_step_size=z_contact_step, smu=smu, threshold_current_ua=threshold_current_ua, step_queue=step_queue)
+                        z_hmc.current_z = z_contact_point
+                        max_safe_z = z_hmc.z_current_position + max_safe_z_margin
+                        print(f"[SAFETY] Updated max_safe_z: {max_safe_z} um")
+                        
+                        with time_block(timers, "smu.reset_smu"):
+                            smumark2.reset_smu(smu)
+                        with time_block(timers, "smu.use_case_2"):
+                            smumark2.use_case_2(smu, voltage=volt_source, compliance_current_ua=curr_comp)
+                        smumark2.out_on(smu)
+                        
+                        # Decouple Z axis again for XY move
+                        app.z_hmc = None
+                        
+                        z_worker.max_safe_z = max_safe_z
+                        z_worker.enabled.set()
+                        liftoff = False
+                    else:
+                        z_worker.enabled.set()
+
+                # Calculate speed for XY segment
+                segment_xy_distance = math.hypot(dx, dy)
+                if segment_xy_distance > 0:
+                    theta = math.atan2(dx, dy)
+                    sin_theta = math.sin(theta)
+                    cos_theta = math.cos(theta)
+                    vx = speed * sin_theta
+                    vy = speed * cos_theta
+                    x_hmc.set_speed(vx, 0, 0)
+                    y_hmc.set_speed(0, vy, 0)
+                else:
+                    vx, vy = speed, speed
+                    x_hmc.set_speed(vx, 0, 0)
+                    y_hmc.set_speed(0, vy, 0)
+
+                # Move X/Y
+                if dx != 0 or dy != 0:
+                    move_start_time = time.perf_counter()
+                    move_xy(dx, dy)
+                    move_elapsed = time.perf_counter() - move_start_time
+                    xy_movement_time += move_elapsed
+                    xy_move_count += 1
+                    xy_commanded_distance += segment_xy_distance
+
+                prev_x, prev_y = x, y
+                prev_flag = flag
+                move_count += 1
+                print(f"[MOVE {idx}] Completed. Position: X={x_hmc.current_x:.1f}, Y={y_hmc.current_y:.1f}, Z={z_hmc.z_current_position:.1f}")
         finally:
             # Re-couple Z axis controller to App
             app.z_hmc = z_hmc
