@@ -1089,6 +1089,12 @@ def main():
         sampler.start()
         z_worker.start()
 
+        pattern_start_time = time.perf_counter()
+        xy_movement_time = 0
+        xy_move_count = 0
+        xy_commanded_distance = 0.0
+        move_count = 0
+
         try:
             line_dx = last_x - first_x
             line_dy = last_y - first_y
@@ -1099,7 +1105,14 @@ def main():
             y_hmc.set_speed(0, vy, 0)
 
             print("[INFO] Starting threaded straight-line motion with background SMU feedback...")
+            move_start_time = time.perf_counter()
             move_xy(line_dx, line_dy)
+            move_elapsed = time.perf_counter() - move_start_time
+
+            xy_movement_time += move_elapsed
+            xy_move_count += 1
+            xy_commanded_distance += math.hypot(line_dx, line_dy)
+            move_count += 1
         finally:
             # Re-couple Z axis controller to App
             app.z_hmc = z_hmc
@@ -1109,6 +1122,16 @@ def main():
             z_worker.join(timeout=2)
             smumark2.out_off(smu)
             set_fast_motion(False, False)
+
+        pattern_elapsed = time.perf_counter() - pattern_start_time
+        print(f"[TIMER] Patterning completed in {format_elapsed_time(pattern_elapsed)}.")
+        print(f"[TIMER] X/Y movement time: {format_elapsed_time(xy_movement_time)} across {xy_move_count} moves.")
+        if xy_move_count:
+            estimated_xy_travel = xy_commanded_distance / speed if speed else 0
+            print(f"[TIMER] Commanded XY distance: {xy_commanded_distance:.2f} µm")
+            print(f"[TIMER] Estimated pure XY travel at {speed} µm/s: {format_elapsed_time(estimated_xy_travel)}")
+            print(f"[TIMER] Average XY distance per move: {xy_commanded_distance / xy_move_count:.2f} µm")
+        print_timing_summary(timers, move_count, xy_move_count)
 
         print("[INFO] Threaded straight-line feedback run complete.")
         print("Final Z Position:", z_hmc.z_current_position)
