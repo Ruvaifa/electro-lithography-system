@@ -144,6 +144,8 @@ class SmuVoltageSampler(Thread):
                     last_log_time = now
                     last_direction = direction
             except Exception as e:
+                if self.stop_event.is_set():
+                    break
                 print(f"[WARN] SMU sampler error: {e}")
                 self.state.update(None, None, 0)
             if self.stop_event.wait(self.sample_interval):
@@ -754,7 +756,14 @@ def main():
                                 h.ser.reset_input_buffer()
                         prev_flag = flag
                         i += 1
-                smumark2.out_off(smu)
+                try:
+                    smumark2.out_off(smu)
+                except Exception:
+                    pass
+                try:
+                    smu.close()
+                except Exception:
+                    pass
             pattern_elapsed = time.perf_counter() - pattern_start_time
             print(f"[TIMER] Patterning completed in {format_elapsed_time(pattern_elapsed)}.")
             print(f"[TIMER] X/Y movement time: {format_elapsed_time(xy_movement_time)} across {xy_move_count} moves.")
@@ -1118,9 +1127,23 @@ def main():
             app.z_hmc = z_hmc
             app.hmcControl = z_hmc
             feedback_stop.set()
-            sampler.join(timeout=2)
+            sampler.join(timeout=0.1)
+            if sampler.is_alive():
+                try:
+                    smu.close()
+                except Exception:
+                    pass
+                sampler.join(timeout=1.0)
+            else:
+                try:
+                    smumark2.out_off(smu)
+                except Exception:
+                    pass
+                try:
+                    smu.close()
+                except Exception:
+                    pass
             z_worker.join(timeout=2)
-            smumark2.out_off(smu)
             set_fast_motion(False, False)
 
         pattern_elapsed = time.perf_counter() - pattern_start_time
