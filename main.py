@@ -86,9 +86,9 @@ def feedback_direction_label(direction):
     if direction == 1:
         return "in_range"
     if direction == 2:
-        return "low_lift_up"
-    if direction == 3:
         return "high_move_down"
+    if direction == 3:
+        return "low_lift_up"
     return "unknown"
 
 def read_voltage_sample(smu):
