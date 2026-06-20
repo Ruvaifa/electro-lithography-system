@@ -92,13 +92,7 @@ def feedback_direction_label(direction):
     return "unknown"
 
 def read_voltage_sample(smu):
-    response = smu.query('READ?').strip()
-    if not response:
-        smu.write("OUTP ON")
-        time.sleep(0.02)
-        response = smu.query('READ?').strip()
-    voltage, current = map(float, response.split(',')[:2])
-    return voltage, current
+    return smumark2.read_voltage_sample(smu, ensure_output_on=True)
 
 def read_first_last_point(filename):
     first_point = None

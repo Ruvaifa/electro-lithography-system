@@ -1,6 +1,21 @@
 import pyvisa
 import time
 
+def check_smu_errors(smu):
+    try:
+        errors = []
+        while True:
+            err = smu.query(":SYST:ERR?").strip()
+            if "No error" in err or err.startswith("0,") or not err:
+                break
+            errors.append(err)
+        if errors:
+            print("[SMU SCPI ERRORS DETECTED]")
+            for e in errors:
+                print(f"  -> {e}")
+    except Exception as e:
+        print(f"[WARN] Could not read SMU error queue: {e}")
+
 def init_smu():
     rm = pyvisa.ResourceManager()
     smu_address = 'USB0::0x2184::0x007D::gey853397::INSTR'  # Replace with your address
@@ -8,15 +23,25 @@ def init_smu():
     smu.timeout = 5000
     smu.write_termination = '\n'
     smu.read_termination = '\n'
+    try:
+        smu.clear()  # Send Device Clear to un-hang trigger model and interface
+    except Exception as e:
+        print(f"[WARN] SMU clear failed: {e}")
     smu.write('*CLS')
     smu.write('*RST')
     print("[INFO] SMU Reset complete.")
+    check_smu_errors(smu)
     return smu
 
 def reset_smu(smu):
+    try:
+        smu.clear()
+    except Exception:
+        pass
     smu.write('*CLS')
     smu.write('*RST')
     print("[INFO] SMU Reset complete.")
+    check_smu_errors(smu)
 
 def use_case_1(smu, voltage=1, compliance_current_ua=105): #set compliance current and source voltage
     reset_smu(smu)
@@ -26,7 +51,9 @@ def use_case_1(smu, voltage=1, compliance_current_ua=105): #set compliance curre
     smu.write("SENS:NPLC 0.05")
 
     print(f"[INFO] Voltage set to {voltage} V, Compliance Current: {compliance_current_ua} micro A")
+    check_smu_errors(smu)
     return smu
+
 def use_case_2(smu,voltage = 1,compliance_current_ua = 1000): #set complaince curr nd source volt
     reset_smu(smu)
     smu.write("SOUR:FUNC VOLT")
@@ -34,6 +61,7 @@ def use_case_2(smu,voltage = 1,compliance_current_ua = 1000): #set complaince cu
     smu.write(f"SENS:CURR:PROT {compliance_current_ua * 1e-6}")
     smu.write("SENS:NPLC 0.05")
     print(f"Voltage set as {voltage} V, Current set as {compliance_current_ua} micro A ")
+    check_smu_errors(smu)
     return smu
 
 def out_on(smu):
