@@ -48,7 +48,7 @@ def use_case_1(smu, voltage=1, compliance_current_ua=105): #set compliance curre
     smu.write("SOUR:FUNC VOLT")
     smu.write(f"SOUR:VOLT {voltage}")
     smu.write(f"SENS:CURR:PROT {compliance_current_ua * 1e-6}")
-    smu.write("SENS:NPLC 0.05")
+    smu.write("SENS:CURR:NPLC 0.05")
 
     print(f"[INFO] Voltage set to {voltage} V, Compliance Current: {compliance_current_ua} micro A")
     check_smu_errors(smu)
@@ -59,7 +59,7 @@ def use_case_2(smu,voltage = 1,compliance_current_ua = 1000): #set complaince cu
     smu.write("SOUR:FUNC VOLT")
     smu.write(f"SOUR:VOLT {voltage}")
     smu.write(f"SENS:CURR:PROT {compliance_current_ua * 1e-6}")
-    smu.write("SENS:NPLC 0.05")
+    smu.write("SENS:CURR:NPLC 0.05")
     print(f"Voltage set as {voltage} V, Current set as {compliance_current_ua} micro A ")
     check_smu_errors(smu)
     return smu
