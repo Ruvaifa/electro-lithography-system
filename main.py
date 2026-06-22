@@ -119,12 +119,17 @@ class SmuVoltageSampler(Thread):
         self.stop_event = stop_event
         self.sample_interval = sample_interval
         self.log_interval = log_interval
+        self.enabled = threading.Event()
+        self.enabled.set()
 
     def run(self):
         last_log_time = 0.0
         last_direction = None
         print(f"[SMU SAMPLE] Sampler started, interval={self.sample_interval * 1000:.1f} ms")
         while not self.stop_event.is_set():
+            if not self.enabled.is_set():
+                self.stop_event.wait(0.005)
+                continue
             try:
                 voltage, current = read_voltage_sample(self.smu)
                 direction = classify_voltage(voltage, self.threshold_voltage_1, self.threshold_voltage_2)
@@ -1175,6 +1180,7 @@ def main():
                     if prev_flag == 0:
                         print("[INFO] liftoff Initiated")
                         z_worker.enabled.clear()
+                        sampler.enabled.clear()
                         try:
                             # Move Z up by liftoff_height
                             z_hmc.move(0, 0, -liftoff_height)
@@ -1189,6 +1195,7 @@ def main():
                     if liftoff:
                         print("[INFO] Finding new contact point...")
                         z_worker.enabled.clear()
+                        sampler.enabled.clear()
                         # Couple Z back temporarily for find_contact_point
                         app.z_hmc = z_hmc
                         app.hmcControl = z_hmc
@@ -1217,9 +1224,11 @@ def main():
                         
                         z_worker.max_safe_z = max_safe_z
                         z_worker.enabled.set()
+                        sampler.enabled.set()
                         liftoff = False
                     else:
                         z_worker.enabled.set()
+                        sampler.enabled.set()
 
                 # Calculate speed for XY segment
                 segment_xy_distance = math.hypot(dx, dy)

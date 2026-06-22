@@ -69,15 +69,27 @@ def out_on(smu):
     setattr(smu, "_output_enabled", True)
 
 def _read_sample(smu, ensure_output_on=True):
+    for attempt in range(3):
+        try:
+            if ensure_output_on and not getattr(smu, "_output_enabled", False):
+                smu.write("OUTP ON")
+                setattr(smu, "_output_enabled", True)
+            response = smu.query('READ?').strip()
+            if response:
+                voltage, current = map(float, response.split(',')[:2])
+                return voltage, current
+        except Exception as e:
+            print(f"[WARN] SMU read attempt {attempt+1} failed: {e}")
+            try:
+                smu.clear()
+            except Exception:
+                pass
+            time.sleep(0.02)
+    # Final fallback attempt
     if ensure_output_on and not getattr(smu, "_output_enabled", False):
         smu.write("OUTP ON")
         setattr(smu, "_output_enabled", True)
     response = smu.query('READ?').strip()
-    if not response:
-        smu.write("OUTP ON")
-        setattr(smu, "_output_enabled", True)
-        time.sleep(0.02)
-        response = smu.query('READ?').strip()
     voltage, current = map(float, response.split(',')[:2])
     return voltage, current
 
