@@ -468,10 +468,149 @@ def plot_concentric_hexagons(filename="concentric_hexagons.txt"):
     plt.gca().set_aspect('equal', adjustable='box')
     plt.show()
 
+#---------------------------------------------------------------------------------
+# GENERATE CONCENTRIC CIRCLES WITH LIFTOFF FLAGS
+def generate_concentric_circles(
+    radii=[1000, 2000, 3000],
+    center_x=10000,
+    center_y=10000,
+    point_spacing=100.0,
+    output_file="concentric_circles.txt"
+):
+    """
+    Generates coordinates for concentric circles of defined radii.
+    Points are computed along each circle's circumference spaced by point_spacing.
+    Includes liftoff flags (flag=1) between circles to prevent dragging the probe.
+    """
+    coords = []
+    
+    for idx, r in enumerate(radii):
+        # Calculate points per circle based on circumference and point_spacing
+        circumference = 2 * math.pi * r
+        points_per_circle = max(6, int(round(circumference / point_spacing)))
+        
+        # Generate the vertices of the circle + 1 closing point
+        circle_points = []
+        for k in range(points_per_circle + 1):
+            angle = k * (2 * math.pi / points_per_circle)
+            x = center_x + r * math.cos(angle)
+            y = center_y + r * math.sin(angle)
+            circle_points.append((round(x, 3), round(y, 3)))
+            
+        # Draw this circle (flag = 0)
+        # For the first circle, draw all points.
+        # For subsequent circles, the touchdown transition point (appended below)
+        # already represents the start of drawing (k=0, flag=0), so we draw from k=1
+        # onwards to avoid duplicate consecutive coordinates.
+        start_point_idx = 0 if idx == 0 else 1
+        for x, y in circle_points[start_point_idx:]:
+            coords.append((x, y, 0))
+            
+        # Transition to next circle if not the last one
+        if idx < len(radii) - 1:
+            end_x, end_y, _ = coords[-1]
+            
+            # 1. Lift off at end of current circle: flag = 1
+            coords.append((end_x, end_y, 1))
+            
+            # 2. Start point of next circle
+            next_r = radii[idx + 1]
+            next_start_x = round(center_x + next_r * math.cos(0), 3)
+            next_start_y = round(center_y + next_r * math.sin(0), 3)
+            
+            # 3. Move to start of next circle in the air: flag = 1
+            coords.append((next_start_x, next_start_y, 1))
+            
+            # 4. Touch down/re-probe at start of next circle: flag = 0
+            coords.append((next_start_x, next_start_y, 0))
+
+    # Save to file
+    with open(output_file, "w") as f:
+        for x, y, flag in coords:
+            f.write(f"{x:.3f}, {y:.3f}, {flag}\n")
+
+    print(f"[SUCCESS] Generated {len(coords)} points for {len(radii)} concentric circles.")
+    print(f"[SAVED] Saved to '{output_file}'")
+
+def plot_concentric_circles(filename="concentric_circles.txt"):
+    """
+    Optional visualization of the generated concentric circles path using matplotlib.
+    Solid lines represent drawing segments (flag=0).
+    Dashed lines represent travel/liftoff segments (flag=1).
+    """
+    try:
+        import matplotlib.pyplot as plt
+    except ImportError:
+        print("[INFO] matplotlib is not installed. Skipping circle visualization.")
+        return
+
+    xs, ys, flags = [], [], []
+    try:
+        with open(filename, 'r') as f:
+            for line in f:
+                parts = line.strip().split(',')
+                if len(parts) >= 3:
+                    xs.append(float(parts[0]))
+                    xs.append(float(parts[1]))
+                    flags.append(int(float(parts[2])))
+    except Exception as e:
+        print(f"[ERROR] Failed to read file for plotting circles: {e}")
+        return
+
+    plt.figure(figsize=(8, 8))
+    
+    # Plot line segments
+    i = 0
+    draw_plotted = False
+    travel_plotted = False
+    while i < len(xs) - 1:
+        x1, y1, f1 = xs[i], ys[i], flags[i]
+        x2, y2, f2 = xs[i+1], ys[i+1], flags[i+1]
+        
+        # If either point has liftoff/travel flag (1), it's a travel segment
+        if f1 == 1 or f2 == 1:
+            label = "Travel/Liftoff (flag=1)" if not travel_plotted else ""
+            plt.plot([x1, x2], [y1, y2], color='red', linestyle='--', alpha=0.6, label=label)
+            travel_plotted = True
+        else:
+            label = "Drawing (flag=0)" if not draw_plotted else ""
+            plt.plot([x1, x2], [y1, y2], color='blue', linestyle='-', linewidth=1.5, label=label)
+            draw_plotted = True
+        i += 1
+
+    # Draw vertices
+    plt.scatter(xs, ys, color='black', s=8, zorder=5, label='Vertices')
+
+    plt.title("Concentric Circles Patterning Path & Liftoff Signals")
+    plt.xlabel("X Coordinate (microns)")
+    plt.ylabel("Y Coordinate (microns)")
+    plt.grid(True)
+    plt.legend()
+    plt.gca().set_aspect('equal', adjustable='box')
+    plt.show()
+
 if __name__ == "__main__":
-    # ponytail: Keep entrypoint simple, run the requested concentric hexagons generation and plot
-    #generate_concentric_hexagons(radii=[1000, 2000, 3000], center_x=10000, center_y=10000, output_file="concentric_hexagons.txt")
-    # Try to plot if matplotlib is available
-    plot_concentric_hexagons("concentric_hexagons.txt")
+    # ponytail: Keep entrypoint simple, run both hexagon and circle generators
+    
+    # Hexagons
+    # generate_concentric_hexagons(
+    #     radii=[500, 1000, 1500],
+    #     center_x=10000,
+    #     center_y=10000,
+    #     output_file="concentric_hexagons.txt"
+    # )
+    
+    # Circles
+    generate_concentric_circles(
+        radii=[500, 1000, 1500],
+        center_x=10000,
+        center_y=10000,
+        point_spacing=5.0,
+        output_file="concentric_circles.txt"
+    )
+    
+    # Try to plot if matplotlib is available (uncomment to visualize)
+    # plot_concentric_hexagons("concentric_hexagons.txt")
+    #plot_concentric_circles("concentric_circles.txt")
 
 
