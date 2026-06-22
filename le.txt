@@ -1,1 +1,61 @@
-EVERYTHING IS PERFECT
+[Z FEEDBACK] Applying +2.000 um from 4996.000 to 4998.000 for low_lift_up
+z_current_position: 0
+[MOVE 1] Completed. Position: X=11000.0, Y=10000.0, Z=4996.0
+[MOVE 2] Target coordinates: X=11000.0, Y=10000.0, flag=1
+[INFO] liftoff Initiated
+z_current_position: 4998.0
+[Z FEEDBACK] Move complete, Z=4998.000 um
+[SMU SAMPLE] V=5.0001 V, I=4.1700e-08 A, direction=low_lift_up
+z_current_position: 3998.0
+[LIFTOFF] Z moved up by 1000.0 um
+[MOVE 2] Completed. Position: X=11000.0, Y=10000.0, Z=3998.0
+[MOVE 3] Target coordinates: X=10000.0, Y=10300.0, flag=1
+[SMU SAMPLE] V=4.9999 V, I=1.4061e-08 A, direction=low_lift_up
+[SMU SAMPLE] V=4.9996 V, I=-1.6040e-08 A, direction=low_lift_up
+[SMU SAMPLE] V=4.9997 V, I=-3.0603e-08 A, direction=low_lift_up
+[SMU SAMPLE] V=5.0007 V, I=-1.1043e-08 A, direction=low_lift_up
+z_current_position: 0
+[SMU SAMPLE] V=5.0003 V, I=3.3800e-08 A, direction=low_lift_up
+[SMU SAMPLE] V=4.9996 V, I=1.4745e-08 A, direction=low_lift_up
+[SMU SAMPLE] V=4.9994 V, I=-6.9590e-09 A, direction=low_lift_up
+[SMU SAMPLE] V=-0.0002 V, I=2.9999e-07 A, direction=high_move_down
+[SMU SAMPLE] V=4.9995 V, I=7.4570e-09 A, direction=low_lift_up
+[SMU SAMPLE] V=-0.0002 V, I=2.9998e-07 A, direction=high_move_down
+[SMU SAMPLE] V=-0.0002 V, I=2.9999e-07 A, direction=high_move_down
+[SMU SAMPLE] V=-0.0003 V, I=2.9999e-07 A, direction=high_move_down
+z_current_position: 0
+[MOVE 3] Completed. Position: X=10000.0, Y=10300.0, Z=3998.0
+[MOVE 4] Target coordinates: X=10000.0, Y=10300.0, flag=0
+[INFO] Finding new contact point...
+C:\Users\user\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyvisa\resources\messagebased.py:702: UserWarning: read string doesn't end with termination characters
+  return self.read()
+[INFO] SMU Reset complete.
+[SMU SCPI ERRORS DETECTED]
+  -> -1.500000e-04,+0.000000e+00,+0.000000e+00,+0.000000e+00,+0.000000e+00
+[INFO] Voltage set to 5.0 V, Compliance Current: 0.3 micro A
+[SMU SCPI ERRORS DETECTED]
+  -> +803,Not permitted with OUTPUT off
+[Z PROBE] Starting with 950.0 µm step, then 1 µm steps.
+z_current_position: 4948.0
+z_current_position: 4949.0
+[CONTACT] Contact at 4949.0 µm
+[SAFETY] Updated max_safe_z: 44949.0 um
+[INFO] SMU Reset complete.
+[SMU SCPI ERRORS DETECTED]
+  -> -3.400000e-04,+0.000000e+00,+0.000000e+00,+0.000000e+00,+0.000000e+00
+[WARN] SMU sampler error: could not convert string to float: ''
+[INFO] SMU Reset complete.
+[SMU SAMPLE] V=-0.0003 V, I=0.0000e+00 A, direction=high_move_down
+Voltage set as 5.0 V, Current set as 0.3 micro A
+[SMU SCPI ERRORS DETECTED]
+  -> +803,Not permitted with OUTPUT off
+[Z FEEDBACK] Applying -2.000 um from 4949.000 to 4947.000 for high_move_down
+[SMU SAMPLE] V=4.9994 V, I=1.2460e-09 A, direction=low_lift_up
+[MOVE 4] Completed. Position: X=10000.0, Y=10300.0, Z=4949.0
+[MOVE 5] Target coordinates: X=11000.0, Y=10300.0, flag=0
+z_current_position: 4947.0
+[Z FEEDBACK] Move complete, Z=4947.000 um
+[Z FEEDBACK] Applying +2.000 um from 4947.000 to 4949.000 for low_lift_up
+z_current_position: 4949.0
+[Z FEEDBACK] Move complete, Z=4949.000 um
+[Z FEEDBACK] Applying +2.000 um from 4949.000 to 4951.000 for low_lift_up
