@@ -227,8 +227,8 @@ def generate_parallel_lines(
         for x, y in coords:
             f.write(f"{x}, {y}\n")
 
-    print(f"[✅] Generated {len(coords)} points across {num_lines} parallel lines.")
-    print(f"[💾] Saved to '{output_file}'")
+    print(f"[SUCCESS] Generated {len(coords)} points across {num_lines} parallel lines.")
+    print(f"[SAVED] Saved to '{output_file}'")
 
 # Example usage
 # generate_parallel_lines(
@@ -262,17 +262,17 @@ def generate_parallel_lines_variable_spacing(
         for x, y in coords:
             f.write(f"{x}, {y}\n")
 
-    print(f"[✅] Generated {len(coords)} points across {len(line_offsets)} parallel lines.")
-    print(f"[💾] Saved to '{output_file}'")
+    print(f"[SUCCESS] Generated {len(coords)} points across {len(line_offsets)} parallel lines.")
+    print(f"[SAVED] Saved to '{output_file}'")
 
-# Example usage
-generate_parallel_lines_variable_spacing(
-   line_length=1000,
-   point_spacing=1,
-   line_offsets=[0, 200, 600, 1100, 1700],
-   start_x=10000,
-   start_y=10000
-)
+# Example usage (commented out)
+# generate_parallel_lines_variable_spacing(
+#    line_length=1000,
+#    point_spacing=1,
+#    line_offsets=[0, 200, 600, 1100, 1700],
+#    start_x=10000,
+#    start_y=10000
+# )
 
 #---------------------------------------------------------------------------------
 #GENERATE HORIZONTAL AND VERTICAL LINES
@@ -347,9 +347,131 @@ def generate_circle_coordinates(
         writer.writerow(["dx", "dy"])
         writer.writerows(relative_coords)
     
-    print(f"[✅] Generated {len(relative_coords)} relative coordinates for circle.")
-    print(f"[💾] Saved to '{output_file}'")
+    print(f"[SUCCESS] Generated {len(relative_coords)} relative coordinates for circle.")
+    print(f"[SAVED] Saved to '{output_file}'")
 
 # Example usage
 #generate_circle_coordinates()
+
+#---------------------------------------------------------------------------------
+# GENERATE CONCENTRIC HEXAGONS WITH LIFTOFF FLAGS
+def generate_concentric_hexagons(
+    radii=[1000, 2000, 3000],
+    center_x=10000,
+    center_y=10000,
+    output_file="concentric_hexagons.txt"
+):
+    coords = []
+    
+    for idx, r in enumerate(radii):
+        # Generate the 6 vertices of the hexagon + 1 closing point
+        hex_points = []
+        for k in range(7):
+            angle = k * (2 * math.pi / 6)
+            x = center_x + r * math.cos(angle)
+            y = center_y + r * math.sin(angle)
+            hex_points.append((round(x, 3), round(y, 3)))
+            
+        # Draw this hexagon (flag = 0)
+        # For the first hexagon, draw all 7 points.
+        # For subsequent hexagons, the touchdown transition point (appended below)
+        # already represents the start of drawing (k=0, flag=0), so we draw from k=1
+        # onwards to avoid duplicate consecutive coordinates.
+        start_point_idx = 0 if idx == 0 else 1
+        for x, y in hex_points[start_point_idx:]:
+            coords.append((x, y, 0))
+            
+        # Transition to next hexagon if not the last one
+        if idx < len(radii) - 1:
+            end_x, end_y, _ = coords[-1]
+            
+            # 1. Lift off at end of current hexagon: flag = 1
+            coords.append((end_x, end_y, 1))
+            
+            # 2. Start point of next hexagon
+            next_r = radii[idx + 1]
+            next_start_x = round(center_x + next_r * math.cos(0), 3)
+            next_start_y = round(center_y + next_r * math.sin(0), 3)
+            
+            # 3. Move to start of next hexagon in the air: flag = 1
+            coords.append((next_start_x, next_start_y, 1))
+            
+            # 4. Touch down/re-probe at start of next hexagon: flag = 0
+            coords.append((next_start_x, next_start_y, 0))
+
+    # Save to file
+    with open(output_file, "w") as f:
+        for x, y, flag in coords:
+            f.write(f"{x:.3f}, {y:.3f}, {flag}\n")
+
+    print(f"[SUCCESS] Generated {len(coords)} points for {len(radii)} concentric hexagons.")
+    print(f"[SAVED] Saved to '{output_file}'")
+
+def plot_concentric_hexagons(filename="concentric_hexagons.txt"):
+    """
+    Optional visualization of the generated concentric hexagons path using matplotlib.
+    Solid lines represent drawing segments (flag=0).
+    Dashed lines represent travel/liftoff segments (flag=1).
+    """
+    try:
+        import matplotlib.pyplot as plt
+    except ImportError:
+        print("[INFO] matplotlib is not installed. Skipping visualization.")
+        return
+
+    xs, ys, flags = [], [], []
+    try:
+        with open(filename, 'r') as f:
+            for line in f:
+                parts = line.strip().split(',')
+                if len(parts) >= 3:
+                    xs.append(float(parts[0]))
+                    ys.append(float(parts[1]))
+                    flags.append(int(float(parts[2])))
+    except Exception as e:
+        print(f"[ERROR] Failed to read file for plotting: {e}")
+        return
+
+    plt.figure(figsize=(8, 8))
+    
+    # Plot line segments
+    i = 0
+    draw_plotted = False
+    travel_plotted = False
+    while i < len(xs) - 1:
+        x1, y1, f1 = xs[i], ys[i], flags[i]
+        x2, y2, f2 = xs[i+1], ys[i+1], flags[i+1]
+        
+        # If either point has liftoff/travel flag (1), it's a travel segment
+        if f1 == 1 or f2 == 1:
+            label = "Travel/Liftoff (flag=1)" if not travel_plotted else ""
+            plt.plot([x1, x2], [y1, y2], color='red', linestyle='--', alpha=0.6, label=label)
+            travel_plotted = True
+        else:
+            label = "Drawing (flag=0)" if not draw_plotted else ""
+            plt.plot([x1, x2], [y1, y2], color='blue', linestyle='-', linewidth=2, label=label)
+            draw_plotted = True
+        i += 1
+
+    # Draw vertices
+    plt.scatter(xs, ys, color='black', zorder=5, label='Vertices')
+    
+    # Annotate points with index and flag
+    for idx, (x, y, f) in enumerate(zip(xs, ys, flags)):
+        plt.annotate(f"P{idx}(f={f})", (x, y), textcoords="offset points", xytext=(0,8), ha='center', fontsize=7, alpha=0.8)
+
+    plt.title("Concentric Hexagons Patterning Path & Liftoff Signals")
+    plt.xlabel("X Coordinate (microns)")
+    plt.ylabel("Y Coordinate (microns)")
+    plt.grid(True)
+    plt.legend()
+    plt.gca().set_aspect('equal', adjustable='box')
+    plt.show()
+
+if __name__ == "__main__":
+    # ponytail: Keep entrypoint simple, run the requested concentric hexagons generation and plot
+    #generate_concentric_hexagons(radii=[1000, 2000, 3000], center_x=10000, center_y=10000, output_file="concentric_hexagons.txt")
+    # Try to plot if matplotlib is available
+    plot_concentric_hexagons("concentric_hexagons.txt")
+
 
