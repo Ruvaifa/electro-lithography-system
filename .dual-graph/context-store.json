@@ -1,0 +1,3 @@
+[
+  {"type": "decision", "content": "implement find_contact_point_custom in response 8 to prevent probe crash", "tags": ["patterning"], "files": ["main.py"], "date": "2026-06-22"}
+]

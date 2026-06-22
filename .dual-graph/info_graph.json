@@ -1,0 +1,1558 @@
+{
+  "root": "D:\\Python codes\\hmccontroller",
+  "node_count": 55,
+  "edge_count": 87,
+  "file_count": 11,
+  "symbol_count": 44,
+  "nodes": [
+    {
+      "id": "basler_camera.py",
+      "kind": "file",
+      "path": "basler_camera.py",
+      "ext": ".py",
+      "size": 11490,
+      "keywords": [
+        "baslercamerasettings",
+        "basler",
+        "camera",
+        "settings",
+        "baslercamera",
+        "list_basler_cameras",
+        "list",
+        "cameras",
+        "main",
+        "live",
+        "view",
+        "support",
+        "using",
+        "pypylon",
+        "this",
+        "module",
+        "intentionally",
+        "independent",
+        "from",
+        "tested",
+        "bench",
+        "imported",
+        "into",
+        "motion",
+        "control",
+        "flow"
+      ],
+      "content": "\"\"\"\nBasler camera live-view support using the pypylon SDK.\n\nThis module is intentionally independent from main.py so it can be tested on\nthe camera bench now and imported into the motion-control flow later.\n\"\"\"\n\nfrom __future__ import annotations\n\nimport argparse\nimport threading\nimport time\nfrom dataclasses import dataclass\nfrom typing import Callable, Optional\n\ntry:\n    import cv2\nexcept ImportError as exc:  # pragma: no cover - depends on local install\n    raise ImportError(\n        \"OpenCV is required for live display. Install it with: pip install opencv-python\"\n    ) from exc\n\ntry:\n    from pypylon import pylon\nexcept ImportError as exc:  # pragma: no cover - depends on local install\n    raise ImportError(\n        \"pypylon is required for Basler camera control. Install it with: pip install pypylon\"\n    ) from exc\n\n\nFrameCallback = Callable[[object], None]\n\n\n@dataclass\nclass BaslerCameraSettings:\n    \"\"\"Optional camera settings used during initialization.\"\"\"\n\n    exposure_time_us: Optional[float] = None\n    gain: Optional[float] = None\n    width: Optional[int] = None\n    height: Optional[int] = None\n    center_x: bool = True\n    center_y: bool = True\n\n\nclass BaslerCamera:\n    \"\"\"\n    Small wrapper around pypylon for live display and future integration.\n\n    Example:\n        camera = BaslerCamera()\n        camera.open()\n        camera.show_live()\n        camera.close()\n    \"\"\"\n\n    def __init__(\n        self,\n        camera_index: int = 0,\n        settings: Optional[BaslerCameraSettings] = None,\n    ) -> None:\n        self.camera_index = camera_index\n        self.settings = settings or BaslerCameraSettings()\n        self.camera: Optional[pylon.InstantCamera] = None\n        self.converter = pylon.ImageFormatConverter()\n        self.converter.OutputPixelFormat = pylon.PixelType_BGR8packed\n        self.converter.OutputBitAlignment = pylon.OutputBitAlignment_MsbAligned\n        self._stop_event = threading.Event()\n        self._stream_thread: Optional[threading.Thread] = None\n\n    def open(self) -> None:\n        \"\"\"Open the selected Basler camera and apply configured settings.\"\"\"\n        if self.camera and self.camera.IsOpen():\n            return\n\n        factory = pylon.TlFactory.GetInstance()\n        devices = factory.EnumerateDevices()\n        if not devices:\n            raise RuntimeError(\"No Basler camera found.\")\n        if self.camera_index < 0 or self.camera_index >= len(devices):\n            raise IndexError(\n                f\"Camera index {self.camera_index} is invalid. \"\n                f\"{len(devices)} camera(s) detected.\"\n            )\n\n        self.camera = pylon.InstantCamera(factory.CreateDevice(devices[self.camera_index]))\n        self.camera.Open()\n        self._apply_settings()\n\n    def close(self) -> None:\n        \"\"\"Stop streaming and close the camera connection.\"\"\"\n        self.stop_stream()\n        if self.camera:\n            if self.camera.IsGrabbing():\n                self.camera.StopGrabbing()\n            if self.camera.IsOpen():\n                self.camera.Close()\n        self.camera = None\n\n    def get_frame(self, timeout_ms: int = 5000):\n        \"\"\"\n        Grab and return one frame as an OpenCV BGR image.\n\n        This is useful for future integration where main.py needs snapshots or\n        image processing without opening a display window.\n        \"\"\"\n        self._require_open_camera()\n        assert self.camera is not None\n\n        was_grabbing = self.camera.IsGrabbing()\n        if not was_grabbing:\n            self.camera.StartGrabbingMax(1)\n\n        grab_result = self.camera.RetrieveResult(\n            timeout_ms,\n            pylon.TimeoutHandling_ThrowException,\n        )\n        try:\n            if not grab_result.GrabSucceeded():\n                raise RuntimeError(f\"Frame grab failed: {grab_result.ErrorDescription}\")\n            return self.converter.Convert(grab_result).GetArray()\n        finally:\n            grab_result.Release()\n\n    def show_live(\n        self,\n        window_name: str = \"Basler Camera Live\",\n        timeout_ms: int = 5000,\n        exit_key: str = \"q\",\n        frame_callback: Optional[FrameCallback] = None,\n    ) -> None:\n        \"\"\"\n        Display a blocking live video stream.\n\n        Press the exit key, default 'q', or Esc to close the stream. The optional\n        callback receives each OpenCV BGR frame and can be used later for\n        overlays, saving, or live image processing.\n        \"\"\"\n        self._require_open_camera()\n        assert self.camera is not None\n\n        self._stop_event.clear()\n        self.camera.StartGrabbing(pylon.GrabStrategy_LatestImageOnly)\n        cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)\n\n        try:\n            while self.camera.IsGrabbing() and not self._stop_event.is_set():\n                grab_result = self.camera.RetrieveResult(\n                    timeout_ms,\n                    pylon.TimeoutHandling_ThrowException,\n                )\n                try:\n                    if not grab_result.GrabSucceeded():\n                        print(f\"[WARN] Frame grab failed: {grab_result.ErrorDescription}\")\n                        continue\n\n                    frame = self.converter.Convert(grab_result).GetArray()\n                    if frame_callback:\n                        frame_callback(frame)\n\n                    cv2.imshow(window_name, frame)\n                    key = cv2.waitKey(1) & 0xFF\n                    if key in (ord(exit_key), 27):\n                        break\n                finally:\n                    grab_result.Release()\n        finally:\n            if self.camera.IsGrabbing():\n                self.camera.StopGrabbing()\n            cv2.destroyWindow(window_name)\n\n    def start_stream(\n        self,\n        window_name: str = \"Basler Camera Live\",\n        frame_callback: Optional[FrameCallback] = None,\n    ) -> None:\n        \"\"\"\n        Start live view in a background thread.\n\n        This is the integration-friendly path for future main.py usage. Call\n        stop_stream() before program shutdown.\n        \"\"\"\n        if self._stream_thread and self._stream_thread.is_alive():\n            return\n\n        self._stop_event.clear()\n        self._stream_thread = threading.Thread(\n            target=self.show_live,\n            kwargs={\n                \"window_name\": window_name,\n                \"frame_callback\": frame_callback,\n            },\n            daemon=True,\n        )\n        self._stream_thread.start()\n\n    def stop_stream(self) -> None:\n        \"\"\"Request the live-view thread to stop and wait briefly for it.\"\"\"\n        self._stop_event.set()\n        if self._stream_thread and self._stream_thread.is_alive():\n            self._stream_thread.join(timeout=2)\n        self._stream_thread = None\n\n    def _apply_settings(self) -> None:\n        assert self.camera is not None\n\n        self._try_set_enum(\"ExposureAuto\", \"Continuous\")\n        self._try_set_bool(\"CenterX\", self.settings.center_x)\n        self._try_set_bool(\"CenterY\", self.settings.center_y)\n        if self.settings.width is not None:\n            self._try_set_int(\"Width\", self.settings.width)\n        if self.settings.height is not None:\n            self._try_set_int(\"Height\", self.settings.height)\n        if self.settings.exposure_time_us is not None:\n            self._try_set_float(\"ExposureTime\", self.settings.exposure_time_us)\n        if self.settings.gain is not None:\n            self._try_set_float(\"Gain\", self.settings.gain)\n\n    def _try_set_bool(self, node_name: str, value: bool) -> None:\n        node = getattr(self.camera, node_name, None)\n        if node and self._is_writable(node):\n            node.SetValue(value)\n\n    def _try_set_int(self, node_name: str, value: int) -> None:\n        node = getattr(self.camera, node_name, None)\n        if node and self._is_writable(node):\n            minimum = node.GetMin()\n            maximum = node.GetMax()\n            increment = max(node.GetInc(), 1) if hasattr(node, \"GetInc\") else 1\n            clamped = max(minimum, min(maximum, int(value)))\n            aligned = minimum + ((clamped - minimum) // increment) * increment\n            node.SetValue(aligned)\n\n    def _try_set_float(self, node_name: str, value: float) -> None:\n        node = getattr(self.camera, node_name, None)\n        if node and self._is_writable(node):\n            minimum = node.GetMin()\n            maximum = node.GetMax()\n            node.SetValue(max(minimum, min(maximum, float(value))))\n\n    def _try_set_enum(self, node_name: str, value: str) -> None:\n        node = getattr(self.camera, node_name, None)\n        if node and self._is_writable(node):\n            try:\n                node.SetValue(value)\n            except Exception:\n                try:\n                    node.SetIntValue(node.GetEntryByName(value).GetValue())\n                except Exception:\n                    pass\n\n    def _is_writable(self, node: object) -> bool:\n        try:\n            access_mode = node.GetAccessMode()\n        except AttributeError:\n            return False\n        return access_mode in (\n            pylon.Accessibility_Ok,\n            pylon.Accessibility_Opened,\n            pylon.Accessibility_OpenedExclusively,\n        )\n\n    def _require_open_camera(self) -> None:\n        if not self.camera or not self.camera.IsOpen():\n            raise RuntimeError(\"Camera is not open. Call open() first.\")\n\n    def __enter__(self) -> \"BaslerCamera\":\n        self.open()\n        return self\n\n    def __exit__(self, exc_type, exc_value, traceback) -> None:\n        self.close()\n\n\ndef list_basler_cameras() -> list[str]:\n    \"\"\"Return display names for all connected Basler cameras.\"\"\"\n    factory = pylon.TlFactory.GetInstance()\n    return [device.GetFriendlyName() for device in factory.EnumerateDevices()]\n\n\ndef main() -> None:\n    parser = argparse.ArgumentParser(description=\"Show live video from a Basler camera.\")\n    parser.add_argument(\"--camera-index\", type=int, default=0, help=\"Basler camera index.\")\n    parser.add_argument(\"--exposure\", type=float, help=\"Exposure time in microseconds.\")\n    parser.add_argument(\"--gain\", type=float, help=\"Camera gain.\")\n    parser.add_argument(\"--width\", type=int, help=\"Requested image width.\")\n    parser.add_argument(\"--height\", type=int, help=\"Requested image height.\")\n    parser.add_argument(\"--list\", action=\"store_true\", help=\"List connected cameras and exit.\")\n    args = parser.parse_args()\n\n    if args.list:\n        cameras = list_basler_cameras()\n        if not cameras:\n            print(\"No Basler cameras found.\")\n            return\n        for index, name in enumerate(cameras):\n            print(f\"[{index}] {name}\")\n        return\n\n    settings = BaslerCameraSettings(\n        exposure_time_us=args.exposure,\n        gain=args.gain,\n        width=args.width,\n        height=args.height,\n    )\n\n    with BaslerCamera(camera_index=args.camera_index, settings=settings) as camera:\n        print(\"Live stream started. Press 'q' or Esc in the video window to stop.\")\n        try:\n            camera.show_live()\n        except KeyboardInterrupt:\n            print(\"\\nStopping camera stream...\")\n            time.sleep(0.1)\n\n\nif __name__ == \"__main__\":\n    main()\n#test",
+      "summary": "Basler camera live-view support using the pypylon SDK. Contains 4 functions/classes: BaslerCameraSettings, BaslerCamera, list_basler_cameras, main.",
+      "file_hash": "cce73b73"
+    },
+    {
+      "id": "basler_camera.py::list_basler_cameras",
+      "kind": "symbol",
+      "path": "basler_camera.py",
+      "ext": ".py",
+      "size": 4,
+      "keywords": [
+        "list_basler_cameras",
+        "list",
+        "basler",
+        "cameras"
+      ],
+      "symbol_type": "use_case",
+      "name": "list_basler_cameras",
+      "line_start": 274,
+      "line_end": 277,
+      "body_hash": "dbfbd91a",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "basler_camera.py::main",
+      "kind": "symbol",
+      "path": "basler_camera.py",
+      "ext": ".py",
+      "size": 38,
+      "keywords": [
+        "main"
+      ],
+      "symbol_type": "use_case",
+      "name": "main",
+      "line_start": 280,
+      "line_end": 317,
+      "body_hash": "70385355",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "basler_camera.py::BaslerCameraSettings",
+      "kind": "symbol",
+      "path": "basler_camera.py",
+      "ext": ".py",
+      "size": 9,
+      "keywords": [
+        "baslercamerasettings",
+        "basler",
+        "camera",
+        "settings"
+      ],
+      "symbol_type": "model",
+      "name": "BaslerCameraSettings",
+      "line_start": 34,
+      "line_end": 42,
+      "body_hash": "d9571cc5",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "basler_camera.py::BaslerCamera",
+      "kind": "symbol",
+      "path": "basler_camera.py",
+      "ext": ".py",
+      "size": 227,
+      "keywords": [
+        "baslercamera",
+        "basler",
+        "camera"
+      ],
+      "symbol_type": "model",
+      "name": "BaslerCamera",
+      "line_start": 45,
+      "line_end": 271,
+      "body_hash": "1c6571a8",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "CLAUDE.md",
+      "kind": "file",
+      "path": "CLAUDE.md",
+      "ext": ".md",
+      "size": 4065,
+      "keywords": [],
+      "content": "\ufeff<!-- dgc-policy-v11 -->\n# Dual-Graph Context Policy\n\nThis project uses a local dual-graph MCP server for efficient context retrieval.\n\n## MANDATORY: Adaptive graph_continue rule\n\n**Call `graph_continue` ONLY when you do NOT already know the relevant files.**\n\n### Call `graph_continue` when:\n- This is the first message of a new task / conversation\n- The task shifts to a completely different area of the codebase\n- You need files you haven't read yet in this session\n\n### SKIP `graph_continue` when:\n- You already identified the relevant files earlier in this conversation\n- You are doing follow-up work on files already read (verify, refactor, test, docs, cleanup, commit)\n- The task is pure text (writing a commit message, summarising, explaining)\n\n**If skipping, go directly to `graph_read` on the already-known `file::symbol`.**\n\n## When you DO call graph_continue\n\n1. **If `graph_continue` returns `needs_project=true`**: call `graph_scan` with `pwd`. Do NOT ask the user.\n\n2. **If `graph_continue` returns `skip=true`**: fewer than 5 files  -  read only specifically named files.\n\n3. **Read `recommended_files`** using `graph_read`.\n   - Always use `file::symbol` notation (e.g. `src/auth.ts::handleLogin`)  -  never read whole files.\n   - `recommended_files` entries that already contain `::` must be passed verbatim.\n\n4. **Obey confidence caps:**\n   - `confidence=high` -> Stop. Do NOT grep or explore further.\n   - `confidence=medium` -> `fallback_rg` at most `max_supplementary_greps` times, then `graph_read` at most `max_supplementary_files` more symbols. Stop.\n   - `confidence=low` -> same as medium. Stop.\n\n## Session State (compact, update after every turn)\n\nMaintain a short JSON block in your working memory. Update it after each turn:\n\n```json\n{\n  \"files_identified\": [\"path/to/file.py\"],\n  \"symbols_changed\": [\"module::function\"],\n  \"fix_applied\": true,\n  \"features_added\": [\"description\"],\n  \"open_issues\": [\"one-line note\"]\n}\n```\n\nUse this state  -  not prose summaries  -  to remember what's been done across turns.\n\n## Token Usage\n\nA `token-counter` MCP is available for tracking live token usage.\n\n- Before reading a large file: `count_tokens({text: \"<content>\"})` to check cost first.\n- To show running session cost: `get_session_stats()`\n- To log completed task: `log_usage({input_tokens: N, output_tokens: N, description: \"task\"})`\n\n## Rules\n\n- Do NOT use `rg`, `grep`, or bash file exploration before calling `graph_continue` (when required).\n- Do NOT do broad/recursive exploration at any confidence level.\n- `max_supplementary_greps` and `max_supplementary_files` are hard caps  -  never exceed them.\n- Do NOT call `graph_continue` more than once per turn.\n- Always use `file::symbol` notation with `graph_read`  -  never bare filenames.\n- After edits, call `graph_register_edit` with changed files using `file::symbol` notation.\n\n## Context Store\n\nWhenever you make a decision, identify a task, note a next step, fact, or blocker during a conversation, append it to `.dual-graph/context-store.json`.\n\n**Entry format:**\n```json\n{\"type\": \"decision|task|next|fact|blocker\", \"content\": \"one sentence max 15 words\", \"tags\": [\"topic\"], \"files\": [\"relevant/file.ts\"], \"date\": \"YYYY-MM-DD\"}\n```\n\n**To append:** Read the file -> add the new entry to the array -> Write it back -> call `graph_register_edit` on `.dual-graph/context-store.json`.\n\n**Rules:**\n- Only log things worth remembering across sessions (not every minor detail)\n- `content` must be under 15 words\n- `files` lists the files this decision/task relates to (can be empty)\n- Log immediately when the item arises  -  not at session end\n\n## Session End\n\nWhen the user signals they are done (e.g. \"bye\", \"done\", \"wrap up\", \"end session\"), proactively update `CONTEXT.md` in the project root with:\n- **Current Task**: one sentence on what was being worked on\n- **Key Decisions**: bullet list, max 3 items\n- **Next Steps**: bullet list, max 3 items\n\nKeep `CONTEXT.md` under 20 lines total. Do NOT summarize the full conversation  -  only what's needed to resume next session.\n",
+      "summary": "\ufeff<!-- dgc-policy-v11 -->.",
+      "file_hash": "f21ce30b"
+    },
+    {
+      "id": "hmccontroller.py",
+      "kind": "file",
+      "path": "hmccontroller.py",
+      "ext": ".py",
+      "size": 36113,
+      "keywords": [
+        "app",
+        "hmccontrolcs",
+        "hmc",
+        "control"
+      ],
+      "content": "import threading\nfrom threading import Thread\nimport time\nimport serial \nimport serial.tools.list_ports  # To get available serial ports\nfrom tkinter import *\nfrom tkinter import ttk\n\n\nclass App(ttk.Frame):\n    def __init__(self, master=None):\n        super().__init__(master)\n        self.master = master\n        self.command = \"\"\n        self.x_value = 0\n        self.y_value = 0\n        self.z_value = 0\n        self.success = False\n        self.x_hmc = None\n        self.y_hmc = None\n        self.z_hmc = None\n\n    def _get_controllers(self):\n        controllers = []\n        for c in [self.x_hmc, self.y_hmc, self.z_hmc]:\n            if c is not None:\n                controllers.append(c)\n        if not controllers and hasattr(self, 'hmcControl') and self.hmcControl:\n            controllers.append(self.hmcControl)\n        return controllers\n\n    def stop_process(self):\n        for c in self._get_controllers():\n            c.stop_thread = True\n        self.stop = True\n\n    def check_thread_is_alive(self):\n        controller = self.hmcControl if hasattr(self, 'hmcControl') and self.hmcControl else (self.z_hmc or self.y_hmc or self.x_hmc)\n        if controller and controller.run_thread is not None:\n            if controller.run_thread.is_alive():\n                print(\"Error,A movement already in progress!\")\n                return True\n        return False\n    \n    def start_thread(self):\n        controller = self.hmcControl if hasattr(self, 'hmcControl') and self.hmcControl else (self.z_hmc or self.y_hmc or self.x_hmc)\n        controller.run_thread = Thread(target=self.start_process)\n        controller.run_thread.start()\n\n    def start_process(self):\n        try:\n            controllers = self._get_controllers()\n            for c in controllers:\n                c.stop_thread = False\n                c.force_stop_thread = False\n            self.stop = False\n\n            all_connected = all(c.connect for c in controllers)\n\n            if all_connected:\n                match self.command:\n                    case \"1\":\n                        if len(controllers) > 1:\n                            threads = []\n                            if self.x_hmc and self.x_hmc in controllers and self.x_value != 0:\n                                threads.append(Thread(target=self.x_hmc.move, args=(self.x_value, 0, 0)))\n                            if self.y_hmc and self.y_hmc in controllers and self.y_value != 0:\n                                threads.append(Thread(target=self.y_hmc.move, args=(0, self.y_value, 0)))\n                            if self.z_hmc and self.z_hmc in controllers and self.z_value != 0:\n                                threads.append(Thread(target=self.z_hmc.move, args=(0, 0, self.z_value)))\n                            for t in threads:\n                                t.start()\n                            for t in threads:\n                                t.join()\n                        else:\n                            for c in controllers:\n                                if self.x_hmc and c == self.x_hmc:\n                                    c.move(self.x_value, 0, 0)\n                                elif self.y_hmc and c == self.y_hmc:\n                                    c.move(0, self.y_value, 0)\n                                elif self.z_hmc and c == self.z_hmc:\n                                    c.move(0, 0, self.z_value)\n                                else:\n                                    c.move(self.x_value, self.y_value, self.z_value)\n\n                    case \"2\":\n                        if len(controllers) > 1 and self.x_hmc and self.y_hmc and self.z_hmc:\n                            threads = []\n                            if self.x_value != 0:\n                                threads.append(Thread(target=self.x_hmc.contact_point_move, args=(self.x_value, 0, 0)))\n                            if self.y_value != 0:\n                                threads.append(Thread(target=self.y_hmc.contact_point_move, args=(0, self.y_value, 0)))\n                            if self.z_value != 0:\n                                threads.append(Thread(target=self.z_hmc.contact_point_move, args=(0, 0, self.z_value)))\n                            for t in threads:\n                                t.start()\n                            for t in threads:\n                                t.join()\n                        else:\n                            for c in controllers:\n                                if self.x_hmc and c == self.x_hmc:\n                                    c.contact_point_move(self.x_value, 0, 0)\n                                elif self.y_hmc and c == self.y_hmc:\n                                    c.contact_point_move(0, self.y_value, 0)\n                                elif self.z_hmc and c == self.z_hmc:\n                                    c.contact_point_move(0, 0, self.z_value)\n                                else:\n                                    c.contact_point_move(self.x_value, self.y_value, self.z_value)\n            else:\n                print(\"exception detected\")\n        except Exception as e:\n            print(f\"[EXCEPTION] {e}\")\n            for c in self._get_controllers():\n                c.stop_thread = True\n                if c.run_thread and c.run_thread.is_alive():\n                    c.run_thread.join()    \n\nclass HmcControlCs:\n    def __init__(self, axis=None):\n        self.axis = axis  # 'x', 'y', or 'z' for single-axis mode; None for legacy 3-axis mode\n        #GENERAL STATE\n        self.dummy = False\n        self.run_thread = None\n        self.stop_thread = False\n        self.force_stop_thread = False\n        self.indata = 0                      #holds last byte read from serial port\n\n        #SPEED CONFIG\n        self.spd_min = 10       #in steps/sec\n        self.spd_max = 50000    #in steps/sec\n\n        #MOVEMENT TRACKING\n        self.x_moving = 0       #Store how much distance (in microns) the system moved in the most recent command. Calculated from step count \u00d7 resolution.\n        self.y_moving = 0\n        self.z_moving = 0\n\n        self.com_open = False       #indicate whether the port is open nd ready for communication\n\n        #MOTION RESOLUTIPN AND LIMITS\n        self.maximum_steps = 16777216\n        self.Resolution_A = 0.2  #microns per step\n        self.Resolution_B = 0.2\n        self.Resolution_C = 0.2\n\n        #DEVICE ID AND COMMUNICATION\n        self.device = 100      #command byte sent to ask the device to identify itself\n        self.device_ack = 200   #Expected reply from the device, proving communication is OK\n        self.ok = 10           #Expected after successfull command\n\n        #LIMIT SWITCH CODED\n        self.x_home_limit = 41  #this is the response sent back by the device when the respective limit is reached\n        self.x_far_limit = 40\n        self.y_home_limit = 43\n        self.y_far_limit = 42\n        self.z_home_limit = 45\n        self.z_far_limit = 44\n\n        self.move_completed = 170 #response from the device\n\n\n        #MOVEMENT COMMANDS\n        self.speed = 34\n        self.z_speed = 34\n        self.max_travel_um = 50000\n\n        self.Move = 19\n        self.ACCELERATION = 20\n        self.DECELERATION = 30\n        self.Dir_plus = 125         #command to move in positive direction\n        self.Dir_minus = 175\n\n        self.x_current_position = 0     #absolute current position in microns\n        self.y_current_position = 0\n        self.z_current_position = 0\n\n        self.stop = 104\n        self.stop_ack = 105\n\n        self.READ = 163\n        self.READ_ACK = 164\n\n        # LIMIT SWITCH FLAGS\n        self.x_home_reached = False\n        self.x_far_reached = False\n        self.y_home_reached = False\n        self.y_far_reached = False\n        self.z_home_reached = False\n        self.z_far_reached = False\n\n        #set current to zero\n        self.current_x = 0\n        self.current_y = 0\n        self.current_z =0\n\n\n        self.fast_mode = False\n        self._last_speed_signature = None\n        self.ack_timeout_seconds = 2.0\n        self.axis_read_timeout_seconds = 2.0\n        self.motion_timeout_seconds = None\n\n        self.serial_lock = threading.RLock()\n \n    def on_startup(self):\n        if self.axis:\n            speed = 5000\n            if self.axis == 'x':\n                print(\"Sending X to Home\")\n                self.set_speed(speed, 0, 0)\n                print(\"X speed set, starting move_home\")\n                self.move_home(-self.maximum_steps, 0, 0)\n                print(\"X move_home done\")\n            elif self.axis == 'y':\n                print(\"Sending Y to Home\")\n                self.set_speed(0, speed, 0)\n                print(\"Y speed set, starting move_home\")\n                self.move_home(0, -self.maximum_steps, 0)\n                print(\"Y move_home done\")\n            elif self.axis == 'z':\n                print(\"Sending Z to bottom home\")\n                self.set_speed(0, 0, speed)\n                self.move_home(0, 0, self.maximum_steps)\n                print(\"Z bottom home done\")\n            self.initialise_current_position()\n        else:\n            print(\"Sending all axes to home position...\")\n            self.set_speed(5000, 5000, 5000)\n\n            print(\"Sending Z to home\")\n            self.ser.close()\n            self.ser.open()\n            self.ser.reset_input_buffer()\n            self.move_home(0,0,self.maximum_steps)\n            self.ser.close()\n            self.ser.open()\n            self.ser.reset_input_buffer()\n            \n            print(\"Sending X to Home\")\n            self.move_home(-self.maximum_steps,0,0)\n            \n            self.ser.close()\n            self.ser.open()\n            self.ser.reset_input_buffer()\n            print(\"Sending Y to home\")\n            self.move_home(0,-self.maximum_steps,0)\n            \n            print(\"Homing complete.\")\n            self.ser.close()\n            self.ser.open()\n            self.ser.reset_input_buffer()\n            self.initialise_current_position()\n      \n\n    def config_serial_port(self, port):  # Returns true if connection is successful, else false\n        try:\n            self.ser = serial.Serial(\n                port=port,\n                baudrate=19200,\n                parity=serial.PARITY_NONE,\n                stopbits=serial.STOPBITS_ONE,\n                bytesize=serial.EIGHTBITS,\n                timeout=0.1,\n                write_timeout=0.1  # Added write timeout for consistency\n            )\n\n            if self.ser.is_open:\n                self.ser.close()\n            self.ser.open()\n            self.ser.reset_input_buffer()\n\n            print(\"Serial port initialized\")\n            self.com_open = True\n\n            return  True\n        except serial.SerialException as e:\n            print(\"Serial port not initialized\")\n            print(f\"Error: {e}\")\n            self.com_open = False\n            return False\n\n    def write_port(self, value):  #Sends a single byte command to the serial port\n        out = [value]\n        #self.ser.write(out)\n        with self.serial_lock:\n            self.ser.write(out)\n    def read_ack(self, ack): #Waits for the controller to send acknowledgement byte and compares it with expected ack, if mismatched, raises an exception\n        In = 0\n        deadline = time.perf_counter() + self.ack_timeout_seconds\n        while True:\n            r = self.ser.read(1)\n            #print(str(r))\n            if r == b'':\n                if time.perf_counter() >= deadline:\n                    raise TimeoutError(f\"Timed out waiting for Ack {ack}\")\n                continue\n            In = ord(r)\n            break\n        if In != ack:\n            raise Exception('Invalid Ack ' + str(In) + ' given ack ' + str(ack))\n\n    def read_value(self): #reads a single byte from serial port, loops until a valid byte or stop_thread is detected, stores value in self.indata and returns it\n        #Used for movement status and limit detection\n        self.indata = 0\n        while True and not self.stop_thread:\n            r = self.ser.read(1)\n            #print(str(r))\n            if r == b'':\n                continue\n            self.indata = ord(r)\n            return self.indata\n\n    def axis_read_value(self):\n        #same as read_value but breaks off early if force_stop_thread is detected\n        self.indata = 0\n        deadline = time.perf_counter() + self.axis_read_timeout_seconds\n        while True and not self.force_stop_thread:\n            r = self.ser.read(1)\n            #print(str(r))\n            if r == b'':\n                if time.perf_counter() >= deadline:\n                    raise TimeoutError(\"Timed out waiting for axis read byte\")\n                continue\n            self.indata = ord(r)\n            return self.indata\n\n\n    def msb_csb_lsb(self, value): #splits a number into 3 bytes, most significant byte, center, least\n        #used when 3 byte commands are required eg setting speed\n        v = abs(value)\n        outlsb = int((v % 65536) % 256)\n        outcsb = int((v % 65536) / 256)\n        outmsb = int(v / 65536)\n        return [outmsb, outcsb, outlsb]\n\n    def byte3_byte2_byte1_byte0(self,value): #splits the command into 4 bytes for 32 bit transfer\n        #used in movement commands to send steps\n        v = abs(int(value))\n        byte0 = v % 256\n        byte1 = (v % 65536) // 256\n        byte2 = (v % 16777216) // 65536\n        byte3 = v // 16777216\n        return [byte3, byte2, byte1, byte0]\n\n    def msb_lsb(self, value): #splits into 2 bytes, for 16 bit transfer\n        v = abs(value)\n        outlsb = int(v % 256)\n        outmsb = int(v / 256)\n        return [outmsb, outlsb]\n\n    @property\n    def connect(self): #Verifies that serial connection is working, returns true if connected, othwerwise error\n        if self.dummy:\n            time.sleep(0.1)\n            return True\n\n        if self.com_open == False:\n            raise Exception('Com port open failed')\n\n        out = [self.device]\n        self.ser.write(out)\n        In = 0\n        for x in range(20):\n            r = self.ser.read(1)\n            #print(str(r))\n            if r == b'':\n                continue  # Skip empty reads\n            In = ord(r)  # Only call ord() if r is not empty\n            if In == self.device_ack:\n                return True\n\n        raise Exception('Device Not Connected ' + str(In))\n\n\n    def move(self, move_a, move_b, move_c): #moves by given distances in microns\n\n        if self.dummy:\n            time.sleep(0.1)\n            return\n\n        with self.serial_lock:\n            self.ser.reset_input_buffer()\n\n            if self.axis in (None, 'x'):\n                self.x_home_reached = False\n                self.x_far_reached = False\n            if self.axis in (None, 'y'):\n                self.y_home_reached = False\n                self.y_far_reached = False\n            if self.axis in (None, 'z'):\n                self.z_home_reached = False\n                self.z_far_reached = False\n\n            self.movement_completed = False\n\n            if self.axis in (None, 'x'):\n                if ((move_a>0) and (self.max_travel_um - self.current_x - move_a)<0):\n                    print(\"Value exceeds possible limit for X, enter valid value\")\n                    return\n                elif((move_a<0) and(self.current_x + move_a)<0):\n                    print(\"Value exceeds possible limit for -X, enter valid value\")\n                    return\n            if self.axis in (None, 'y'):\n                if ((move_b>0) and (self.max_travel_um - self.current_y - move_b)<0):\n                    print(\"Value exceeds possible limit for Y, enter valid value\")\n                    return\n                elif((move_b<0)and(self.current_y +move_b)<0):\n                    print(\"Value exceeds possible limit for -Y, enter valid value\")\n                    return\n            if self.axis in (None, 'z'):\n                if ((move_c>0) and (self.max_travel_um - self.current_z - move_c) < 0):\n                    print(\"Value exceeds possible limit for +Z, enter valid value\")\n                    return\n                elif((move_c<0)and(self.current_z + move_c)<0):\n                    print(\"Value exceeds possible limit for -Z, enter valid value\")\n                    return\n            \n            self.set_move_data(move_a, move_b, self._logical_z_to_motor_z(move_c))\n\n            self.indata = 0\n            move_start_time = time.perf_counter()\n            while self.indata == 0 and not self.stop_thread:\n                if self.motion_timeout_seconds is not None:\n                    if time.perf_counter() - move_start_time > self.motion_timeout_seconds:\n                        raise TimeoutError(\n                            f\"Timed out waiting for {self.axis or 'xyz'} move completion \"\n                            f\"after {self.motion_timeout_seconds:.1f}s\"\n                        )\n                self.indata = self.move_status()\n\n            if self.indata == 0 and self.stop_thread:   \n                print(\"Stop Enabled\")\n                self.write_port(self.stop)\n                self.read_ack(self.stop_ack)\n\n            if self.indata in (self.x_home_limit, self.y_home_limit, self.z_home_limit):\n                self.write_port(self.stop)\n                self.read_ack(self.stop_ack)\n                print(\"Home limit reached\")\n                if self.axis == 'x':\n                    self.x_home_reached = True\n                elif self.axis == 'y':\n                    self.y_home_reached = True\n                elif self.axis == 'z':\n                    self.z_home_reached = True\n\n            if self.indata in (self.x_far_limit, self.y_far_limit, self.z_far_limit):\n                self.write_port(self.stop)\n                self.read_ack(self.stop_ack)\n                print(\"Far limit reached\")\n                if self.axis == 'x':\n                    self.x_far_reached = True\n                elif self.axis == 'y':\n                    self.y_far_reached = True\n                elif self.axis == 'z':\n                    self.z_far_reached = True\n\n            if self.indata == self.move_completed:\n                self.movement_completed = True\n\n            if not self.fast_mode:\n                self.ser.reset_input_buffer()\n            self.read_move_bytes()\n\n            if self.axis in (None, 'x'):\n                if self.indata == self.x_home_limit:\n                    self.x_current_position = 0\n                elif self.indata == self.x_far_limit:\n                    self.x_current_position = self.max_travel_um\n                else:\n                    if move_a > 0:\n                        self.x_current_position += self.x_moving\n                    else:\n                        self.x_current_position -= self.x_moving\n\n            if self.axis in (None, 'y'):\n                if self.indata == self.y_home_limit:\n                    self.y_current_position = 0\n                elif self.indata == self.y_far_limit:\n                    self.y_current_position = self.max_travel_um\n                else:\n                    if move_b > 0:\n                        self.y_current_position += self.y_moving\n                    else:\n                        self.y_current_position -= self.y_moving\n\n            if self.axis in (None, 'z'):\n                if self.indata == self.z_home_limit:\n                    self.z_current_position = self.max_travel_um\n                elif self.indata == self.z_far_limit:\n                    self.z_current_position = 0\n                else:\n                    if move_c > 0:\n                        self.z_current_position += self.z_moving\n                    else:\n                        self.z_current_position -= self.z_moving\n\n            self.current_x = self.x_current_position\n            self.current_y = self.y_current_position\n            self.current_z = self.z_current_position\n\n            print(f\"z_current_position: {self.z_current_position}\")\n\n    def _logical_z_to_motor_z(self, move_z):\n        if self.axis in (None, 'z'):\n            return -move_z\n        return move_z\n        \n    def acceleration_and_deceleration(self, acc_enable: bool, dec_enable: bool) -> bool:\n        if acc_enable:\n            self.write_port(self.ACCELERATION)\n        else:\n            self.write_port(0)\n\n        self.read_ack(self.ok)\n\n        if dec_enable:\n            self.write_port(self.DECELERATION)\n        else:\n            self.write_port(0)\n\n        self.read_ack(self.ok)\n\n        return True\n\n    def move_status(self): #fetches the status of last move\n        self.read_value()\n\n        return self.indata\n\n    def set_move_data(self, A_steps, B_steps, C_steps): #converts user input in microns into steps and send them axis by axis\n        if self.dummy:\n            time.sleep(0.1)\n            return\n\n        #print(f\"[DEBUG] set_move_data: sending Move command, axis={self.axis}\")\n        self.write_port(self.Move)\n        self.read_ack(self.ok)\n        #print(\"[DEBUG] set_move_data: Move ACK received\")\n        \n        if self.axis == 'x':\n            steps = (16777216) if abs(A_steps) == 16777216 else int(A_steps / self.Resolution_A)\n            self.send_axis_data(steps, A_steps)\n            self.move_x = steps\n        elif self.axis == 'y':\n            steps = (16777216) if abs(B_steps) == 16777216 else int(B_steps / self.Resolution_B)\n            self.send_axis_data(steps, B_steps)\n            self.move_y = steps\n        elif self.axis == 'z':\n            steps = (16777216) if abs(C_steps) == 16777216 else int(C_steps / self.Resolution_C)\n            self.send_axis_data(steps, C_steps)\n            self.move_z = steps\n        else:\n            steps = (16777216) if abs(A_steps) == 16777216 else int(A_steps / self.Resolution_A)\n            self.send_axis_data(steps, A_steps)\n            self.move_x = steps\n            \n            steps = (16777216) if abs(B_steps) == 16777216 else int(B_steps / self.Resolution_B)\n            self.send_axis_data(steps, B_steps)\n            self.move_y = steps\n            \n            steps = (16777216) if abs(C_steps) == 16777216 else int(C_steps / self.Resolution_C)\n            self.send_axis_data(steps, C_steps)\n            self.move_z = steps\n\n        #print(\"[DEBUG] set_move_data: all axis data sent\")\n        return\n\n    def send_axis_data(self, data, direction): #sends step size and direction for one axis\n\n        datas = self.byte3_byte2_byte1_byte0(abs(data)) #self.msb_csb_lsb(abs(data))\n\n        self.write_port(datas[0])\n        self.read_ack(self.ok)\n        \n        self.write_port(datas[1])\n        self.read_ack(self.ok)\n\n        self.write_port(datas[2])\n        self.read_ack(self.ok)\n\n        self.write_port(datas[3])\n        self.read_ack(self.ok)\n\n        if direction < 0:\n            self.write_port(self.Dir_minus)\n        else:\n            self.write_port(self.Dir_plus)\n        \n\n        self.read_ack(self.ok)\n\n    def read_move_bytes(self): #asks controller to send actual number of steps moved on each axis, calculate and stores how far each axis has moved\n        #print(\"[DEBUG] read_move_bytes: sending READ command\")\n        last_error = None\n        for attempt in range(3):\n            try:\n                with self.serial_lock:\n                    self.ser.reset_input_buffer()\n                    self.ser.write(bytes([self.READ]))\n                    deadline = time.perf_counter() + self.ack_timeout_seconds\n                    while True:\n                        r = self.ser.read(1)\n                        if r == b'':\n                            if time.perf_counter() >= deadline:\n                                raise TimeoutError(\"Timed out waiting for Ack 164\")\n                            continue\n\n                        in_data = ord(r)\n                        if in_data == self.READ_ACK:\n                            break\n\n                        if in_data == self.ok:\n                            raise TimeoutError(\"Stale OK byte seen while waiting for READ_ACK\")\n\n                        raise Exception('Invalid Ack ' + str(i",
+      "summary": "import threading. Contains 2 functions/classes: App, HmcControlCs.",
+      "file_hash": "32b9ff70"
+    },
+    {
+      "id": "hmccontroller.py::App",
+      "kind": "symbol",
+      "path": "hmccontroller.py",
+      "ext": ".py",
+      "size": 107,
+      "keywords": [
+        "app"
+      ],
+      "symbol_type": "model",
+      "name": "App",
+      "line_start": 9,
+      "line_end": 115,
+      "body_hash": "0652105d",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "hmccontroller.py::HmcControlCs",
+      "kind": "symbol",
+      "path": "hmccontroller.py",
+      "ext": ".py",
+      "size": 799,
+      "keywords": [
+        "hmccontrolcs",
+        "hmc",
+        "control"
+      ],
+      "symbol_type": "model",
+      "name": "HmcControlCs",
+      "line_start": 117,
+      "line_end": 915,
+      "body_hash": "116bd4f1",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "main.py",
+      "kind": "file",
+      "path": "main.py",
+      "ext": ".py",
+      "size": 51406,
+      "keywords": [
+        "format_elapsed_time",
+        "format",
+        "elapsed",
+        "time",
+        "wait_for_motion",
+        "wait",
+        "for",
+        "motion",
+        "time_block",
+        "block",
+        "print_timing_summary",
+        "print",
+        "timing",
+        "summary",
+        "voltagefeedbackstate",
+        "voltage",
+        "feedback",
+        "state",
+        "classify_voltage",
+        "classify",
+        "feedback_direction_label",
+        "direction",
+        "label",
+        "read_voltage_sample",
+        "read",
+        "sample",
+        "read_first_last_point",
+        "first",
+        "last",
+        "point",
+        "smuvoltagesampler",
+        "smu",
+        "sampler",
+        "zfeedbackworker",
+        "worker",
+        "list_ports",
+        "list",
+        "ports",
+        "user_input_listener",
+        "user",
+        "input",
+        "listener",
+        "step_size_listener",
+        "step",
+        "size",
+        "z_probe_move",
+        "probe",
+        "move",
+        "z_movement",
+        "movement",
+        "main"
+      ],
+      "content": "import serial.tools.list_ports\nfrom hmccontroller import HmcControlCs, App\nimport time\nimport threading\nfrom threading import Thread\nimport math\nimport queue\nfrom dataclasses import dataclass, field\nfrom typing import Optional\nimport smumark1\nimport smumark2\nfrom collections import defaultdict\n\n# hmc = HmcControlCs()\n# app = App()\n# app.hmcControl=hmc\n\ndef format_elapsed_time(seconds):\n    hours, remainder = divmod(seconds, 3600)\n    minutes, seconds = divmod(remainder, 60)\n    if hours >= 1:\n        return f\"{int(hours)}h {int(minutes)}m {seconds:.2f}s\"\n    if minutes >= 1:\n        return f\"{int(minutes)}m {seconds:.2f}s\"\n    return f\"{seconds:.2f}s\"\n\ndef wait_for_motion(app):\n    if app.hmcControl.run_thread:\n        app.hmcControl.run_thread.join()\n\ndef time_block(timer_map, key):\n    class _Timer:\n        def __enter__(self_inner):\n            self_inner.start = time.perf_counter()\n            return self_inner\n\n        def __exit__(self_inner, exc_type, exc, tb):\n            timer_map[key] += time.perf_counter() - self_inner.start\n\n    return _Timer()\n\ndef print_timing_summary(timer_map, move_count, xy_move_count):\n    print(\"[TIMER] Detailed timing summary:\")\n    for key in sorted(timer_map.keys()):\n        print(f\"[TIMER] {key}: {format_elapsed_time(timer_map[key])}\")\n    print(f\"[TIMER] Moves executed: {move_count}\")\n    print(f\"[TIMER] X/Y moves counted in movement timer: {xy_move_count}\")\n\n@dataclass\nclass VoltageFeedbackState:\n    latest_voltage: Optional[float] = None\n    latest_current: Optional[float] = None\n    latest_direction: int = 0\n    update_id: int = 0\n    sample_time: float = 0.0\n    lock: threading.Lock = field(default_factory=threading.Lock, repr=False)\n\n    def update(self, voltage, current, direction):\n        with self.lock:\n            self.latest_voltage = voltage\n            self.latest_current = current\n            self.latest_direction = direction\n            self.sample_time = time.perf_counter()\n            self.update_id += 1\n\n    def snapshot(self):\n        with self.lock:\n            return {\n                \"voltage\": self.latest_voltage,\n                \"current\": self.latest_current,\n                \"direction\": self.latest_direction,\n                \"update_id\": self.update_id,\n                \"sample_time\": self.sample_time,\n            }\n\ndef classify_voltage(voltage, threshold_voltage_1, threshold_voltage_2):\n    if threshold_voltage_1 < voltage < threshold_voltage_2:\n        return 1\n    if voltage < threshold_voltage_1:\n        return 2\n    if voltage > threshold_voltage_2:\n        return 3\n    return 0\n\ndef feedback_direction_label(direction):\n    if direction == 1:\n        return \"in_range\"\n    if direction == 2:\n        return \"high_move_down\"\n    if direction == 3:\n        return \"low_lift_up\"\n    return \"unknown\"\n\ndef read_voltage_sample(smu):\n    return smumark2.read_voltage_sample(smu, ensure_output_on=True)\n\ndef read_first_last_point(filename):\n    first_point = None\n    last_point = None\n    with open(f\"{filename}.txt\", \"r\") as file:\n        for line in file:\n            parts = line.strip().replace(',', ' ').split()\n            if len(parts) >= 3:\n                point = (float(parts[0]), float(parts[1]))\n                if first_point is None:\n                    first_point = point\n                last_point = point\n    if first_point is None or last_point is None:\n        raise ValueError(f\"No valid XY points found in {filename}.txt\")\n    return first_point[0], first_point[1], last_point[0], last_point[1]\n\nclass SmuVoltageSampler(Thread):\n    def __init__(self, smu, threshold_voltage_1, threshold_voltage_2, state, stop_event, sample_interval=0.05, log_interval=1.0):\n        super().__init__(daemon=True)\n        self.smu = smu\n        self.threshold_voltage_1 = threshold_voltage_1\n        self.threshold_voltage_2 = threshold_voltage_2\n        self.state = state\n        self.stop_event = stop_event\n        self.sample_interval = sample_interval\n        self.log_interval = log_interval\n\n    def run(self):\n        last_log_time = 0.0\n        last_direction = None\n        print(f\"[SMU SAMPLE] Sampler started, interval={self.sample_interval * 1000:.1f} ms\")\n        while not self.stop_event.is_set():\n            try:\n                voltage, current = read_voltage_sample(self.smu)\n                direction = classify_voltage(voltage, self.threshold_voltage_1, self.threshold_voltage_2)\n                self.state.update(voltage, current, direction)\n                now = time.perf_counter()\n                if direction != last_direction or now - last_log_time >= self.log_interval:\n                    print(\n                        f\"[SMU SAMPLE] V={voltage:.4f} V, I={current:.4e} A, \"\n                        f\"direction={feedback_direction_label(direction)}\"\n                    )\n                    last_log_time = now\n                    last_direction = direction\n            except Exception as e:\n                if self.stop_event.is_set():\n                    break\n                print(f\"[WARN] SMU sampler error: {e}\")\n                self.state.update(None, None, 0)\n            if self.stop_event.wait(self.sample_interval):\n                break\n\nclass ZFeedbackWorker(Thread):\n    def __init__(self, z_hmc, state, stop_event, step_um, max_safe_z, feedback_speed=1000):\n        super().__init__(daemon=True)\n        self.z_hmc = z_hmc\n        self.state = state\n        self.stop_event = stop_event\n        self.step_um = step_um\n        self.max_safe_z = max_safe_z\n        self.feedback_speed = feedback_speed\n        self.enabled = threading.Event()\n        self.enabled.set()\n\n    def run(self):\n        print(f\"[Z FEEDBACK] Worker started, step={self.step_um} um, speed={self.feedback_speed} um/s\")\n        self.z_hmc.set_speed(0, 0, self.feedback_speed)\n        move_finish_time = time.perf_counter()\n        while not self.stop_event.is_set():\n            if not self.enabled.is_set():\n                self.stop_event.wait(0.005)\n                continue\n            snapshot = self.state.snapshot()\n            if snapshot[\"sample_time\"] <= move_finish_time:\n                self.stop_event.wait(0.001)\n                continue\n\n            direction = snapshot[\"direction\"]\n            if direction not in (2, 3):\n                move_finish_time = time.perf_counter()\n                continue\n\n            delta_z = -self.step_um if direction == 2 else self.step_um\n            predicted_z = self.z_hmc.z_current_position + delta_z\n            print(\n                f\"[Z FEEDBACK] Applying {delta_z:+.3f} um from \"\n                f\"{self.z_hmc.z_current_position:.3f} to {predicted_z:.3f} \"\n                f\"for {feedback_direction_label(direction)}\"\n            )\n            if predicted_z > self.max_safe_z:\n                print(f\"[ABORT] Z feedback would exceed safe limit: {predicted_z} um > {self.max_safe_z} um\")\n                self.stop_event.set()\n                break\n\n            try:\n                previous_timeout = self.z_hmc.motion_timeout_seconds\n                self.z_hmc.motion_timeout_seconds = max(5.0, abs(delta_z) / max(self.feedback_speed, 1) + 2.0)\n                self.z_hmc.move(0, 0, delta_z)\n                print(f\"[Z FEEDBACK] Move complete, Z={self.z_hmc.z_current_position:.3f} um\")\n            except Exception as e:\n                print(f\"[WARN] Z feedback move failed: {e}\")\n                self.stop_event.set()\n                break\n            finally:\n                self.z_hmc.motion_timeout_seconds = previous_timeout\n                move_finish_time = time.perf_counter()\n\ndef list_ports():\n    ports = serial.tools.list_ports.comports()\n    if not ports:\n        print(\"No serial ports found.\")\n        return []\n    \n    print(\"Available COM Ports:\")\n    for i, port in enumerate(ports):\n        print(f\"[{i}] {port.device} - {port.description}\")\n    return ports\n\n# Listener thread to read user input for speed updates\ndef user_input_listener(speed_queue):\n    while True:\n        try:\n            user_input = input(\"Enter new Z speed in microns/sec: \")\n            speed = float(user_input)\n            speed_queue.put(speed)\n        except ValueError:\n            print(\"[WARN] Invalid input. Enter a number.\")\n\ndef step_size_listener(step_queue):\n    current_step = None\n    while True:\n        try:\n            user_input = input(\"Enter new Z step size (\u00b5m): \").strip()\n            if user_input:\n                step = float(user_input)\n                step_queue.put(step)\n        except ValueError:\n            print(\"[WARN] Invalid step size. Try again.\")\n\n\n\ndef z_probe_move(hmc, app, total_distance, init_speed, speed_queue):\n  \n    app.hmcControl=hmc\n    \n    hmc.set_speed(1, 1, init_speed)\n    remaining = total_distance\n\n    # Start initial move\n    app.command = '1'\n    app.x_value = 0\n    app.y_value = 0\n    app.z_value = remaining\n    app.start_thread()\n\n    while True:\n        # Break if motion is complete\n        if not app.hmcControl.run_thread or not app.hmcControl.run_thread.is_alive():\n            break\n\n        if not speed_queue.empty():\n            new_speed = speed_queue.get()\n            print(f\"[INFO] New speed input detected: {new_speed} \u00b5m/s\")\n\n            # Try stopping only if still moving\n            if app.hmcControl.run_thread and app.hmcControl.run_thread.is_alive():\n                try:\n                    app.stop_process()\n                    print(\"[INFO] Movement stopped\")\n                    time.sleep(0.2)\n                except Exception as e:\n                    print(f\"[WARN] Stop failed or already complete: {e}\")\n\n            # Safely reset serial\n            try:\n                hmc.ser.close()\n            except:\n                pass\n\n            time.sleep(0.2)\n\n            try:\n                hmc.ser.open()\n                hmc.ser.reset_input_buffer()\n            except Exception as e:\n                print(f\"[ERROR] Serial port reopen failed: {e}\")\n                return\n\n            # Join stopped thread\n            if app.hmcControl.run_thread:\n                app.hmcControl.run_thread.join()\n\n            # Compute remaining\n            \n            current = hmc.z_current_position\n            remaining = total_distance - current\n            print(f\"[INFO] Resuming remaining distance: {remaining} \u00b5m\")\n\n            # Resume move with new speed\n            hmc.set_speed(1, 1, new_speed)\n            app.command = '1'\n            app.x_value = 0\n            app.y_value = 0\n            app.z_value = remaining\n            app.start_thread()\n\n        time.sleep(0.1)\n\ndef z_movement(hmc,app,total_distance, initial_speed, speed_queue):\n\n\n    hmc.set_speed(1, 1, initial_speed)\n    remaining = total_distance\n    \n    # Start initial move\n    app.command = '1'\n    app.x_value = 0\n    app.y_value = 0\n    app.z_value = remaining\n    app.start_thread()\n   \n    z_position_accumulated =0\n    while True:\n        # Break if motion is complete\n        if not app.hmcControl.run_thread or not app.hmcControl.run_thread.is_alive():\n            # moved_so_far += hmc.z_moving\n            break\n        if not speed_queue.empty():\n            new_speed = speed_queue.get()\n            print(f\"[INFO] New speed input detected: {new_speed} \u00b5m/s\")\n            if app.hmcControl.run_thread and app.hmcControl.run_thread.is_alive():\n                app.stop_process()\n                print(\"Movement stopped\")\n                time.sleep(0.1)\n            if app.hmcControl.run_thread:\n                app.hmcControl.run_thread.join()\n\n            # moved_so_far += hmc.z_moving\n            moved_so_far = hmc.z_current_position\n            #print(f\"Z moving:{hmc.z_moving}\")\n            #current = hmc.z_current_position\n            print(f\"Z position so far: {moved_so_far}\")\n            #remaining = total_distance - current\n            remaining = total_distance - moved_so_far\n            if remaining <0:\n                print(\"Movement completed;\")\n                hmc.ser.close()\n                hmc.ser.open()\n                break\n            print(f\"[INFO] Resuming remaining distance: {remaining} \u00b5m\")\n            #hmc.ser.close()\n            #hmc.ser.open()\n            hmc.set_speed(1, 1, new_speed)\n            app.command = '1'\n            app.x_value = 0\n            app.y_value = 0\n            #app.z_value = remaining\n            # print(total_distance-(total_distance-hmc.z_moving))\n            # print(f\"total distance : {total_distance}\")\n            print(f\"remaining: {remaining}\")\n            # print(f\"total dist- remain = {total_distance- remaining}\")\n            app.z_value =remaining\n            \n            app.start_thread()\ndef main():\n    move_thread = None\n    ports = list_ports()\n    if not ports:\n        return\n\n    x_index = int(input(\"Enter COM port number for X axis: \"))\n    y_index = int(input(\"Enter COM port number for Y axis: \"))\n    z_index = int(input(\"Enter COM port number for Z axis: \"))\n\n    x_hmc = HmcControlCs(axis='x')\n    y_hmc = HmcControlCs(axis='y')\n    z_hmc = HmcControlCs(axis='z')\n\n    if not x_hmc.config_serial_port(ports[x_index].device):\n        print(\"Failed to connect X axis.\")\n        return\n    if not y_hmc.config_serial_port(ports[y_index].device):\n        print(\"Failed to connect Y axis.\")\n        return\n    if not z_hmc.config_serial_port(ports[z_index].device):\n        print(\"Failed to connect Z axis.\")\n        return\n\n    app = App()\n    app.x_hmc = x_hmc\n    app.y_hmc = y_hmc\n    app.z_hmc = z_hmc\n    app.hmcControl = z_hmc\n\n    def set_all_speed(vx, vy, vz):\n        x_hmc.set_speed(vx, 0, 0)\n        y_hmc.set_speed(0, vy, 0)\n        z_hmc.set_speed(0, 0, vz)\n\n    def reset_all_serial():\n        for h in [x_hmc, y_hmc, z_hmc]:\n            h.ser.close()\n        time.sleep(0.2)\n        for h in [x_hmc, y_hmc, z_hmc]:\n            h.ser.open()\n            h.ser.reset_input_buffer()\n\n    def startup_all():\n        z_hmc.on_startup()\n        x_hmc.on_startup()\n        y_hmc.on_startup()\n\n    startup_all()\n    response = int(input(\"Enter 1 to move specific distance, 2 to send to home, 3 to import data from text file, 4 to send probe:\"))\n    \n    if response ==1:\n        reset_all_serial()\n        while True:\n            x = float(input(\"Enter X movement (microns): \"))\n            y = float(input(\"Enter Y movement (microns): \"))\n            z = float(input(\"Enter Z movement (microns): \"))\n\n            app.command ='1'\n            app.x_value =x\n            app.y_value=y\n            app.z_value=z\n            app.start_thread()\n            while app.hmcControl.run_thread.is_alive():\n                print(\"Waiting for move to complete...\")\n                time.sleep(0.2)\n            if app.hmcControl.run_thread:\n                app.hmcControl.run_thread.join()\n            print(\"Final Position:\")\n            print(f\"X: {x_hmc.x_current_position} \u00b5m\")\n            print(f\"Y: {y_hmc.y_current_position} \u00b5m\")\n            print(f\"Z: {z_hmc.current_z} \u00b5m\")\n\n    elif response ==2:\n        startup_all()\n    elif response ==3:\n        v = int(input(\"Enter velocity microns/sec:\"))\n        reset_all_serial()\n        filename = input(\"Enter txt filename:\")\n        with open(f\"{filename}.txt\", \"r\") as file:\n            i=1\n            prev_x, prev_y, prev_z = 0, 0, 0\n\n            for line in file:\n                parts = line.strip().replace(',', ' ').split()\n                if len(parts) == 3:\n                    x, y, z = map(float, parts)\n\n                    dx = x - prev_x\n                    dy = y - prev_y\n                    dz = z - prev_z\n                    \n                    theta = math.atan2(x- prev_x, y-prev_y)\n                    sin_theta = math.sin(theta)\n                    cos_theta = math.cos(theta)\n                    vx = v*sin_theta\n                    vy = v*cos_theta\n                    set_all_speed(vx, vy, v)\n                    prev_x, prev_y, prev_z = x, y, z\n                    \n                    try:\n                        app.command = '1'\n                        app.x_value = dx\n                        app.y_value = dy\n                        app.z_value = dz\n\n                        app.start_thread()\n\n                        while app.hmcControl.run_thread.is_alive():\n                            time.sleep(0.2)\n\n                        if app.hmcControl.run_thread:\n                            app.hmcControl.run_thread.join()\n\n                        print(\"Final Position:\")\n                        print(f\"X: {x_hmc.x_current_position} \u00b5m\")\n                        print(f\"Y: {y_hmc.y_current_position} \u00b5m\")\n                        print(f\"Z: {z_hmc.z_current_position} \u00b5m\")\n                        print(f\"{i} MOVE COMPLETED\")\n\n                    except Exception as e:\n                        print(f\"[ERROR] Move {i} failed: {e}\")\n                        reset_all_serial()\n                        for h in [x_hmc, y_hmc, z_hmc]:\n                            h.ser.reset_input_buffer()\n\n                    i += 1\n    elif response ==4:\n        z_move = 30000\n        init_speed = int(input(\"Enter initial speed of the probe:\"))\n     \n        speed_queue = queue.Queue()\n\n        Thread(target=user_input_listener, args=(speed_queue,), daemon=True).start()\n\n        Thread(target=z_probe_move, args=(z_hmc, app, z_move, init_speed, speed_queue)).start()\n    elif response ==5:\n        from threading import Event\n\n        z_move = 40000\n        init_speed = 5000\n\n        pause_event = Event()\n        resume_event = Event()\n        resume_event.set()\n\n        z_hmc.set_speed(0, 0, init_speed)\n\n        app.command = '1'\n        app.x_value = 0\n        app.y_value = 0\n        app.z_value = z_move\n        app.start_thread()\n\n        def input_listener():\n            while True:\n                cmd = input(\"Enter 'p' to pause, 'r' to resume: \").lower()\n                if cmd == 'p':\n                    resume_event.clear()\n                    try:\n                        app.stop_process()\n                        print(\"[INFO] Movement paused by user.\")\n                    except Exception as e:\n                        print(f\"[WARN] Could not pause: {e}\")\n                    pause_event.set()\n                elif cmd == 'r' and pause_event.is_set():\n\n                    current = z_hmc.z_current_position\n                    remaining = z_move - current\n                    print(f\"[INFO] Resuming movement: remaining {remaining} \u00b5m\")\n\n                    z_hmc.set_speed(0, 0, init_speed)\n                    app.command = '1'\n                    app.x_value = 0\n                    app.y_value = 0\n                    app.z_value = remaining\n                    app.start_thread()\n\n                    resume_event.set()\n                    pause_event.clear()\n\n        Thread(target=input_listener, daemon=True).start()\n\n        while True:\n            if not app.hmcControl.run_thread or not app.hmcControl.run_thread.is_alive():\n                if not pause_event.is_set():\n                    break\n            time.sleep(0.2)\n\n        print(\"Final Z Position:\", z_hmc.z_current_position)\n\n    \n    elif response == 6:\n        init_speed = 1000\n        timers = defaultdict(float)\n\n        def set_fast_motion(xy_enabled, z_enabled=None):\n            x_hmc.fast_mode = xy_enabled\n            y_hmc.fast_mode = xy_enabled\n            z_hmc.fast_mode = xy_enabled if z_enabled is None else z_enabled\n\n        def sync_serial_once():\n            for h in (x_hmc, y_hmc, z_hmc):\n                h.ser.reset_input_buffer()\n\n        class PatternAbort(Exception):\n            pass\n\n        def abort_patterning(smu, reason):\n            print(f\"[ABORT] {reason}\")\n            try:\n                app.stop_process()\n            except Exception as e:\n                print(f\"[WARN] Could not stop active movement cleanly: {e}\")\n            try:\n                smumark2.out_off(smu)\n            except Exception as e:\n                print(f\"[WARN] Could not turn SMU output off cleanly: {e}\")\n            raise PatternAbort(reason)\n\n        def ensure_z_below_limit(target_z, max_safe_z, smu, context):\n            if target_z > max_safe_z:\n                abort_patterning(\n                    smu,\n                    f\"{context}: target Z {target_z} um exceeds safe limit {max_safe_z} um\"\n                )\n\n        def find_contact_point_custom(smu, contact_voltage, contact_compliance_current_ua, threshold_current_ua, liftoff_height, max_safe_z):\n            smumark2.use_case_1(smu, voltage=contact_voltage, compliance_current_ua=contact_compliance_current_ua)\n            smumark2.out_on(smu)\n            step_size = liftoff_height -50\n            total_distance = z_hmc.z_current_position\n            ensure_z_below_limit(total_distance + step_size, max_safe_z, smu, \"Re-probe coarse contact move\")\n            print(f\"[Z PROBE] Starting with {step_size} \u00b5m step, then 1 \u00b5m steps.\")\n            app.command = '1'\n            app.x_value = 0\n            app.y_value = 0\n            app.z_value = step_size\n            with time_block(timers, \"motion.start_thread\"):\n                app.start_thread()\n            with time_block(timers, \"motion.wait_for_completion\"):\n                app.hmcControl.run_thread.join()\n            total_distance += step_size\n\n            while True:\n                ensure_z_below_limit(total_distance + 1, max_safe_z, smu, \"Re-probe fine contact move\")\n                app.command = '1'\n                app.x_value = 0\n                app.y_value = 0\n                app.z_value = 1\n                with time_block(timers, \"motion.start_thread\"):\n                    app.start_thread()\n                with time_block(timers, \"motion.wait_for_completion\"):\n                    app.hmcControl.run_thread.join()\n                total_distance += 1\n\n                with time_block(timers, \"smu.check_current\"):\n                    status = smumark2.check_current(\n                        smu,\n                        threshold_current_1=threshold_current_ua * 1e-6,\n                        ensure_output_on=False,\n                        verbose=False,\n                    )\n                if status == 1:\n                    print(f\"[CONTACT] Contact at {total_distance} \u00b5m\")\n                    z_hmc.z_current_position = total_distance\n                    return total_distance\n\n        def plot_from_file(v, filename, z_contact_point, smu, delta_z, voltage_threshold_1, voltage_threshold_2, volt_source, curr_comp, contact_voltage, contact_compliance_current_ua, threshold_current_ua, liftoff_height, max_safe_z):\n            with time_block(timers, \"smu.use_case_2\"):\n                smumark2.use_case_2(smu, voltage=volt_source, compliance_current_ua=curr_comp)\n            smumark2.out_on(smu)\n            prev_flag = 0\n            pattern_start_time = time.perf_counter()\n            xy_movement_time = 0\n            xy_move_count = 0\n            xy_commanded_distance = 0.0\n            move_count = 0\n            print(\"[TIMER] Patterning timer started.\")\n            with open(f\"{filename}.txt\", \"r\") as file:\n                i = 1\n                prev_x, prev_y = 0, 0\n                prev_z = z_contact_point\n                liftoff = False\n                for line in file:\n                    parts = line.strip().replace(',', ' ').split()\n                    if len(parts) >= 3:\n                        x, y, flag = float(parts[0]), float(parts[1]), int(parts[2])\n                        dx = x - prev_x\n                        dy = y - prev_y\n                        print(f\"flag:{flag}\")\n                        if i == 1:\n                            prev_x, prev_y = x, y\n                            prev_z = z_contact_point\n                            i += 1\n                            z = z_contact_point\n                            continue\n                        elif flag == 1:\n                            if prev_flag == 0:\n                                print(\"[INFO] liftoff Initiated\")\n                                z = prev_z - liftoff_height\n                   ",
+      "summary": "import serial.tools.list_ports. Contains 5 functions/classes: format_elapsed_time, wait_for_motion, time_block, print_timing_summary, ....",
+      "file_hash": "651aa2e2"
+    },
+    {
+      "id": "main.py::format_elapsed_time",
+      "kind": "symbol",
+      "path": "main.py",
+      "ext": ".py",
+      "size": 8,
+      "keywords": [
+        "format_elapsed_time",
+        "format",
+        "elapsed",
+        "time"
+      ],
+      "symbol_type": "use_case",
+      "name": "format_elapsed_time",
+      "line_start": 17,
+      "line_end": 24,
+      "body_hash": "ac88d22a",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "main.py::wait_for_motion",
+      "kind": "symbol",
+      "path": "main.py",
+      "ext": ".py",
+      "size": 3,
+      "keywords": [
+        "wait_for_motion",
+        "wait",
+        "for",
+        "motion"
+      ],
+      "symbol_type": "use_case",
+      "name": "wait_for_motion",
+      "line_start": 26,
+      "line_end": 28,
+      "body_hash": "2adb5a7f",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "main.py::time_block",
+      "kind": "symbol",
+      "path": "main.py",
+      "ext": ".py",
+      "size": 10,
+      "keywords": [
+        "time_block",
+        "time",
+        "block"
+      ],
+      "symbol_type": "use_case",
+      "name": "time_block",
+      "line_start": 30,
+      "line_end": 39,
+      "body_hash": "5cec162c",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "main.py::print_timing_summary",
+      "kind": "symbol",
+      "path": "main.py",
+      "ext": ".py",
+      "size": 6,
+      "keywords": [
+        "print_timing_summary",
+        "print",
+        "timing",
+        "summary"
+      ],
+      "symbol_type": "use_case",
+      "name": "print_timing_summary",
+      "line_start": 41,
+      "line_end": 46,
+      "body_hash": "a1cdbeec",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "main.py::classify_voltage",
+      "kind": "symbol",
+      "path": "main.py",
+      "ext": ".py",
+      "size": 8,
+      "keywords": [
+        "classify_voltage",
+        "classify",
+        "voltage"
+      ],
+      "symbol_type": "use_case",
+      "name": "classify_voltage",
+      "line_start": 75,
+      "line_end": 82,
+      "body_hash": "9088f20b",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "main.py::feedback_direction_label",
+      "kind": "symbol",
+      "path": "main.py",
+      "ext": ".py",
+      "size": 8,
+      "keywords": [
+        "feedback_direction_label",
+        "feedback",
+        "direction",
+        "label"
+      ],
+      "symbol_type": "use_case",
+      "name": "feedback_direction_label",
+      "line_start": 84,
+      "line_end": 91,
+      "body_hash": "a3394255",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "main.py::read_voltage_sample",
+      "kind": "symbol",
+      "path": "main.py",
+      "ext": ".py",
+      "size": 2,
+      "keywords": [
+        "read_voltage_sample",
+        "read",
+        "voltage",
+        "sample"
+      ],
+      "symbol_type": "use_case",
+      "name": "read_voltage_sample",
+      "line_start": 93,
+      "line_end": 94,
+      "body_hash": "33aa2407",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "main.py::read_first_last_point",
+      "kind": "symbol",
+      "path": "main.py",
+      "ext": ".py",
+      "size": 14,
+      "keywords": [
+        "read_first_last_point",
+        "read",
+        "first",
+        "last",
+        "point"
+      ],
+      "symbol_type": "use_case",
+      "name": "read_first_last_point",
+      "line_start": 96,
+      "line_end": 109,
+      "body_hash": "f79032e6",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "main.py::list_ports",
+      "kind": "symbol",
+      "path": "main.py",
+      "ext": ".py",
+      "size": 12,
+      "keywords": [
+        "list_ports",
+        "list",
+        "ports"
+      ],
+      "symbol_type": "use_case",
+      "name": "list_ports",
+      "line_start": 202,
+      "line_end": 213,
+      "body_hash": "468ee641",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "main.py::user_input_listener",
+      "kind": "symbol",
+      "path": "main.py",
+      "ext": ".py",
+      "size": 8,
+      "keywords": [
+        "user_input_listener",
+        "user",
+        "input",
+        "listener"
+      ],
+      "symbol_type": "use_case",
+      "name": "user_input_listener",
+      "line_start": 214,
+      "line_end": 221,
+      "body_hash": "cda1c5bb",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "main.py::step_size_listener",
+      "kind": "symbol",
+      "path": "main.py",
+      "ext": ".py",
+      "size": 10,
+      "keywords": [
+        "step_size_listener",
+        "step",
+        "size",
+        "listener"
+      ],
+      "symbol_type": "use_case",
+      "name": "step_size_listener",
+      "line_start": 223,
+      "line_end": 232,
+      "body_hash": "90e5c20e",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "main.py::z_probe_move",
+      "kind": "symbol",
+      "path": "main.py",
+      "ext": ".py",
+      "size": 66,
+      "keywords": [
+        "z_probe_move",
+        "probe",
+        "move"
+      ],
+      "symbol_type": "use_case",
+      "name": "z_probe_move",
+      "line_start": 236,
+      "line_end": 301,
+      "body_hash": "da222e3b",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "main.py::z_movement",
+      "kind": "symbol",
+      "path": "main.py",
+      "ext": ".py",
+      "size": 56,
+      "keywords": [
+        "z_movement",
+        "movement"
+      ],
+      "symbol_type": "use_case",
+      "name": "z_movement",
+      "line_start": 303,
+      "line_end": 358,
+      "body_hash": "cbf2c1e3",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "main.py::main",
+      "kind": "symbol",
+      "path": "main.py",
+      "ext": ".py",
+      "size": 880,
+      "keywords": [
+        "main"
+      ],
+      "symbol_type": "use_case",
+      "name": "main",
+      "line_start": 359,
+      "line_end": 1238,
+      "body_hash": "35b69a6e",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "main.py::VoltageFeedbackState",
+      "kind": "symbol",
+      "path": "main.py",
+      "ext": ".py",
+      "size": 25,
+      "keywords": [
+        "voltagefeedbackstate",
+        "voltage",
+        "feedback",
+        "state"
+      ],
+      "symbol_type": "model",
+      "name": "VoltageFeedbackState",
+      "line_start": 49,
+      "line_end": 73,
+      "body_hash": "4e4c6476",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "main.py::SmuVoltageSampler",
+      "kind": "symbol",
+      "path": "main.py",
+      "ext": ".py",
+      "size": 35,
+      "keywords": [
+        "smuvoltagesampler",
+        "smu",
+        "voltage",
+        "sampler"
+      ],
+      "symbol_type": "model",
+      "name": "SmuVoltageSampler",
+      "line_start": 111,
+      "line_end": 145,
+      "body_hash": "c06d9ca1",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "main.py::ZFeedbackWorker",
+      "kind": "symbol",
+      "path": "main.py",
+      "ext": ".py",
+      "size": 54,
+      "keywords": [
+        "zfeedbackworker",
+        "feedback",
+        "worker"
+      ],
+      "symbol_type": "model",
+      "name": "ZFeedbackWorker",
+      "line_start": 147,
+      "line_end": 200,
+      "body_hash": "72f78787",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "README.md",
+      "kind": "file",
+      "path": "README.md",
+      "ext": ".md",
+      "size": 35009,
+      "keywords": [],
+      "content": "# Electro-Lithography System\n\nThis repository contains code for a **custom-built Electro-Lithography system** that enables micron-level precision probe movement with real time Z axis feedback. The system is designed to facilitate patterning on surfaces at micro and eventually nano scales, by detecting probe and sample contact through electrical current feedback.\n\n> \ud83e\uddea Still under active development, features such as nanometer scale positioning, live imaging, and improved path optimization are planned.\n\n---\n## \ud83e\uddec What Is Electro\u2011Lithography?\nElectro lithography is a scanning probe, mask less lithography technique that uses electrical stimuli to directly write patterns on surfaces at micro to nano length scales.\n\n**How it Works?**\n- A conductive probe tip (like those in Scanning Probe Microscopes) is positioned above or in contact with a thin metallic film or substrate\n- A controlled electric field or current is applied through the tip, causing localized material transport, either by electromigration or electrochemical reactions at the probe sample interface .\n-  This enables direct writing of patterns (e.g., lines, dots, shapes) without requiring photomasks, often under ambient conditions and with resolutions below 10\u202fnm\n\n## \ud83d\udd2c Project Overview.\n\nElectro lithography is a cutting edge nanofabrication technique where a conductive probe is brought into contact with a surface to define patterns. The system uses precise motor controls and current-based contact detection to create lithographic patterns.\n\nThis project aims to provide:\n\n- Automated probe movement in X, Y, and Z directions\n- Real-time Z-axis feedback using current sensing from an SMU (Source Measurement Unit)\n- Execution of custom lithographic patterns based on coordinate files\n- Scalability toward nanometer precision and visual monitoring\n\n---\n\n## \ud83d\udcc1 Repository Structure\n\n- `hmccontroller.py` \u2013 Handles communication and control of the X, Y, Z micro-positioning motors.\n- `main.py` \u2013 Used for executing lithography runs based on coordinate input and voltage/current feedback.\n- `coordinates.txt` \u2013 Input file with X Y Z movement coordinates and 0/1 flags for liftoff state(for making open loop patterns).\n- `README.md` \u2013 You\u2019re reading it!\n\n---\n\n## \u2699\ufe0f How It Works\n\n1. **Coordinate Input**  \n   A `.txt` file provides a sequence of (X, Y) positions and optional liftoff commands (0/1) for the probe, where 0 indicates **touch** and 1 indicates **no touch**, this tells the code when to lift the probe up and down. It is used when we have to make open loop patterns (when we have to make pattern at two places which are not join, Example- 5 parallel lines)\n\n2. **Motor Movement**  \n   Motors are controlled through a serial interface using the `hmccontroller.py` module to move in precise 0.2 \u03bcm steps (configurable).\n\n3. **Z axis Feedback Loop**  \n   The system continuously reads current values from an SMU. A spike in current indicates probe contact with the substrate, which triggers fine Z adjustments. The water bridge formed between the probe and sample is very delicate, to maintain the water bridge we have to keep adjusting Z coordinate on every step. The formation of water bridge is detected by reading voltage values through the SMU. To read more about the process read the research paper by Dr. Santanu Talukder linked at the end.\n\n4. **Pattern Execution**  \n   A pattern is traced as the probe moves based on the input coordinates while managing liftoff and re engagement at each step.\n\n---\n\n## \ud83d\udee0\ufe0f Technologies Used\n\n- **Python**\n- **Serial Communication (pySerial)**\n- **Holmarc Motor Controllers**\n- **Source Measurement Unit (SMU)**\n- **Micropositioners (XYZ stage)**\n- (Planned) **Nanopositioner**\n- (Planned) **Microscope Camera Integration**\n\n---\n## Report\n   [![View Report](https://img.shields.io/badge/Open-PDF-red)](Report.pdf)\n\n## \ud83d\udcc8 Future Work\n\n- [ ] Integrate high resolution nanopositioner for sub micron accuracy\n- [ ] Camera module with lens for live monitoring\n- [ ] Improve real time feedback system and pattern resolution\n- [ ] GUI interface for easy pattern design and control\n- [ ] System safety and emergency stop mechanisms\n\n---\n\n## \ud83d\udcda Learn More\n\nTo understand the principles behind this system and the underlying electro-lithography technique, refer to the research by [Dr. Santanu Talukder](https://sites.google.com/site/santanutalukderiiscnanoscience/research?authuser=0#h.gpgsm7u1n3ba).\n\n---\n\n## LabVIEW Implementation Architecture\n\n### 1. System Architecture\n\n```\n+----------------------------------------------------------------------+\n|                        LabVIEW Main Application                      |\n|                                                                      |\n|  +-------------+    +--------------+    +------------------------+  |\n|  |  Front Panel |    | State Machine|    |  Error Handler         |  |\n|  |  (UI)        |<-->| (Sequencer)  |<-->|  (Logging/Recovery)    |  |\n|  +------+------ +    +------+-------+    +------------------------+  |\n|         |                  |                                         |\n|    +----+------------------+---------------------------+            |\n|    |              Parallel Loops (Producer/Consumer)     |            |\n|    |                                                     |            |\n|    |  +--------------+     +------------------------+  |            |\n|    |  | Motor Control |     |  SMU Control            |  |            |\n|    |  | Loop          |     |  Loop                   |  |            |\n|    |  |               |     |                          |  |            |\n|    |  | - Set Speed   |     |  - Init/Reset SMU       |  |            |\n|    |  | - Move XYZ    |     |  - Source Current/Volt   |  |            |\n|    |  | - Home Axes   |     |  - Read Voltage          |  |            |\n|    |  | - Read Pos    |     |  - Read Current          |  |            |\n|    |  | - Limit Detect|     |  - Output On/Off         |  |            |\n|    |  +------+------- +     +-----------+--------------+  |            |\n|    |         |                          |                  |            |\n|    |    +----+----+              +-----+------+          |            |\n|    |    | VISA    |              | VISA        |          |            |\n|    |    | Serial  |              | USB/GPIB    |          |            |\n|    |    +----+----+              +-----+------+          |            |\n|    +---------+--------------------------+-----------------+            |\n|              |                          |                             |\n+--------------+--------------------------+---------------------------+\n               |                          |\n    +----------+----------+    +----------+----------+\n    |  Holmarc Motor      |    |  Keithley SMU        |\n    |  Controller         |    |  (2400/2450/2600)    |\n    |  (XYZ Stepper)      |    |                      |\n    |  19200 baud serial  |    |  USB VISA            |\n    +----------+----------+    +----------+----------+\n               |                          |\n    +----------+----------+    +----------+----------+\n    |  XYZ Micropositioner|    |  Probe-Substrate     |\n    |  (0.2um resolution) |    |  Interface            |\n    +---------------------+    +---------------------+\n```\n\n---\n\n### 2. LabVIEW Project Structure\n\n```\nElectroLithography.lvproj/\n|\n+-- SubVIs/\n|   +-- Motor Controller/\n|   |   +-- Motor_Init.vi                 <- Open serial, verify device ID\n|   |   +-- Motor_Close.vi                <- Close serial port\n|   |   +-- Motor_SetSpeed.vi             <- Set XYZ speed (steps/sec)\n|   |   +-- Motor_Move.vi                 <- Send move command, wait completion\n|   |   +-- Motor_MoveHome.vi             <- Home all axes sequentially\n|   |   +-- Motor_Stop.vi                 <- Emergency stop\n|   |   +-- Motor_ReadPosition.vi         <- Read actual steps from controller\n|   |   +-- Motor_ReadStatus.vi           <- Poll movement status byte\n|   |   +-- Motor_CheckLimits.vi          <- Check limit switch flags\n|   |   +-- Motor_Utils/\n|   |       +-- Byte3_Byte2_Byte1_Byte0.vi   <- Split 32-bit to 4 bytes\n|   |       +-- MSB_CSB_LSB.vi               <- Split 24-bit to 3 bytes\n|   |       +-- Build_Command.vi              <- Assemble command packet\n|   |\n|   +-- SMU Controller/\n|   |   +-- SMU_Init.vi                   <- Open VISA, *RST, *CLS\n|   |   +-- SMU_Close.vi                  <- Output off, close VISA\n|   |   +-- SMU_Reset.vi                  <- *CLS + *RST\n|   |   +-- SMU_SourceCurrent.vi          <- Use Case 1: current source + V compliance\n|   |   +-- SMU_SourceVoltage.vi          <- Use Case 2: voltage source + I compliance\n|   |   +-- SMU_ReadVoltage.vi            <- READ? -> parse voltage -> classify\n|   |   +-- SMU_ReadCurrent.vi            <- READ? -> parse current -> classify\n|   |   +-- SMU_OutputOnOff.vi            <- OUTP ON/OFF\n|   |\n|   +-- Pattern Loader/\n|   |   +-- LoadCoordinateFile.vi         <- Read .txt file -> parse X,Y,flag arrays\n|   |   +-- ValidateCoordinates.vi        <- Bounds check, format validation\n|   |\n|   +-- Utilities/\n|       +-- ListCOMPorts.vi               <- Enumerate serial ports\n|       +-- AngleCalculation.vi           <- atan2, sin, cos for velocity decomposition\n|       +-- Logging.vi                    <- Write to file/log\n|\n+-- State Machines/\n|   +-- MainSelector.vi                   <- Top-level menu/mode selector\n|   +-- ManualMove.vi                     <- Mode 1: XYZ manual move\n|   +-- HomeAll.vi                        <- Mode 2: Home all axes\n|   +-- OpenLoopPattern.vi                <- Mode 3: Execute pattern from file (no feedback)\n|   +-- ZProbe.vi                         <- Mode 4: Z probe with speed control\n|   +-- ZProbePauseResume.vi              <- Mode 5: Z probe with pause/resume\n|   +-- LithographyRun.vi                 <- Mode 6: Full lithography (Z feedback + pattern)\n|\n+-- Parallel Loop Architectures/\n|   +-- Z_FeedbackLoop.vi                 <- Real-time Z adjustment loop\n|   +-- UserInputListener.vi              <- Speed/step-size input listener\n|\n+-- Front Panels/\n|   +-- MainPanel.vi                      <- Main UI with mode selection\n|   +-- ManualMovePanel.vi                <- XYZ jog controls\n|   +-- LithographyPanel.vi               <- Parameter inputs + status display\n|   +-- PatternViewer.vi                  <- Visualize loaded pattern\n|\n+-- Libraries/\n|   +-- MotorProtocol.lvlib               <- Encapsulate serial protocol\n|   +-- SMUProtocol.lvlib                 <- Encapsulate VISA SCPI commands\n|\n+-- Config/\n    +-- SystemConfig.vi                   <- Centralized constants\n```\n\n---\n\n### 3. Detailed Code Flow\n\n#### 3.1 Startup Flow\n\n```\nSTART\n  |\n  +-> List COM Ports -> Display in dropdown\n  |\n  +-> User selects port\n  |\n  +-> Motor_Init.vi\n  |     +-> VISA Open (19200, 8N1, timeout 100ms)\n  |     +-> VISA Write: [0x64] (device ID request = 100)\n  |     +-> VISA Read: wait for byte\n  |     +-> Check byte == 0xC8 (device ACK = 200)?\n  |          +-> YES -> proceed\n  |          +-> NO  -> error dialog, retry/abort\n  |     +-> Set com_open = TRUE\n  |\n  +-> Motor_MoveHome.vi (on_startup)\n  |     +-> SetSpeed(5000, 5000, 5000)\n  |     +-> Z Home: Move(0, 0, 16777216) -> wait for z_home_limit (45)\n  |     +-> Close/Open serial (reset)\n  |     +-> X Home: Move(-16777216, 0, 0) -> wait for x_home_limit (41)\n  |     +-> Close/Open serial (reset)\n  |     +-> Y Home: Move(0, -16777216, 0) -> wait for y_home_limit (43)\n  |     +-> Close/Open serial (reset)\n  |     +-> Initialize all positions to 0\n  |\n  +-> Show Main Panel -> User selects mode\n```\n\n#### 3.2 Serial Protocol (Motor Controller)\n\nEvery motor command follows this byte-level protocol:\n\n```\nMOTOR COMMAND PACKET STRUCTURE:\n===============================\n\n1. SET SPEED (Command byte: 0x22 = 34)\n   TX: [0x22] [MSB_X] [CSB_X] [LSB_X] [MSB_Y] [CSB_Y] [LSB_Y] [MSB_Z] [CSB_Z] [LSB_Z]\n   RX: ACK(0x0A) after each byte\n   Speed = input_microns_per_sec / 0.2 (convert to steps/sec)\n\n2. MOVE (Command byte: 0x13 = 19)\n   TX: [0x13]\n   RX: ACK(0x0A)\n   TX: [Move_axis_A_cmd] -> [B3] [B2] [B1] [B0] [Direction]\n   RX: ACK after each byte\n   TX: [Move_axis_B_cmd] -> [B3] [B2] [B1] [B0] [Direction]\n   RX: ACK after each byte\n   TX: [Move_axis_C_cmd] -> [B3] [B2] [B1] [B0] [Direction]\n   RX: ACK after each byte\n\n   Steps = distance_microns / 0.2\n   Direction: 0x7D (+) or 0xAF (-)\n\n3. READ STATUS (Command byte: 0xA3 = 163)\n   TX: [0xA3]\n   RX: [0xA4] (READ_ACK)\n   TX: [0x0A] -> RX: [status_byte]\n\n   Status bytes:\n     0xAA (170) = move completed\n     0x29 (41)  = X home limit\n     0x28 (40)  = X far limit\n     0x2B (43)  = Y home limit\n     0x2A (42)  = Y far limit\n     0x2D (45)  = Z home limit\n     0x2C (44)  = Z far limit\n\n4. READ ACTUAL STEPS (Command byte: 0xA3 = 163)\n   TX: [0xA3] -> RX: [0xA4]\n   For each axis (X, Y, Z):\n     TX: [0x0A] -> RX: [byte0]\n     TX: [0x0A] -> RX: [byte1]\n     TX: [0x0A] -> RX: [byte2]\n     TX: [0x0A] -> RX: [byte3]\n   Steps = (byte3 * 16777216) + (byte2 * 65536) + (byte1 * 256) + byte0\n\n5. STOP (Command byte: 0x68 = 104)\n   TX: [0x68]\n   RX: [0x69] (stop ACK)\n```\n\n#### 3.3 SMU Communication (SCPI over VISA)\n\n```\nSMU COMMAND STRUCTURE:\n======================\n\nINIT:\n  VISA Open (USB0::0x2184::0x007D::gey853397::INSTR)\n  Write: *CLS\n  Write: *RST\n  Wait: 100ms\n\nUSE CASE 1 (Current Source, Voltage Compliance - for contact detection):\n  Write: SOUR:FUNC CURR\n  Write: SOUR:CURR {current_A}          <- e.g., 0.2e-6 for 0.2uA\n  Write: SENS:VOLT:PROT {compliance_V}  <- e.g., 1.0V\n\nUSE CASE 2 (Voltage Source, Current Compliance - for patterning):\n  Write: SOUR:FUNC VOLT\n  Write: SOUR:VOLT {voltage_V}          <- e.g., 0.5V\n  Write: SENS:CURR:PROT {compliance_A}  <- e.g., 1000e-6 for 1mA\n\nREAD:\n  Write: OUTP ON\n  Query: READ?\n  Response: \"{voltage},{current}\" (CSV string)\n  Parse: voltage = float(parts[0]), current = float(parts[1])\n\nOUTPUT OFF:\n  Write: OUTP OFF\n```\n\n---\n\n### 4. State Machine Architecture (Mode 6 - Full Lithography)\n\n```\n+----------------------------------------------------------------------+\n|                    LITHOGRAPHY RUN STATE MACHINE                      |\n|                                                                      |\n|  +----------+                                                        |\n|  | S_INIT   | <- Read parameters from UI                              |\n|  +----+-----+   (voltage, current, thresholds, delta_z,              |\n|       |          liftoff_height, filename, speed)                     |\n|       v                                                               |\n|  +----------+                                                        |\n|  | S_SMU_   | <- SMU_Init -> SMU_Reset -> SMU_SourceCurrent           |\n|  | CONFIG   |   (Use Case 1: current source for contact detection)    |\n|  +----+-----+                                                        |\n|       v                                                               |\n|  +----------+                                                        |\n|  | S_LOAD_  | <- LoadCoordinateFile.vi                               |\n|  | PATTERN  |   Parse first line -> get first_x, first_y              |\n|  +----+-----+   Store all (X, Y, flag) arrays in shift register      |\n|       v                                                               |\n|  +----------+                                                        |\n|  | S_MOVE_  | <- dx = first_x - current_x                            |\n|  | TO_START |   dy = first_y - current_y                             |\n|  |          |   SetSpeed(5000, 5000, 5000)                           |\n|  |          |   Motor_Move(dx, dy, 0)                                |\n|  |          |   Wait for completion                                  |\n|  +----+-----+                                                        |\n|       v                                                               |\n|  +----------+                                                        |\n|  | S_Z_     | <- Z_Probe subroutine:                                 |\n|  | PROBE    |   1. Move Z down by z_contact_step                     |\n|  |          |   2. Read current via SMU                               |\n|  |          |   3. If current > threshold -> CONTACT FOUND            |\n|  |          |   4. Else -> repeat from step 1                        |\n|  |          |   5. Store z_contact_point                             |\n|  +----+-----+                                                        |\n|       v                                                               |\n|  +----------+                                                        |\n|  | S_SWITCH | <- SMU_SourceVoltage (Use Case 2)                       |\n|  | TO_      |   Now reading voltage for Z feedback                   |\n|  | PATTERN  |                                                         |\n|  +----+-----+                                                        |\n|       v                                                               |\n|  +----------+   +-----------------------------------------------+    |\n|  | S_TRACE  |--->| For each coordinate (X[i], Y[i], Flag[i]):   |    |\n|  | PATTERN  |   |                                                |    |\n|  |          |<---|  IF i == 0:                                   |    |\n|  |          |   |    Skip (already at start position)           |    |\n|  |          |   |                                                |    |\n|  |          |   |  IF Flag[i] == 1 AND prev_flag == 0:         |    |\n|  |          |   |    -> LIFTOFF:                                 |    |\n|  |          |   |      z = prev_z - liftoff_height              |    |\n|  |          |   |      dz = z - prev_z                          |    |\n|  |          |   |      liftoff_active = TRUE                    |    |\n|  |          |   |                                                |    |\n|  |          |   |  IF Flag[i] == 1 AND prev_flag == 1:         |    |\n|  |          |   |    -> STAY LIFTED:                             |    |\n|  |          |   |      z = prev_z (no Z change)                 |    |\n|  |          |   |                                                |    |\n|  |          |   |  IF Flag[i] == 0 AND liftoff_active:         |    |\n|  |          |   |    -> RE-ENGAGE:                               |    |\n|  |          |   |      Call Z_Probe subroutine                  |    |\n|  |          |   |      z = new z_contact_point                  |    |\n|  |          |   |      liftoff_active = FALSE                   |    |\n|  |          |   |                                                |    |\n|  |          |   |  IF Flag[i] == 0 AND NOT liftoff:            |    |\n|  |          |   |    -> FEEDBACK Z ADJUST:                       |    |\n|  |          |   |      Read voltage via SMU                     |    |\n|  |          |   |      IF V < V_thresh_low:                     |    |\n|  |          |   |        z = prev_z - delta_z  (move closer)    |    |\n|  |          |   |      ELSE IF V > V_thresh_high:               |    |\n|  |          |   |        z = prev_z + delta_z  (move away)      |    |\n|  |          |   |      ELSE:                                     |    |\n|  |          |   |        z = prev_z (no change)                 |    |\n|  |          |   |                                                |    |\n|  |          |   |  COMPUTE:                                      |    |\n|  |          |   |    dx = X[i] - prev_x                         |    |\n|  |          |   |    dy = Y[i] - prev_y                         |    |\n|  |          |   |    dz = z - prev_z                            |    |\n|  |          |   |    theta = atan2(dx, dy)                       |    |\n|  |          |   |    vx = speed * sin(theta)                    |    |\n|  |          |   |    vy = speed * cos(theta)                    |    |\n|  |          |   |                                                |    |\n|  |          |   |  EXECUTE:                                      |    |\n|  |          |   |    SetSpeed(vx, vy, 1000)                     |    |\n|  |          |   |    Motor_Move(dx, dy, dz)                     |    |\n|  |          |   |    Wait for completion                        |    |\n|  |          |   |                                                |    |\n|  |          |   |  UPDATE:                                       |    |\n|  |          |   |    prev_x = X[i], prev_y = Y[i], prev_z = z  |    |\n|  |          |   |    prev_flag = Flag[i]                        |    |\n|  |          |   |    i = i + 1                                  |    |\n|  +----+-----+   +-----------------------------------------------+    |\n|       v (all coordinates done)                                        |\n|  +----------+                                                        |\n|  | S_SMU_   | <- SMU_OutputOff                                      |\n|  | OFF      |                                                        |\n|  +----+-----+                                                        |\n|       v                                                               |\n|  +----------+                                                        |\n|  | S_HOME   | <- Motor_MoveHome (all axes)                           |\n|  +----+-----+                                                        |\n|       v                                                               |\n|  +----------+                                                        |\n|  | S_DONE   | <- Display final position, cleanup                     |\n|  +----------+                                                        |\n+----------------------------------------------------------------------+\n```\n\n---\n\n### 5. Algorithms\n\n#### 5.1 Z-Probe Contact Detection\n\n```\nALGORITHM: Find Contact Point\n=============================\n\nInput:  smu_handle, lower_current_threshold (uA), initial_step_size (uM)\nOutput: z_contact_point (uM from home)\n\nPROCEDURE:\n  1. total_distance <- 0\n  2. step_size <- initial_step_size\n  3. REPEAT:\n     a. Send Motor_Move(0, 0, step_size)       // Move Z down\n     b. Wait for motor completion\n     c. total_distance <- total_distance + step_size\n     d. current_A <- SMU_Query(\"READ?\")         // Read current\n     e. Parse current from response\n     f. IF current_A > lower_current_threshold * 1e-6:\n        i.  PRINT \"Contact found at {total_distance} uM\"\n        ii. RETURN total_distance\n     g. Sleep(100ms)\n  4. UNTIL contact found (or timeout/max distance)\n```\n\n#### 5.2 Real-Time Z-Feedback\n\n```\nALGORITHM: Z Feedback Adjustment\n================================\n\nInput:  smu_handle, voltage_low_thresh, voltage_high_thresh, delta_z\nOutput: new_z_position\n\nPROCEDURE:\n  1. voltage_V <- SMU_Query(\"READ?\")             // Read voltage\n  2. Parse voltage from response\n  3. IF voltage_low_thresh < voltage_V < voltage_high_thresh:\n     a. PRINT \"Voltage in range - Z aligned\"\n     b. RETURN prev_z                            // No change needed\n  4. ELSE IF voltage_V < voltage_low_thresh:\n     a. PRINT \"Voltage too low - probe too far from surface\"\n     b. RETURN prev_z - delta_z                  // Move probe CLOSER (down)\n  5. ELSE IF voltage_V > voltage_high_thresh:\n     a. PRINT \"Voltage too high - probe too close\"\n     b. RETURN prev_z + delta_z                  // Move probe AWAY (up)\n\nNOTE: \"Down\" means negative Z (toward substrate).\n      The water bridge voltage increases as probe gets closer.\n      Low voltage = probe too far. High voltage = probe too close.\n```\n\n#### 5.3 Liftoff / Re-engage\n\n```\nALGORITHM: Liftoff and Re-engage\n================================\n\nInput:  coordinate_array[], flag_array[]\nOutput: pattern executed with probe management\n\nSTATE: liftoff_active <- FALSE\n       prev_flag <- 0\n\nFOR i = 0 TO N-1:\n  flag <- flag_array[i]\n  CASE (prev_flag, flag):\n    (0, 1):   // Transition: contact -> liftoff\n      z <- prev_z - liftoff_height               // Raise probe\n      liftoff_active <- TRUE\n      Execute",
+      "summary": "Electro-Lithography System.",
+      "file_hash": "84e260d3"
+    },
+    {
+      "id": "smumark1.py",
+      "kind": "file",
+      "path": "smumark1.py",
+      "ext": ".py",
+      "size": 1222,
+      "keywords": [
+        "init_smu",
+        "init",
+        "smu",
+        "check_voltage",
+        "check",
+        "voltage"
+      ],
+      "content": "import pyvisa\nimport time\n\ndef init_smu(current_ua=10, compliance_voltage=1.0):\n    rm = pyvisa.ResourceManager()\n    smu_address = 'USB0::0x2184::0x007D::gey853397::INSTR'  # Replace with your address\n    smu = rm.open_resource(smu_address)\n    smu.timeout = 5000\n    smu.write_termination = '\\n'\n    smu.read_termination = '\\n'\n\n    smu.write('*CLS')\n    smu.write('*RST')\n    print(\"[INFO] SMU Reset complete.\")\n\n    smu.write(\"SOUR:FUNC CURR\")\n    smu.write(f\"SOUR:CURR {current_ua * 1e-6}\")\n    smu.write(f\"SENS:VOLT:PROT {compliance_voltage}\")\n    smu.write('OUTP ON')\n    print(f\"[INFO] Current set to {current_ua} \u00b5A, Compliance Voltage: {compliance_voltage} V\")\n\n    return smu\n\ndef check_voltage(smu, threshold=0.9):\n    try:\n        response = smu.query('READ?').strip()\n        voltage, current = map(float, response.split(',')[:2])\n        print(f\"[VOLTAGE] {voltage:.4f} V, [CURRENT] {current:.4e} A\")\n        if voltage < threshold:\n            print(\" Voltage OUT OF RANGE!\")\n            smu.write('OUTP OFF')\n            return 0\n        return 1\n    except Exception as e:\n        print(f\"[ERROR] SMU read error: {e}\")\n        smu.write('OUTP OFF')\n        return 0\n",
+      "summary": "import pyvisa. Contains 2 functions/classes: init_smu, check_voltage.",
+      "file_hash": "b8604fdf"
+    },
+    {
+      "id": "smumark1.py::init_smu",
+      "kind": "symbol",
+      "path": "smumark1.py",
+      "ext": ".py",
+      "size": 19,
+      "keywords": [
+        "init_smu",
+        "init",
+        "smu"
+      ],
+      "symbol_type": "use_case",
+      "name": "init_smu",
+      "line_start": 3,
+      "line_end": 21,
+      "body_hash": "230c0268",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "smumark1.py::check_voltage",
+      "kind": "symbol",
+      "path": "smumark1.py",
+      "ext": ".py",
+      "size": 14,
+      "keywords": [
+        "check_voltage",
+        "check",
+        "voltage"
+      ],
+      "symbol_type": "use_case",
+      "name": "check_voltage",
+      "line_start": 23,
+      "line_end": 36,
+      "body_hash": "9cab8304",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "smumark2.py",
+      "kind": "file",
+      "path": "smumark2.py",
+      "ext": ".py",
+      "size": 5028,
+      "keywords": [
+        "check_smu_errors",
+        "check",
+        "smu",
+        "errors",
+        "init_smu",
+        "init",
+        "reset_smu",
+        "reset",
+        "use_case_1",
+        "use",
+        "case",
+        "use_case_2",
+        "out_on",
+        "out",
+        "read_voltage_sample",
+        "read",
+        "voltage",
+        "sample",
+        "read_current_sample",
+        "current",
+        "check_voltage",
+        "check_current",
+        "check_voltage_testing",
+        "testing",
+        "out_off",
+        "off"
+      ],
+      "content": "import pyvisa\nimport time\n\ndef check_smu_errors(smu):\n    try:\n        errors = []\n        while True:\n            err = smu.query(\":SYST:ERR?\").strip()\n            if \"No error\" in err or err.startswith(\"0,\") or not err:\n                break\n            errors.append(err)\n        if errors:\n            print(\"[SMU SCPI ERRORS DETECTED]\")\n            for e in errors:\n                print(f\"  -> {e}\")\n    except Exception as e:\n        print(f\"[WARN] Could not read SMU error queue: {e}\")\n\ndef init_smu():\n    rm = pyvisa.ResourceManager()\n    smu_address = 'USB0::0x2184::0x007D::gey853397::INSTR'  # Replace with your address\n    smu = rm.open_resource(smu_address)\n    smu.timeout = 5000\n    smu.write_termination = '\\n'\n    smu.read_termination = '\\n'\n    try:\n        smu.clear()  # Send Device Clear to un-hang trigger model and interface\n    except Exception as e:\n        print(f\"[WARN] SMU clear failed: {e}\")\n    smu.write('*CLS')\n    smu.write('*RST')\n    print(\"[INFO] SMU Reset complete.\")\n    check_smu_errors(smu)\n    return smu\n\ndef reset_smu(smu):\n    try:\n        smu.clear()\n    except Exception:\n        pass\n    smu.write('*CLS')\n    smu.write('*RST')\n    print(\"[INFO] SMU Reset complete.\")\n    check_smu_errors(smu)\n\ndef use_case_1(smu, voltage=1, compliance_current_ua=105): #set compliance current and source voltage\n    reset_smu(smu)\n    smu.write(\"SOUR:FUNC VOLT\")\n    smu.write(f\"SOUR:VOLT {voltage}\")\n    smu.write(f\"SENS:CURR:PROT {compliance_current_ua * 1e-6}\")\n    smu.write(\"SENS:CURR:NPLC 0.05\")\n\n    print(f\"[INFO] Voltage set to {voltage} V, Compliance Current: {compliance_current_ua} micro A\")\n    check_smu_errors(smu)\n    return smu\n\ndef use_case_2(smu,voltage = 1,compliance_current_ua = 1000): #set complaince curr nd source volt\n    reset_smu(smu)\n    smu.write(\"SOUR:FUNC VOLT\")\n    smu.write(f\"SOUR:VOLT {voltage}\")\n    smu.write(f\"SENS:CURR:PROT {compliance_current_ua * 1e-6}\")\n    smu.write(\"SENS:CURR:NPLC 0.05\")\n    print(f\"Voltage set as {voltage} V, Current set as {compliance_current_ua} micro A \")\n    check_smu_errors(smu)\n    return smu\n\ndef out_on(smu):\n    smu.write('OUTP ON')\n    setattr(smu, \"_output_enabled\", True)\n\ndef _read_sample(smu, ensure_output_on=True):\n    if ensure_output_on and not getattr(smu, \"_output_enabled\", False):\n        smu.write(\"OUTP ON\")\n        setattr(smu, \"_output_enabled\", True)\n    response = smu.query('READ?').strip()\n    if not response:\n        smu.write(\"OUTP ON\")\n        setattr(smu, \"_output_enabled\", True)\n        time.sleep(0.02)\n        response = smu.query('READ?').strip()\n    voltage, current = map(float, response.split(',')[:2])\n    return voltage, current\n\ndef read_voltage_sample(smu, ensure_output_on=True):\n    return _read_sample(smu, ensure_output_on=ensure_output_on)\n\ndef read_current_sample(smu, ensure_output_on=True):\n    return _read_sample(smu, ensure_output_on=ensure_output_on)\n\n\ndef check_voltage(smu, threshold_voltage_1, threshold_voltage_2, ensure_output_on=True, verbose=True):\n    alpha = 0\n    try:\n        voltage, current = read_voltage_sample(smu, ensure_output_on=ensure_output_on)\n        if verbose:\n            print(f\"[VOLTAGE] {voltage:.4f} V, [CURRENT] {current:.4e} A\")\n        if threshold_voltage_1 <voltage < threshold_voltage_2:\n            if verbose:\n                print(\" Voltage in the range!\")\n            #smu.write('OUTP OFF')\n            alpha = 1\n            return alpha\n        elif voltage < threshold_voltage_1:\n            #print('voltage below the band, please lift the probe a little up!!')\n            alpha = 2\n            return alpha\n        elif voltage > threshold_voltage_2:\n            #print('voltage above the band, please get the probe a little down!!')\n            alpha = 3\n            return alpha\n        return alpha\n    except Exception as e:\n        print(f\"[ERROR] SMU read error: {e}\")\n        smu.write('OUTP OFF')\n        setattr(smu, \"_output_enabled\", False)\n        return alpha\n\ndef check_current(smu, threshold_current_1, ensure_output_on=True, verbose=True):\n    beta = 0\n    voltage, current = read_current_sample(smu, ensure_output_on=ensure_output_on)\n    if verbose:\n        print(f\"[VOLTAGE] {voltage:.4f} V, [CURRENT] {current:.4e} A\")\n    if  current > threshold_current_1:\n        if verbose:\n            print(\" current reached the right spot !!\")\n        beta = 1\n        return beta\n    return beta\n\ndef check_voltage_testing(smu,threshold_voltage = 0.9):\n    gamma = 0\n    response = smu.query('READ?').strip()\n    voltage, current = map(float, response.split(',')[:2])\n    print(f\"[VOLTAGE]{voltage:.4f} V, [CURRENT] {current:.4e} A\")\n    if voltage > threshold_voltage:\n        print(\" no touch confirmed , make Z axis move down \")\n        gamma = 1\n        return gamma\n    elif voltage < threshold_voltage:\n        print(\" no touch confirmed , make Z axis move up \")\n        gamma = 2\n        return gamma\n    return gamma\n\ndef out_off(smu):\n    smu.write('OUTP OFF')\n    setattr(smu, \"_output_enabled\", False)\n",
+      "summary": "import pyvisa. Contains 5 functions/classes: check_smu_errors, init_smu, reset_smu, use_case_1, ....",
+      "file_hash": "1f1c72e4"
+    },
+    {
+      "id": "smumark2.py::check_smu_errors",
+      "kind": "symbol",
+      "path": "smumark2.py",
+      "ext": ".py",
+      "size": 14,
+      "keywords": [
+        "check_smu_errors",
+        "check",
+        "smu",
+        "errors"
+      ],
+      "symbol_type": "use_case",
+      "name": "check_smu_errors",
+      "line_start": 3,
+      "line_end": 16,
+      "body_hash": "bc68c159",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "smumark2.py::init_smu",
+      "kind": "symbol",
+      "path": "smumark2.py",
+      "ext": ".py",
+      "size": 16,
+      "keywords": [
+        "init_smu",
+        "init",
+        "smu"
+      ],
+      "symbol_type": "use_case",
+      "name": "init_smu",
+      "line_start": 18,
+      "line_end": 33,
+      "body_hash": "23ce0b5a",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "smumark2.py::reset_smu",
+      "kind": "symbol",
+      "path": "smumark2.py",
+      "ext": ".py",
+      "size": 9,
+      "keywords": [
+        "reset_smu",
+        "reset",
+        "smu"
+      ],
+      "symbol_type": "use_case",
+      "name": "reset_smu",
+      "line_start": 35,
+      "line_end": 43,
+      "body_hash": "d75f23d2",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "smumark2.py::use_case_1",
+      "kind": "symbol",
+      "path": "smumark2.py",
+      "ext": ".py",
+      "size": 10,
+      "keywords": [
+        "use_case_1",
+        "use",
+        "case"
+      ],
+      "symbol_type": "use_case",
+      "name": "use_case_1",
+      "line_start": 45,
+      "line_end": 54,
+      "body_hash": "09b43122",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "smumark2.py::use_case_2",
+      "kind": "symbol",
+      "path": "smumark2.py",
+      "ext": ".py",
+      "size": 9,
+      "keywords": [
+        "use_case_2",
+        "use",
+        "case"
+      ],
+      "symbol_type": "use_case",
+      "name": "use_case_2",
+      "line_start": 56,
+      "line_end": 64,
+      "body_hash": "ee1d94a6",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "smumark2.py::out_on",
+      "kind": "symbol",
+      "path": "smumark2.py",
+      "ext": ".py",
+      "size": 3,
+      "keywords": [
+        "out_on",
+        "out"
+      ],
+      "symbol_type": "use_case",
+      "name": "out_on",
+      "line_start": 66,
+      "line_end": 68,
+      "body_hash": "d6da2d54",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "smumark2.py::read_voltage_sample",
+      "kind": "symbol",
+      "path": "smumark2.py",
+      "ext": ".py",
+      "size": 2,
+      "keywords": [
+        "read_voltage_sample",
+        "read",
+        "voltage",
+        "sample"
+      ],
+      "symbol_type": "use_case",
+      "name": "read_voltage_sample",
+      "line_start": 83,
+      "line_end": 84,
+      "body_hash": "7c8703e6",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "smumark2.py::read_current_sample",
+      "kind": "symbol",
+      "path": "smumark2.py",
+      "ext": ".py",
+      "size": 2,
+      "keywords": [
+        "read_current_sample",
+        "read",
+        "current",
+        "sample"
+      ],
+      "symbol_type": "use_case",
+      "name": "read_current_sample",
+      "line_start": 86,
+      "line_end": 87,
+      "body_hash": "0c85e28f",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "smumark2.py::check_voltage",
+      "kind": "symbol",
+      "path": "smumark2.py",
+      "ext": ".py",
+      "size": 26,
+      "keywords": [
+        "check_voltage",
+        "check",
+        "voltage"
+      ],
+      "symbol_type": "use_case",
+      "name": "check_voltage",
+      "line_start": 90,
+      "line_end": 115,
+      "body_hash": "8fbe4206",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "smumark2.py::check_current",
+      "kind": "symbol",
+      "path": "smumark2.py",
+      "ext": ".py",
+      "size": 11,
+      "keywords": [
+        "check_current",
+        "check",
+        "current"
+      ],
+      "symbol_type": "use_case",
+      "name": "check_current",
+      "line_start": 117,
+      "line_end": 127,
+      "body_hash": "231aeb93",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "smumark2.py::check_voltage_testing",
+      "kind": "symbol",
+      "path": "smumark2.py",
+      "ext": ".py",
+      "size": 14,
+      "keywords": [
+        "check_voltage_testing",
+        "check",
+        "voltage",
+        "testing"
+      ],
+      "symbol_type": "use_case",
+      "name": "check_voltage_testing",
+      "line_start": 129,
+      "line_end": 142,
+      "body_hash": "359a927f",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "smumark2.py::out_off",
+      "kind": "symbol",
+      "path": "smumark2.py",
+      "ext": ".py",
+      "size": 3,
+      "keywords": [
+        "out_off",
+        "out",
+        "off"
+      ],
+      "symbol_type": "use_case",
+      "name": "out_off",
+      "line_start": 144,
+      "line_end": 146,
+      "body_hash": "bb9ad6e3",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "test.py",
+      "kind": "file",
+      "path": "test.py",
+      "ext": ".py",
+      "size": 11480,
+      "keywords": [
+        "generate_e_like_snake_coordinates",
+        "generate",
+        "like",
+        "snake",
+        "coordinates",
+        "shift_coordinates",
+        "shift",
+        "generate_parallel_lines",
+        "parallel",
+        "lines",
+        "generate_parallel_lines_variable_spacing",
+        "variable",
+        "spacing",
+        "generate_grid_lines_to_file",
+        "grid",
+        "file",
+        "generate_circle_coordinates",
+        "circle"
+      ],
+      "content": "# import matplotlib.pyplot as plt\n\n# def plot_e_like_snake():\n#     x_start = 10000\n#     y_start = 10000\n#     line_length = 4000  # Horizontal segment length\n#     snake_path = []\n\n#     groups = [\n#         (25, 4),   # (vertical drop, number of lines)\n#         (50, 4),\n#         (100, 4)\n#     ]\n\n#     direction = 1  # 1 = left to right, -1 = right to left\n#     current_x = x_start\n#     current_y = y_start\n\n#     for spacing, count in groups:\n#         for _ in range(count):\n#             # Draw horizontal line\n#             next_x = current_x + direction * line_length\n#             snake_path.append((current_x, current_y))\n#             snake_path.append((next_x, current_y))\n#             current_x = next_x\n#             current_y += spacing  # Drop to next line\n#             snake_path.append((current_x, current_y))\n#             direction *= -1  # Reverse direction\n\n#     # Remove last vertical drop to keep shape clean\n#     snake_path.pop()\n\n#     # Plotting\n#     xs = [pt[0] for pt in snake_path]\n#     ys = [pt[1] for pt in snake_path]\n\n#     fig, ax = plt.subplots(figsize=(10, 6))\n#     ax.plot(xs, ys, color='red', linewidth=2, marker='o')\n#     ax.set_title(\"E-Shaped Snake Path (Horizontal Zigzag with Drops)\")\n#     ax.set_xlabel(\"X (microns)\")\n#     ax.set_ylabel(\"Y (microns)\")\n#     ax.set_aspect('equal')\n#     ax.grid(True)\n#     plt.show()\n\n# plot_e_like_snake()\n\n\n# def generate_e_like_snake_coordinates(filename=\"e_snake_path.txt\"):\n#     x_start = 10000\n#     y_start = 10000\n#     line_length = 5000  # Horizontal segment length\n#     snake_path = []\n\n#     groups = [\n#         (25, 3),   # (vertical spacing, number of lines)\n#         (50, 3),\n#         (100, 3)\n#     ]\n\n#     direction = 1  # 1 = left to right, -1 = right to left\n#     current_x = x_start\n#     current_y = y_start\n\n#     for spacing, count in groups:\n#         for _ in range(count):\n#             next_x = current_x + direction * line_length\n#             snake_path.append((current_x, current_y))\n#             snake_path.append((next_x, current_y))\n#             current_x = next_x\n#             current_y += spacing\n#             snake_path.append((current_x, current_y))\n#             direction *= -1\n\n#     # Remove last drop\n#     snake_path.pop()\n\n#     # Save to file\n#     with open(filename, 'w') as f:\n#         for x, y in snake_path:\n#             f.write(f\"{x} {y}\\n\")\n\n#     print(f\"Coordinates saved to {filename}\")\n\n# generate_e_like_snake_coordinates()\n##\n\n\n##POINTS PER LINE\n# def generate_e_like_snake_coordinates(filename=\"e_snake_path.txt\", points_per_line=100):\n#     x_start = 10000\n#     y_start = 10000\n#     line_length = 5000  # Horizontal segment length\n#     snake_path = []\n\n#     groups = [\n#         (25, 3),   # (vertical spacing, number of lines)\n#         (50, 3),\n#         (100, 3)\n#     ]\n\n#     direction = 1  # 1 = left to right, -1 = right to left\n#     current_x = x_start\n#     current_y = y_start\n\n#     for spacing, count in groups:\n#         for _ in range(count):\n#             next_x = current_x + direction * line_length\n\n#             # Generate interpolated horizontal line\n#             for i in range(points_per_line):\n#                 t = i / (points_per_line - 1)\n#                 x = int(current_x + t * (next_x - current_x))\n#                 y = current_y\n#                 snake_path.append((x, y))\n\n#             # Drop down vertically\n#             current_x = next_x\n#             current_y += spacing\n#             snake_path.append((current_x, current_y))\n#             direction *= -1\n\n#     # Remove last drop\n#     snake_path.pop()\n\n#     # Save to file\n#     with open(filename, 'w') as f:\n#         for x, y in snake_path:\n#             f.write(f\"{x} {y}\\n\")\n\n#     print(f\"Coordinates with {points_per_line} points per line saved to {filename}\")\n\n# generate_e_like_snake_coordinates()\n########################################################\n\n## DISTANCE BETWEEN TWO POINTS\ndef generate_e_like_snake_coordinates(filename=\"lines_100.txt\", point_spacing=2.5):\n    x_start = 10000\n    y_start = 10000\n    line_length = 1000  # Horizontal segment length in microns\n    snake_path = []\n\n    groups = [\n        (25, 0),   # (vertical spacing, number of lines)\n        (50, 0),\n        (100, 2)\n    ]\n\n    direction = 1  # 1 = left to right, -1 = right to left\n    current_x = x_start\n    current_y = y_start\n\n    for spacing, count in groups:\n        for _ in range(count):\n            # Horizontal line segment\n            next_x = current_x + direction * line_length\n            horizontal_length = abs(next_x - current_x)\n            horizontal_points = max(2, int(horizontal_length // point_spacing) + 1)\n\n            for i in range(horizontal_points):\n                t = i / (horizontal_points - 1)\n                x = int(current_x + t * (next_x - current_x))\n                y = current_y\n                snake_path.append((x, y))\n\n            # Vertical segment (drop down)\n            prev_y = current_y\n            current_x = next_x\n            current_y += spacing\n            vertical_length = abs(current_y - prev_y)\n            vertical_points = max(2, int(vertical_length // point_spacing) + 1)\n\n            for i in range(1, vertical_points):  # Start from 1 to avoid duplicate point\n                t = i / (vertical_points - 1)\n                x = current_x\n                y = int(prev_y + t * (current_y - prev_y))\n                snake_path.append((x, y))\n\n            direction *= -1\n\n    # Save to file\n    with open(filename, 'w') as f:\n        for x, y in snake_path:\n            f.write(f\"{x} {y}\\n\")\n\n    print(f\"Coordinates saved to {filename} with spacing every {point_spacing} microns\")\n\n# Example usage:\n#generate_e_like_snake_coordinates(point_spacing=2)\n\n#-------------------------------------------------------------------------------------------\n#ADD BUFFER TO COODINATES\ndef shift_coordinates(input_file, output_file, buffer=10000):\n    with open(input_file, 'r') as infile, open(output_file, 'w') as outfile:\n        for line in infile:\n            parts = line.strip().replace(',', ' ').split()\n            if len(parts) >= 3:\n                x, y, flag = float(parts[0]), float(parts[1]), parts[2]\n                x += buffer\n                y += buffer\n                outfile.write(f\"{x:.3f}, {y:.3f}, {flag}\\n\")\n    print(\"done\")\n# Example usage\n# shift_coordinates(\"parallel_var.txt\", \"parallel_var.txt.txt\")\n\n##------------------------------------------------------------------------------------------------------------------------------------------\n#GENERATE PARALLEL LINES\ndef generate_parallel_lines(\n    num_lines,\n    line_length,\n    line_spacing,\n    point_spacing,\n    start_x=0,\n    start_y=0,\n    output_file=\"parallel.txt\"\n):\n    coords = []\n    for i in range(num_lines):\n        y = start_y + i * line_spacing\n        x = start_x\n        while x <= start_x + line_length:\n            coords.append((round(x, 3), round(y, 3)))\n            x += point_spacing\n\n    # Save to text file\n    with open(output_file, \"w\") as f:\n        for x, y in coords:\n            f.write(f\"{x}, {y}\\n\")\n\n    print(f\"[\u2705] Generated {len(coords)} points across {num_lines} parallel lines.\")\n    print(f\"[\ud83d\udcbe] Saved to '{output_file}'\")\n\n# Example usage\n# generate_parallel_lines(\n#    num_lines=6,\n#    line_length=40000,      # microns or any units\n#    line_spacing=4000,      # spacing between lines\n#    point_spacing=100 # spacing between any two points\n# )\n\n#---------------------------------------------------------------------------------\n# Generate 5 parallel lines with non-uniform spacing between each line\n\ndef generate_parallel_lines_variable_spacing(\n    line_length,\n    point_spacing,\n    line_offsets,\n    start_x=10000,\n    start_y=10000,\n    output_file=\"parallel_variable_spacing.txt\"\n):\n    coords = []\n    for offset in line_offsets:\n        y = start_y + offset\n        x = start_x\n        while x <= start_x + line_length:\n            coords.append((round(x, 3), round(y, 3)))\n            x += point_spacing\n\n    # Save to text file\n    with open(output_file, \"w\") as f:\n        for x, y in coords:\n            f.write(f\"{x}, {y}\\n\")\n\n    print(f\"[\u2705] Generated {len(coords)} points across {len(line_offsets)} parallel lines.\")\n    print(f\"[\ud83d\udcbe] Saved to '{output_file}'\")\n\n# Example usage\ngenerate_parallel_lines_variable_spacing(\n   line_length=1000,\n   point_spacing=1,\n   line_offsets=[0, 200, 600, 1100, 1700],\n   start_x=10000,\n   start_y=10000\n)\n\n#---------------------------------------------------------------------------------\n#GENERATE HORIZONTAL AND VERTICAL LINES\ndef generate_grid_lines_to_file(n_horizontal, n_vertical, line_length, point_spacing, line_spacing, filename=\"coordinates.txt\"):\n    coordinates = []\n\n    # Generate horizontal lines with spacing in Y direction\n    for i in range(n_horizontal):\n        y = i * line_spacing\n        for x in range(0, line_length + 1, point_spacing):\n            coordinates.append((x, y))\n\n    # Generate vertical lines with spacing in X direction\n    for i in range(n_vertical):\n        x = i * line_spacing\n        for y in range(0, line_length + 1, point_spacing):\n            coordinates.append((x, y))\n\n    # Write to file\n    with open(filename, \"w\") as f:\n        for x, y in coordinates:\n            f.write(f\"{x}, {y}\\n\")\n\n    print(f\"[INFO] {len(coordinates)} coordinates written to '{filename}'\")\n\n# Example usage\nn_horizontal = 2     # Number of horizontal lines\nn_vertical = 2       # Number of vertical lines\nline_length = 1000   # Length of each line (in microns or units)\npoint_spacing = 1    # Distance between data points on each line\nline_spacing = 200   # Distance between two lines\n\n#generate_grid_lines_to_file(n_horizontal, n_vertical, line_length, point_spacing, line_spacing)\n\n\n#-------------------------------------------------\nimport math\nimport csv\n\ndef generate_circle_coordinates(\n    radius=20000,\n    center_x=25000,\n    center_y=25000,\n    num_points=1000,\n    output_file=\"circle_relative.csv\"\n):\n    # Generate absolute circle coordinates\n    coords = []\n    for i in range(num_points):\n        angle = 2 * math.pi * i / num_points\n        x = center_x + radius * math.cos(angle)\n        y = center_y + radius * math.sin(angle)\n        coords.append((x, y))\n    \n    # Convert to relative coordinates (differences), rounded\n    relative_coords = []\n    prev_x, prev_y = coords[0]\n    for x, y in coords[1:]:\n        dx = round(x - prev_x)\n        dy = round(y - prev_y)\n        relative_coords.append((dx, dy))\n        prev_x, prev_y = x, y\n\n    # Close the circle (last point back to start)\n    dx = round(coords[0][0] - prev_x)\n    dy = round(coords[0][1] - prev_y)\n    relative_coords.append((dx, dy))\n    \n    # Save to CSV\n    with open(output_file, mode=\"w\", newline=\"\") as f:\n        writer = csv.writer(f)\n        writer.writerow([\"dx\", \"dy\"])\n        writer.writerows(relative_coords)\n    \n    print(f\"[\u2705] Generated {len(relative_coords)} relative coordinates for circle.\")\n    print(f\"[\ud83d\udcbe] Saved to '{output_file}'\")\n\n# Example usage\n#generate_circle_coordinates()\n\n",
+      "summary": "import matplotlib.pyplot as plt. Contains 5 functions/classes: generate_e_like_snake_coordinates, shift_coordinates, generate_parallel_lines, generate_parallel_lines_variable_spacing, ....",
+      "file_hash": "27e756d8"
+    },
+    {
+      "id": "test.py::generate_e_like_snake_coordinates",
+      "kind": "symbol",
+      "path": "test.py",
+      "ext": ".py",
+      "size": 56,
+      "keywords": [
+        "generate_e_like_snake_coordinates",
+        "generate",
+        "like",
+        "snake",
+        "coordinates"
+      ],
+      "symbol_type": "use_case",
+      "name": "generate_e_like_snake_coordinates",
+      "line_start": 136,
+      "line_end": 191,
+      "body_hash": "052f7d10",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "test.py::shift_coordinates",
+      "kind": "symbol",
+      "path": "test.py",
+      "ext": ".py",
+      "size": 15,
+      "keywords": [
+        "shift_coordinates",
+        "shift",
+        "coordinates"
+      ],
+      "symbol_type": "use_case",
+      "name": "shift_coordinates",
+      "line_start": 192,
+      "line_end": 206,
+      "body_hash": "2beec0b9",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "test.py::generate_parallel_lines",
+      "kind": "symbol",
+      "path": "test.py",
+      "ext": ".py",
+      "size": 35,
+      "keywords": [
+        "generate_parallel_lines",
+        "generate",
+        "parallel",
+        "lines"
+      ],
+      "symbol_type": "use_case",
+      "name": "generate_parallel_lines",
+      "line_start": 207,
+      "line_end": 241,
+      "body_hash": "52d05dcf",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "test.py::generate_parallel_lines_variable_spacing",
+      "kind": "symbol",
+      "path": "test.py",
+      "ext": ".py",
+      "size": 35,
+      "keywords": [
+        "generate_parallel_lines_variable_spacing",
+        "generate",
+        "parallel",
+        "lines",
+        "variable",
+        "spacing"
+      ],
+      "symbol_type": "use_case",
+      "name": "generate_parallel_lines_variable_spacing",
+      "line_start": 243,
+      "line_end": 277,
+      "body_hash": "0a0b746f",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "test.py::generate_grid_lines_to_file",
+      "kind": "symbol",
+      "path": "test.py",
+      "ext": ".py",
+      "size": 35,
+      "keywords": [
+        "generate_grid_lines_to_file",
+        "generate",
+        "grid",
+        "lines",
+        "file"
+      ],
+      "symbol_type": "use_case",
+      "name": "generate_grid_lines_to_file",
+      "line_start": 278,
+      "line_end": 312,
+      "body_hash": "dbfe633f",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "test.py::generate_circle_coordinates",
+      "kind": "symbol",
+      "path": "test.py",
+      "ext": ".py",
+      "size": 40,
+      "keywords": [
+        "generate_circle_coordinates",
+        "generate",
+        "circle",
+        "coordinates"
+      ],
+      "symbol_type": "use_case",
+      "name": "generate_circle_coordinates",
+      "line_start": 314,
+      "line_end": 353,
+      "body_hash": "c79ff13c",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": "testing.py",
+      "kind": "file",
+      "path": "testing.py",
+      "ext": ".py",
+      "size": 15217,
+      "keywords": [
+        "main"
+      ],
+      "content": "import serial.tools.list_ports\nfrom hmccontroller import HmcControlCs, App\nimport time\nimport threading\nfrom threading import Thread\nimport math\nimport queue\nimport smumark2\n\ndef main():\n    move_thread = None\n    hmc = HmcControlCs()\n    app = App()\n    app.hmcControl=hmc\n    ports = list_ports()\n    if not ports:\n        return\n\n    index = int(input(\"Enter the number of the COM port to use: \"))\n    selected_port = ports[index].device\n\n    \n    if not hmc.config_serial_port(selected_port):\n        print(\"Failed to connect.\")\n        return\n\n    def start_process(x,y,z):\n        try:\n            hmc.set_speed(5000, 5000, 5000)\n            hmc.move(x, y, z)\n            print(\"Move completed.\")\n            print(f\"Current position: {hmc.get_position()}\")\n        except Exception as e:\n            print(f\"[ERROR] Movement failed: {e}\")\n        return\n    \n    def start_thread(x,y,z):\n        move_thread = Thread(target=start_process, args=(x,y,z))\n        move_thread.start()\n        return move_thread\n\n    hmc.on_startup() #sends all axis to home\n    response = int(input(\"Enter 1 to move specific distance, 2 to send to home, 3 to import data from text file, 4 to send probe, 6 to start plotting:\"))\n    \n    if response ==1:\n        hmc.ser.close()\n        # time.sleep(0.2)\n        # hmc.ser.open()\n        # while True:\n        #     x = float(input(\"Enter X movement (microns): \"))\n        #     y = float(input(\"Enter Y movement (microns): \"))\n        #     z = float(input(\"Enter Z movement (microns): \"))\n            \n        \n        #     # move_thread= start_thread(x,y,z)\n        #     app.command ='1'\n        #     app.x_value =x\n        #     app.y_value=y\n        #     app.z_value=z\n        #     app.start_thread()\n        #     while app.hmcControl.run_thread.is_alive():\n        #         print(\"Waiting for move to complete...\")\n        #         time.sleep(0.2)\n        #     if app.hmcControl.run_thread:\n        #         app.hmcControl.run_thread.join()\n        #     print(\"Final Position:\")\n        #     # print(f\"X: {hmc.current_x} \u00b5m\")\n        #     # print(f\"Y: {hmc.current_y} \u00b5m\")\n        #     # print(f\"Z: {hmc.current_z} \u00b5m\")\n        #     print(f\"X: {hmc.x_current_position} \u00b5m\")\n        #     print(f\"Y: {hmc.y_current_position} \u00b5m\")\n        #     print(f\"Z: {hmc.current_z} \u00b5m\")\n\n    \n    elif response == 6:\n        #z_move = 40000\n        init_speed = 1000\n\n        def find_contact_point_custom(smu, contact_voltage, contact_compliance_current_ua, threshold_current_ua, liftoff_height):\n            smumark2.use_case_1(smu, voltage=contact_voltage, compliance_current_ua=contact_compliance_current_ua)\n            step_size = liftoff_height -50\n            total_distance = hmc.z_current_position\n            print(f\"[Z PROBE] Starting with {step_size} \u00b5m step, then 1 \u00b5m steps.\")\n            app.command = '1'\n            app.x_value = 0\n            app.y_value = 0\n            app.z_value = step_size\n            app.start_thread()\n            app.hmcControl.run_thread.join()\n            total_distance += step_size\n\n            while True:\n                app.command = '1'\n                app.x_value = 0\n                app.y_value = 0\n                app.z_value = 1\n                app.start_thread()\n                app.hmcControl.run_thread.join()\n                total_distance += 1\n\n                status = smumark2.check_current(smu, threshold_current_1=threshold_current_ua * 1e-6)\n                if status == 1:\n                    print(f\"[CONTACT] Contact at {total_distance} \u00b5m\")\n                    hmc.z_current_position = total_distance\n                    return total_distance\n                time.sleep(0.1)\n\n        def plot_from_file(v, filename, z_contact_point, smu, delta_z, voltage_threshold_1, voltage_threshold_2, volt_source, curr_comp, contact_voltage, contact_compliance_current_ua, threshold_current_ua, liftoff_height):\n            smumark2.use_case_2(smu, voltage=volt_source, compliance_current_ua=curr_comp)\n            if hmc.ser and hmc.ser.is_open:\n                hmc.ser.close()\n            time.sleep(0.2)\n            hmc.ser.open()\n            prev_flag =0\n            with open(f\"{filename}.txt\", \"r\") as file:\n                i = 1\n                prev_x, prev_y = 0, 0\n                prev_z = z_contact_point\n                liftoff =False\n                for line in file:\n                    parts = line.strip().replace(',', ' ').split()\n                    if len(parts) >= 3:\n                        #x, y, flag = map(float, parts)\n                        x, y, flag = float(parts[0]), float(parts[1]), int(parts[2])\n                        dx = x - prev_x\n                        dy = y - prev_y\n                        print(f\"flag:{flag}\")\n                        if i == 1:\n                            prev_x, prev_y=x,y\n                            prev_z= z_contact_point\n                            i += 1\n                            z = z_contact_point\n                            continue\n                        elif flag ==1:\n                            if prev_flag ==0:\n                                print(\"[INFO] liftoff Initiated\")\n                                z = prev_z -liftoff_height\n                                liftoff = True\n                            else:\n                                z = prev_z\n                        elif flag ==0:\n                            if liftoff:\n                                print(\"[INFO] Finding new contact point...\")\n                                z = find_contact_point_custom(smu, contact_voltage, contact_compliance_current_ua, threshold_current_ua, liftoff_height)\n                                smumark2.use_case_2(smu, voltage=volt_source, compliance_current_ua=curr_comp)\n                                prev_z = z\n                                liftoff = False\n                            \n                            else:\n                                #feedback- adjusting Z axis by a small step value depending on the current through SMU\n                                direction = smumark2.check_voltage(\n                                smu,\n                                threshold_voltage_1=voltage_threshold_1,\n                                threshold_voltage_2=voltage_threshold_2\n                                )\n                                if direction == 2:\n                                    print(\"[FEEDBACK] Voltage too low \u2014 going down\") #up\n                                    #z = prev_z + delta_z\n                                    z = prev_z - delta_z\n                                    print(f\"Prev z: {prev_z}, delta z: {delta_z}, new z: {z}\")\n                                elif direction == 3:\n                                    print(\"[FEEDBACK] Voltage too high \u2014 going up\")#down\n                                    #z = prev_z - delta_z\n                                    z = prev_z + delta_z\n                                    print(f\"Prev z: {prev_z}, delta z: {delta_z}, new z: {z}\")\n                                else:\n                                    print(\"[FEEDBACK] Voltage in range \u2014 Z aligned\")\n                                    z = prev_z\n                        else:\n                            direction = smumark2.check_voltage(\n                                smu,\n                                threshold_voltage_1=voltage_threshold_1,\n                                threshold_voltage_2=voltage_threshold_2\n                            )\n                            if direction == 2:\n                                print(\"[FEEDBACK] Voltage too low \u2014 going down\") #up\n                                #z = prev_z + delta_z\n                                z = prev_z - delta_z\n                                print(f\"Prev z: {prev_z}, delta z: {delta_z}, new z: {z}\")\n                            elif direction == 3:\n                                print(\"[FEEDBACK] Voltage too high \u2014 going up\")#down\n                                #z = prev_z - delta_z\n                                z = prev_z + delta_z\n                                print(f\"Prev z: {prev_z}, delta z: {delta_z}, new z: {z}\")\n                            else:\n                                print(\"[FEEDBACK] Voltage in range \u2014 Z aligned\")\n                                z = prev_z\n\n                        dz = z - prev_z\n                        # finding relative veocity in x and y direction\n                        theta = math.atan2(x - prev_x, y - prev_y)\n                        sin_theta = math.sin(theta)\n                        cos_theta = math.cos(theta)\n                        vx = v * sin_theta\n                        vy = v * cos_theta\n                        hmc.set_speed(vx, vy, 1000)\n                        if i ==1:\n                            hmc.set_speed(5000,5000,5000)\n                        prev_x, prev_y, prev_z = x, y, z\n\n                        try:\n                            app.command = '1'\n                            app.x_value = dx\n                            app.y_value = dy\n                            app.z_value = dz\n                            app.start_thread()\n\n                            while app.hmcControl.run_thread.is_alive():\n                                #print(\"Waiting for move to complete...\")\n                                time.sleep(0.2)\n\n                            if app.hmcControl.run_thread:\n                                app.hmcControl.run_thread.join()\n\n                            print(\"Final Position:\")\n                            print(f\"X: {hmc.current_x} \u00b5m\")\n                            print(f\"Y: {hmc.current_y} \u00b5m\")\n                            print(f\"Z: {hmc.current_z} \u00b5m\")\n                            print(f\"{i} MOVE COMPLETED\")\n\n                        except Exception as e:\n                            print(f\"[ERROR] Move {i} failed: {e}\")\n                            hmc.ser.close()\n                            time.sleep(0.2)\n                            print(\"serial port reset\")\n                            hmc.ser.open()\n                            hmc.ser.reset_input_buffer()\n                        prev_flag = flag\n                        i += 1\n                smumark2.out_off(smu)\n\n        def find_contact_point(initial_step_size, smu, threshold_current_ua, step_queue):\n            step_size = initial_step_size\n            total_distance =0\n            i = 0\n\n            print(\"[INFO] Starting Z probing. You can enter new step sizes any time.\")\n\n            while True:\n                # Check for updated step size\n                if not step_queue.empty():\n                    step_size = step_queue.get()\n                    print(f\"[INFO] Updated step size: {step_size} \u00b5m\")\n\n                print(f\"[STEP {i+1}] Moving Z down by {step_size} \u00b5m...\")\n                app.command = '1'\n                app.x_value = 0\n                app.y_value = 0\n                app.z_value = step_size\n                app.start_thread()\n\n                if app.hmcControl.run_thread:\n                    app.hmcControl.run_thread.join()\n\n                total_distance += step_size\n                i += 1\n                #smumark2.reset_smu(smu)\n                status = smumark2.check_current(\n                    smu,\n                    threshold_current_1=threshold_current_ua * 1e-6\n                )\n\n                if status == 1:\n                    print(\"[CONTACT] Probe contact confirmed by current.\")\n                    hmc.z_current_position = total_distance\n                    return total_distance\n\n                time.sleep(0.1)\n\n\n        hmc.set_speed(1000, 1000, init_speed)\n\n        contact_voltage = float(input(\"Enter source voltage in V for contact detection (use case 1): \"))\n        contact_compliance_current_ua = float(input(\"Enter compliance current in micro amps for contact detection (use case 1): \"))\n        threshold_current_ua = float(input(\"Enter threshold current in micro amps to detect contact: \"))\n        volt_source = float(input(\"Enter source voltage (use_case_2): \"))\n        curr_comp = float(input(\"Enter compliance current in micro amps (use_case_2): \"))\n        voltage_threshold_1 = float(input(\"Enter voltage lower threshold for feedback (V): \"))\n        voltage_threshold_2 = float(input(\"Enter voltage upper threshold for feedback (V): \"))\n        delta_z = float(input(\"Enter Z adjustment step for plotting (in \u00b5m): \"))\n        z_contact_step = float(input(\"Enter Z adjustment step for finding contact point:\"))\n        speed = float(input(\"Enter speed for xy axis: \"))\n        liftoff_height = float(input(\"Enter liftoff height in \u00b5m: \"))\n        filename = input(\"Enter filename: \")\n\n\n        smu = smumark2.init_smu()  #initialise the SMU\n        smumark2.reset_smu(smu)\n        smumark2.use_case_1(smu, voltage=contact_voltage, compliance_current_ua=contact_compliance_current_ua) \n\n        #moves x,y axis to the starting coordinates\n        with open(f\"{filename}.txt\", \"r\") as file:\n            for line in file:\n                parts = line.strip().replace(',', ' ').split()\n                if len(parts) >= 3:\n                    #first_x, first_y ,= map(float, parts)\n                    first_x, first_y, flag = float(parts[0]), float(parts[1]), int(parts[2])\n                    break\n                \n        #Move to first x, y (no Z movement)\n        dx = first_x - hmc.current_x\n        dy = first_y - hmc.current_y\n        hmc.set_speed(5000, 5000, 5000)\n\n        #setting the x and y value in App class of hmccontroller.py\n        app.command = '1'\n        app.x_value = dx\n        app.y_value = dy\n        app.z_value = 0  # No Z movement yet\n        app.start_thread() #starting the movement in a thread\n\n        while app.hmcControl.run_thread.is_alive():\n            time.sleep(0.1)\n        if app.hmcControl.run_thread:\n            app.hmcControl.run_thread.join()\n        \n        hmc.set_speed(speed, speed, init_speed)\n        #Now do Z contact\n\n        step_queue = queue.Queue()\n        Thread(target=step_size_listener, args=(step_queue,), daemon=True).start()\n\n        #making z axis movements to find the contact point using current values \n        z_contact_point = find_contact_point(initial_step_size=z_contact_step,smu=smu,threshold_current_ua=threshold_current_ua,step_queue=step_queue)\n\n        hmc.current_z = z_contact_point\n        z_contact_point = hmc.z_current_position\n        smumark2.reset_smu(smu)\n\n        #after the contact point is being found, starting the plott\n        plot_from_file(speed, filename, z_contact_point, smu, delta_z, voltage_threshold_1, voltage_threshold_2, volt_source, curr_comp, contact_voltage, contact_compliance_current_ua, threshold_current_ua, liftoff_height)\n\n        print(\"\u2705 Final Z Position:\", hmc.z_current_position)\n        hmc.on_startup() #after the plot is completed, it sends all the axis to home position\n",
+      "summary": "import serial.tools.list_ports. Contains 1 function: main.",
+      "file_hash": "32e84e17"
+    },
+    {
+      "id": "testing.py::main",
+      "kind": "symbol",
+      "path": "testing.py",
+      "ext": ".py",
+      "size": 325,
+      "keywords": [
+        "main"
+      ],
+      "symbol_type": "use_case",
+      "name": "main",
+      "line_start": 9,
+      "line_end": 333,
+      "body_hash": "4c44646e",
+      "confidence": "high",
+      "exported": true
+    },
+    {
+      "id": ".claude\\settings.local.json",
+      "kind": "file",
+      "path": ".claude\\settings.local.json",
+      "ext": ".json",
+      "size": 2016,
+      "keywords": [],
+      "content": "{\n    \"hooks\":  {\n                  \"SessionStart\":  [\n                                       {\n                                           \"hooks\":  [\n                                                         {\n                                                             \"command\":  \"powershell -NoProfile -File \\\"D:/Python codes/hmccontroller/.dual-graph/prime.ps1\\\"\",\n                                                             \"type\":  \"command\"\n                                                         }\n                                                     ],\n                                           \"matcher\":  \"\"\n                                       }\n                                   ],\n                  \"Stop\":  [\n                               {\n                                   \"hooks\":  [\n                                                 {\n                                                     \"command\":  \"powershell -NoProfile -File \\\"D:/Python codes/hmccontroller/.dual-graph/stop_hook.ps1\\\"\",\n                                                     \"type\":  \"command\"\n                                                 }\n                                             ],\n                                   \"matcher\":  \"\"\n                               }\n                           ],\n                  \"PreCompact\":  [\n                                     {\n                                         \"hooks\":  [\n                                                       {\n                                                           \"command\":  \"powershell -NoProfile -File \\\"D:/Python codes/hmccontroller/.dual-graph/prime.ps1\\\"\",\n                                                           \"type\":  \"command\"\n                                                       }\n                                                   ],\n                                         \"matcher\":  \"\"\n                                     }\n                                 ]\n              }\n}",
+      "summary": "\"hooks\":  {.",
+      "file_hash": "27869fe5"
+    },
+    {
+      "id": "Labview integration\\README.md",
+      "kind": "file",
+      "path": "Labview integration\\README.md",
+      "ext": ".md",
+      "size": 37963,
+      "keywords": [],
+      "content": "# Electro-Lithography System \u2014 LabVIEW Architecture & Implementation Plan\n\nThis document contains the complete system architecture, algorithms, serial communication protocols, state machine design, and LabVIEW implementation plan for converting the Python-based electro-lithography control system to a fully native LabVIEW application.\n\n---\n\n## Table of Contents\n\n1. [System Overview](#1-system-overview)\n2. [System Architecture](#2-system-architecture)\n3. [LabVIEW Project Structure](#3-labview-project-structure)\n4. [Serial Communication Protocol (Motor Controller)](#4-serial-communication-protocol-motor-controller)\n5. [SMU Communication Protocol (SCPI over VISA)](#5-smu-communication-protocol-scpi-over-visa)\n6. [State Machine Design](#6-state-machine-design)\n7. [Algorithms](#7-algorithms)\n8. [Parallel Loop Architecture](#8-parallel-loop-architecture)\n9. [Complete Mode 6 Sequence](#9-complete-mode-6-sequence)\n10. [Error Handling Strategy](#10-error-handling-strategy)\n11. [Configuration Constants](#11-configuration-constants)\n12. [Coordinate File Format](#12-coordinate-file-format)\n13. [Coordinate Pattern Generator Utilities](#13-coordinate-pattern-generator-utilities)\n14. [Bug Fixes from Python Codebase](#14-bug-fixes-from-python-codebase)\n15. [Implementation Priority](#15-implementation-priority)\n\n---\n\n## 1. System Overview\n\n### 1.1 What Is Electro-Lithography?\n\nElectro-lithography is a scanning probe, maskless lithography technique that uses electrical stimuli to directly write patterns on surfaces at micro-to-nano length scales. A conductive probe is brought into contact with a substrate, and a controlled electric field or current is applied through the tip, causing localized material transport. This enables direct writing of patterns (lines, dots, shapes) without photomasks.\n\n**How it Works:**\n- A conductive probe tip (like those in Scanning Probe Microscopes) is positioned above or in contact with a thin metallic film or substrate\n- A controlled electric field or current is applied through the tip, causing localized material transport, either by electromigration or electrochemical reactions at the probe-sample interface\n- This enables direct writing of patterns (e.g., lines, dots, shapes) without requiring photomasks, often under ambient conditions and with resolutions below 10 nm\n\n### 1.2 Hardware Components\n\n| Component | Model/Type | Interface |\n|-----------|-----------|-----------|\n| Motor Controller | Holmarc (XYZ) | Serial (19200 baud, 8N1) |\n| Micropositioners | XYZ Stage | Driven by Holmarc controller |\n| SMU | Keithley (2400/2450/2600) | USB VISA (SCPI commands) |\n| Probe | Conductive SPM-style tip | Mounted on Z positioner |\n| Substrate | Thin metallic film | Mounted on XY stage |\n\n### 1.3 System Specifications\n\n| Parameter | Value |\n|-----------|-------|\n| Motion Resolution | 0.2 um/step |\n| Max Travel (per axis) | 50,000 um (50 mm) |\n| Max Steps (per axis) | 16,777,216 |\n| Speed Range | 10 - 50,000 steps/sec |\n| SMU VISA Address | `USB0::0x2184::0x007D::gey853397::INSTR` |\n| Serial Baud Rate | 19200 |\n\n---\n\n## 2. System Architecture\n\n### 2.1 High-Level Architecture\n\n```\n+----------------------------------------------------------------------+\n|                        LabVIEW Main Application                      |\n|                                                                      |\n|  +-------------+    +--------------+    +------------------------+  |\n|  |  Front Panel |    | State Machine|    |  Error Handler         |  |\n|  |  (UI)        |<-->| (Sequencer)  |<-->|  (Logging/Recovery)    |  |\n|  +------+------ +    +------+-------+    +------------------------+  |\n|         |                  |                                         |\n|    +----+------------------+---------------------------+            |\n|    |              Parallel Loops (Producer/Consumer)     |            |\n|    |                                                     |            |\n|    |  +--------------+     +------------------------+  |            |\n|    |  | Motor Control |     |  SMU Control            |  |            |\n|    |  | Loop          |     |  Loop                   |  |            |\n|    |  |               |     |                          |  |            |\n|    |  | - Set Speed   |     |  - Init/Reset SMU       |  |            |\n|    |  | - Move XYZ    |     |  - Source Current/Volt   |  |            |\n|    |  | - Home Axes   |     |  - Read Voltage          |  |            |\n|    |  | - Read Pos    |     |  - Read Current          |  |            |\n|    |  | - Limit Detect|     |  - Output On/Off         |  |            |\n|    |  +------+------- +     +-----------+--------------+  |            |\n|    |         |                          |                  |            |\n|    |    +----+----+              +-----+------+          |            |\n|    |    | VISA    |              | VISA        |          |            |\n|    |    | Serial  |              | USB/GPIB    |          |            |\n|    |    +----+----+              +-----+------+          |            |\n|    +---------+--------------------------+-----------------+            |\n|              |                          |                             |\n+--------------+--------------------------+---------------------------+\n               |                          |\n    +----------+----------+    +----------+----------+\n    |  Holmarc Motor      |    |  Keithley SMU        |\n    |  Controller         |    |  (2400/2450/2600)    |\n    |  (XYZ Stepper)      |    |                      |\n    |  19200 baud serial  |    |  USB VISA            |\n    +----------+----------+    +----------+----------+\n               |                          |\n    +----------+----------+    +----------+----------+\n    |  XYZ Micropositioner|    |  Probe-Substrate     |\n    |  (0.2um resolution) |    |  Interface            |\n    +---------------------+    +---------------------+\n```\n\n### 2.2 Core Workflow (Mode 6 - Full Lithography)\n\n1. Initialize SMU (current source mode for contact detection)\n2. Move XY to starting position from coordinate file\n3. Lower Z in steps while measuring current to find contact point (current spike = probe-substrate contact)\n4. Switch SMU to voltage source mode for patterning\n5. Execute pattern: for each coordinate point:\n   - Read voltage via SMU\n   - If voltage out of range, adjust Z by delta_z\n   - Move XY to next point\n   - Handle liftoff flag (raise probe, move, re-find contact)\n6. After pattern complete: SMU output off, home all axes\n\n---\n\n## 3. LabVIEW Project Structure\n\n```\nElectroLithography.lvproj/\n|\n+-- SubVIs/\n|   +-- Motor Controller/\n|   |   +-- Motor_Init.vi                 <- Open serial, verify device ID\n|   |   +-- Motor_Close.vi                <- Close serial port\n|   |   +-- Motor_SetSpeed.vi             <- Set XYZ speed (steps/sec)\n|   |   +-- Motor_Move.vi                 <- Send move command, wait completion\n|   |   +-- Motor_MoveHome.vi             <- Home all axes sequentially\n|   |   +-- Motor_Stop.vi                 <- Emergency stop\n|   |   +-- Motor_ReadPosition.vi         <- Read actual steps from controller\n|   |   +-- Motor_ReadStatus.vi           <- Poll movement status byte\n|   |   +-- Motor_CheckLimits.vi          <- Check limit switch flags\n|   |   +-- Motor_Utils/\n|   |       +-- Byte3_Byte2_Byte1_Byte0.vi   <- Split 32-bit to 4 bytes\n|   |       +-- MSB_CSB_LSB.vi               <- Split 24-bit to 3 bytes\n|   |       +-- Build_Command.vi              <- Assemble command packet\n|   |\n|   +-- SMU Controller/\n|   |   +-- SMU_Init.vi                   <- Open VISA, *RST, *CLS\n|   |   +-- SMU_Close.vi                  <- Output off, close VISA\n|   |   +-- SMU_Reset.vi                  <- *CLS + *RST\n|   |   +-- SMU_SourceCurrent.vi          <- Use Case 1: current source + V compliance\n|   |   +-- SMU_SourceVoltage.vi          <- Use Case 2: voltage source + I compliance\n|   |   +-- SMU_ReadVoltage.vi            <- READ? -> parse voltage -> classify\n|   |   +-- SMU_ReadCurrent.vi            <- READ? -> parse current -> classify\n|   |   +-- SMU_OutputOnOff.vi            <- OUTP ON/OFF\n|   |\n|   +-- Pattern Loader/\n|   |   +-- LoadCoordinateFile.vi         <- Read .txt file -> parse X,Y,flag arrays\n|   |   +-- ValidateCoordinates.vi        <- Bounds check, format validation\n|   |\n|   +-- Utilities/\n|       +-- ListCOMPorts.vi               <- Enumerate serial ports\n|       +-- AngleCalculation.vi           <- atan2, sin, cos for velocity decomposition\n|       +-- Logging.vi                    <- Write to file/log\n|\n+-- State Machines/\n|   +-- MainSelector.vi                   <- Top-level menu/mode selector\n|   +-- ManualMove.vi                     <- Mode 1: XYZ manual move\n|   +-- HomeAll.vi                        <- Mode 2: Home all axes\n|   +-- OpenLoopPattern.vi                <- Mode 3: Execute pattern from file (no feedback)\n|   +-- ZProbe.vi                         <- Mode 4: Z probe with speed control\n|   +-- ZProbePauseResume.vi              <- Mode 5: Z probe with pause/resume\n|   +-- LithographyRun.vi                 <- Mode 6: Full lithography (Z feedback + pattern)\n|\n+-- Parallel Loop Architectures/\n|   +-- Z_FeedbackLoop.vi                 <- Real-time Z adjustment loop\n|   +-- UserInputListener.vi              <- Speed/step-size input listener\n|\n+-- Front Panels/\n|   +-- MainPanel.vi                      <- Main UI with mode selection\n|   +-- ManualMovePanel.vi                <- XYZ jog controls\n|   +-- LithographyPanel.vi               <- Parameter inputs + status display\n|   +-- PatternViewer.vi                  <- Visualize loaded pattern\n|\n+-- Libraries/\n|   +-- MotorProtocol.lvlib               <- Encapsulate serial protocol\n|   +-- SMUProtocol.lvlib                 <- Encapsulate VISA SCPI commands\n|\n+-- Config/\n    +-- SystemConfig.vi                   <- Centralized constants\n```\n\n---\n\n## 4. Serial Communication Protocol (Motor Controller)\n\n### 4.1 Protocol Overview\n\nAll communication is byte-level over serial at 19200 baud, 8N1. The controller uses a request-response protocol where every transmitted byte must be acknowledged.\n\n### 4.2 Command Reference\n\n#### SET SPEED (Command: 0x22 = 34)\n\nSets the speed for all three axes in steps/sec.\n\n```\nTX: [0x22]\nRX: [0x0A]  (ACK)\n\nTX: [MSB_X] [CSB_X] [LSB_X]    <- X speed (24-bit, 3 bytes)\nRX: [0x0A] after each byte\n\nTX: [MSB_Y] [CSB_Y] [LSB_Y]    <- Y speed (24-bit, 3 bytes)\nRX: [0x0A] after each byte\n\nTX: [MSB_Z] [CSB_Z] [LSB_Z]    <- Z speed (24-bit, 3 bytes)\nRX: [0x0A] after each byte\n```\n\nConversion: `steps_per_sec = microns_per_sec / 0.2`\n\n#### MOVE (Command: 0x13 = 19)\n\nSends relative movement distances for all three axes.\n\n```\nTX: [0x13]\nRX: [0x0A]\n\nFor each axis (A, B, C):\n  TX: [0x0A]                    <- Request to send axis data\n  TX: [byte3] [byte2] [byte1] [byte0]  <- Steps (32-bit, 4 bytes)\n  TX: [0x7D] or [0xAF]         <- Direction: 0x7D=positive, 0xAF=negative\n  RX: [0x0A] after each byte\n```\n\nConversion: `steps = distance_microns / 0.2`\n\nStep splitting (32-bit to 4 bytes):\n```\nbyte0 = value % 256\nbyte1 = (value % 65536) // 256\nbyte2 = (value % 16777216) // 65536\nbyte3 = value // 16777216\n```\n\n#### READ STATUS (Command: 0xA3 = 163)\n\nPolls the movement status after a MOVE command.\n\n```\nTX: [0xA3]\nRX: [0xA4]  (READ_ACK)\n\nTX: [0x0A]\nRX: [status_byte]\n```\n\nStatus byte values:\n\n| Value (Dec) | Value (Hex) | Meaning |\n|-------------|-------------|---------|\n| 170 | 0xAA | Move completed |\n| 41 | 0x29 | X home limit reached |\n| 40 | 0x28 | X far limit reached |\n| 43 | 0x2B | Y home limit reached |\n| 42 | 0x2A | Y far limit reached |\n| 45 | 0x2D | Z home limit reached |\n| 44 | 0x2C | Z far limit reached |\n\n#### READ ACTUAL STEPS (Command: 0xA3 = 163)\n\nReads the actual number of steps the controller moved on each axis.\n\n```\nTX: [0xA3]\nRX: [0xA4]\n\nFor each axis (X, Y, Z):\n  TX: [0x0A] -> RX: [byte0]\n  TX: [0x0A] -> RX: [byte1]\n  TX: [0x0A] -> RX: [byte2]\n  TX: [0x0A] -> RX: [byte3]\n```\n\nReconstruction: `steps = (byte3 * 16777216) + (byte2 * 65536) + (byte1 * 256) + byte0`\n\nActual distance: `microns = steps * 0.2`\n\n#### STOP (Command: 0x68 = 104)\n\nImmediately halts movement.\n\n```\nTX: [0x68]\nRX: [0x69]  (STOP_ACK)\n```\n\n#### DEVICE ID (Command: 0x64 = 100)\n\nVerifies communication with the controller.\n\n```\nTX: [0x64]\nRX: [0xC8]  (DEVICE_ACK = 200)\n```\n\n---\n\n## 5. SMU Communication Protocol (SCPI over VISA)\n\n### 5.1 Initialization\n\n```\nVISA Open: USB0::0x2184::0x007D::gey853397::INSTR\nTimeout: 5000ms\nWrite Termination: \\n\nRead Termination: \\n\n\nWrite: *CLS          <- Clear status\nWrite: *RST          <- Reset to defaults\nWait: 100ms\n```\n\n### 5.2 Use Case 1 - Current Source (Contact Detection)\n\nSources a known current and measures voltage. A voltage drop indicates probe-substrate contact.\n\n```\nWrite: SOUR:FUNC CURR\nWrite: SOUR:CURR {current_A}          <- e.g., 0.2e-6 for 0.2 uA\nWrite: SENS:VOLT:PROT {compliance_V}  <- e.g., 1.0 V\n```\n\n### 5.3 Use Case 2 - Voltage Source (Patterning)\n\nSources a known voltage and measures current. Used during pattern tracing with Z feedback.\n\n```\nWrite: SOUR:FUNC VOLT\nWrite: SOUR:VOLT {voltage_V}          <- e.g., 0.5 V\nWrite: SENS:CURR:PROT {compliance_A}  <- e.g., 1000e-6 for 1 mA\n```\n\n### 5.4 Reading Measurements\n\n```\nWrite: OUTP ON\nQuery: READ?\nResponse: \"{voltage},{current}\"       <- CSV string, e.g., \"0.4523,1.234e-06\"\n\nParse:\n  voltage = float(response.split(\",\")[0])\n  current = float(response.split(\",\")[1])\n```\n\n### 5.5 Output Control\n\n```\nWrite: OUTP OFF    <- Turn off output\n```\n\n---\n\n## 6. State Machine Design\n\n### 6.1 Main Application State Machine\n\n```\n+-------------------------------------------------------------------+\n|                     MAIN STATE MACHINE                             |\n|                                                                    |\n|  +----------+                                                     |\n|  | S_IDLE   | <- Wait for user to select mode                     |\n|  +----+-----+                                                     |\n|       |                                                           |\n|  +----v------------------------------------------------------+   |\n|  | S_DISPATCH                                                 |   |\n|  |   mode == 1 -> ManualMove.vi                               |   |\n|  |   mode == 2 -> HomeAll.vi                                  |   |\n|  |   mode == 3 -> OpenLoopPattern.vi                          |   |\n|  |   mode == 4 -> ZProbe.vi                                   |   |\n|  |   mode == 5 -> ZProbePauseResume.vi                        |   |\n|  |   mode == 6 -> LithographyRun.vi                           |   |\n|  +-----------------------------------------------------------+   |\n|       |                                                           |\n|  +----v-----+                                                    |\n|  | S_DONE   | <- Return to idle, show completion message          |\n|  +----------+                                                     |\n+-------------------------------------------------------------------+\n```\n\n### 6.2 Lithography Run State Machine (Mode 6)\n\nThis is the most complex state machine. It orchestrates the entire lithography process.\n\n```\n+----------------------------------------------------------------------+\n|                    LITHOGRAPHY RUN STATE MACHINE                      |\n|                                                                      |\n|  +----------+                                                        |\n|  | S_INIT   | <- Read all parameters from UI:                        |\n|  |          |   curr_ua, volt_compliance, volt_source, curr_comp,    |\n|  |          |   volt_low, volt_high, delta_z, z_contact_step,        |\n|  |          |   xy_speed, liftoff_height, filename                   |\n|  +----+-----+                                                        |\n|       |                                                               |\n|  +----v-----+                                                        |\n|  | S_SMU_   | <- SMU_Init -> SMU_Reset -> SMU_SourceCurrent          |\n|  | CONFIG   |   (Use Case 1: current source for contact detection)   |\n|  +----+-----+                                                        |\n|       |                                                               |\n|  +----v-----+                                                        |\n|  | S_LOAD_  | <- LoadCoordinateFile.vi                               |\n|  | PATTERN  |   Parse all lines -> arrays X[], Y[], Flag[]           |\n|  |          |   Store first_x = X[0], first_y = Y[0]                |\n|  +----+-----+                                                        |\n|       |                                                               |\n|  +----v-----+                                                        |\n|  | S_MOVE_  | <- dx = first_x - current_x                            |\n|  | TO_START |   dy = first_y - current_y                             |\n|  |          |   Motor_SetSpeed(5000, 5000, 5000)                     |\n|  |          |   Motor_Move(dx, dy, 0)                                |\n|  |          |   Wait for completion                                  |\n|  +----+-----+                                                        |\n|       |                                                               |\n|  +----v-----+                                                        |\n|  | S_Z_     | <- Call ZProbeRoutine:                                 |\n|  | PROBE    |   Repeat: Motor_Move(0,0,step) -> ReadCurrent -> check |\n|  |          |   Until current > threshold                            |\n|  |          |   Store z_contact_point                                |\n|  +----+-----+                                                        |\n|       |                                                               |\n|  +----v-----+                                                        |\n|  | S_SWITCH | <- SMU_SourceVoltage(volt_source, curr_comp)           |\n|  | TO_      |   Now in voltage-source mode for Z feedback            |\n|  | PATTERN  |                                                        |\n|  +----+-----+                                                        |\n|       |                                                               |\n|  +----v-----+                                                        |\n|  | S_TRACE  | <- Execute pattern loop (see Section 9)                |\n|  | PATTERN  |   For each coordinate point:                           |\n|  |          |     Read voltage -> Adjust Z -> Move XY -> Handle flag |\n|  +----+-----+                                                        |\n|       | (all coordinates done)                                       |\n|  +----v-----+                                                        |\n|  | S_SMU_   | <- SMU_OutputOff                                       |\n|  | OFF      |                                                        |\n|  +----+-----+                                                        |\n|       |                                                               |\n|  +----v-----+                                                        |\n|  | S_HOME   | <- Motor_MoveHome (all axes sequentially)              |\n|  +----+-----+                                                        |\n|       |                                                               |\n|  +----v-----+                                                        |\n|  | S_DONE   | <- Display final position, cleanup, return to idle     |\n|  +----------+                                                        |\n+----------------------------------------------------------------------+\n```\n\n---\n\n## 7. Algorithms\n\n### 7.1 Z-Probe Contact Detection\n\nFinds the exact Z position where the probe makes electrical contact with the substrate by monitoring current.\n\n```\nALGORITHM: FindContactPoint\n===========================\n\nInput:\n  smu_handle          - SMU VISA session\n  lower_current_ua    - Current threshold in uA (e.g., 0.2)\n  initial_step_size   - Initial Z step in um (e.g., 1000)\n\nOutput:\n  z_contact_point     - Z position (um from home) where contact occurs\n\nPROCEDURE:\n  1. total_distance <- 0\n  2. step_size <- initial_step_size\n\n  3. REPEAT:\n     a. Motor_Move(0, 0, step_size)           // Move Z down\n     b. Wait for motor completion\n     c. total_distance <- total_distance + step_size\n     d. SMU_Write(\"OUTP ON\")\n     e. response <- SMU_Query(\"READ?\")\n     f. Parse current_A from response\n     g. Log: \"Step {i}: Z={total_distance} um, I={current_A} A\"\n     h. IF current_A > lower_current_ua * 1e-6:\n        i.  Log: \"Contact found at {total_distance} um\"\n        ii. RETURN total_distance\n     i. Sleep(100ms)\n\n  4. UNTIL contact found or max distance exceeded\n```\n\n### 7.2 Real-Time Z-Feedback Adjustment\n\nMaintains the water bridge between probe and substrate by adjusting Z based on voltage readings.\n\n```\nALGORITHM: ZFeedbackAdjust\n==========================\n\nInput:\n  smu_handle          - SMU VISA session\n  voltage_low_thresh  - Lower voltage threshold (V)\n  voltage_high_thresh - Upper voltage threshold (V)\n  delta_z             - Z adjustment step (um)\n  prev_z              - Current Z position (um)\n\nOutput:\n  new_z               - Adjusted Z position (um)\n\nPROCEDURE:\n  1. SMU_Write(\"OUTP ON\")\n  2. response <- SMU_Query(\"READ?\")\n  3. Parse voltage_V from response\n  4. Log: \"Voltage: {voltage_V} V\"\n\n  5. IF voltage_low_thresh < voltage_V < voltage_high_thresh:\n     a. Log: \"Voltage in range - Z aligned\"\n     b. RETURN prev_z                          // No change\n\n  6. ELSE IF voltage_V < voltage_low_thresh:\n     a. Log: \"Voltage too low - probe too far, moving closer\"\n     b. RETURN prev_z - delta_z                // Move probe DOWN (closer)\n\n  7. ELSE IF voltage_V > voltage_high_thresh:\n     a. Log: \"Voltage too high - probe too close, moving away\"\n     b. RETURN prev_z + delta_z                // Move probe UP (away)\n```\n\n**Physical interpretation:**\n- Low voltage = probe is too far from substrate = move closer (decrease Z)\n- High voltage = probe is too close = move away (increase Z)\n- In-range = water bridge is stable = no adjustment needed\n\n### 7.3 Liftoff and Re-engage\n\nHandles probe liftoff between non-contiguous pattern segments.\n\n```\nALGORITHM: LiftoffReengage\n==========================\n\nInput:\n  X[], Y[], Flag[]    - Coordinate arrays from pattern file\n  liftoff_height      - Height to raise probe (um)\n  z_contact_point     - Last known contact Z position\n\nState:\n  liftoff_active <- FALSE\n  prev_flag <- 0\n  prev_z <- z_contact_point\n\nFOR i = 0 TO N-1:\n  flag <- Flag[i]\n  x <- X[i], y <- Y[i]\n\n  CASE (prev_flag, flag):\n\n    (0 -> 1):  TRANSITION: Contact -> Liftoff\n      z <- prev_z - liftoff_height              // Raise probe\n      liftoff_active <- TRUE\n      Execute XY move at raised Z\n\n    (1 -> 1):  CONTINUED: Still lifted\n      z <- prev_z                               // Maintain height\n      Execute XY move at raised Z\n\n    (1 -> 0):  TRANSITION: Liftoff -> Re-engage\n      z <- FindContactPoint()                   // Re-probe for contact\n      liftoff_active <- FALSE\n\n    (0 -> 0):  CONTINUOUS: Normal patterning\n      z <- ZFeedbackAdjust()                    // Maintain water bridge\n      Execute XY move with adjusted Z\n\n  prev_x <- x\n  prev_y <- y\n  prev_z <- z\n  prev_flag <- flag\n```\n\n### 7.4 Velocity Decomposition\n\nComputes XY velocity components so the probe maintains constant speed regardless of direction.\n\n```\nALGORITHM: ComputeVelocity\n==========================\n\nInput:\n  dx, dy              - Relative movement in microns\n  speed               - Desired speed in um/s\n\nOutput:\n  vx, vy              - Velocity in steps/sec for each axis\n\nPROCEDURE:\n  1. theta <- atan2(dx, dy)               // Angle from Y-axis\n  2. sin_theta <- sin(theta)\n  3. cos_theta <- cos(theta)\n  4. vx_microns <- speed * sin_theta      // X velocity in um/s\n  5. vy_microns <- speed * cos_theta      // Y velocit",
+      "summary": "Electro-Lithography System \u2014 LabVIEW Architecture & Implementation Plan.",
+      "file_hash": "00c54f8f"
+    }
+  ],
+  "edges": [
+    {
+      "from": "basler_camera.py",
+      "to": "argparse",
+      "rel": "imports"
+    },
+    {
+      "from": "basler_camera.py",
+      "to": "threading",
+      "rel": "imports"
+    },
+    {
+      "from": "basler_camera.py",
+      "to": "time",
+      "rel": "imports"
+    },
+    {
+      "from": "basler_camera.py",
+      "to": "cv2",
+      "rel": "imports"
+    },
+    {
+      "from": "basler_camera.py",
+      "to": "__future__",
+      "rel": "imports"
+    },
+    {
+      "from": "basler_camera.py",
+      "to": "dataclasses",
+      "rel": "imports"
+    },
+    {
+      "from": "basler_camera.py",
+      "to": "typing",
+      "rel": "imports"
+    },
+    {
+      "from": "basler_camera.py",
+      "to": "pypylon",
+      "rel": "imports"
+    },
+    {
+      "from": "basler_camera.py",
+      "to": "basler_camera.py::list_basler_cameras",
+      "rel": "contains"
+    },
+    {
+      "from": "basler_camera.py",
+      "to": "basler_camera.py::main",
+      "rel": "contains"
+    },
+    {
+      "from": "basler_camera.py",
+      "to": "basler_camera.py::BaslerCameraSettings",
+      "rel": "contains"
+    },
+    {
+      "from": "basler_camera.py",
+      "to": "basler_camera.py::BaslerCamera",
+      "rel": "contains"
+    },
+    {
+      "from": "CLAUDE.md",
+      "to": "src/auth.ts",
+      "rel": "references"
+    },
+    {
+      "from": "CLAUDE.md",
+      "to": "path/to/file.py",
+      "rel": "references"
+    },
+    {
+      "from": "CLAUDE.md",
+      "to": "dual-graph/context-store.js",
+      "rel": "references"
+    },
+    {
+      "from": "CLAUDE.md",
+      "to": "relevant/file.ts",
+      "rel": "references"
+    },
+    {
+      "from": "hmccontroller.py",
+      "to": "threading",
+      "rel": "imports"
+    },
+    {
+      "from": "hmccontroller.py",
+      "to": "time",
+      "rel": "imports"
+    },
+    {
+      "from": "hmccontroller.py",
+      "to": "serial",
+      "rel": "imports"
+    },
+    {
+      "from": "hmccontroller.py",
+      "to": "serial.tools.list_ports",
+      "rel": "imports"
+    },
+    {
+      "from": "hmccontroller.py",
+      "to": "tkinter",
+      "rel": "imports"
+    },
+    {
+      "from": "hmccontroller.py",
+      "to": "hmccontroller.py::App",
+      "rel": "contains"
+    },
+    {
+      "from": "hmccontroller.py",
+      "to": "hmccontroller.py::HmcControlCs",
+      "rel": "contains"
+    },
+    {
+      "from": "main.py",
+      "to": "serial.tools.list_ports",
+      "rel": "imports"
+    },
+    {
+      "from": "main.py",
+      "to": "time",
+      "rel": "imports"
+    },
+    {
+      "from": "main.py",
+      "to": "threading",
+      "rel": "imports"
+    },
+    {
+      "from": "main.py",
+      "to": "math",
+      "rel": "imports"
+    },
+    {
+      "from": "main.py",
+      "to": "queue",
+      "rel": "imports"
+    },
+    {
+      "from": "main.py",
+      "to": "smumark1",
+      "rel": "imports"
+    },
+    {
+      "from": "main.py",
+      "to": "smumark2",
+      "rel": "imports"
+    },
+    {
+      "from": "main.py",
+      "to": "hmccontroller",
+      "rel": "imports"
+    },
+    {
+      "from": "main.py",
+      "to": "dataclasses",
+      "rel": "imports"
+    },
+    {
+      "from": "main.py",
+      "to": "typing",
+      "rel": "imports"
+    },
+    {
+      "from": "main.py",
+      "to": "collections",
+      "rel": "imports"
+    },
+    {
+      "from": "main.py",
+      "to": "main.py::format_elapsed_time",
+      "rel": "contains"
+    },
+    {
+      "from": "main.py",
+      "to": "main.py::wait_for_motion",
+      "rel": "contains"
+    },
+    {
+      "from": "main.py",
+      "to": "main.py::time_block",
+      "rel": "contains"
+    },
+    {
+      "from": "main.py",
+      "to": "main.py::print_timing_summary",
+      "rel": "contains"
+    },
+    {
+      "from": "main.py",
+      "to": "main.py::classify_voltage",
+      "rel": "contains"
+    },
+    {
+      "from": "main.py",
+      "to": "main.py::feedback_direction_label",
+      "rel": "contains"
+    },
+    {
+      "from": "main.py",
+      "to": "main.py::read_voltage_sample",
+      "rel": "contains"
+    },
+    {
+      "from": "main.py",
+      "to": "main.py::read_first_last_point",
+      "rel": "contains"
+    },
+    {
+      "from": "main.py",
+      "to": "main.py::list_ports",
+      "rel": "contains"
+    },
+    {
+      "from": "main.py",
+      "to": "main.py::user_input_listener",
+      "rel": "contains"
+    },
+    {
+      "from": "main.py",
+      "to": "main.py::step_size_listener",
+      "rel": "contains"
+    },
+    {
+      "from": "main.py",
+      "to": "main.py::z_probe_move",
+      "rel": "contains"
+    },
+    {
+      "from": "main.py",
+      "to": "main.py::z_movement",
+      "rel": "contains"
+    },
+    {
+      "from": "main.py",
+      "to": "main.py::main",
+      "rel": "contains"
+    },
+    {
+      "from": "main.py",
+      "to": "main.py::VoltageFeedbackState",
+      "rel": "contains"
+    },
+    {
+      "from": "main.py",
+      "to": "main.py::SmuVoltageSampler",
+      "rel": "contains"
+    },
+    {
+      "from": "main.py",
+      "to": "main.py::ZFeedbackWorker",
+      "rel": "contains"
+    },
+    {
+      "from": "README.md",
+      "to": "//sites.go",
+      "rel": "references"
+    },
+    {
+      "from": "smumark1.py",
+      "to": "pyvisa",
+      "rel": "imports"
+    },
+    {
+      "from": "smumark1.py",
+      "to": "time",
+      "rel": "imports"
+    },
+    {
+      "from": "smumark1.py",
+      "to": "smumark1.py::init_smu",
+      "rel": "contains"
+    },
+    {
+      "from": "smumark1.py",
+      "to": "smumark1.py::check_voltage",
+      "rel": "contains"
+    },
+    {
+      "from": "smumark2.py",
+      "to": "pyvisa",
+      "rel": "imports"
+    },
+    {
+      "from": "smumark2.py",
+      "to": "time",
+      "rel": "imports"
+    },
+    {
+      "from": "smumark2.py",
+      "to": "smumark2.py::check_smu_errors",
+      "rel": "contains"
+    },
+    {
+      "from": "smumark2.py",
+      "to": "smumark2.py::init_smu",
+      "rel": "contains"
+    },
+    {
+      "from": "smumark2.py",
+      "to": "smumark2.py::reset_smu",
+      "rel": "contains"
+    },
+    {
+      "from": "smumark2.py",
+      "to": "smumark2.py::use_case_1",
+      "rel": "contains"
+    },
+    {
+      "from": "smumark2.py",
+      "to": "smumark2.py::use_case_2",
+      "rel": "contains"
+    },
+    {
+      "from": "smumark2.py",
+      "to": "smumark2.py::out_on",
+      "rel": "contains"
+    },
+    {
+      "from": "smumark2.py",
+      "to": "smumark2.py::read_voltage_sample",
+      "rel": "contains"
+    },
+    {
+      "from": "smumark2.py",
+      "to": "smumark2.py::read_current_sample",
+      "rel": "contains"
+    },
+    {
+      "from": "smumark2.py",
+      "to": "smumark2.py::check_voltage",
+      "rel": "contains"
+    },
+    {
+      "from": "smumark2.py",
+      "to": "smumark2.py::check_current",
+      "rel": "contains"
+    },
+    {
+      "from": "smumark2.py",
+      "to": "smumark2.py::check_voltage_testing",
+      "rel": "contains"
+    },
+    {
+      "from": "smumark2.py",
+      "to": "smumark2.py::out_off",
+      "rel": "contains"
+    },
+    {
+      "from": "test.py",
+      "to": "math",
+      "rel": "imports"
+    },
+    {
+      "from": "test.py",
+      "to": "csv",
+      "rel": "imports"
+    },
+    {
+      "from": "test.py",
+      "to": "test.py::generate_e_like_snake_coordinates",
+      "rel": "contains"
+    },
+    {
+      "from": "test.py",
+      "to": "test.py::shift_coordinates",
+      "rel": "contains"
+    },
+    {
+      "from": "test.py",
+      "to": "test.py::generate_parallel_lines",
+      "rel": "contains"
+    },
+    {
+      "from": "test.py",
+      "to": "test.py::generate_parallel_lines_variable_spacing",
+      "rel": "contains"
+    },
+    {
+      "from": "test.py",
+      "to": "test.py::generate_grid_lines_to_file",
+      "rel": "contains"
+    },
+    {
+      "from": "test.py",
+      "to": "test.py::generate_circle_coordinates",
+      "rel": "contains"
+    },
+    {
+      "from": "testing.py",
+      "to": "serial.tools.list_ports",
+      "rel": "imports"
+    },
+    {
+      "from": "testing.py",
+      "to": "time",
+      "rel": "imports"
+    },
+    {
+      "from": "testing.py",
+      "to": "threading",
+      "rel": "imports"
+    },
+    {
+      "from": "testing.py",
+      "to": "math",
+      "rel": "imports"
+    },
+    {
+      "from": "testing.py",
+      "to": "queue",
+      "rel": "imports"
+    },
+    {
+      "from": "testing.py",
+      "to": "smumark2",
+      "rel": "imports"
+    },
+    {
+      "from": "testing.py",
+      "to": "hmccontroller",
+      "rel": "imports"
+    },
+    {
+      "from": "testing.py",
+      "to": "testing.py::main",
+      "rel": "contains"
+    },
+    {
+      "from": "Labview integration\\README.md",
+      "to": "//sites.go",
+      "rel": "references"
+    }
+  ]
+}

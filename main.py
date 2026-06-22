@@ -964,6 +964,51 @@ def main():
                     stop_event=stop_event,
                 )
 
+        # ponytail: keep re-probing synchronous and straightforward, matching response 6
+        def find_contact_point_custom(smu, contact_voltage, contact_compliance_current_ua, threshold_current_ua, liftoff_height, max_safe_z, stop_event=None):
+            with time_block(timers, "smu.use_case_1"):
+                smumark2.use_case_1(smu, voltage=contact_voltage, compliance_current_ua=contact_compliance_current_ua)
+            smumark2.out_on(smu)
+            
+            step_size = liftoff_height - 50
+            total_distance = z_hmc.z_current_position
+            ensure_z_below_limit(total_distance + step_size, max_safe_z, smu, "Re-probe coarse contact move", stop_event=stop_event)
+            
+            print(f"[Z PROBE] Starting with {step_size} µm step, then 1 µm steps.")
+            app.command = '1'
+            app.x_value = 0
+            app.y_value = 0
+            app.z_value = step_size
+            with time_block(timers, "motion.start_thread"):
+                app.start_thread()
+            if app.hmcControl.run_thread:
+                app.hmcControl.run_thread.join()
+            total_distance += step_size
+
+            while True:
+                ensure_z_below_limit(total_distance + 1, max_safe_z, smu, "Re-probe fine contact move", stop_event=stop_event)
+                app.command = '1'
+                app.x_value = 0
+                app.y_value = 0
+                app.z_value = 1
+                with time_block(timers, "motion.start_thread"):
+                    app.start_thread()
+                if app.hmcControl.run_thread:
+                    app.hmcControl.run_thread.join()
+                total_distance += 1
+
+                with time_block(timers, "smu.check_current"):
+                    status = smumark2.check_current(
+                        smu,
+                        threshold_current_1=threshold_current_ua * 1e-6,
+                        ensure_output_on=False,
+                        verbose=False,
+                    )
+                if status == 1:
+                    print(f"[CONTACT] Contact at {total_distance} µm")
+                    z_hmc.z_current_position = total_distance
+                    return total_distance
+
         def find_contact_point(initial_step_size, smu, threshold_current_ua, step_queue):
             step_size = initial_step_size
             total_distance = 0
@@ -1148,7 +1193,15 @@ def main():
                         app.z_hmc = z_hmc
                         app.hmcControl = z_hmc
                         
-                        z_contact_point = find_contact_point(initial_step_size=z_contact_step, smu=smu, threshold_current_ua=threshold_current_ua, step_queue=step_queue)
+                        z_contact_point = find_contact_point_custom(
+                            smu=smu,
+                            contact_voltage=contact_voltage,
+                            contact_compliance_current_ua=contact_compliance_current_ua,
+                            threshold_current_ua=threshold_current_ua,
+                            liftoff_height=liftoff_height,
+                            max_safe_z=max_safe_z,
+                            stop_event=feedback_stop
+                        )
                         z_hmc.current_z = z_contact_point
                         max_safe_z = z_hmc.z_current_position + max_safe_z_margin
                         print(f"[SAFETY] Updated max_safe_z: {max_safe_z} um")

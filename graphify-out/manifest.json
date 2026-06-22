@@ -1,0 +1,162 @@
+{
+  "D:\\Python codes\\hmccontroller\\.claude\\settings.local.json": {
+    "mtime": 1782107034.9756851,
+    "ast_hash": "3409e28c0b8f681eb169c2c73488e388",
+    "semantic_hash": "3409e28c0b8f681eb169c2c73488e388"
+  },
+  "D:\\Python codes\\hmccontroller\\.dual-graph\\context-store.json": {
+    "mtime": 1782106883.4821262,
+    "ast_hash": "d751713988987e9331980363e24189ce",
+    "semantic_hash": "d751713988987e9331980363e24189ce"
+  },
+  "D:\\Python codes\\hmccontroller\\.dual-graph\\info_graph.json": {
+    "mtime": 1782107109.3474095,
+    "ast_hash": "cbc200bec16a898faa606e4bf53cd450",
+    "semantic_hash": "cbc200bec16a898faa606e4bf53cd450"
+  },
+  "D:\\Python codes\\hmccontroller\\.dual-graph\\prime.ps1": {
+    "mtime": 1782107034.953565,
+    "ast_hash": "e652ee9e30c49f321d514a596f45b132",
+    "semantic_hash": "e652ee9e30c49f321d514a596f45b132"
+  },
+  "D:\\Python codes\\hmccontroller\\.dual-graph\\stop_hook.ps1": {
+    "mtime": 1782107034.9594069,
+    "ast_hash": "9abcb840c941da94efc04500281f2bea",
+    "semantic_hash": "9abcb840c941da94efc04500281f2bea"
+  },
+  "D:\\Python codes\\hmccontroller\\.dual-graph\\symbol_index.json": {
+    "mtime": 1782107109.348959,
+    "ast_hash": "c02253d534072fc509dba6544f888771",
+    "semantic_hash": "c02253d534072fc509dba6544f888771"
+  },
+  "D:\\Python codes\\hmccontroller\\basler_camera.py": {
+    "mtime": 1781606491.9744654,
+    "ast_hash": "8ced6be80c6d021b2b7f1041afe53d74",
+    "semantic_hash": "8ced6be80c6d021b2b7f1041afe53d74"
+  },
+  "D:\\Python codes\\hmccontroller\\hmccontroller.py": {
+    "mtime": 1781869794.6055784,
+    "ast_hash": "bd8c9a1f73238b2bab8c65880f20fc8e",
+    "semantic_hash": "bd8c9a1f73238b2bab8c65880f20fc8e"
+  },
+  "D:\\Python codes\\hmccontroller\\main.py": {
+    "mtime": 1781954276.393103,
+    "ast_hash": "cf7ff9ce4bda91202479b78a02ff0760",
+    "semantic_hash": "cf7ff9ce4bda91202479b78a02ff0760"
+  },
+  "D:\\Python codes\\hmccontroller\\smumark1.py": {
+    "mtime": 1749811388.8898182,
+    "ast_hash": "73ff9baa8d0c89f116e19fac1ac6f968",
+    "semantic_hash": "73ff9baa8d0c89f116e19fac1ac6f968"
+  },
+  "D:\\Python codes\\hmccontroller\\smumark2.py": {
+    "mtime": 1781950130.735661,
+    "ast_hash": "1f1c72e4de39d465ea6e4786ede50ac1",
+    "semantic_hash": "1f1c72e4de39d465ea6e4786ede50ac1"
+  },
+  "D:\\Python codes\\hmccontroller\\test.py": {
+    "mtime": 1781606413.9403255,
+    "ast_hash": "356e3202c8ce26c77c91d35fd0418c62",
+    "semantic_hash": "356e3202c8ce26c77c91d35fd0418c62"
+  },
+  "D:\\Python codes\\hmccontroller\\testing.py": {
+    "mtime": 1781173544.9557743,
+    "ast_hash": "f07f8159b4659c81f1399c67bf12e3e6",
+    "semantic_hash": "f07f8159b4659c81f1399c67bf12e3e6"
+  },
+  "D:\\Python codes\\hmccontroller\\.agent\\rules\\graperoot.md": {
+    "mtime": 1782107110.7278962,
+    "ast_hash": "14ad158d0b02285a1524b9e78d85dda6",
+    "semantic_hash": "14ad158d0b02285a1524b9e78d85dda6"
+  },
+  "D:\\Python codes\\hmccontroller\\CLAUDE.md": {
+    "mtime": 1782106883.47398,
+    "ast_hash": "a4de27728534002df8eb98c8fe898a18",
+    "semantic_hash": "a4de27728534002df8eb98c8fe898a18"
+  },
+  "D:\\Python codes\\hmccontroller\\Labview integration\\README.md": {
+    "mtime": 1780297384.3318005,
+    "ast_hash": "00c54f8f45cddfaa78110c0e8e0422d2",
+    "semantic_hash": "00c54f8f45cddfaa78110c0e8e0422d2"
+  },
+  "D:\\Python codes\\hmccontroller\\README.md": {
+    "mtime": 1781606382.2841642,
+    "ast_hash": "84e260d32fa2ffda74884863cf2807f5",
+    "semantic_hash": "84e260d32fa2ffda74884863cf2807f5"
+  },
+  "D:\\Python codes\\hmccontroller\\circle.txt": {
+    "mtime": 1781090135.3913138,
+    "ast_hash": "37fc648f82eeeb2f7329c5c9ba20029f",
+    "semantic_hash": "37fc648f82eeeb2f7329c5c9ba20029f"
+  },
+  "D:\\Python codes\\hmccontroller\\coords\\coordinates.txt": {
+    "mtime": 1751374748.8678758,
+    "ast_hash": "36db8b117a63bf0401788c0e884150a6",
+    "semantic_hash": "36db8b117a63bf0401788c0e884150a6"
+  },
+  "D:\\Python codes\\hmccontroller\\coords\\coords.txt": {
+    "mtime": 1751375197.509057,
+    "ast_hash": "56f7c9a12cc2e76e98973f4797b11f99",
+    "semantic_hash": "56f7c9a12cc2e76e98973f4797b11f99"
+  },
+  "D:\\Python codes\\hmccontroller\\coords\\parallel.txt": {
+    "mtime": 1751438535.0299323,
+    "ast_hash": "09b631a376f59704801f7a34c832f404",
+    "semantic_hash": "09b631a376f59704801f7a34c832f404"
+  },
+  "D:\\Python codes\\hmccontroller\\coords\\parallel_1.txt": {
+    "mtime": 1781606413.8936708,
+    "ast_hash": "79a79ddff91bd989f5497d6cfc876547",
+    "semantic_hash": "79a79ddff91bd989f5497d6cfc876547"
+  },
+  "D:\\Python codes\\hmccontroller\\coords\\parallel_large.txt": {
+    "mtime": 1751439776.1896276,
+    "ast_hash": "4b774b2be6938f5eb46b529f704c207f",
+    "semantic_hash": "4b774b2be6938f5eb46b529f704c207f"
+  },
+  "D:\\Python codes\\hmccontroller\\coords\\square.txt": {
+    "mtime": 1750920342.3276625,
+    "ast_hash": "fd218aac987899a4a53f9bcce46f1a03",
+    "semantic_hash": "fd218aac987899a4a53f9bcce46f1a03"
+  },
+  "D:\\Python codes\\hmccontroller\\coords\\test-coords.txt": {
+    "mtime": 1750440905.6031327,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "D:\\Python codes\\hmccontroller\\coords\\test.txt": {
+    "mtime": 1781691485.9743187,
+    "ast_hash": "dad4e29658aaef588c3e113df02d79db",
+    "semantic_hash": "dad4e29658aaef588c3e113df02d79db"
+  },
+  "D:\\Python codes\\hmccontroller\\le.txt": {
+    "mtime": 1781870480.795694,
+    "ast_hash": "5d38e367b456b89def7338c2dc91c275",
+    "semantic_hash": "5d38e367b456b89def7338c2dc91c275"
+  },
+  "D:\\Python codes\\hmccontroller\\parallel_var.txt": {
+    "mtime": 1781606413.9162214,
+    "ast_hash": "3fe80d610dd05238d097e10faba180a8",
+    "semantic_hash": "3fe80d610dd05238d097e10faba180a8"
+  },
+  "D:\\Python codes\\hmccontroller\\parallel_var1.txt": {
+    "mtime": 1781691486.0269332,
+    "ast_hash": "1fccd13c6d26ac64f98b3ed939e97120",
+    "semantic_hash": "1fccd13c6d26ac64f98b3ed939e97120"
+  },
+  "D:\\Python codes\\hmccontroller\\parallel_variable_spacing.txt": {
+    "mtime": 1781606413.929494,
+    "ast_hash": "1fccd13c6d26ac64f98b3ed939e97120",
+    "semantic_hash": "1fccd13c6d26ac64f98b3ed939e97120"
+  },
+  "D:\\Python codes\\hmccontroller\\test.txt": {
+    "mtime": 1781953977.929253,
+    "ast_hash": "c0b27a2c8923fea626f785a85cc7a57b",
+    "semantic_hash": "c0b27a2c8923fea626f785a85cc7a57b"
+  },
+  "D:\\Python codes\\hmccontroller\\Report.pdf": {
+    "mtime": 1756702240.1306982,
+    "ast_hash": "028529c8f6422dce859df3705ae95108",
+    "semantic_hash": "028529c8f6422dce859df3705ae95108"
+  }
+}
