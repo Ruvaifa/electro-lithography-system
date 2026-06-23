@@ -601,16 +601,16 @@ if __name__ == "__main__":
     # )
     
     # Circles
-    generate_concentric_circles(
-        radii=[500, 1000, 1500],
-        center_x=10000,
-        center_y=10000,
-        point_spacing=5.0,
-        output_file="concentric_circles.txt"
-    )
+    # generate_concentric_circles(
+    #     radii=[500, 1000, 1500],
+    #     center_x=10000,
+    #     center_y=10000,
+    #     point_spacing=20.0,
+    #     output_file="concentric_circles.txt"
+    # )
     
     # Try to plot if matplotlib is available (uncomment to visualize)
     # plot_concentric_hexagons("concentric_hexagons.txt")
-    #plot_concentric_circles("concentric_circles.txt")
+    plot_concentric_circles("circles.txt")
 
 

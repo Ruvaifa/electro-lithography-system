@@ -1,61 +1,99 @@
-[Z FEEDBACK] Applying +2.000 um from 4996.000 to 4998.000 for low_lift_up
+[SMU SAMPLE] V=2.0579 V, I=3.4997e-07 A, direction=in_range
 z_current_position: 0
-[MOVE 1] Completed. Position: X=11000.0, Y=10000.0, Z=4996.0
-[MOVE 2] Target coordinates: X=11000.0, Y=10000.0, flag=1
+[MOVE 473] Completed. Position: X=10999.8, Y=9980.0, Z=34564.0
+[MOVE 474] Target coordinates: X=11000.0, Y=10000.0, flag=0
+[SMU SAMPLE] V=2.0518 V, I=3.4998e-07 A, direction=in_range
+z_current_position: 0
+[SMU SAMPLE] V=2.0411 V, I=3.4997e-07 A, direction=in_range
+z_current_position: 0
+[MOVE 474] Completed. Position: X=11000.0, Y=10000.0, Z=34564.0
+[MOVE 475] Target coordinates: X=11000.0, Y=10000.0, flag=1
 [INFO] liftoff Initiated
-z_current_position: 4998.0
-[Z FEEDBACK] Move complete, Z=4998.000 um
-[SMU SAMPLE] V=5.0001 V, I=4.1700e-08 A, direction=low_lift_up
-z_current_position: 3998.0
+z_current_position: 33564.0
 [LIFTOFF] Z moved up by 1000.0 um
-[MOVE 2] Completed. Position: X=11000.0, Y=10000.0, Z=3998.0
-[MOVE 3] Target coordinates: X=10000.0, Y=10300.0, flag=1
-[SMU SAMPLE] V=4.9999 V, I=1.4061e-08 A, direction=low_lift_up
-[SMU SAMPLE] V=4.9996 V, I=-1.6040e-08 A, direction=low_lift_up
-[SMU SAMPLE] V=4.9997 V, I=-3.0603e-08 A, direction=low_lift_up
-[SMU SAMPLE] V=5.0007 V, I=-1.1043e-08 A, direction=low_lift_up
+[MOVE 475] Completed. Position: X=11000.0, Y=10000.0, Z=33564.0
+[MOVE 476] Target coordinates: X=11500.0, Y=10000.0, flag=1
 z_current_position: 0
-[SMU SAMPLE] V=5.0003 V, I=3.3800e-08 A, direction=low_lift_up
-[SMU SAMPLE] V=4.9996 V, I=1.4745e-08 A, direction=low_lift_up
-[SMU SAMPLE] V=4.9994 V, I=-6.9590e-09 A, direction=low_lift_up
-[SMU SAMPLE] V=-0.0002 V, I=2.9999e-07 A, direction=high_move_down
-[SMU SAMPLE] V=4.9995 V, I=7.4570e-09 A, direction=low_lift_up
-[SMU SAMPLE] V=-0.0002 V, I=2.9998e-07 A, direction=high_move_down
-[SMU SAMPLE] V=-0.0002 V, I=2.9999e-07 A, direction=high_move_down
-[SMU SAMPLE] V=-0.0003 V, I=2.9999e-07 A, direction=high_move_down
-z_current_position: 0
-[MOVE 3] Completed. Position: X=10000.0, Y=10300.0, Z=3998.0
-[MOVE 4] Target coordinates: X=10000.0, Y=10300.0, flag=0
+[MOVE 476] Completed. Position: X=11500.0, Y=10000.0, Z=33564.0
+[MOVE 477] Target coordinates: X=11500.0, Y=10000.0, flag=0
 [INFO] Finding new contact point...
-C:\Users\user\AppData\Local\Programs\Python\Python312\Lib\site-packages\pyvisa\resources\messagebased.py:702: UserWarning: read string doesn't end with termination characters
-  return self.read()
 [INFO] SMU Reset complete.
-[SMU SCPI ERRORS DETECTED]
-  -> -1.500000e-04,+0.000000e+00,+0.000000e+00,+0.000000e+00,+0.000000e+00
 [INFO] Voltage set to 5.0 V, Compliance Current: 0.3 micro A
-[SMU SCPI ERRORS DETECTED]
-  -> +803,Not permitted with OUTPUT off
 [Z PROBE] Starting with 950.0 µm step, then 1 µm steps.
-z_current_position: 4948.0
-z_current_position: 4949.0
-[CONTACT] Contact at 4949.0 µm
-[SAFETY] Updated max_safe_z: 44949.0 um
+z_current_position: 34514.0
+z_current_position: 34515.0
+z_current_position: 34516.0
+z_current_position: 34517.0
+z_current_position: 34518.0
+z_current_position: 34519.0
+z_current_position: 34520.0
+z_current_position: 34521.0
+z_current_position: 34522.0
+z_current_position: 34523.0
+z_current_position: 34524.0
+z_current_position: 34525.0
+z_current_position: 34526.0
+z_current_position: 34527.0
+z_current_position: 34528.0
+z_current_position: 34529.0
+z_current_position: 34530.0
+z_current_position: 34531.0
+z_current_position: 34532.0
+z_current_position: 34533.0
+z_current_position: 34534.0
+z_current_position: 34535.0
+z_current_position: 34536.0
+z_current_position: 34537.0
+z_current_position: 34538.0
+z_current_position: 34539.0
+z_current_position: 34540.0
+z_current_position: 34541.0
+z_current_position: 34542.0
+z_current_position: 34543.0
+z_current_position: 34544.0
+z_current_position: 34545.0
+z_current_position: 34546.0
+z_current_position: 34547.0
+z_current_position: 34548.0
+z_current_position: 34549.0
+z_current_position: 34550.0
+z_current_position: 34551.0
+z_current_position: 34552.0
+z_current_position: 34553.0
+z_current_position: 34554.0
+z_current_position: 34555.0
+z_current_position: 34556.0
+z_current_position: 34557.0
+z_current_position: 34558.0
+z_current_position: 34559.0
+z_current_position: 34560.0
+[CONTACT] Contact at 34560.0 µm
+[SAFETY] Updated max_safe_z: 34630.0 um
 [INFO] SMU Reset complete.
-[SMU SCPI ERRORS DETECTED]
-  -> -3.400000e-04,+0.000000e+00,+0.000000e+00,+0.000000e+00,+0.000000e+00
-[WARN] SMU sampler error: could not convert string to float: ''
 [INFO] SMU Reset complete.
-[SMU SAMPLE] V=-0.0003 V, I=0.0000e+00 A, direction=high_move_down
-Voltage set as 5.0 V, Current set as 0.3 micro A
-[SMU SCPI ERRORS DETECTED]
-  -> +803,Not permitted with OUTPUT off
-[Z FEEDBACK] Applying -2.000 um from 4949.000 to 4947.000 for high_move_down
-[SMU SAMPLE] V=4.9994 V, I=1.2460e-09 A, direction=low_lift_up
-[MOVE 4] Completed. Position: X=10000.0, Y=10300.0, Z=4949.0
-[MOVE 5] Target coordinates: X=11000.0, Y=10300.0, flag=0
-z_current_position: 4947.0
-[Z FEEDBACK] Move complete, Z=4947.000 um
-[Z FEEDBACK] Applying +2.000 um from 4947.000 to 4949.000 for low_lift_up
-z_current_position: 4949.0
-[Z FEEDBACK] Move complete, Z=4949.000 um
-[Z FEEDBACK] Applying +2.000 um from 4949.000 to 4951.000 for low_lift_up
+Voltage set as 5.0 V, Current set as 0.35 micro A
+[SMU SAMPLE] V=0.9422 V, I=3.4907e-07 A, direction=high_move_down
+[Z FEEDBACK] Applying -2.000 um from 34560.000 to 34558.000 for high_move_down
+[MOVE 477] Completed. Position: X=11500.0, Y=10000.0, Z=34560.0
+[MOVE 478] Target coordinates: X=11499.9, Y=10020.0, flag=0
+z_current_position: 34558.0
+[Z FEEDBACK] Move complete, Z=34558.000 um
+[Z FEEDBACK] Applying -2.000 um from 34558.000 to 34556.000 for high_move_down
+z_current_position: 34556.0
+[Z FEEDBACK] Move complete, Z=34556.000 um
+[Z FEEDBACK] Applying -2.000 um from 34556.000 to 34554.000 for high_move_down
+z_current_position: 34554.0
+[Z FEEDBACK] Move complete, Z=34554.000 um
+[SMU SAMPLE] V=2.1184 V, I=3.5001e-07 A, direction=in_range
+[SMU SAMPLE] V=2.1085 V, I=3.4996e-07 A, direction=in_range
+z_current_position: 0
+[SMU SAMPLE] V=2.1197 V, I=3.5001e-07 A, direction=in_range
+[SMU SAMPLE] V=2.1286 V, I=3.4999e-07 A, direction=in_range
+[SMU SAMPLE] V=2.1390 V, I=3.4998e-07 A, direction=in_range
+[SMU SAMPLE] V=2.2003 V, I=3.5001e-07 A, direction=in_range
+[SMU SAMPLE] V=2.2879 V, I=3.4996e-07 A, direction=in_range
+[SMU SAMPLE] V=2.2718 V, I=3.5000e-07 A, direction=in_range
+[SMU SAMPLE] V=2.2882 V, I=3.4998e-07 A, direction=in_range
+[SMU SAMPLE] V=2.2777 V, I=3.5000e-07 A, direction=in_range
+[SMU SAMPLE] V=2.2365 V, I=3.4997e-07 A, direction=in_range
+
