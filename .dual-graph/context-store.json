@@ -1,3 +1,4 @@
 [
-  {"type": "decision", "content": "implement find_contact_point_custom in response 8 to prevent probe crash", "tags": ["patterning"], "files": ["main.py"], "date": "2026-06-22"}
+  {"type": "decision", "content": "implement find_contact_point_custom in response 8 to prevent probe crash", "tags": ["patterning"], "files": ["main.py"], "date": "2026-06-22"},
+  {"type": "decision", "content": "synchronized speeds calculated from step count to fix circle distortion", "tags": ["speed", "distortion"], "files": ["main.py", "hmccontroller.py"], "date": "2026-06-23"}
 ]

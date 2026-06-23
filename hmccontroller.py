@@ -416,15 +416,15 @@ class HmcControlCs:
             # Calculate steps to see if there is any physical movement
             steps = 0
             if self.axis == 'x':
-                steps = (16777216) if abs(move_a) == 16777216 else int(move_a / self.Resolution_A)
+                steps = (16777216) if abs(move_a) == 16777216 else round(move_a / self.Resolution_A)
             elif self.axis == 'y':
-                steps = (16777216) if abs(move_b) == 16777216 else int(move_b / self.Resolution_B)
+                steps = (16777216) if abs(move_b) == 16777216 else round(move_b / self.Resolution_B)
             elif self.axis == 'z':
-                steps = (16777216) if abs(move_c) == 16777216 else int(move_c / self.Resolution_C)
+                steps = (16777216) if abs(move_c) == 16777216 else round(move_c / self.Resolution_C)
             else:
-                steps_a = (16777216) if abs(move_a) == 16777216 else int(move_a / self.Resolution_A)
-                steps_b = (16777216) if abs(move_b) == 16777216 else int(move_b / self.Resolution_B)
-                steps_c = (16777216) if abs(move_c) == 16777216 else int(move_c / self.Resolution_C)
+                steps_a = (16777216) if abs(move_a) == 16777216 else round(move_a / self.Resolution_A)
+                steps_b = (16777216) if abs(move_b) == 16777216 else round(move_b / self.Resolution_B)
+                steps_c = (16777216) if abs(move_c) == 16777216 else round(move_c / self.Resolution_C)
                 steps = steps_a or steps_b or steps_c
 
             if steps == 0:
@@ -555,27 +555,27 @@ class HmcControlCs:
         #print("[DEBUG] set_move_data: Move ACK received")
         
         if self.axis == 'x':
-            steps = (16777216) if abs(A_steps) == 16777216 else int(A_steps / self.Resolution_A)
+            steps = (16777216) if abs(A_steps) == 16777216 else round(A_steps / self.Resolution_A)
             self.send_axis_data(steps, A_steps)
             self.move_x = steps
         elif self.axis == 'y':
-            steps = (16777216) if abs(B_steps) == 16777216 else int(B_steps / self.Resolution_B)
+            steps = (16777216) if abs(B_steps) == 16777216 else round(B_steps / self.Resolution_B)
             self.send_axis_data(steps, B_steps)
             self.move_y = steps
         elif self.axis == 'z':
-            steps = (16777216) if abs(C_steps) == 16777216 else int(C_steps / self.Resolution_C)
+            steps = (16777216) if abs(C_steps) == 16777216 else round(C_steps / self.Resolution_C)
             self.send_axis_data(steps, C_steps)
             self.move_z = steps
         else:
-            steps = (16777216) if abs(A_steps) == 16777216 else int(A_steps / self.Resolution_A)
+            steps = (16777216) if abs(A_steps) == 16777216 else round(A_steps / self.Resolution_A)
             self.send_axis_data(steps, A_steps)
             self.move_x = steps
             
-            steps = (16777216) if abs(B_steps) == 16777216 else int(B_steps / self.Resolution_B)
+            steps = (16777216) if abs(B_steps) == 16777216 else round(B_steps / self.Resolution_B)
             self.send_axis_data(steps, B_steps)
             self.move_y = steps
             
-            steps = (16777216) if abs(C_steps) == 16777216 else int(C_steps / self.Resolution_C)
+            steps = (16777216) if abs(C_steps) == 16777216 else round(C_steps / self.Resolution_C)
             self.send_axis_data(steps, C_steps)
             self.move_z = steps
 
@@ -687,7 +687,7 @@ class HmcControlCs:
 
 
     def _send_axis_speed(self, speed_value, resolution):
-        speed_steps = int(float(speed_value) / resolution)
+        speed_steps = round(float(speed_value) / resolution)
 
         #print(f"[DEBUG] _send_axis_speed: sending speed cmd, steps={speed_steps}")
         self.ser.reset_input_buffer()
@@ -712,30 +712,30 @@ class HmcControlCs:
 
         with self.serial_lock:
             if self.axis == 'x':
-                speed_steps = int(float(x_value) / self.Resolution_A)
+                speed_steps = round(float(x_value) / self.Resolution_A)
                 signature = ("x", speed_steps)
                 if self._last_speed_signature == signature:
                     return
                 self._last_speed_signature = signature
                 self._send_axis_speed(x_value, self.Resolution_A)
             elif self.axis == 'y':
-                speed_steps = int(float(y_value) / self.Resolution_B)
+                speed_steps = round(float(y_value) / self.Resolution_B)
                 signature = ("y", speed_steps)
                 if self._last_speed_signature == signature:
                     return
                 self._last_speed_signature = signature
                 self._send_axis_speed(y_value, self.Resolution_B)
             elif self.axis == 'z':
-                speed_steps = int(float(z_value) / self.Resolution_C)
+                speed_steps = round(float(z_value) / self.Resolution_C)
                 signature = ("z", speed_steps)
                 if self._last_speed_signature == signature:
                     return
                 self._last_speed_signature = signature
                 self._send_axis_speed(z_value, self.Resolution_C)
             else:
-                x_steps = int(float(x_value) / self.Resolution_A)
-                y_steps = int(float(y_value) / self.Resolution_B)
-                z_steps = int(float(z_value) / self.Resolution_C)
+                x_steps = round(float(x_value) / self.Resolution_A)
+                y_steps = round(float(y_value) / self.Resolution_B)
+                z_steps = round(float(z_value) / self.Resolution_C)
 
                 signature = (x_steps, y_steps, z_steps)
                 if self._last_speed_signature == signature:

@@ -24,6 +24,46 @@ def format_elapsed_time(seconds):
         return f"{int(minutes)}m {seconds:.2f}s"
     return f"{seconds:.2f}s"
 
+def compute_synchronized_speeds(dx, dy, v, resolution=0.2, min_hw_speed=400.0, max_speed_steps=50000.0):
+    steps_x = round(dx / resolution)
+    steps_y = round(dy / resolution)
+    abs_steps_x = abs(steps_x)
+    abs_steps_y = abs(steps_y)
+
+    if abs_steps_x == 0 and abs_steps_y == 0:
+        return v, v
+
+    if v <= 0:
+        return 0.0, 0.0
+
+    dominant_steps = max(abs_steps_x, abs_steps_y)
+    segment_time = dominant_steps * resolution / v
+
+    speed_x = abs_steps_x / segment_time if abs_steps_x > 0 else 0.0
+    speed_y = abs_steps_y / segment_time if abs_steps_y > 0 else 0.0
+
+    # Scale both up proportionally if either is below the hardware minimum speed
+    if speed_x > 0 and speed_x < min_hw_speed:
+        scale = min_hw_speed / speed_x
+        speed_x *= scale
+        speed_y *= scale
+
+    if speed_y > 0 and speed_y < min_hw_speed:
+        scale = min_hw_speed / speed_y
+        speed_x *= scale
+        speed_y *= scale
+
+    # Clamp both down proportionally if either exceeds the max speed limit
+    max_current_speed = max(speed_x, speed_y)
+    if max_current_speed > max_speed_steps:
+        scale = max_speed_steps / max_current_speed
+        speed_x *= scale
+        speed_y *= scale
+
+    vx = speed_x * resolution
+    vy = speed_y * resolution
+    return vx, vy
+
 def wait_for_motion(app):
     if app.hmcControl.run_thread:
         app.hmcControl.run_thread.join()
@@ -453,22 +493,22 @@ def main():
                     dy = y - y_hmc.current_y
                     dz = z - z_hmc.current_z
                     
-                    segment_xy_distance = math.hypot(dx, dy)
-                    if segment_xy_distance > 0:
-                        theta = math.atan2(dx, dy)
-                        sin_theta = math.sin(theta)
-                        cos_theta = math.cos(theta)
-                        vx = v * sin_theta
-                        vy = v * cos_theta
-                    else:
-                        vx, vy = v, v
+                    actual_dx = round(dx / 0.2) * 0.2
+                    actual_dy = round(dy / 0.2) * 0.2
+                    actual_dz = round(dz / 0.2) * 0.2
+                    
+                    if actual_dx == 0 and actual_dy == 0 and actual_dz == 0:
+                        i += 1
+                        continue
+
+                    vx, vy = compute_synchronized_speeds(actual_dx, actual_dy, v)
                     set_all_speed(vx, vy, v)
                     
                     try:
                         app.command = '1'
-                        app.x_value = dx
-                        app.y_value = dy
-                        app.z_value = dz
+                        app.x_value = actual_dx
+                        app.y_value = actual_dy
+                        app.z_value = actual_dz
 
                         app.start_thread()
 
@@ -559,6 +599,7 @@ def main():
     elif response == 6:
         init_speed = 1000
         timers = defaultdict(float)
+        disable_ramps = False
 
         def set_fast_motion(xy_enabled, z_enabled=None):
             x_hmc.fast_mode = xy_enabled
@@ -717,15 +758,18 @@ def main():
 
                         ensure_z_below_limit(z, max_safe_z, smu, f"Pattern move {i}")
                         dz = z - prev_z
-                        segment_xy_distance = math.hypot(dx, dy)
-                        if segment_xy_distance > 0:
-                            theta = math.atan2(dx, dy)
-                            sin_theta = math.sin(theta)
-                            cos_theta = math.cos(theta)
-                            vx = v * sin_theta
-                            vy = v * cos_theta
-                        else:
-                            vx, vy = v, v
+                        actual_dx = round(dx / 0.2) * 0.2
+                        actual_dy = round(dy / 0.2) * 0.2
+                        actual_dz = round(dz / 0.2) * 0.2
+
+                        if actual_dx == 0 and actual_dy == 0 and actual_dz == 0:
+                            prev_flag = flag
+                            i += 1
+                            continue
+
+                        segment_xy_distance = math.hypot(actual_dx, actual_dy)
+                        vx, vy = compute_synchronized_speeds(actual_dx, actual_dy, v)
+
                         with time_block(timers, "motion.set_speed"):
                             set_all_speed(vx, vy, 1000)
                         if i == 1:
@@ -735,9 +779,9 @@ def main():
 
                         try:
                             app.command = '1'
-                            app.x_value = dx
-                            app.y_value = dy
-                            app.z_value = dz
+                            app.x_value = actual_dx
+                            app.y_value = actual_dy
+                            app.z_value = actual_dz
                             move_start_time = time.perf_counter()
                             with time_block(timers, "motion.start_thread"):
                                 app.start_thread()
@@ -818,8 +862,7 @@ def main():
                     z_hmc.z_current_position = total_distance
                     return total_distance
 
-        set_all_speed(1000, 1000, init_speed)
-
+        disable_ramps = input("Disable motor acceleration/deceleration ramps? (y/n): ").strip().lower() == 'y'
         contact_voltage = float(input("Enter source voltage in V for contact detection (use case 1): "))
         contact_compliance_current_ua = float(input("Enter compliance current in micro amps for contact detection (use case 1): "))
         threshold_current_ua = float(input("Enter threshold current in micro amps to detect contact: "))
@@ -881,13 +924,29 @@ def main():
             smumark2.reset_smu(smu)
 
         try:
-            plot_from_file(speed, filename, z_contact_point, smu, delta_z, voltage_threshold_1, voltage_threshold_2, volt_source, curr_comp, contact_voltage, contact_compliance_current_ua, threshold_current_ua, liftoff_height, max_safe_z)
-        except PatternAbort:
-            print("[SAFETY] Patterning stopped because the Z safety limit was reached.")
+            if disable_ramps:
+                try:
+                    x_hmc.acceleration_and_deceleration(False, False)
+                    y_hmc.acceleration_and_deceleration(False, False)
+                    print("[INFO] Acceleration/deceleration ramps disabled.")
+                except Exception as e:
+                    print(f"[WARN] Failed to disable ramps: {e}")
 
-        set_fast_motion(False)
-        print("Final Z Position:", z_hmc.z_current_position)
-        startup_all()
+            try:
+                plot_from_file(speed, filename, z_contact_point, smu, delta_z, voltage_threshold_1, voltage_threshold_2, volt_source, curr_comp, contact_voltage, contact_compliance_current_ua, threshold_current_ua, liftoff_height, max_safe_z)
+            except PatternAbort:
+                print("[SAFETY] Patterning stopped because the Z safety limit was reached.")
+        finally:
+            if disable_ramps:
+                try:
+                    x_hmc.acceleration_and_deceleration(True, True)
+                    y_hmc.acceleration_and_deceleration(True, True)
+                    print("[INFO] Acceleration/deceleration ramps restored.")
+                except Exception as e:
+                    print(f"[WARN] Failed to restore ramps: {e}")
+            set_fast_motion(False)
+            print("Final Z Position:", z_hmc.z_current_position)
+            startup_all()
     elif response == 7:
         set_all_speed(5000, 5000, 5000)  
 
@@ -944,6 +1003,7 @@ def main():
     elif response == 8:
         init_speed = 1000
         timers = defaultdict(float)
+        disable_ramps = False
 
         sample_interval_ms = float(input("Enter SMU sample interval in milliseconds (e.g. 50): "))
 
@@ -1074,8 +1134,7 @@ def main():
             with time_block(timers, "motion.wait_for_completion"):
                 wait_for_motion(app)
 
-        set_all_speed(1000, 1000, init_speed)
-
+        disable_ramps = input("Disable motor acceleration/deceleration ramps? (y/n): ").strip().lower() == 'y'
         contact_voltage = float(input("Enter source voltage in V for contact detection (use case 1): "))
         contact_compliance_current_ua = float(input("Enter compliance current in micro amps for contact detection (use case 1): "))
         threshold_current_ua = float(input("Enter threshold current in micro amps to detect contact: "))
@@ -1170,6 +1229,14 @@ def main():
         move_count = 0
 
         try:
+            if disable_ramps:
+                try:
+                    x_hmc.acceleration_and_deceleration(False, False)
+                    y_hmc.acceleration_and_deceleration(False, False)
+                    print("[INFO] Acceleration/deceleration ramps disabled.")
+                except Exception as e:
+                    print(f"[WARN] Failed to disable ramps: {e}")
+
             prev_x, prev_y = first_x, first_y
             prev_flag = first_flag
             liftoff = False
@@ -1234,25 +1301,21 @@ def main():
                         z_worker.enabled.set()
                         sampler.enabled.set()
 
+                actual_dx = round(dx / 0.2) * 0.2
+                actual_dy = round(dy / 0.2) * 0.2
+
                 # Calculate speed for XY segment
-                segment_xy_distance = math.hypot(dx, dy)
-                if segment_xy_distance > 0:
-                    theta = math.atan2(dx, dy)
-                    sin_theta = math.sin(theta)
-                    cos_theta = math.cos(theta)
-                    vx = speed * sin_theta
-                    vy = speed * cos_theta
-                    x_hmc.set_speed(vx, 0, 0)
-                    y_hmc.set_speed(0, vy, 0)
-                else:
-                    vx, vy = speed, speed
-                    x_hmc.set_speed(vx, 0, 0)
-                    y_hmc.set_speed(0, vy, 0)
+                segment_xy_distance = math.hypot(actual_dx, actual_dy)
+                vx, vy = compute_synchronized_speeds(actual_dx, actual_dy, speed)
+
+                # Set segment speeds
+                x_hmc.set_speed(vx, 0, 0)
+                y_hmc.set_speed(0, vy, 0)
 
                 # Move X/Y
-                if dx != 0 or dy != 0:
+                if actual_dx != 0 or actual_dy != 0:
                     move_start_time = time.perf_counter()
-                    move_xy(dx, dy)
+                    move_xy(actual_dx, actual_dy)
                     move_elapsed = time.perf_counter() - move_start_time
                     xy_movement_time += move_elapsed
                     xy_move_count += 1
@@ -1263,6 +1326,13 @@ def main():
                 move_count += 1
                 print(f"[MOVE {idx}] Completed. Position: X={x_hmc.current_x:.1f}, Y={y_hmc.current_y:.1f}, Z={z_hmc.z_current_position:.1f}")
         finally:
+            if disable_ramps:
+                try:
+                    x_hmc.acceleration_and_deceleration(True, True)
+                    y_hmc.acceleration_and_deceleration(True, True)
+                    print("[INFO] Acceleration/deceleration ramps restored.")
+                except Exception as e:
+                    print(f"[WARN] Failed to restore ramps: {e}")
             # Re-couple Z axis controller to App
             app.z_hmc = z_hmc
             app.hmcControl = z_hmc
