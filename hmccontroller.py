@@ -413,7 +413,24 @@ class HmcControlCs:
                 elif((move_c<0)and(self.current_z + move_c)<0):
                     print("Value exceeds possible limit for -Z, enter valid value")
                     return
-            
+            # Calculate steps to see if there is any physical movement
+            steps = 0
+            if self.axis == 'x':
+                steps = (16777216) if abs(move_a) == 16777216 else int(move_a / self.Resolution_A)
+            elif self.axis == 'y':
+                steps = (16777216) if abs(move_b) == 16777216 else int(move_b / self.Resolution_B)
+            elif self.axis == 'z':
+                steps = (16777216) if abs(move_c) == 16777216 else int(move_c / self.Resolution_C)
+            else:
+                steps_a = (16777216) if abs(move_a) == 16777216 else int(move_a / self.Resolution_A)
+                steps_b = (16777216) if abs(move_b) == 16777216 else int(move_b / self.Resolution_B)
+                steps_c = (16777216) if abs(move_c) == 16777216 else int(move_c / self.Resolution_C)
+                steps = steps_a or steps_b or steps_c
+
+            if steps == 0:
+                # No physical movement needed, return immediately to prevent microcontroller hang
+                return
+
             self.set_move_data(move_a, move_b, self._logical_z_to_motor_z(move_c))
 
             self.indata = 0
@@ -671,6 +688,7 @@ class HmcControlCs:
 
     def _send_axis_speed(self, speed_value, resolution):
         speed_steps = int(float(speed_value) / resolution)
+
         #print(f"[DEBUG] _send_axis_speed: sending speed cmd, steps={speed_steps}")
         self.ser.reset_input_buffer()
         self.write_port(self.speed)

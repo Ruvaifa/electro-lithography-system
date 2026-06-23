@@ -423,11 +423,12 @@ def plot_concentric_hexagons(filename="concentric_hexagons.txt"):
     try:
         with open(filename, 'r') as f:
             for line in f:
-                parts = line.strip().split(',')
-                if len(parts) >= 3:
+                parts = line.strip().replace(',', ' ').split()
+                if len(parts) >= 2:
                     xs.append(float(parts[0]))
                     ys.append(float(parts[1]))
-                    flags.append(int(float(parts[2])))
+                    flag = int(float(parts[2])) if len(parts) >= 3 else 0
+                    flags.append(flag)
     except Exception as e:
         print(f"[ERROR] Failed to read file for plotting: {e}")
         return
@@ -548,11 +549,12 @@ def plot_concentric_circles(filename="concentric_circles.txt"):
     try:
         with open(filename, 'r') as f:
             for line in f:
-                parts = line.strip().split(',')
-                if len(parts) >= 3:
+                parts = line.strip().replace(',', ' ').split()
+                if len(parts) >= 2:
                     xs.append(float(parts[0]))
-                    xs.append(float(parts[1]))
-                    flags.append(int(float(parts[2])))
+                    ys.append(float(parts[1]))
+                    flag = int(float(parts[2])) if len(parts) >= 3 else 0
+                    flags.append(flag)
     except Exception as e:
         print(f"[ERROR] Failed to read file for plotting circles: {e}")
         return

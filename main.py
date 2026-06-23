@@ -449,18 +449,20 @@ def main():
                 parts = line.strip().replace(',', ' ').split()
                 if len(parts) == 3:
                     x, y, z = map(float, parts)
-
-                    dx = x - prev_x
-                    dy = y - prev_y
-                    dz = z - prev_z
+                    dx = x - x_hmc.current_x
+                    dy = y - y_hmc.current_y
+                    dz = z - z_hmc.current_z
                     
-                    theta = math.atan2(x- prev_x, y-prev_y)
-                    sin_theta = math.sin(theta)
-                    cos_theta = math.cos(theta)
-                    vx = v*sin_theta
-                    vy = v*cos_theta
+                    segment_xy_distance = math.hypot(dx, dy)
+                    if segment_xy_distance > 0:
+                        theta = math.atan2(dx, dy)
+                        sin_theta = math.sin(theta)
+                        cos_theta = math.cos(theta)
+                        vx = v * sin_theta
+                        vy = v * cos_theta
+                    else:
+                        vx, vy = v, v
                     set_all_speed(vx, vy, v)
-                    prev_x, prev_y, prev_z = x, y, z
                     
                     try:
                         app.command = '1'
@@ -643,18 +645,16 @@ def main():
             print("[TIMER] Patterning timer started.")
             with open(f"{filename}.txt", "r") as file:
                 i = 1
-                prev_x, prev_y = 0, 0
                 prev_z = z_contact_point
                 liftoff = False
                 for line in file:
                     parts = line.strip().replace(',', ' ').split()
                     if len(parts) >= 3:
                         x, y, flag = float(parts[0]), float(parts[1]), int(parts[2])
-                        dx = x - prev_x
-                        dy = y - prev_y
+                        dx = x - x_hmc.current_x
+                        dy = y - y_hmc.current_y
                         print(f"flag:{flag}")
                         if i == 1:
-                            prev_x, prev_y = x, y
                             prev_z = z_contact_point
                             i += 1
                             z = z_contact_point
@@ -718,17 +718,20 @@ def main():
                         ensure_z_below_limit(z, max_safe_z, smu, f"Pattern move {i}")
                         dz = z - prev_z
                         segment_xy_distance = math.hypot(dx, dy)
-                        theta = math.atan2(x - prev_x, y - prev_y)
-                        sin_theta = math.sin(theta)
-                        cos_theta = math.cos(theta)
-                        vx = v * sin_theta
-                        vy = v * cos_theta
+                        if segment_xy_distance > 0:
+                            theta = math.atan2(dx, dy)
+                            sin_theta = math.sin(theta)
+                            cos_theta = math.cos(theta)
+                            vx = v * sin_theta
+                            vy = v * cos_theta
+                        else:
+                            vx, vy = v, v
                         with time_block(timers, "motion.set_speed"):
                             set_all_speed(vx, vy, 1000)
                         if i == 1:
                             with time_block(timers, "motion.set_speed"):
                                 set_all_speed(5000, 5000, 5000)
-                        prev_x, prev_y, prev_z = x, y, z
+                        prev_z = z
 
                         try:
                             app.command = '1'
@@ -1104,8 +1107,9 @@ def main():
         with open(f"{filename}.txt", "r") as file:
             for line in file:
                 parts = line.strip().replace(',', ' ').split()
-                if len(parts) >= 3:
-                    lines.append((float(parts[0]), float(parts[1]), int(parts[2])))
+                if len(parts) >= 2:
+                    flag = int(float(parts[2])) if len(parts) >= 3 else 0
+                    lines.append((float(parts[0]), float(parts[1]), flag))
 
         if not lines:
             print(f"[ERROR] No valid data found in {filename}.txt")
@@ -1172,8 +1176,8 @@ def main():
 
             for idx in range(1, len(lines)):
                 x, y, flag = lines[idx]
-                dx = x - prev_x
-                dy = y - prev_y
+                dx = x - x_hmc.current_x
+                dy = y - y_hmc.current_y
                 print(f"[MOVE {idx}] Target coordinates: X={x:.1f}, Y={y:.1f}, flag={flag}")
 
                 if flag == 1:
