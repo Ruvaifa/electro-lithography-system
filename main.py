@@ -64,100 +64,6 @@ def compute_synchronized_speeds(dx, dy, v, resolution=0.2, max_speed_steps=50000
     vy = speed_y * resolution
     return vx, vy
 
-
-# Hardware start-stop frequency floor (steps/sec).
-# If either axis would be commanded below this in concurrent mode, we fall back to
-# sequential motion (minor axis first, then dominant axis at commanded speed).
-# This value depends on your motor + controller. Start with 20 and lower it if
-# the circle looks correct — the lower this is, the less often sequential mode
-# triggers and the more uniform the path speed is.
-HW_MIN_SPEED_STEPS = 20  # steps/sec — tune experimentally
-
-
-def execute_segment_move(app, actual_dx, actual_dy, actual_dz, v,
-                         set_speed_fn, start_thread_fn, wait_fn,
-                         resolution=0.2):
-    """Execute one XY (+Z) segment, automatically choosing concurrent vs sequential mode.
-
-    Concurrent mode: both axes move simultaneously at synchronized speeds so they
-    finish at exactly the same time. Works when both axis speeds are above the
-    hardware start-stop frequency.
-
-    Sequential mode: minor axis moves first at a safe fast speed, then dominant axis
-    moves alone at the commanded speed v. Used when the minor axis would be commanded
-    below HW_MIN_SPEED_STEPS in concurrent mode.
-    - Geometric accuracy: < resolution (0.2 µm) deviation from the ideal arc.
-    - Speed uniformity: dominant axis always runs at exactly v µm/s.
-
-    Args:
-        app: App object with x_value, y_value, z_value, command attributes.
-        actual_dx, actual_dy, actual_dz: Grid-snapped displacements (µm).
-        v: Commanded speed (µm/s).
-        set_speed_fn: callable(vx_um_s, vy_um_s, vz_um_s) — sets all axis speeds.
-        start_thread_fn: callable() — starts motion threads.
-        wait_fn: callable() — waits for motion to complete.
-        resolution: µm per step (default 0.2).
-    Returns:
-        'concurrent' or 'sequential' (which mode was used).
-    """
-    steps_x = round(actual_dx / resolution)
-    steps_y = round(actual_dy / resolution)
-    abs_steps_x = abs(steps_x)
-    abs_steps_y = abs(steps_y)
-    dominant_steps = max(abs_steps_x, abs_steps_y)
-    minor_steps = min(abs_steps_x, abs_steps_y)
-
-    # Determine if minor axis would be below hardware minimum in concurrent mode
-    if dominant_steps > 0 and minor_steps > 0:
-        v_steps = v / resolution
-        minor_concurrent_speed = (minor_steps / dominant_steps) * v_steps
-        use_sequential = minor_concurrent_speed < HW_MIN_SPEED_STEPS
-    else:
-        use_sequential = False  # zero or single axis — concurrent handles it fine
-
-    if use_sequential:
-        fast_v = HW_MIN_SPEED_STEPS * resolution  # µm/s — fast enough for hardware
-        x_is_minor = abs_steps_x < abs_steps_y
-
-        if x_is_minor:
-            m_dx, m_dy = actual_dx, 0.0
-            dom_dx, dom_dy = 0.0, actual_dy
-        else:
-            m_dx, m_dy = 0.0, actual_dy
-            dom_dx, dom_dy = actual_dx, 0.0
-
-        # Step 1: move minor axis alone at fast speed (tiny move, takes <10 ms)
-        if x_is_minor:
-            set_speed_fn(fast_v, v, 1000)
-        else:
-            set_speed_fn(v, fast_v, 1000)
-        app.command = '1'
-        app.x_value = m_dx
-        app.y_value = m_dy
-        app.z_value = 0.0
-        start_thread_fn()
-        wait_fn()
-
-        # Step 2: move dominant axis alone at commanded speed (with Z correction)
-        dom_vx, dom_vy = compute_synchronized_speeds(dom_dx, dom_dy, v)
-        set_speed_fn(dom_vx, dom_vy, 1000)
-        app.x_value = dom_dx
-        app.y_value = dom_dy
-        app.z_value = actual_dz
-        start_thread_fn()
-        wait_fn()
-        return 'sequential'
-    else:
-        vx, vy = compute_synchronized_speeds(actual_dx, actual_dy, v)
-        set_speed_fn(vx, vy, 1000)
-        app.command = '1'
-        app.x_value = actual_dx
-        app.y_value = actual_dy
-        app.z_value = actual_dz
-        start_thread_fn()
-        wait_fn()
-        return 'concurrent'
-
 def wait_for_motion(app):
     if app.hmcControl.run_thread:
         app.hmcControl.run_thread.join()
@@ -586,27 +492,38 @@ def main():
                     dx = x - x_hmc.current_x
                     dy = y - y_hmc.current_y
                     dz = z - z_hmc.current_z
-
+                    
                     actual_dx = round(dx / 0.2) * 0.2
                     actual_dy = round(dy / 0.2) * 0.2
                     actual_dz = round(dz / 0.2) * 0.2
-
+                    
                     if actual_dx == 0 and actual_dy == 0 and actual_dz == 0:
                         i += 1
                         continue
 
+                    vx, vy = compute_synchronized_speeds(actual_dx, actual_dy, v)
+                    set_all_speed(vx, vy, v)
+                    
                     try:
-                        execute_segment_move(
-                            app, actual_dx, actual_dy, actual_dz, v,
-                            set_speed_fn=lambda vx, vy, vz: set_all_speed(vx, vy, vz),
-                            start_thread_fn=lambda: app.start_thread(),
-                            wait_fn=lambda: wait_for_motion(app),
-                        )
+                        app.command = '1'
+                        app.x_value = actual_dx
+                        app.y_value = actual_dy
+                        app.z_value = actual_dz
+
+                        app.start_thread()
+
+                        while app.hmcControl.run_thread.is_alive():
+                            time.sleep(0.2)
+
+                        if app.hmcControl.run_thread:
+                            app.hmcControl.run_thread.join()
+
                         print("Final Position:")
-                        print(f"X: {x_hmc.current_x} µm")
-                        print(f"Y: {y_hmc.current_y} µm")
-                        print(f"Z: {z_hmc.current_z} µm")
+                        print(f"X: {x_hmc.x_current_position} µm")
+                        print(f"Y: {y_hmc.y_current_position} µm")
+                        print(f"Z: {z_hmc.z_current_position} µm")
                         print(f"{i} MOVE COMPLETED")
+
                     except Exception as e:
                         print(f"[ERROR] Move {i} failed: {e}")
                         reset_all_serial()
@@ -614,7 +531,6 @@ def main():
                             h.ser.reset_input_buffer()
 
                     i += 1
-
     elif response ==4:
         z_move = 30000
         init_speed = int(input("Enter initial speed of the probe:"))
@@ -852,35 +768,25 @@ def main():
                             continue
 
                         segment_xy_distance = math.hypot(actual_dx, actual_dy)
+                        vx, vy = compute_synchronized_speeds(actual_dx, actual_dy, v)
 
-                        move_start_time = time.perf_counter()
+                        with time_block(timers, "motion.set_speed"):
+                            set_all_speed(vx, vy, 1000)
                         if i == 1:
-                            # Initial positioning: high speed to reach the circle start
                             with time_block(timers, "motion.set_speed"):
                                 set_all_speed(5000, 5000, 5000)
+                        prev_z = z
+
+                        try:
                             app.command = '1'
                             app.x_value = actual_dx
                             app.y_value = actual_dy
                             app.z_value = actual_dz
+                            move_start_time = time.perf_counter()
                             with time_block(timers, "motion.start_thread"):
                                 app.start_thread()
                             with time_block(timers, "motion.wait_for_completion"):
                                 wait_for_motion(app)
-                            prev_z = z
-                        else:
-                            prev_z = z
-                            try:
-                                execute_segment_move(
-                                    app, actual_dx, actual_dy, actual_dz, v,
-                                    set_speed_fn=lambda vx, vy, vz: set_all_speed(vx, vy, vz),
-                                    start_thread_fn=lambda: app.start_thread(),
-                                    wait_fn=lambda: wait_for_motion(app),
-                                )
-                            except Exception as e:
-                                print(f"[ERROR] Move {i} failed: {e}")
-                                reset_all_serial()
-                                for h in [x_hmc, y_hmc, z_hmc]:
-                                    h.ser.reset_input_buffer()
                             move_elapsed = time.perf_counter() - move_start_time
                             if dx != 0 or dy != 0:
                                 xy_movement_time += move_elapsed
@@ -894,6 +800,11 @@ def main():
                             print(f"Z: {z_hmc.current_z} µm")
                             print(f"{i} MOVE COMPLETED")
 
+                        except Exception as e:
+                            print(f"[ERROR] Move {i} failed: {e}")
+                            reset_all_serial()
+                            for h in [x_hmc, y_hmc, z_hmc]:
+                                h.ser.reset_input_buffer()
                         prev_flag = flag
                         i += 1
                 try:
