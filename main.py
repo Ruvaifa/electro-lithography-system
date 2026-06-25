@@ -24,7 +24,17 @@ def format_elapsed_time(seconds):
         return f"{int(minutes)}m {seconds:.2f}s"
     return f"{seconds:.2f}s"
 
-def compute_synchronized_speeds(dx, dy, v, resolution=0.2, min_hw_speed=400.0, max_speed_steps=50000.0):
+def compute_synchronized_speeds(dx, dy, v, resolution=0.2, max_speed_steps=50000.0):
+    """Compute per-axis speeds so both X and Y finish each segment in exactly the same time.
+
+    The dominant axis (more steps) runs at the commanded speed v.
+    The minor axis runs proportionally slower so both axes arrive simultaneously.
+
+    No hardware-minimum floor is applied here — if the controller has a minimum
+    start-stop frequency and cannot execute very slow speeds, run a calibration
+    experiment (command 1000-step moves at decreasing speeds and time them) to find
+    that floor, then re-introduce the proportional clamping below.
+    """
     steps_x = round(dx / resolution)
     steps_y = round(dy / resolution)
     abs_steps_x = abs(steps_x)
@@ -37,30 +47,20 @@ def compute_synchronized_speeds(dx, dy, v, resolution=0.2, min_hw_speed=400.0, m
         return 0.0, 0.0
 
     dominant_steps = max(abs_steps_x, abs_steps_y)
-    segment_time = dominant_steps * resolution / v
+    segment_time = dominant_steps * resolution / v   # seconds for this segment
 
-    speed_x = abs_steps_x / segment_time if abs_steps_x > 0 else 0.0
-    speed_y = abs_steps_y / segment_time if abs_steps_y > 0 else 0.0
+    # Each axis speed is chosen so time = steps / speed = segment_time
+    speed_x = abs_steps_x / segment_time if abs_steps_x > 0 else 0.0  # steps/sec
+    speed_y = abs_steps_y / segment_time if abs_steps_y > 0 else 0.0  # steps/sec
 
-    # Scale both up proportionally if either is below the hardware minimum speed
-    if speed_x > 0 and speed_x < min_hw_speed:
-        scale = min_hw_speed / speed_x
-        speed_x *= scale
-        speed_y *= scale
-
-    if speed_y > 0 and speed_y < min_hw_speed:
-        scale = min_hw_speed / speed_y
-        speed_x *= scale
-        speed_y *= scale
-
-    # Clamp both down proportionally if either exceeds the max speed limit
+    # Safety ceiling: clamp both proportionally so neither exceeds the controller max
     max_current_speed = max(speed_x, speed_y)
     if max_current_speed > max_speed_steps:
         scale = max_speed_steps / max_current_speed
         speed_x *= scale
         speed_y *= scale
 
-    vx = speed_x * resolution
+    vx = speed_x * resolution   # convert back to um/s for set_speed
     vy = speed_y * resolution
     return vx, vy
 
