@@ -1,4 +1,3 @@
-D:\Mask Writing System\python codes>python speed_caliberation.py
 Available COM Ports:
 [0] COM8 - USB Serial Port (COM8)
 [1] COM1 - Communications Port (COM1)
@@ -16,36 +15,45 @@ z_current_position: 0
 Offset move completed.
 
 Starting Speed Calibration Loop...
-Move size: 1000.0 µm (5000 steps)
-Commanded Speed          | Expected Duration    | Actual Duration      | Effective Speed      | Overridden?
+Move size: 200.0 µm (1000 steps)
 --------------------------------------------------------------------------------------------------------------
+Testing 1000 steps/s (200.0 µm/s) - Expected:    1.00 s... z_current_position: 0
+Actual:    1.14 s | Effective:  879.94 steps/s | Overridden: NO
 z_current_position: 0
-1000 steps/s (200.0 µm/s)  |              5.00 s  |              5.14 s  |            973.30 steps/s  | NO
+Testing  500 steps/s (100.0 µm/s) - Expected:    2.00 s... z_current_position: 0
+Actual:    2.14 s | Effective:  466.30 steps/s | Overridden: NO
 z_current_position: 0
+Testing  400 steps/s ( 80.0 µm/s) - Expected:    2.50 s... z_current_position: 0
+Actual:    2.64 s | Effective:  378.70 steps/s | Overridden: NO
 z_current_position: 0
- 500 steps/s (100.0 µm/s)  |             10.00 s  |             10.15 s  |            492.77 steps/s  | NO
+Testing  300 steps/s ( 60.0 µm/s) - Expected:    3.33 s... z_current_position: 0
+Actual:    3.47 s | Effective:  287.98 steps/s | Overridden: NO
 z_current_position: 0
+Testing  200 steps/s ( 40.0 µm/s) - Expected:    5.00 s... z_current_position: 0
+Actual:    1.04 s | Effective:  961.17 steps/s | Overridden: YES
 z_current_position: 0
- 400 steps/s ( 80.0 µm/s)  |             12.50 s  |             12.64 s  |            395.47 steps/s  | NO
+Testing  150 steps/s ( 30.0 µm/s) - Expected:    6.67 s... z_current_position: 0
+Actual:    2.70 s | Effective:  369.73 steps/s | Overridden: YES
 z_current_position: 0
+Testing  100 steps/s ( 20.0 µm/s) - Expected:   10.00 s... z_current_position: 0
+Actual:   10.15 s | Effective:   98.56 steps/s | Overridden: NO
 z_current_position: 0
- 300 steps/s ( 60.0 µm/s)  |             16.67 s  |             16.80 s  |            297.55 steps/s  | NO
+Testing   75 steps/s ( 15.0 µm/s) - Expected:   13.33 s... z_current_position: 0
+Actual:   13.47 s | Effective:   74.21 steps/s | Overridden: NO
 z_current_position: 0
+Testing   50 steps/s ( 10.0 µm/s) - Expected:   20.00 s... z_current_position: 0
+Actual:   20.13 s | Effective:   49.67 steps/s | Overridden: NO
 z_current_position: 0
- 200 steps/s ( 40.0 µm/s)  |             25.00 s  |              4.66 s  |           1073.57 steps/s  | YES
+Testing   25 steps/s (  5.0 µm/s) - Expected:   40.00 s... z_current_position: 0
+Actual:    7.38 s | Effective:  135.54 steps/s | Overridden: YES
 z_current_position: 0
+Testing   10 steps/s (  2.0 µm/s) - Expected:  100.00 s... z_current_position: 0
+Actual:  100.15 s | Effective:    9.99 steps/s | Overridden: NO
 z_current_position: 0
- 150 steps/s ( 30.0 µm/s)  |             33.33 s  |             12.99 s  |            384.77 steps/s  | YES
+
+Acceleration/deceleration ramps restored.
+Returning axis to home position (0 µm)...
 z_current_position: 0
-z_current_position: 0
- 100 steps/s ( 20.0 µm/s)  |             50.00 s  |             50.14 s  |             99.72 steps/s  | NO
-z_current_position: 0
-z_current_position: 0
-  75 steps/s ( 15.0 µm/s)  |             66.67 s  |             66.80 s  |             74.85 steps/s  | NO
-z_current_position: 0
-z_current_position: 0
-  50 steps/s ( 10.0 µm/s)  |            100.00 s  |            100.15 s  |             49.93 steps/s  | NO
-z_current_position: 0
-z_current_position: 0
-  25 steps/s (  5.0 µm/s)  |            200.00 s  |             36.30 s  |            137.76 steps/s  | YES
-z_current_position: 0
+Returned to home.
+
+Calibration finished.
