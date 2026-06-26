@@ -1,3 +1,4 @@
+D:\Mask Writing System\python codes>python speed_caliberation.py
 Available COM Ports:
 [0] COM8 - USB Serial Port (COM8)
 [1] COM1 - Communications Port (COM1)
@@ -10,34 +11,31 @@ Enter axis name (x/y/z): x
 Serial port initialized
 Disable acceleration/deceleration ramps for calibration? (y/n): y
 Could not disable ramps: Invalid Ack 0 given ack 10
+Moving axis to offset of 10,000 µm (safe starting position)...
+z_current_position: 0
+Offset move completed.
 
 Starting Speed Calibration Loop...
 Move size: 1000.0 µm (5000 steps)
 Commanded Speed          | Expected Duration    | Actual Duration      | Effective Speed      | Overridden?
 --------------------------------------------------------------------------------------------------------------
 z_current_position: 0
-1000 steps/s (200.0 µm/s)  |              5.00 s  |              5.14 s  |            973.28 steps/s  | NO
-Home limit reached
+1000 steps/s (200.0 µm/s)  |              5.00 s  |              5.14 s  |            973.30 steps/s  | NO
 z_current_position: 0
 z_current_position: 0
- 500 steps/s (100.0 µm/s)  |             10.00 s  |             10.15 s  |            492.78 steps/s  | NO
-Home limit reached
+ 500 steps/s (100.0 µm/s)  |             10.00 s  |             10.15 s  |            492.77 steps/s  | NO
 z_current_position: 0
 z_current_position: 0
- 400 steps/s ( 80.0 µm/s)  |             12.50 s  |             12.64 s  |            395.49 steps/s  | NO
-Home limit reached
+ 400 steps/s ( 80.0 µm/s)  |             12.50 s  |             12.64 s  |            395.47 steps/s  | NO
 z_current_position: 0
 z_current_position: 0
  300 steps/s ( 60.0 µm/s)  |             16.67 s  |             16.80 s  |            297.55 steps/s  | NO
-Home limit reached
 z_current_position: 0
 z_current_position: 0
- 200 steps/s ( 40.0 µm/s)  |             25.00 s  |              4.66 s  |           1073.56 steps/s  | YES
-Home limit reached
+ 200 steps/s ( 40.0 µm/s)  |             25.00 s  |              4.66 s  |           1073.57 steps/s  | YES
 z_current_position: 0
 z_current_position: 0
- 150 steps/s ( 30.0 µm/s)  |             33.33 s  |             13.00 s  |            384.76 steps/s  | YES
-Home limit reached
+ 150 steps/s ( 30.0 µm/s)  |             33.33 s  |             12.99 s  |            384.77 steps/s  | YES
 z_current_position: 0
 z_current_position: 0
  100 steps/s ( 20.0 µm/s)  |             50.00 s  |             50.14 s  |             99.72 steps/s  | NO
@@ -50,4 +48,4 @@ z_current_position: 0
 z_current_position: 0
 z_current_position: 0
   25 steps/s (  5.0 µm/s)  |            200.00 s  |             36.30 s  |            137.76 steps/s  | YES
-Home limit reached
+z_current_position: 0
