@@ -51,7 +51,30 @@ def main():
 
     # Speeds to test (in steps/sec)
     speeds_to_test = [1000, 500, 400, 300, 200, 150, 100, 75, 50, 25, 10]
-    
+    print("Moving axis to offset of 10,000 µm (safe starting position)...")
+    # Move forward to 10,000 microns
+    if axis_name == 'x':
+        hmc.set_speed(1000, 0, 0)
+        app.x_value = 10000.0
+        app.y_value = 0
+        app.z_value = 0
+    elif axis_name == 'y':
+        hmc.set_speed(0, 1000, 0)
+        app.x_value = 0
+        app.y_value = 10000.0
+        app.z_value = 0
+    else:
+        hmc.set_speed(0, 0, 1000)
+        app.x_value = 0
+        app.y_value = 0
+        app.z_value = 10000.0
+
+    app.command = '1'
+    app.start_thread()
+    if app.hmcControl.run_thread:
+        app.hmcControl.run_thread.join()
+    print("Offset move completed.")
+
     print("\nStarting Speed Calibration Loop...")
     print(f"Move size: {move_distance_um} µm ({steps} steps)")
     print(f"{'Commanded Speed':<24} | {'Expected Duration':<20} | {'Actual Duration':<20} | {'Effective Speed':<20} | {'Overridden?':<12}")
@@ -131,6 +154,29 @@ def main():
             print("\nAcceleration/deceleration ramps restored.")
         except Exception:
             pass
+
+    print("Returning axis to home position (0 µm)...")
+    if axis_name == 'x':
+        hmc.set_speed(1000, 0, 0)
+        app.x_value = -10000.0
+        app.y_value = 0
+        app.z_value = 0
+    elif axis_name == 'y':
+        hmc.set_speed(0, 1000, 0)
+        app.x_value = 0
+        app.y_value = -10000.0
+        app.z_value = 0
+    else:
+        hmc.set_speed(0, 0, 1000)
+        app.x_value = 0
+        app.y_value = 0
+        app.z_value = -10000.0
+
+    app.command = '1'
+    app.start_thread()
+    if app.hmcControl.run_thread:
+        app.hmcControl.run_thread.join()
+    print("Returned to home.")
 
     print("\nCalibration finished.")
 
