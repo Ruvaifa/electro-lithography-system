@@ -53,6 +53,22 @@ def compute_synchronized_speeds(dx, dy, v, resolution=0.2, max_speed_steps=50000
     speed_x = abs_steps_x / segment_time if abs_steps_x > 0 else 0.0  # steps/sec
     speed_y = abs_steps_y / segment_time if abs_steps_y > 0 else 0.0  # steps/sec
 
+    # Apply speed workaround for bad firmware bands
+    def filter_bad_speed(spd):
+        spd_int = round(spd)
+        if 20 <= spd_int <= 30:
+            return 31.0
+        if 145 <= spd_int <= 155:
+            return 156.0
+        if 195 <= spd_int <= 205:
+            return 206.0
+        return spd
+
+    if speed_x > 0:
+        speed_x = filter_bad_speed(speed_x)
+    if speed_y > 0:
+        speed_y = filter_bad_speed(speed_y)
+
     # Safety ceiling: clamp both proportionally so neither exceeds the controller max
     max_current_speed = max(speed_x, speed_y)
     if max_current_speed > max_speed_steps:
