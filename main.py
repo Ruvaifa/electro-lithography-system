@@ -53,28 +53,50 @@ def compute_synchronized_speeds(dx, dy, v, resolution=0.2, max_speed_steps=50000
     speed_x = abs_steps_x / segment_time if abs_steps_x > 0 else 0.0  # steps/sec
     speed_y = abs_steps_y / segment_time if abs_steps_y > 0 else 0.0  # steps/sec
 
-    # Apply speed workaround for bad firmware bands
-    def filter_bad_speed(spd):
-        spd_int = round(spd)
-        if 20 <= spd_int <= 30:
-            return 31.0
-        if 145 <= spd_int <= 155:
-            return 156.0
-        if 195 <= spd_int <= 205:
-            return 206.0
-        return spd
-
-    if speed_x > 0:
-        speed_x = filter_bad_speed(speed_x)
-    if speed_y > 0:
-        speed_y = filter_bad_speed(speed_y)
-
     # Safety ceiling: clamp both proportionally so neither exceeds the controller max
     max_current_speed = max(speed_x, speed_y)
     if max_current_speed > max_speed_steps:
         scale = max_speed_steps / max_current_speed
         speed_x *= scale
         speed_y *= scale
+
+    # Apply speed workaround for bad firmware bands.
+    # To keep both axes perfectly synchronized (preserving their velocity ratio),
+    # we must scale both speeds by the exact same factor k, rather than shifting
+    # them independently.
+    def is_bad_speed(spd):
+        spd_int = round(spd)
+        if 20 <= spd_int <= 30:
+            return True
+        if 130 <= spd_int <= 240:
+            return True
+        return False
+
+    if (speed_x > 0 and is_bad_speed(speed_x)) or (speed_y > 0 and is_bad_speed(speed_y)):
+        k = 1.0
+        found = False
+        # Search for a scaling factor k close to 1.0 (stepping outward)
+        for delta in range(1, 100):
+            for k_candidate in [1.0 + delta * 0.01, 1.0 - delta * 0.01]:
+                if k_candidate <= 0.05:
+                    continue
+                sx = speed_x * k_candidate
+                sy = speed_y * k_candidate
+                
+                # Verify that neither axis ends up in a bad speed range
+                if speed_x > 0 and is_bad_speed(sx):
+                    continue
+                if speed_y > 0 and is_bad_speed(sy):
+                    continue
+                
+                k = k_candidate
+                found = True
+                break
+            if found:
+                break
+        
+        speed_x *= k
+        speed_y *= k
 
     vx = speed_x * resolution   # convert back to um/s for set_speed
     vy = speed_y * resolution
