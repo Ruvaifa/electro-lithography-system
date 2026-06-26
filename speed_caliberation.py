@@ -44,10 +44,10 @@ def main():
         app.z_hmc = hmc
     app.hmcControl = hmc
 
-    # We will command a 1000 µm move (5000 steps)
-    move_distance_um = 1000.0
+    # We will command a 200 µm move (1000 steps)
+    move_distance_um = 200.0
     resolution = 0.2
-    steps = int(move_distance_um / resolution) # 5000 steps
+    steps = int(move_distance_um / resolution) # 1000 steps
 
     # Speeds to test (in steps/sec)
     speeds_to_test = [1000, 500, 400, 300, 200, 150, 100, 75, 50, 25, 10]
@@ -77,7 +77,6 @@ def main():
 
     print("\nStarting Speed Calibration Loop...")
     print(f"Move size: {move_distance_um} µm ({steps} steps)")
-    print(f"{'Commanded Speed':<24} | {'Expected Duration':<20} | {'Actual Duration':<20} | {'Effective Speed':<20} | {'Overridden?':<12}")
     print("-" * 110)
 
     for step_speed in speeds_to_test:
@@ -107,6 +106,9 @@ def main():
             app.y_value = 0
             app.z_value = move_distance_um
 
+        # Print testing progress immediately
+        print(f"Testing {step_speed:4d} steps/s ({speed_um_s:5.1f} µm/s) - Expected: {expected_duration:7.2f} s... ", end='', flush=True)
+
         start_time = time.perf_counter()
         app.start_thread()
         if app.hmcControl.run_thread:
@@ -118,11 +120,7 @@ def main():
         # Determine if it was overridden (if actual duration is significantly faster than expected, e.g. > 15% faster)
         overridden = "YES" if (expected_duration - actual_duration) / expected_duration > 0.15 else "NO"
 
-        print(f"{step_speed:4d} steps/s ({speed_um_s:5.1f} µm/s)  | "
-              f"{expected_duration:17.2f} s  | "
-              f"{actual_duration:17.2f} s  | "
-              f"{effective_speed_steps:17.2f} steps/s  | "
-              f"{overridden:<12}")
+        print(f"Actual: {actual_duration:7.2f} s | Effective: {effective_speed_steps:7.2f} steps/s | Overridden: {overridden}")
 
         # Return to origin at a fast, standard speed (1000 um/s = 5000 steps/s)
         if axis_name == 'x':
