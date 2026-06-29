@@ -1,138 +1,243 @@
-D:\Mask Writing System\python codes>python speed_sweep_test.py
-Available COM Ports:
-[0] COM8 - USB Serial Port (COM8)
-[1] COM1 - Communications Port (COM1)
-[2] COM10 - USB Serial Port (COM10)
-[3] COM3 - USB Serial Port (COM3)
-[4] COM5 - Standard Serial over Bluetooth link (COM5)
-[5] COM6 - Standard Serial over Bluetooth link (COM6)
-Select COM port number for the axis to calibrate: 3
-Enter axis name (x/y/z): x
-Serial port initialized
-Disable acceleration/deceleration ramps for calibration? (y/n): y
-Could not disable ramps: Invalid Ack 0 given ack 10
-Moving axis to offset of 10,000 µm (safe starting position)...
-z_current_position: 0
-Offset move completed.
-
-Starting Coarse Speed Sweep Test...
-Move size: 100.0 µm (500 steps)
-----------------------------------------------------------------------------------------------------
-Testing   10 steps/s (  2.0 µm/s) - Expected:  50.00 s... z_current_position: 0
-Actual:  50.14 s | Effective:    9.97 steps/s | Overridden: NO
-z_current_position: 0
-Testing   20 steps/s (  4.0 µm/s) - Expected:  25.00 s... z_current_position: 0
-Actual:   8.75 s | Effective:   57.12 steps/s | Overridden: YES
-z_current_position: 0
-Testing   30 steps/s (  6.0 µm/s) - Expected:  16.67 s... z_current_position: 0
-Actual:   0.42 s | Effective: 1200.82 steps/s | Overridden: YES
-z_current_position: 0
-Testing   40 steps/s (  8.0 µm/s) - Expected:  12.50 s... z_current_position: 0
-Actual:  12.64 s | Effective:   39.55 steps/s | Overridden: NO
-z_current_position: 0
-Testing   50 steps/s ( 10.0 µm/s) - Expected:  10.00 s... z_current_position: 0
-Actual:  10.15 s | Effective:   49.28 steps/s | Overridden: NO
-z_current_position: 0
-Testing   60 steps/s ( 12.0 µm/s) - Expected:   8.33 s... z_current_position: 0
-Actual:   8.47 s | Effective:   59.06 steps/s | Overridden: NO
-z_current_position: 0
-Testing   70 steps/s ( 14.0 µm/s) - Expected:   7.14 s... z_current_position: 0
-Actual:   7.28 s | Effective:   68.66 steps/s | Overridden: NO
-z_current_position: 0
-Testing   80 steps/s ( 16.0 µm/s) - Expected:   6.25 s... z_current_position: 0
-Actual:   6.39 s | Effective:   78.30 steps/s | Overridden: NO
-z_current_position: 0
-Testing   90 steps/s ( 18.0 µm/s) - Expected:   5.56 s... z_current_position: 0
-Actual:   5.70 s | Effective:   87.76 steps/s | Overridden: NO
-z_current_position: 0
-Testing  100 steps/s ( 20.0 µm/s) - Expected:   5.00 s... z_current_position: 0
-Actual:   5.14 s | Effective:   97.33 steps/s | Overridden: NO
-z_current_position: 0
-Testing  110 steps/s ( 22.0 µm/s) - Expected:   4.55 s... z_current_position: 0
-Actual:   4.69 s | Effective:  106.63 steps/s | Overridden: NO
-z_current_position: 0
-Testing  120 steps/s ( 24.0 µm/s) - Expected:   4.17 s... z_current_position: 0
-Actual:   4.30 s | Effective:  116.15 steps/s | Overridden: NO
-z_current_position: 0
-Testing  130 steps/s ( 26.0 µm/s) - Expected:   3.85 s... z_current_position: 0
-Actual:   1.94 s | Effective:  258.23 steps/s | Overridden: YES
-z_current_position: 0
-Testing  140 steps/s ( 28.0 µm/s) - Expected:   3.57 s... z_current_position: 0
-Actual:   1.66 s | Effective:  300.44 steps/s | Overridden: YES
-z_current_position: 0
-Testing  150 steps/s ( 30.0 µm/s) - Expected:   3.33 s... z_current_position: 0
-Actual:   1.42 s | Effective:  351.05 steps/s | Overridden: YES
-z_current_position: 0
-Testing  160 steps/s ( 32.0 µm/s) - Expected:   3.12 s... z_current_position: 0
-Actual:   1.22 s | Effective:  411.07 steps/s | Overridden: YES
-z_current_position: 0
-Testing  170 steps/s ( 34.0 µm/s) - Expected:   2.94 s... z_current_position: 0
-Actual:   1.02 s | Effective:  488.12 steps/s | Overridden: YES
-z_current_position: 0
-Testing  180 steps/s ( 36.0 µm/s) - Expected:   2.78 s... z_current_position: 0
-Actual:   0.86 s | Effective:  578.36 steps/s | Overridden: YES
-z_current_position: 0
-Testing  190 steps/s ( 38.0 µm/s) - Expected:   2.63 s... z_current_position: 0
-Actual:   0.72 s | Effective:  694.19 steps/s | Overridden: YES
-z_current_position: 0
-Testing  200 steps/s ( 40.0 µm/s) - Expected:   2.50 s... z_current_position: 0
-Actual:   0.59 s | Effective:  844.22 steps/s | Overridden: YES
-z_current_position: 0
-Testing  210 steps/s ( 42.0 µm/s) - Expected:   2.38 s... z_current_position: 0
-Actual:   0.46 s | Effective: 1077.07 steps/s | Overridden: YES
-z_current_position: 0
-Testing  220 steps/s ( 44.0 µm/s) - Expected:   2.27 s... z_current_position: 0
-Actual:   0.37 s | Effective: 1358.46 steps/s | Overridden: YES
-z_current_position: 0
-Testing  230 steps/s ( 46.0 µm/s) - Expected:   2.17 s... z_current_position: 0
-Actual:   0.26 s | Effective: 1951.74 steps/s | Overridden: YES
-z_current_position: 0
-Testing  240 steps/s ( 48.0 µm/s) - Expected:   2.08 s... z_current_position: 0
-Actual:   0.18 s | Effective: 2837.98 steps/s | Overridden: YES
-z_current_position: 0
-Testing  250 steps/s ( 50.0 µm/s) - Expected:   2.00 s... z_current_position: 0
-Actual:   2.14 s | Effective:  233.15 steps/s | Overridden: NO
-z_current_position: 0
-Testing  260 steps/s ( 52.0 µm/s) - Expected:   1.92 s... z_current_position: 0
-Actual:   2.06 s | Effective:  242.22 steps/s | Overridden: NO
-z_current_position: 0
-Testing  270 steps/s ( 54.0 µm/s) - Expected:   1.85 s... z_current_position: 0
-Actual:   1.98 s | Effective:  251.94 steps/s | Overridden: NO
-z_current_position: 0
-Testing  280 steps/s ( 56.0 µm/s) - Expected:   1.79 s... z_current_position: 0
-Actual:   1.92 s | Effective:  260.40 steps/s | Overridden: NO
-z_current_position: 0
-Testing  290 steps/s ( 58.0 µm/s) - Expected:   1.72 s... z_current_position: 0
-Actual:   1.86 s | Effective:  269.38 steps/s | Overridden: NO
-z_current_position: 0
-Testing  300 steps/s ( 60.0 µm/s) - Expected:   1.67 s... z_current_position: 0
-Actual:   1.81 s | Effective:  276.47 steps/s | Overridden: NO
-z_current_position: 0
-Testing  320 steps/s ( 64.0 µm/s) - Expected:   1.56 s... z_current_position: 0
-Actual:   1.70 s | Effective:  294.73 steps/s | Overridden: NO
-z_current_position: 0
-Testing  340 steps/s ( 68.0 µm/s) - Expected:   1.47 s... z_current_position: 0
-Actual:   1.62 s | Effective:  309.37 steps/s | Overridden: NO
-z_current_position: 0
-Testing  360 steps/s ( 72.0 µm/s) - Expected:   1.39 s... z_current_position: 0
-Actual:   1.52 s | Effective:  328.85 steps/s | Overridden: NO
-z_current_position: 0
-Testing  380 steps/s ( 76.0 µm/s) - Expected:   1.32 s... z_current_position: 0
-Actual:   1.46 s | Effective:  343.30 steps/s | Overridden: NO
-z_current_position: 0
-Testing  400 steps/s ( 80.0 µm/s) - Expected:   1.25 s... z_current_position: 0
-Actual:   1.39 s | Effective:  359.11 steps/s | Overridden: NO
-z_current_position: 0
-Testing  450 steps/s ( 90.0 µm/s) - Expected:   1.11 s... z_current_position: 0
-Actual:   1.25 s | Effective:  400.46 steps/s | Overridden: NO
-z_current_position: 0
-Testing  500 steps/s (100.0 µm/s) - Expected:   1.00 s... z_current_position: 0
-Actual:   1.14 s | Effective:  440.02 steps/s | Overridden: NO
-z_current_position: 0
-
-Acceleration/deceleration ramps restored.
-Returning axis to home position (0 µm)...
-z_current_position: 0
-Returned to home.
-
-Sweep finished.
+Commanded Speed (steps/s) | Expected Duration (s) | Actual Duration (s) | Effective Speed (steps/s) | Overridden?
+--------------------------------------------------------------------------------------------------------------
+10 steps/s (2.0 µm/s) | Expected: 10.145 s | Actual: 10.147 s | Effective: 10.00 steps/s | Overridden: NO
+11 steps/s (2.2 µm/s) | Expected: 9.235 s | Actual: 9.234 s | Effective: 11.00 steps/s | Overridden: NO
+12 steps/s (2.4 µm/s) | Expected: 8.478 s | Actual: 8.466 s | Effective: 12.02 steps/s | Overridden: NO
+13 steps/s (2.6 µm/s) | Expected: 7.837 s | Actual: 7.826 s | Effective: 13.02 steps/s | Overridden: NO
+14 steps/s (2.8 µm/s) | Expected: 7.287 s | Actual: 7.282 s | Effective: 14.01 steps/s | Overridden: NO
+15 steps/s (3.0 µm/s) | Expected: 6.811 s | Actual: 6.802 s | Effective: 15.02 steps/s | Overridden: NO
+16 steps/s (3.2 µm/s) | Expected: 6.395 s | Actual: 3.105 s | Effective: 33.78 steps/s | Overridden: YES
+17 steps/s (3.4 µm/s) | Expected: 6.027 s | Actual: 2.737 s | Effective: 38.57 steps/s | Overridden: YES
+18 steps/s (3.6 µm/s) | Expected: 5.700 s | Actual: 2.417 s | Effective: 44.01 steps/s | Overridden: YES
+19 steps/s (3.8 µm/s) | Expected: 5.408 s | Actual: 2.129 s | Effective: 50.40 steps/s | Overridden: YES
+20 steps/s (4.0 µm/s) | Expected: 5.145 s | Actual: 1.857 s | Effective: 58.40 steps/s | Overridden: YES
+21 steps/s (4.2 µm/s) | Expected: 4.906 s | Actual: 1.616 s | Effective: 67.94 steps/s | Overridden: YES
+22 steps/s (4.4 µm/s) | Expected: 4.690 s | Actual: 1.409 s | Effective: 79.10 steps/s | Overridden: YES
+23 steps/s (4.6 µm/s) | Expected: 4.492 s | Actual: 1.216 s | Effective: 93.29 steps/s | Overridden: YES
+24 steps/s (4.8 µm/s) | Expected: 4.311 s | Actual: 1.025 s | Effective: 113.62 steps/s | Overridden: YES
+25 steps/s (5.0 µm/s) | Expected: 4.145 s | Actual: 0.865 s | Effective: 138.89 steps/s | Overridden: YES
+26 steps/s (5.2 µm/s) | Expected: 3.991 s | Actual: 0.705 s | Effective: 178.53 steps/s | Overridden: YES
+27 steps/s (5.4 µm/s) | Expected: 3.848 s | Actual: 0.561 s | Effective: 240.32 steps/s | Overridden: YES
+28 steps/s (5.6 µm/s) | Expected: 3.716 s | Actual: 0.433 s | Effective: 347.16 steps/s | Overridden: YES
+29 steps/s (5.8 µm/s) | Expected: 3.593 s | Actual: 0.304 s | Effective: 625.37 steps/s | Overridden: YES
+30 steps/s (6.0 µm/s) | Expected: 3.478 s | Actual: 0.192 s | Effective: 2092.23 steps/s | Overridden: YES
+31 steps/s (6.2 µm/s) | Expected: 3.370 s | Actual: 3.361 s | Effective: 31.09 steps/s | Overridden: NO
+32 steps/s (6.4 µm/s) | Expected: 3.270 s | Actual: 3.265 s | Effective: 32.05 steps/s | Overridden: NO
+33 steps/s (6.6 µm/s) | Expected: 3.175 s | Actual: 3.169 s | Effective: 33.07 steps/s | Overridden: NO
+34 steps/s (6.8 µm/s) | Expected: 3.086 s | Actual: 3.073 s | Effective: 34.15 steps/s | Overridden: NO
+35 steps/s (7.0 µm/s) | Expected: 3.002 s | Actual: 2.993 s | Effective: 35.11 steps/s | Overridden: NO
+36 steps/s (7.2 µm/s) | Expected: 2.922 s | Actual: 2.913 s | Effective: 36.12 steps/s | Overridden: NO
+37 steps/s (7.4 µm/s) | Expected: 2.847 s | Actual: 2.849 s | Effective: 36.98 steps/s | Overridden: NO
+38 steps/s (7.6 µm/s) | Expected: 2.776 s | Actual: 2.769 s | Effective: 38.11 steps/s | Overridden: NO
+39 steps/s (7.8 µm/s) | Expected: 2.709 s | Actual: 2.705 s | Effective: 39.06 steps/s | Overridden: NO
+40 steps/s (8.0 µm/s) | Expected: 2.645 s | Actual: 2.641 s | Effective: 40.06 steps/s | Overridden: NO
+41 steps/s (8.2 µm/s) | Expected: 2.584 s | Actual: 2.577 s | Effective: 41.11 steps/s | Overridden: NO
+42 steps/s (8.4 µm/s) | Expected: 2.526 s | Actual: 2.513 s | Effective: 42.22 steps/s | Overridden: NO
+43 steps/s (8.6 µm/s) | Expected: 2.470 s | Actual: 2.465 s | Effective: 43.10 steps/s | Overridden: NO
+44 steps/s (8.8 µm/s) | Expected: 2.417 s | Actual: 2.417 s | Effective: 44.01 steps/s | Overridden: NO
+45 steps/s (9.0 µm/s) | Expected: 2.367 s | Actual: 2.353 s | Effective: 45.29 steps/s | Overridden: NO
+46 steps/s (9.2 µm/s) | Expected: 2.318 s | Actual: 2.305 s | Effective: 46.29 steps/s | Overridden: NO
+47 steps/s (9.4 µm/s) | Expected: 2.272 s | Actual: 2.273 s | Effective: 46.99 steps/s | Overridden: NO
+48 steps/s (9.6 µm/s) | Expected: 2.228 s | Actual: 2.225 s | Effective: 48.07 steps/s | Overridden: NO
+49 steps/s (9.8 µm/s) | Expected: 2.185 s | Actual: 2.177 s | Effective: 49.20 steps/s | Overridden: NO
+50 steps/s (10.0 µm/s) | Expected: 2.145 s | Actual: 2.145 s | Effective: 49.99 steps/s | Overridden: NO
+51 steps/s (10.2 µm/s) | Expected: 2.105 s | Actual: 2.097 s | Effective: 51.22 steps/s | Overridden: NO
+52 steps/s (10.4 µm/s) | Expected: 2.068 s | Actual: 2.065 s | Effective: 52.08 steps/s | Overridden: NO
+53 steps/s (10.6 µm/s) | Expected: 2.031 s | Actual: 2.033 s | Effective: 52.96 steps/s | Overridden: NO
+54 steps/s (10.8 µm/s) | Expected: 1.996 s | Actual: 1.985 s | Effective: 54.34 steps/s | Overridden: NO
+55 steps/s (11.0 µm/s) | Expected: 1.963 s | Actual: 1.953 s | Effective: 55.30 steps/s | Overridden: NO
+56 steps/s (11.2 µm/s) | Expected: 1.930 s | Actual: 1.921 s | Effective: 56.30 steps/s | Overridden: NO
+57 steps/s (11.4 µm/s) | Expected: 1.899 s | Actual: 1.889 s | Effective: 57.33 steps/s | Overridden: NO
+58 steps/s (11.6 µm/s) | Expected: 1.869 s | Actual: 1.857 s | Effective: 58.41 steps/s | Overridden: NO
+59 steps/s (11.8 µm/s) | Expected: 1.839 s | Actual: 1.841 s | Effective: 58.95 steps/s | Overridden: NO
+60 steps/s (12.0 µm/s) | Expected: 1.811 s | Actual: 1.809 s | Effective: 60.08 steps/s | Overridden: NO
+61 steps/s (12.2 µm/s) | Expected: 1.784 s | Actual: 1.777 s | Effective: 61.26 steps/s | Overridden: NO
+62 steps/s (12.4 µm/s) | Expected: 1.757 s | Actual: 1.745 s | Effective: 62.49 steps/s | Overridden: NO
+63 steps/s (12.6 µm/s) | Expected: 1.732 s | Actual: 1.729 s | Effective: 63.12 steps/s | Overridden: NO
+64 steps/s (12.8 µm/s) | Expected: 1.707 s | Actual: 1.697 s | Effective: 64.42 steps/s | Overridden: NO
+65 steps/s (13.0 µm/s) | Expected: 1.683 s | Actual: 1.681 s | Effective: 65.09 steps/s | Overridden: NO
+66 steps/s (13.2 µm/s) | Expected: 1.660 s | Actual: 1.649 s | Effective: 66.49 steps/s | Overridden: NO
+67 steps/s (13.4 µm/s) | Expected: 1.637 s | Actual: 1.633 s | Effective: 67.19 steps/s | Overridden: NO
+68 steps/s (13.6 µm/s) | Expected: 1.615 s | Actual: 1.617 s | Effective: 67.94 steps/s | Overridden: NO
+69 steps/s (13.8 µm/s) | Expected: 1.594 s | Actual: 1.585 s | Effective: 69.43 steps/s | Overridden: NO
+70 steps/s (14.0 µm/s) | Expected: 1.573 s | Actual: 1.568 s | Effective: 70.23 steps/s | Overridden: NO
+71 steps/s (14.2 µm/s) | Expected: 1.553 s | Actual: 1.553 s | Effective: 71.02 steps/s | Overridden: NO
+72 steps/s (14.4 µm/s) | Expected: 1.533 s | Actual: 1.521 s | Effective: 72.67 steps/s | Overridden: NO
+73 steps/s (14.6 µm/s) | Expected: 1.514 s | Actual: 1.505 s | Effective: 73.53 steps/s | Overridden: NO
+74 steps/s (14.8 µm/s) | Expected: 1.496 s | Actual: 1.489 s | Effective: 74.38 steps/s | Overridden: NO
+75 steps/s (15.0 µm/s) | Expected: 1.478 s | Actual: 1.472 s | Effective: 75.32 steps/s | Overridden: NO
+76 steps/s (15.2 µm/s) | Expected: 1.460 s | Actual: 1.457 s | Effective: 76.21 steps/s | Overridden: NO
+77 steps/s (15.4 µm/s) | Expected: 1.443 s | Actual: 1.440 s | Effective: 77.17 steps/s | Overridden: NO
+78 steps/s (15.6 µm/s) | Expected: 1.427 s | Actual: 1.425 s | Effective: 78.12 steps/s | Overridden: NO
+79 steps/s (15.8 µm/s) | Expected: 1.410 s | Actual: 1.409 s | Effective: 79.10 steps/s | Overridden: NO
+80 steps/s (16.0 µm/s) | Expected: 1.395 s | Actual: 1.393 s | Effective: 80.10 steps/s | Overridden: NO
+81 steps/s (16.2 µm/s) | Expected: 1.379 s | Actual: 1.377 s | Effective: 81.15 steps/s | Overridden: NO
+82 steps/s (16.4 µm/s) | Expected: 1.364 s | Actual: 1.360 s | Effective: 82.26 steps/s | Overridden: NO
+83 steps/s (16.6 µm/s) | Expected: 1.349 s | Actual: 1.344 s | Effective: 83.34 steps/s | Overridden: NO
+84 steps/s (16.8 µm/s) | Expected: 1.335 s | Actual: 1.329 s | Effective: 84.44 steps/s | Overridden: NO
+85 steps/s (17.0 µm/s) | Expected: 1.321 s | Actual: 1.313 s | Effective: 85.61 steps/s | Overridden: NO
+86 steps/s (17.2 µm/s) | Expected: 1.307 s | Actual: 1.297 s | Effective: 86.79 steps/s | Overridden: NO
+87 steps/s (17.4 µm/s) | Expected: 1.294 s | Actual: 1.281 s | Effective: 88.02 steps/s | Overridden: NO
+88 steps/s (17.6 µm/s) | Expected: 1.281 s | Actual: 1.281 s | Effective: 88.02 steps/s | Overridden: NO
+89 steps/s (17.8 µm/s) | Expected: 1.268 s | Actual: 1.264 s | Effective: 89.30 steps/s | Overridden: NO
+90 steps/s (18.0 µm/s) | Expected: 1.256 s | Actual: 1.249 s | Effective: 90.58 steps/s | Overridden: NO
+91 steps/s (18.2 µm/s) | Expected: 1.243 s | Actual: 1.233 s | Effective: 91.90 steps/s | Overridden: NO
+92 steps/s (18.4 µm/s) | Expected: 1.232 s | Actual: 1.233 s | Effective: 91.90 steps/s | Overridden: NO
+93 steps/s (18.6 µm/s) | Expected: 1.220 s | Actual: 1.217 s | Effective: 93.27 steps/s | Overridden: NO
+94 steps/s (18.8 µm/s) | Expected: 1.208 s | Actual: 1.201 s | Effective: 94.70 steps/s | Overridden: NO
+95 steps/s (19.0 µm/s) | Expected: 1.197 s | Actual: 1.184 s | Effective: 96.17 steps/s | Overridden: NO
+96 steps/s (19.2 µm/s) | Expected: 1.186 s | Actual: 1.185 s | Effective: 96.14 steps/s | Overridden: NO
+97 steps/s (19.4 µm/s) | Expected: 1.175 s | Actual: 1.169 s | Effective: 97.65 steps/s | Overridden: NO
+98 steps/s (19.6 µm/s) | Expected: 1.165 s | Actual: 1.153 s | Effective: 99.19 steps/s | Overridden: NO
+99 steps/s (19.8 µm/s) | Expected: 1.155 s | Actual: 1.153 s | Effective: 99.21 steps/s | Overridden: NO
+100 steps/s (20.0 µm/s) | Expected: 1.145 s | Actual: 1.137 s | Effective: 100.81 steps/s | Overridden: NO
+101 steps/s (20.2 µm/s) | Expected: 1.135 s | Actual: 1.121 s | Effective: 102.45 steps/s | Overridden: NO
+102 steps/s (20.4 µm/s) | Expected: 1.125 s | Actual: 1.121 s | Effective: 102.45 steps/s | Overridden: NO
+103 steps/s (20.6 µm/s) | Expected: 1.115 s | Actual: 1.105 s | Effective: 104.15 steps/s | Overridden: NO
+104 steps/s (20.8 µm/s) | Expected: 1.106 s | Actual: 1.105 s | Effective: 104.16 steps/s | Overridden: NO
+105 steps/s (21.0 µm/s) | Expected: 1.097 s | Actual: 1.089 s | Effective: 105.92 steps/s | Overridden: NO
+106 steps/s (21.2 µm/s) | Expected: 1.088 s | Actual: 1.088 s | Effective: 105.95 steps/s | Overridden: NO
+107 steps/s (21.4 µm/s) | Expected: 1.079 s | Actual: 1.073 s | Effective: 107.74 steps/s | Overridden: NO
+108 steps/s (21.6 µm/s) | Expected: 1.070 s | Actual: 1.057 s | Effective: 109.63 steps/s | Overridden: NO
+109 steps/s (21.8 µm/s) | Expected: 1.062 s | Actual: 1.057 s | Effective: 109.66 steps/s | Overridden: NO
+110 steps/s (22.0 µm/s) | Expected: 1.054 s | Actual: 1.041 s | Effective: 111.58 steps/s | Overridden: NO
+111 steps/s (22.2 µm/s) | Expected: 1.045 s | Actual: 1.041 s | Effective: 111.60 steps/s | Overridden: NO
+112 steps/s (22.4 µm/s) | Expected: 1.037 s | Actual: 1.024 s | Effective: 113.65 steps/s | Overridden: NO
+113 steps/s (22.6 µm/s) | Expected: 1.030 s | Actual: 1.025 s | Effective: 113.60 steps/s | Overridden: NO
+114 steps/s (22.8 µm/s) | Expected: 1.022 s | Actual: 1.009 s | Effective: 115.72 steps/s | Overridden: NO
+115 steps/s (23.0 µm/s) | Expected: 1.014 s | Actual: 1.009 s | Effective: 115.72 steps/s | Overridden: NO
+116 steps/s (23.2 µm/s) | Expected: 1.007 s | Actual: 0.992 s | Effective: 117.95 steps/s | Overridden: NO
+117 steps/s (23.4 µm/s) | Expected: 0.999 s | Actual: 0.993 s | Effective: 117.93 steps/s | Overridden: NO
+118 steps/s (23.6 µm/s) | Expected: 0.992 s | Actual: 0.992 s | Effective: 117.96 steps/s | Overridden: NO
+119 steps/s (23.8 µm/s) | Expected: 0.985 s | Actual: 0.976 s | Effective: 120.23 steps/s | Overridden: NO
+120 steps/s (24.0 µm/s) | Expected: 0.978 s | Actual: 0.977 s | Effective: 120.17 steps/s | Overridden: NO
+121 steps/s (24.2 µm/s) | Expected: 0.971 s | Actual: 0.961 s | Effective: 122.54 steps/s | Overridden: NO
+122 steps/s (24.4 µm/s) | Expected: 0.964 s | Actual: 0.960 s | Effective: 122.58 steps/s | Overridden: NO
+123 steps/s (24.6 µm/s) | Expected: 0.958 s | Actual: 0.545 s | Effective: 249.98 steps/s | Overridden: YES
+124 steps/s (24.8 µm/s) | Expected: 0.951 s | Actual: 0.528 s | Effective: 260.58 steps/s | Overridden: YES
+125 steps/s (25.0 µm/s) | Expected: 0.945 s | Actual: 0.529 s | Effective: 260.37 steps/s | Overridden: YES
+126 steps/s (25.2 µm/s) | Expected: 0.938 s | Actual: 0.529 s | Effective: 260.39 steps/s | Overridden: YES
+127 steps/s (25.4 µm/s) | Expected: 0.932 s | Actual: 0.513 s | Effective: 271.77 steps/s | Overridden: YES
+128 steps/s (25.6 µm/s) | Expected: 0.926 s | Actual: 0.513 s | Effective: 271.76 steps/s | Overridden: YES
+129 steps/s (25.8 µm/s) | Expected: 0.920 s | Actual: 0.496 s | Effective: 284.33 steps/s | Overridden: YES
+130 steps/s (26.0 µm/s) | Expected: 0.914 s | Actual: 0.497 s | Effective: 284.06 steps/s | Overridden: YES
+131 steps/s (26.2 µm/s) | Expected: 0.908 s | Actual: 0.497 s | Effective: 284.06 steps/s | Overridden: YES
+132 steps/s (26.4 µm/s) | Expected: 0.902 s | Actual: 0.481 s | Effective: 297.63 steps/s | Overridden: YES
+133 steps/s (26.6 µm/s) | Expected: 0.896 s | Actual: 0.480 s | Effective: 297.87 steps/s | Overridden: YES
+134 steps/s (26.8 µm/s) | Expected: 0.891 s | Actual: 0.481 s | Effective: 297.61 steps/s | Overridden: YES
+135 steps/s (27.0 µm/s) | Expected: 0.885 s | Actual: 0.464 s | Effective: 312.58 steps/s | Overridden: YES
+136 steps/s (27.2 µm/s) | Expected: 0.880 s | Actual: 0.464 s | Effective: 312.75 steps/s | Overridden: YES
+137 steps/s (27.4 µm/s) | Expected: 0.874 s | Actual: 0.465 s | Effective: 312.45 steps/s | Overridden: YES
+138 steps/s (27.6 µm/s) | Expected: 0.869 s | Actual: 0.449 s | Effective: 328.89 steps/s | Overridden: YES
+139 steps/s (27.8 µm/s) | Expected: 0.864 s | Actual: 0.449 s | Effective: 328.97 steps/s | Overridden: YES
+140 steps/s (28.0 µm/s) | Expected: 0.859 s | Actual: 0.449 s | Effective: 328.66 steps/s | Overridden: YES
+141 steps/s (28.2 µm/s) | Expected: 0.854 s | Actual: 0.433 s | Effective: 347.22 steps/s | Overridden: YES
+142 steps/s (28.4 µm/s) | Expected: 0.849 s | Actual: 0.432 s | Effective: 347.39 steps/s | Overridden: YES
+143 steps/s (28.6 µm/s) | Expected: 0.844 s | Actual: 0.433 s | Effective: 347.15 steps/s | Overridden: YES
+144 steps/s (28.8 µm/s) | Expected: 0.839 s | Actual: 0.416 s | Effective: 368.08 steps/s | Overridden: YES
+145 steps/s (29.0 µm/s) | Expected: 0.834 s | Actual: 0.416 s | Effective: 368.34 steps/s | Overridden: YES
+146 steps/s (29.2 µm/s) | Expected: 0.829 s | Actual: 0.417 s | Effective: 367.43 steps/s | Overridden: YES
+147 steps/s (29.4 µm/s) | Expected: 0.825 s | Actual: 0.416 s | Effective: 368.00 steps/s | Overridden: YES
+148 steps/s (29.6 µm/s) | Expected: 0.820 s | Actual: 0.401 s | Effective: 390.70 steps/s | Overridden: YES
+149 steps/s (29.8 µm/s) | Expected: 0.816 s | Actual: 0.400 s | Effective: 391.28 steps/s | Overridden: YES
+150 steps/s (30.0 µm/s) | Expected: 0.811 s | Actual: 0.400 s | Effective: 390.98 steps/s | Overridden: YES
+151 steps/s (30.2 µm/s) | Expected: 0.807 s | Actual: 0.384 s | Effective: 417.36 steps/s | Overridden: YES
+152 steps/s (30.4 µm/s) | Expected: 0.802 s | Actual: 0.385 s | Effective: 416.64 steps/s | Overridden: YES
+153 steps/s (30.6 µm/s) | Expected: 0.798 s | Actual: 0.384 s | Effective: 417.27 steps/s | Overridden: YES
+154 steps/s (30.8 µm/s) | Expected: 0.794 s | Actual: 0.384 s | Effective: 417.03 steps/s | Overridden: YES
+155 steps/s (31.0 µm/s) | Expected: 0.790 s | Actual: 0.369 s | Effective: 445.78 steps/s | Overridden: YES
+156 steps/s (31.2 µm/s) | Expected: 0.786 s | Actual: 0.368 s | Effective: 446.89 steps/s | Overridden: YES
+157 steps/s (31.4 µm/s) | Expected: 0.782 s | Actual: 0.368 s | Effective: 447.32 steps/s | Overridden: YES
+158 steps/s (31.6 µm/s) | Expected: 0.777 s | Actual: 0.369 s | Effective: 446.16 steps/s | Overridden: YES
+159 steps/s (31.8 µm/s) | Expected: 0.773 s | Actual: 0.352 s | Effective: 481.78 steps/s | Overridden: YES
+160 steps/s (32.0 µm/s) | Expected: 0.770 s | Actual: 0.353 s | Effective: 480.74 steps/s | Overridden: YES
+161 steps/s (32.2 µm/s) | Expected: 0.766 s | Actual: 0.352 s | Effective: 481.47 steps/s | Overridden: YES
+162 steps/s (32.4 µm/s) | Expected: 0.762 s | Actual: 0.353 s | Effective: 480.78 steps/s | Overridden: YES
+163 steps/s (32.6 µm/s) | Expected: 0.758 s | Actual: 0.337 s | Effective: 520.70 steps/s | Overridden: YES
+164 steps/s (32.8 µm/s) | Expected: 0.754 s | Actual: 0.337 s | Effective: 520.90 steps/s | Overridden: YES
+165 steps/s (33.0 µm/s) | Expected: 0.751 s | Actual: 0.337 s | Effective: 520.59 steps/s | Overridden: YES
+166 steps/s (33.2 µm/s) | Expected: 0.747 s | Actual: 0.337 s | Effective: 520.80 steps/s | Overridden: YES
+167 steps/s (33.4 µm/s) | Expected: 0.743 s | Actual: 0.321 s | Effective: 568.19 steps/s | Overridden: YES
+168 steps/s (33.6 µm/s) | Expected: 0.740 s | Actual: 0.320 s | Effective: 569.59 steps/s | Overridden: YES
+169 steps/s (33.8 µm/s) | Expected: 0.736 s | Actual: 0.321 s | Effective: 568.33 steps/s | Overridden: YES
+170 steps/s (34.0 µm/s) | Expected: 0.733 s | Actual: 0.320 s | Effective: 569.56 steps/s | Overridden: YES
+171 steps/s (34.2 µm/s) | Expected: 0.729 s | Actual: 0.320 s | Effective: 569.63 steps/s | Overridden: YES
+172 steps/s (34.4 µm/s) | Expected: 0.726 s | Actual: 0.305 s | Effective: 625.20 steps/s | Overridden: YES
+173 steps/s (34.6 µm/s) | Expected: 0.723 s | Actual: 0.304 s | Effective: 626.79 steps/s | Overridden: YES
+174 steps/s (34.8 µm/s) | Expected: 0.719 s | Actual: 0.304 s | Effective: 626.62 steps/s | Overridden: YES
+175 steps/s (35.0 µm/s) | Expected: 0.716 s | Actual: 0.304 s | Effective: 625.47 steps/s | Overridden: YES
+176 steps/s (35.2 µm/s) | Expected: 0.713 s | Actual: 0.304 s | Effective: 626.53 steps/s | Overridden: YES
+177 steps/s (35.4 µm/s) | Expected: 0.710 s | Actual: 0.289 s | Effective: 694.17 steps/s | Overridden: YES
+178 steps/s (35.6 µm/s) | Expected: 0.706 s | Actual: 0.288 s | Effective: 694.90 steps/s | Overridden: YES
+179 steps/s (35.8 µm/s) | Expected: 0.703 s | Actual: 0.288 s | Effective: 695.00 steps/s | Overridden: YES
+180 steps/s (36.0 µm/s) | Expected: 0.700 s | Actual: 0.289 s | Effective: 694.56 steps/s | Overridden: YES
+181 steps/s (36.2 µm/s) | Expected: 0.697 s | Actual: 0.288 s | Effective: 696.52 steps/s | Overridden: YES
+182 steps/s (36.4 µm/s) | Expected: 0.694 s | Actual: 0.273 s | Effective: 781.06 steps/s | Overridden: YES
+183 steps/s (36.6 µm/s) | Expected: 0.691 s | Actual: 0.273 s | Effective: 780.64 steps/s | Overridden: YES
+184 steps/s (36.8 µm/s) | Expected: 0.688 s | Actual: 0.273 s | Effective: 781.58 steps/s | Overridden: YES
+185 steps/s (37.0 µm/s) | Expected: 0.685 s | Actual: 0.272 s | Effective: 783.59 steps/s | Overridden: YES
+186 steps/s (37.2 µm/s) | Expected: 0.682 s | Actual: 0.272 s | Effective: 784.17 steps/s | Overridden: YES
+187 steps/s (37.4 µm/s) | Expected: 0.679 s | Actual: 0.256 s | Effective: 893.57 steps/s | Overridden: YES
+188 steps/s (37.6 µm/s) | Expected: 0.676 s | Actual: 0.257 s | Effective: 893.01 steps/s | Overridden: YES
+189 steps/s (37.8 µm/s) | Expected: 0.674 s | Actual: 0.256 s | Effective: 893.62 steps/s | Overridden: YES
+190 steps/s (38.0 µm/s) | Expected: 0.671 s | Actual: 0.256 s | Effective: 893.42 steps/s | Overridden: YES
+191 steps/s (38.2 µm/s) | Expected: 0.668 s | Actual: 0.257 s | Effective: 892.89 steps/s | Overridden: YES
+192 steps/s (38.4 µm/s) | Expected: 0.665 s | Actual: 0.256 s | Effective: 896.62 steps/s | Overridden: YES
+193 steps/s (38.6 µm/s) | Expected: 0.663 s | Actual: 0.240 s | Effective: 1044.89 steps/s | Overridden: YES
+194 steps/s (38.8 µm/s) | Expected: 0.660 s | Actual: 0.240 s | Effective: 1046.25 steps/s | Overridden: YES
+195 steps/s (39.0 µm/s) | Expected: 0.657 s | Actual: 0.240 s | Effective: 1044.41 steps/s | Overridden: YES
+196 steps/s (39.2 µm/s) | Expected: 0.655 s | Actual: 0.240 s | Effective: 1042.43 steps/s | Overridden: YES
+197 steps/s (39.4 µm/s) | Expected: 0.652 s | Actual: 0.241 s | Effective: 1040.37 steps/s | Overridden: YES
+198 steps/s (39.6 µm/s) | Expected: 0.650 s | Actual: 0.240 s | Effective: 1046.56 steps/s | Overridden: YES
+199 steps/s (39.8 µm/s) | Expected: 0.647 s | Actual: 0.224 s | Effective: 1255.93 steps/s | Overridden: YES
+200 steps/s (40.0 µm/s) | Expected: 0.645 s | Actual: 0.224 s | Effective: 1252.36 steps/s | Overridden: YES
+201 steps/s (40.2 µm/s) | Expected: 0.642 s | Actual: 0.225 s | Effective: 1248.65 steps/s | Overridden: YES
+202 steps/s (40.4 µm/s) | Expected: 0.640 s | Actual: 0.224 s | Effective: 1251.97 steps/s | Overridden: YES
+203 steps/s (40.6 µm/s) | Expected: 0.637 s | Actual: 0.224 s | Effective: 1255.90 steps/s | Overridden: YES
+204 steps/s (40.8 µm/s) | Expected: 0.635 s | Actual: 0.225 s | Effective: 1250.27 steps/s | Overridden: YES
+205 steps/s (41.0 µm/s) | Expected: 0.632 s | Actual: 0.209 s | Effective: 1564.12 steps/s | Overridden: YES
+206 steps/s (41.2 µm/s) | Expected: 0.630 s | Actual: 0.209 s | Effective: 1561.95 steps/s | Overridden: YES
+207 steps/s (41.4 µm/s) | Expected: 0.628 s | Actual: 0.208 s | Effective: 1571.90 steps/s | Overridden: YES
+208 steps/s (41.6 µm/s) | Expected: 0.625 s | Actual: 0.208 s | Effective: 1569.39 steps/s | Overridden: YES
+209 steps/s (41.8 µm/s) | Expected: 0.623 s | Actual: 0.209 s | Effective: 1563.59 steps/s | Overridden: YES
+210 steps/s (42.0 µm/s) | Expected: 0.621 s | Actual: 0.209 s | Effective: 1561.85 steps/s | Overridden: YES
+211 steps/s (42.2 µm/s) | Expected: 0.619 s | Actual: 0.208 s | Effective: 1573.58 steps/s | Overridden: YES
+212 steps/s (42.4 µm/s) | Expected: 0.616 s | Actual: 0.193 s | Effective: 2084.47 steps/s | Overridden: YES
+213 steps/s (42.6 µm/s) | Expected: 0.614 s | Actual: 0.192 s | Effective: 2097.47 steps/s | Overridden: YES
+214 steps/s (42.8 µm/s) | Expected: 0.612 s | Actual: 0.192 s | Effective: 2099.91 steps/s | Overridden: YES
+215 steps/s (43.0 µm/s) | Expected: 0.610 s | Actual: 0.192 s | Effective: 2099.71 steps/s | Overridden: YES
+216 steps/s (43.2 µm/s) | Expected: 0.608 s | Actual: 0.193 s | Effective: 2079.92 steps/s | Overridden: YES
+217 steps/s (43.4 µm/s) | Expected: 0.605 s | Actual: 0.192 s | Effective: 2087.29 steps/s | Overridden: YES
+218 steps/s (43.6 µm/s) | Expected: 0.603 s | Actual: 0.192 s | Effective: 2101.25 steps/s | Overridden: YES
+219 steps/s (43.8 µm/s) | Expected: 0.601 s | Actual: 0.193 s | Effective: 2084.99 steps/s | Overridden: YES
+220 steps/s (44.0 µm/s) | Expected: 0.599 s | Actual: 0.177 s | Effective: 3131.20 steps/s | Overridden: YES
+221 steps/s (44.2 µm/s) | Expected: 0.597 s | Actual: 0.176 s | Effective: 3156.56 steps/s | Overridden: YES
+222 steps/s (44.4 µm/s) | Expected: 0.595 s | Actual: 0.177 s | Effective: 3121.60 steps/s | Overridden: YES
+223 steps/s (44.6 µm/s) | Expected: 0.593 s | Actual: 0.176 s | Effective: 3137.04 steps/s | Overridden: YES
+224 steps/s (44.8 µm/s) | Expected: 0.591 s | Actual: 0.176 s | Effective: 3153.87 steps/s | Overridden: YES
+225 steps/s (45.0 µm/s) | Expected: 0.589 s | Actual: 0.176 s | Effective: 3163.82 steps/s | Overridden: YES
+226 steps/s (45.2 µm/s) | Expected: 0.587 s | Actual: 0.177 s | Effective: 3123.61 steps/s | Overridden: YES
+227 steps/s (45.4 µm/s) | Expected: 0.585 s | Actual: 0.176 s | Effective: 3165.22 steps/s | Overridden: YES
+228 steps/s (45.6 µm/s) | Expected: 0.583 s | Actual: 0.161 s | Effective: 6247.42 steps/s | Overridden: YES
+229 steps/s (45.8 µm/s) | Expected: 0.581 s | Actual: 0.161 s | Effective: 6237.29 steps/s | Overridden: YES
+230 steps/s (46.0 µm/s) | Expected: 0.579 s | Actual: 0.160 s | Effective: 6451.78 steps/s | Overridden: YES
+231 steps/s (46.2 µm/s) | Expected: 0.577 s | Actual: 0.161 s | Effective: 6237.60 steps/s | Overridden: YES
+232 steps/s (46.4 µm/s) | Expected: 0.576 s | Actual: 0.160 s | Effective: 6426.32 steps/s | Overridden: YES
+233 steps/s (46.6 µm/s) | Expected: 0.574 s | Actual: 0.160 s | Effective: 6356.96 steps/s | Overridden: YES
+234 steps/s (46.8 µm/s) | Expected: 0.572 s | Actual: 0.160 s | Effective: 6426.86 steps/s | Overridden: YES
+235 steps/s (47.0 µm/s) | Expected: 0.570 s | Actual: 0.160 s | Effective: 6381.82 steps/s | Overridden: YES
+236 steps/s (47.2 µm/s) | Expected: 0.568 s | Actual: 0.161 s | Effective: 6252.19 steps/s | Overridden: YES
+237 steps/s (47.4 µm/s) | Expected: 0.567 s | Actual: 0.144 s | Effective: 9999.90 steps/s | Overridden: YES
+238 steps/s (47.6 µm/s) | Expected: 0.565 s | Actual: 0.144 s | Effective: 9999.90 steps/s | Overridden: YES
+239 steps/s (47.8 µm/s) | Expected: 0.563 s | Actual: 0.145 s | Effective: 1455604.09 steps/s | Overridden: YES
+240 steps/s (48.0 µm/s) | Expected: 0.561 s | Actual: 0.145 s | Effective: 9999.90 steps/s | Overridden: YES
+241 steps/s (48.2 µm/s) | Expected: 0.560 s | Actual: 0.145 s | Effective: 9999.90 steps/s | Overridden: YES
+242 steps/s (48.4 µm/s) | Expected: 0.558 s | Actual: 0.144 s | Effective: 9999.90 steps/s | Overridden: YES
+243 steps/s (48.6 µm/s) | Expected: 0.556 s | Actual: 0.145 s | Effective: 1326259.96 steps/s | Overridden: YES
+244 steps/s (48.8 µm/s) | Expected: 0.554 s | Actual: 0.144 s | Effective: 9999.90 steps/s | Overridden: YES
+245 steps/s (49.0 µm/s) | Expected: 0.553 s | Actual: 0.544 s | Effective: 250.06 steps/s | Overridden: NO
+246 steps/s (49.2 µm/s) | Expected: 0.551 s | Actual: 0.545 s | Effective: 249.91 steps/s | Overridden: NO
+247 steps/s (49.4 µm/s) | Expected: 0.549 s | Actual: 0.544 s | Effective: 250.27 steps/s | Overridden: NO
+248 steps/s (49.6 µm/s) | Expected: 0.548 s | Actual: 0.544 s | Effective: 250.23 steps/s | Overridden: NO
+249 steps/s (49.8 µm/s) | Expected: 0.546 s | Actual: 0.544 s | Effective: 250.27 steps/s | Overridden: NO
+250 steps/s (50.0 µm/s) | Expected: 0.545 s | Actual: 0.544 s | Effective: 250.18 steps/s | Overridden: NO
