@@ -66,9 +66,9 @@ def compute_synchronized_speeds(dx, dy, v, resolution=0.2, max_speed_steps=50000
     # them independently.
     def is_bad_speed(spd):
         spd_int = round(spd)
-        if 20 <= spd_int <= 30:
+        if 16 <= spd_int <= 30:
             return True
-        if 130 <= spd_int <= 240:
+        if 123 <= spd_int <= 244:
             return True
         return False
 
