@@ -133,8 +133,20 @@ def run_server(port=8080):
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
-        pass
-    print("Server shutting down.")
+        print("\n[SYSTEM] KeyboardInterrupt received. Initiating graceful shutdown...")
+    finally:
+        # Stop any active patterning and release serial COM ports
+        try:
+            print("[SYSTEM] Stopping any active stage movements...")
+            system.stop()
+        except Exception:
+            pass
+        try:
+            print("[SYSTEM] Releasing serial connections...")
+            system.disconnect()
+        except Exception:
+            pass
+        print("[SYSTEM] Server shutdown completed successfully.")
 
 if __name__ == "__main__":
     port = 8080
