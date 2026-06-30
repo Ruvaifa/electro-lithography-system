@@ -5,6 +5,7 @@ import serial
 import serial.tools.list_ports  # To get available serial ports
 from tkinter import *
 from tkinter import ttk
+import config
 
 
 class App(ttk.Frame):
@@ -126,8 +127,8 @@ class HmcControlCs:
         self.indata = 0                      #holds last byte read from serial port
 
         #SPEED CONFIG
-        self.spd_min = 10       #in steps/sec
-        self.spd_max = 50000    #in steps/sec
+        self.spd_min = config.MIN_SPEED_STEPS       #in steps/sec
+        self.spd_max = config.MAX_SPEED_STEPS    #in steps/sec
 
         #MOVEMENT TRACKING
         self.x_moving = 0       #Store how much distance (in microns) the system moved in the most recent command. Calculated from step count × resolution.
@@ -137,15 +138,15 @@ class HmcControlCs:
         self.com_open = False       #indicate whether the port is open nd ready for communication
 
         #MOTION RESOLUTIPN AND LIMITS
-        self.maximum_steps = 16777216
-        self.Resolution_A = 0.2  #microns per step
-        self.Resolution_B = 0.2
-        self.Resolution_C = 0.2
+        self.maximum_steps = config.MAX_STEPS
+        self.Resolution_A = config.RESOLUTION_UM_PER_STEP  #microns per step
+        self.Resolution_B = config.RESOLUTION_UM_PER_STEP
+        self.Resolution_C = config.RESOLUTION_UM_PER_STEP
 
         #DEVICE ID AND COMMUNICATION
-        self.device = 100      #command byte sent to ask the device to identify itself
-        self.device_ack = 200   #Expected reply from the device, proving communication is OK
-        self.ok = 10           #Expected after successfull command
+        self.device = config.CMD_DEVICE      #command byte sent to ask the device to identify itself
+        self.device_ack = config.ACK_DEVICE   #Expected reply from the device, proving communication is OK
+        self.ok = config.CMD_OK           #Expected after successfull command
 
         #LIMIT SWITCH CODED
         self.x_home_limit = 41  #this is the response sent back by the device when the respective limit is reached
@@ -155,29 +156,29 @@ class HmcControlCs:
         self.z_home_limit = 45
         self.z_far_limit = 44
 
-        self.move_completed = 170 #response from the device
+        self.move_completed = config.MOVE_COMPLETED #response from the device
 
 
         #MOVEMENT COMMANDS
-        self.speed = 34
-        self.z_speed = 34
-        self.max_travel_um = 50000
+        self.speed = config.CMD_SPEED
+        self.z_speed = config.CMD_SPEED
+        self.max_travel_um = config.MAX_TRAVEL_UM
 
-        self.Move = 19
-        self.ACCELERATION = 20
-        self.DECELERATION = 30
-        self.Dir_plus = 125         #command to move in positive direction
-        self.Dir_minus = 175
+        self.Move = config.CMD_MOVE
+        self.ACCELERATION = config.CMD_ACCELERATION
+        self.DECELERATION = config.CMD_DECELERATION
+        self.Dir_plus = config.DIR_PLUS         #command to move in positive direction
+        self.Dir_minus = config.DIR_MINUS
 
         self.x_current_position = 0     #absolute current position in microns
         self.y_current_position = 0
         self.z_current_position = 0
 
-        self.stop = 104
-        self.stop_ack = 105
+        self.stop = config.CMD_STOP
+        self.stop_ack = config.ACK_STOP
 
-        self.READ = 163
-        self.READ_ACK = 164
+        self.READ = config.CMD_READ
+        self.READ_ACK = config.ACK_READ
 
         # LIMIT SWITCH FLAGS
         self.x_home_reached = False
@@ -187,16 +188,13 @@ class HmcControlCs:
         self.z_home_reached = False
         self.z_far_reached = False
 
-        #set current to zero
-        self.current_x = 0
-        self.current_y = 0
-        self.current_z =0
+
 
 
         self.fast_mode = False
         self._last_speed_signature = None
-        self.ack_timeout_seconds = 2.0
-        self.axis_read_timeout_seconds = 2.0
+        self.ack_timeout_seconds = config.ACK_TIMEOUT_S
+        self.axis_read_timeout_seconds = config.AXIS_READ_TIMEOUT_S
         self.motion_timeout_seconds = None
 
         self.serial_lock = threading.RLock()
@@ -255,12 +253,12 @@ class HmcControlCs:
         try:
             self.ser = serial.Serial(
                 port=port,
-                baudrate=19200,
+                baudrate=config.BAUD_RATE,
                 parity=serial.PARITY_NONE,
                 stopbits=serial.STOPBITS_ONE,
                 bytesize=serial.EIGHTBITS,
-                timeout=0.1,
-                write_timeout=0.1  # Added write timeout for consistency
+                timeout=config.SERIAL_READ_TIMEOUT_S,
+                write_timeout=config.SERIAL_WRITE_TIMEOUT_S  # Added write timeout for consistency
             )
 
             if self.ser.is_open:
@@ -278,6 +276,13 @@ class HmcControlCs:
             self.com_open = False
             return False
 
+    def disconnect(self):
+        with self.serial_lock:
+            if hasattr(self, 'ser') and self.ser and self.ser.is_open:
+                self.ser.close()
+            self.com_open = False
+            print(f"Serial port for axis {self.axis or 'xyz'} disconnected")
+
     def write_port(self, value):  #Sends a single byte command to the serial port
         out = [value]
         #self.ser.write(out)
@@ -287,7 +292,8 @@ class HmcControlCs:
         In = 0
         deadline = time.perf_counter() + self.ack_timeout_seconds
         while True:
-            r = self.ser.read(1)
+            with self.serial_lock:
+                r = self.ser.read(1)
             #print(str(r))
             if r == b'':
                 if time.perf_counter() >= deadline:
@@ -301,10 +307,15 @@ class HmcControlCs:
     def read_value(self): #reads a single byte from serial port, loops until a valid byte or stop_thread is detected, stores value in self.indata and returns it
         #Used for movement status and limit detection
         self.indata = 0
+        timeout = self.motion_timeout_seconds if self.motion_timeout_seconds is not None else 30.0
+        deadline = time.perf_counter() + timeout
         while True and not self.stop_thread:
-            r = self.ser.read(1)
+            with self.serial_lock:
+                r = self.ser.read(1)
             #print(str(r))
             if r == b'':
+                if time.perf_counter() >= deadline:
+                    raise TimeoutError("Timed out waiting for read byte in read_value")
                 continue
             self.indata = ord(r)
             return self.indata
@@ -314,7 +325,8 @@ class HmcControlCs:
         self.indata = 0
         deadline = time.perf_counter() + self.axis_read_timeout_seconds
         while True and not self.force_stop_thread:
-            r = self.ser.read(1)
+            with self.serial_lock:
+                r = self.ser.read(1)
             #print(str(r))
             if r == b'':
                 if time.perf_counter() >= deadline:
@@ -511,10 +523,6 @@ class HmcControlCs:
                     else:
                         self.z_current_position -= self.z_moving
 
-            self.current_x = self.x_current_position
-            self.current_y = self.y_current_position
-            self.current_z = self.z_current_position
-
             print(f"z_current_position: {self.z_current_position}")
 
     def _logical_z_to_motor_z(self, move_z):
@@ -634,22 +642,22 @@ class HmcControlCs:
                     #print("[DEBUG] read_move_bytes: READ_ACK received")
 
                     if self.axis == 'x':
-                        self.x_moving = self.Read_axis_data()
+                        self.x_moving = self.read_axis_data()
                         self.x_moving *= self.Resolution_A
                     elif self.axis == 'y':
-                        self.y_moving = self.Read_axis_data()
+                        self.y_moving = self.read_axis_data()
                         self.y_moving *= self.Resolution_B
                     elif self.axis == 'z':
-                        self.z_moving = self.Read_axis_data()
+                        self.z_moving = self.read_axis_data()
                         self.z_moving *= self.Resolution_C
                     else:
-                        self.x_moving = self.Read_axis_data()
+                        self.x_moving = self.read_axis_data()
                         self.x_moving *= self.Resolution_A
 
-                        self.y_moving = self.Read_axis_data()
+                        self.y_moving = self.read_axis_data()
                         self.y_moving *= self.Resolution_B
 
-                        self.z_moving = self.Read_axis_data()
+                        self.z_moving = self.read_axis_data()
                         self.z_moving *= self.Resolution_C
                 return
             except (TimeoutError, Exception) as e:
@@ -664,7 +672,7 @@ class HmcControlCs:
         #print("[DEBUG] read_move_bytes: done")
 
 
-    def Read_axis_data(self): #reads 4 bytes for one axis and combine them into a full step value
+    def read_axis_data(self): #reads 4 bytes for one axis and combine them into a full step value
         with self.serial_lock:
             self.ser.write(bytes([self.ok, self.ok, self.ok, self.ok]))
             data = self.ser.read(4)
@@ -770,27 +778,46 @@ class HmcControlCs:
                 self.write_port(datas[2])
                 self.read_ack(self.ok)
 
+    @property
+    def current_x(self):
+        return self.x_current_position
+
+    @current_x.setter
+    def current_x(self, value):
+        self.x_current_position = value
+
+    @property
+    def current_y(self):
+        return self.y_current_position
+
+    @current_y.setter
+    def current_y(self, value):
+        self.y_current_position = value
+
+    @property
+    def current_z(self):
+        return self.z_current_position
+
+    @current_z.setter
+    def current_z(self, value):
+        self.z_current_position = value
+
     def get_position(self):
         return {
-            "x" : self.current_x,
-            "y" : self.current_y,
-            "z" : self.current_z
-    }
+            "x" : self.x_current_position,
+            "y" : self.y_current_position,
+            "z" : self.z_current_position
+        }
 
     def initialise_current_position(self):
-        self.current_x =0
-        self.current_y=0
-        self.current_z=0
         self.x_current_position = 0
         self.y_current_position = 0
         self.z_current_position = 0
-    def update_current_position(self,x,y,z):
-        self.current_x += x
-        self.current_y += y
-        self.current_z += z
-        self.x_current_position = self.current_x
-        self.y_current_position = self.current_y
-        self.z_current_position = self.current_z
+
+    def update_current_position(self, x, y, z):
+        self.x_current_position += x
+        self.y_current_position += y
+        self.z_current_position += z
 
     def safe_move(self, x, y, z):
         try:
@@ -871,11 +898,16 @@ class HmcControlCs:
         self.update_current_position(move_a, move_b , move_c)
 
 
-    def contact_point_move(self, move_x, move_y, move_z):
+    def contact_point_move(self, move_x, move_y, move_z, max_z=None):
 
         if self.dummy:
             time.sleep(0.1)
             return
+
+        if max_z is not None and self.axis in (None, 'z'):
+            predicted_z = self.z_current_position + move_z
+            if predicted_z > max_z:
+                raise ValueError(f"contact_point_move would exceed safe Z limit: {predicted_z} um > {max_z} um")
 
         if self.axis in (None, 'x'):
             self.x_home_reached = False
