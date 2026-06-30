@@ -96,12 +96,14 @@ body {
 }
 
 .app-container {
+    width: 100%;
     max-width: 1300px;
     margin: 0 auto;
-    padding: 24px;
+    padding: 16px;
     display: flex;
     flex-direction: column;
     gap: 24px;
+    box-sizing: border-box;
 }
 
 /* Glassmorphism Panel styles */
@@ -210,9 +212,11 @@ body {
     display: grid;
     grid-template-columns: 1.1fr 1.3fr;
     gap: 24px;
+    width: 100%;
+    min-width: 0;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
     .dashboard-grid {
         grid-template-columns: 1fr;
     }
@@ -222,12 +226,16 @@ body {
     display: flex;
     flex-direction: column;
     gap: 24px;
+    min-width: 0;
+    width: 100%;
 }
 
 /* CARD / SECTION */
 .card {
     display: flex;
     flex-direction: column;
+    min-width: 0;
+    width: 100%;
 }
 
 .card-header {
