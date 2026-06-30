@@ -1,22 +1,81 @@
 /* frontend/style.css */
 
 :root {
-    --bg-color: #f8fafc; /* Ultra soft light gray */
-    --panel-bg: rgba(255, 255, 255, 0.85); /* Clean white translucency */
-    --panel-border: #e2e8f0; /* Soft gray border */
-    --text-primary: #0f172a; /* Dark slate */
-    --text-secondary: #475569; /* Slate secondary */
-    --primary: #0ea5e9; /* Premium Sky blue */
+    /* Light Theme Variables */
+    --bg-color: #f8fafc;
+    --body-gradient: radial-gradient(circle at top right, #e0f2fe 0%, #f8fafc 60%, #f1f5f9 100%);
+    --panel-bg: rgba(255, 255, 255, 0.85);
+    --panel-border: #e2e8f0;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    
+    --card-header-text: #1e293b;
+    --button-secondary-bg: #ffffff;
+    --button-secondary-hover: #f1f5f9;
+    --step-button-bg: #f1f5f9;
+    --step-button-active: #ffffff;
+    --jog-button-bg: #f8fafc;
+    
+    --console-bg: #ffffff;
+    --console-text: #475569;
+    --console-border: #e2e8f0;
+    --progress-bar-track: #e2e8f0;
+    
+    /* Console color codes (Light) */
+    --system-line: #0d9488; /* Teal */
+    --error-line: #dc2626; /* Red */
+    --error-bg: #fef2f2;
+    --feedback-line: #b45309; /* Amber */
+    --smu-line: #0369a1; /* Blue */
+    --move-line: #6d28d9; /* Purple */
+
+    /* Core Accent Colors */
+    --primary: #0ea5e9; /* Sky 500 */
     --primary-glow: rgba(14, 165, 233, 0.15);
-    --accent: #0284c7; /* Darker sky blue */
-    --success: #10b981; /* Emerald green */
+    --accent: #0284c7;
+    --success: #10b981;
     --success-glow: rgba(16, 185, 129, 0.15);
-    --warning: #ea580c; /* Alert orange */
+    --warning: #ea580c;
     --warning-glow: rgba(234, 88, 12, 0.15);
-    --danger: #ef4444; /* Clean red */
+    --danger: #ef4444;
     --danger-glow: rgba(239, 68, 68, 0.15);
     --font-sans: 'Outfit', -apple-system, sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
+}
+
+[data-theme="dark"] {
+    /* Dark Theme Variables */
+    --bg-color: #0b0f19;
+    --body-gradient: radial-gradient(circle at top right, rgba(0, 242, 254, 0.08) 0%, #080b11 60%, #0b0f19 100%);
+    --panel-bg: rgba(13, 20, 35, 0.65);
+    --panel-border: rgba(255, 255, 255, 0.08);
+    --text-primary: #f3f4f6;
+    --text-secondary: #9ca3af;
+    
+    --card-header-text: #f3f4f6;
+    --button-secondary-bg: rgba(255, 255, 255, 0.05);
+    --button-secondary-hover: rgba(255, 255, 255, 0.08);
+    --step-button-bg: rgba(255, 255, 255, 0.03);
+    --step-button-active: rgba(0, 242, 254, 0.15);
+    --jog-button-bg: rgba(255, 255, 255, 0.04);
+    
+    --console-bg: rgba(0, 0, 0, 0.3);
+    --console-text: #e2e8f0;
+    --console-border: rgba(255, 255, 255, 0.04);
+    --progress-bar-track: rgba(255, 255, 255, 0.03);
+    
+    /* Console color codes (Dark) */
+    --system-line: #a7f3d0;
+    --error-line: #fca5a5;
+    --error-bg: rgba(239, 68, 68, 0.1);
+    --feedback-line: #fde68a;
+    --smu-line: #93c5fd;
+    --move-line: #e9d5ff;
+
+    /* Primary Accent Adjustments for Dark contrast */
+    --primary: #00f2fe;
+    --primary-glow: rgba(0, 242, 254, 0.4);
+    --accent: #4facfe;
 }
 
 * {
@@ -27,12 +86,13 @@
 
 body {
     background-color: var(--bg-color);
-    background: radial-gradient(circle at top right, #e0f2fe 0%, #f8fafc 60%, #f1f5f9 100%);
+    background: var(--body-gradient);
     color: var(--text-primary);
     font-family: var(--font-sans);
     min-height: 100vh;
     overflow-x: hidden;
     position: relative;
+    transition: background-color 0.3s ease, background 0.3s ease, color 0.3s ease;
 }
 
 .app-container {
@@ -52,6 +112,7 @@ body {
     border: 1px solid var(--panel-border);
     border-radius: 12px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* HEADER */
@@ -74,24 +135,27 @@ body {
     align-items: center;
     justify-content: center;
     filter: drop-shadow(0 2px 4px var(--primary-glow));
+    transition: color 0.3s ease, filter 0.3s ease;
 }
 
 .logo-text h1 {
     font-size: 1.3rem;
     font-weight: 700;
     letter-spacing: -0.5px;
-    color: #0f172a;
+    color: var(--text-primary);
+    transition: color 0.3s ease;
 }
 
 .logo-text p {
     font-size: 0.75rem;
     color: var(--text-secondary);
+    transition: color 0.3s ease;
 }
 
 .header-right {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
 }
 
 /* Status indicator badge */
@@ -99,13 +163,14 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
-    background: #ffffff;
+    background: var(--button-secondary-bg);
     border: 1px solid var(--panel-border);
-    padding: 6px 14px;
+    padding: 8px 14px;
     border-radius: 20px;
     font-size: 0.8rem;
     font-weight: 500;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 .status-indicator {
@@ -171,7 +236,8 @@ body {
     gap: 10px;
     padding: 14px 20px;
     border-bottom: 1px solid var(--panel-border);
-    color: #1e293b;
+    color: var(--card-header-text);
+    transition: border-color 0.3s ease, color 0.3s ease;
 }
 
 .card-header h2 {
@@ -207,9 +273,13 @@ body {
 
 .btn-primary {
     background: var(--primary);
-    color: white;
+    color: #0b0f19;
     font-weight: 600;
     box-shadow: 0 2px 4px var(--primary-glow);
+}
+
+[data-theme="dark"] .btn-primary {
+    color: #0b0f19;
 }
 
 .btn-primary:hover:not(:disabled) {
@@ -218,20 +288,26 @@ body {
 }
 
 .btn-secondary {
-    background: #ffffff;
+    background: var(--button-secondary-bg);
     color: var(--text-primary);
     border: 1px solid var(--panel-border);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 .btn-secondary:hover:not(:disabled) {
-    background: #f8fafc;
+    background: var(--button-secondary-hover);
+}
+
+.btn-icon {
+    padding: 8px;
+    border-radius: 50%;
 }
 
 .btn-danger {
-    background: #fef2f2;
+    background: rgba(239, 68, 68, 0.1);
     color: var(--danger);
-    border: 1px solid #fee2e2;
+    border: 1px solid rgba(239, 68, 68, 0.2);
     font-weight: 600;
 }
 
@@ -259,13 +335,13 @@ body {
 .btn-small {
     padding: 4px 10px;
     font-size: 0.75rem;
-    background: #ffffff;
+    background: var(--button-secondary-bg);
     border: 1px solid var(--panel-border);
     color: var(--text-secondary);
 }
 
 .btn-small:hover {
-    background: #f1f5f9;
+    background: var(--button-secondary-hover);
     color: var(--text-primary);
 }
 
@@ -290,7 +366,7 @@ body {
 }
 
 select, input[type="number"], input[type="text"] {
-    background: #ffffff;
+    background: var(--button-secondary-bg);
     border: 1px solid var(--panel-border);
     color: var(--text-primary);
     padding: 8px 12px;
@@ -298,7 +374,7 @@ select, input[type="number"], input[type="text"] {
     font-family: var(--font-sans);
     font-size: 0.85rem;
     outline: none;
-    transition: border-color 0.15s ease;
+    transition: border-color 0.15s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
 select:focus, input:focus {
@@ -329,11 +405,12 @@ select:focus, input:focus {
 .position-display {
     display: flex;
     justify-content: space-between;
-    background: #ffffff;
+    background: var(--console-bg);
     border-radius: 10px;
     padding: 12px 16px;
     margin-bottom: 16px;
     border: 1px solid var(--panel-border);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .pos-coord {
@@ -353,7 +430,7 @@ select:focus, input:focus {
     font-size: 1.5rem;
     font-family: var(--font-mono);
     font-weight: 500;
-    color: #1e293b;
+    color: var(--text-primary);
 }
 
 .coord-unit {
@@ -376,10 +453,11 @@ select:focus, input:focus {
 
 .step-buttons {
     display: flex;
-    background: #f1f5f9;
+    background: var(--step-button-bg);
     padding: 3px;
     border-radius: 6px;
     border: 1px solid var(--panel-border);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .step-btn {
@@ -400,20 +478,22 @@ select:focus, input:focus {
 }
 
 .step-btn.active {
-    background: #ffffff;
+    background: var(--step-button-active);
     color: var(--primary);
     font-weight: 600;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--panel-border);
 }
 
 .jog-controls {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background: #ffffff;
+    background: var(--button-secondary-bg);
     border: 1px solid var(--panel-border);
     padding: 12px;
     border-radius: 10px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .jog-xy-grid {
@@ -431,7 +511,7 @@ select:focus, input:focus {
 }
 
 .jog-btn {
-    background: #f8fafc;
+    background: var(--jog-button-bg);
     border: 1px solid var(--panel-border);
     border-radius: 6px;
     color: var(--text-primary);
@@ -453,7 +533,7 @@ select:focus, input:focus {
 .jog-btn:hover:not(:disabled) {
     background: var(--primary);
     border-color: var(--primary);
-    color: white;
+    color: #0b0f19;
 }
 
 .jog-btn:active:not(:disabled) {
@@ -467,8 +547,9 @@ select:focus, input:focus {
     font-size: 0.75rem;
     color: var(--text-secondary);
     font-weight: 500;
-    background: #f1f5f9;
+    background: var(--step-button-bg);
     border-radius: 6px;
+    transition: background-color 0.3s ease;
 }
 
 /* TELEMETRY PANEL */
@@ -480,7 +561,7 @@ select:focus, input:focus {
 }
 
 .card-sub {
-    background: #ffffff;
+    background: var(--button-secondary-bg);
     border: 1px solid var(--panel-border);
     border-radius: 10px;
     padding: 12px;
@@ -488,6 +569,7 @@ select:focus, input:focus {
     flex-direction: column;
     justify-content: center;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.01);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .tel-label {
@@ -501,7 +583,7 @@ select:focus, input:focus {
     font-size: 1.3rem;
     font-family: var(--font-mono);
     font-weight: 500;
-    color: #1e293b;
+    color: var(--text-primary);
 }
 
 .tel-unit {
@@ -518,48 +600,49 @@ select:focus, input:focus {
     font-weight: 600;
     text-align: center;
     letter-spacing: 0.2px;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 .tel-value-badge.inactive {
-    background: #f1f5f9;
+    background: var(--step-button-bg);
     color: var(--text-secondary);
 }
 
 .tel-value-badge.aligned {
-    background: #ecfdf5;
-    color: #065f46;
-    border: 1px solid #a7f3d0;
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success);
+    border: 1px solid rgba(16, 185, 129, 0.25);
 }
 
 .tel-value-badge.voltage_low {
-    background: #fffbeb;
-    color: #92400e;
-    border: 1px solid #fde68a;
+    background: rgba(234, 88, 12, 0.1);
+    color: var(--warning);
+    border: 1px solid rgba(234, 88, 12, 0.25);
 }
 
 .tel-value-badge.voltage_high {
-    background: #fffbeb;
-    color: #92400e;
-    border: 1px solid #fde68a;
+    background: rgba(234, 88, 12, 0.1);
+    color: var(--warning);
+    border: 1px solid rgba(234, 88, 12, 0.25);
 }
 
 .tel-value-badge.liftoff {
-    background: #eff6ff;
-    color: #1e40af;
-    border: 1px solid #bfdbfe;
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+    border: 1px solid rgba(59, 130, 246, 0.25);
 }
 
 .tel-value-badge.finding_contact {
-    background: #f5f3ff;
-    color: #5b21b6;
-    border: 1px solid #ddd6fe;
+    background: rgba(139, 92, 246, 0.1);
+    color: #8b5cf6;
+    border: 1px solid rgba(139, 92, 246, 0.25);
 }
 
 .tel-progress-summary {
     font-size: 1.15rem;
     font-family: var(--font-mono);
     font-weight: 600;
-    color: #1e293b;
+    color: var(--text-primary);
 }
 
 .tel-subtext {
@@ -569,16 +652,17 @@ select:focus, input:focus {
 }
 
 .progress-bar-container {
-    background: #e2e8f0;
+    background: var(--progress-bar-track);
     height: 6px;
     border-radius: 10px;
     overflow: hidden;
+    transition: background-color 0.3s ease;
 }
 
 .progress-bar {
     height: 100%;
     background: var(--primary);
-    transition: width 0.3s ease;
+    transition: width 0.3s ease, background-color 0.3s ease;
 }
 
 /* ACCORDION IN PARAMETERS */
@@ -593,7 +677,8 @@ select:focus, input:focus {
     border: 1px solid var(--panel-border);
     border-radius: 8px;
     overflow: hidden;
-    background: #ffffff;
+    background: var(--button-secondary-bg);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .accordion-header {
@@ -602,11 +687,12 @@ select:focus, input:focus {
     font-size: 0.8rem;
     color: var(--text-secondary);
     cursor: pointer;
-    background: #f8fafc;
+    background: var(--step-button-bg);
     display: flex;
     justify-content: space-between;
     align-items: center;
     user-select: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .accordion-header::after {
@@ -624,6 +710,7 @@ select:focus, input:focus {
     padding: 14px;
     display: none;
     border-top: 1px solid var(--panel-border);
+    transition: border-color 0.3s ease;
 }
 
 .accordion-item.active .accordion-content {
@@ -644,6 +731,7 @@ select:focus, input:focus {
     font-size: 0.8rem;
     color: var(--text-secondary);
     user-select: none;
+    transition: color 0.3s ease;
 }
 
 .checkbox-container.small {
@@ -665,7 +753,7 @@ select:focus, input:focus {
     left: 0;
     height: 16px;
     width: 16px;
-    background-color: #ffffff;
+    background-color: var(--button-secondary-bg);
     border: 1px solid var(--panel-border);
     border-radius: 3px;
     transition: all 0.15s ease;
@@ -695,7 +783,7 @@ select:focus, input:focus {
     top: 1px;
     width: 3px;
     height: 7px;
-    border: solid white;
+    border: solid #0b0f19;
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
 }
@@ -711,9 +799,9 @@ select:focus, input:focus {
 .console-body {
     height: 220px;
     overflow-y: auto;
-    background: #ffffff;
+    background: var(--console-bg);
     border-radius: 10px;
-    border: 1px solid var(--panel-border);
+    border: 1px solid var(--console-border);
     padding: 12px 16px;
     font-family: var(--font-mono);
     font-size: 0.75rem;
@@ -722,35 +810,37 @@ select:focus, input:focus {
     flex-direction: column;
     gap: 3px;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.02);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .console-line {
     white-space: pre-wrap;
     word-break: break-all;
-    color: #475569;
+    color: var(--console-text);
+    transition: color 0.3s ease;
 }
 
 .system-line {
-    color: #0d9488; /* Dark teal */
+    color: var(--system-line);
 }
 
 .error-line {
-    color: #dc2626; /* Dark red */
-    background: #fef2f2;
+    color: var(--error-line);
+    background: var(--error-bg);
     border-radius: 3px;
     padding: 1px 4px;
 }
 
 .feedback-line {
-    color: #b45309; /* Dark amber */
+    color: var(--feedback-line);
 }
 
 .smu-line {
-    color: #0369a1; /* Dark blue */
+    color: var(--smu-line);
 }
 
 .move-line {
-    color: #6d28d9; /* Dark purple */
+    color: var(--move-line);
 }
 
 /* Scrollbar customization */
@@ -760,12 +850,14 @@ select:focus, input:focus {
 }
 
 ::-webkit-scrollbar-track {
-    background: #f1f5f9;
+    background: var(--step-button-bg);
+    transition: background-color 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
+    background: var(--panel-border);
     border-radius: 4px;
+    transition: background-color 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
