@@ -113,7 +113,7 @@ class App(ttk.Frame):
             print(f"[EXCEPTION] {e}")
             for c in self._get_controllers():
                 c.stop_thread = True
-                if c.run_thread and c.run_thread.is_alive():
+                if c.run_thread and c.run_thread.is_alive() and c.run_thread != threading.current_thread():
                     c.run_thread.join()    
 
 class HmcControlCs:
@@ -307,14 +307,14 @@ class HmcControlCs:
     def read_value(self): #reads a single byte from serial port, loops until a valid byte or stop_thread is detected, stores value in self.indata and returns it
         #Used for movement status and limit detection
         self.indata = 0
-        timeout = self.motion_timeout_seconds if self.motion_timeout_seconds is not None else 30.0
-        deadline = time.perf_counter() + timeout
+        timeout = self.motion_timeout_seconds
+        deadline = (time.perf_counter() + timeout) if timeout is not None else None
         while True and not self.stop_thread:
             with self.serial_lock:
                 r = self.ser.read(1)
             #print(str(r))
             if r == b'':
-                if time.perf_counter() >= deadline:
+                if deadline is not None and time.perf_counter() >= deadline:
                     raise TimeoutError("Timed out waiting for read byte in read_value")
                 continue
             self.indata = ord(r)
