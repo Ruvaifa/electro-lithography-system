@@ -5,9 +5,9 @@
     "semantic_hash": "3409e28c0b8f681eb169c2c73488e388"
   },
   "D:\\Python codes\\hmccontroller\\.dual-graph\\context-store.json": {
-    "mtime": 1782106883.4821262,
-    "ast_hash": "d751713988987e9331980363e24189ce",
-    "semantic_hash": "d751713988987e9331980363e24189ce"
+    "mtime": 1782211802.1902726,
+    "ast_hash": "da75b59761672c5106fa1354b78d63cd",
+    "semantic_hash": "da75b59761672c5106fa1354b78d63cd"
   },
   "D:\\Python codes\\hmccontroller\\.dual-graph\\info_graph.json": {
     "mtime": 1782107109.3474095,
@@ -35,34 +35,19 @@
     "semantic_hash": "8ced6be80c6d021b2b7f1041afe53d74"
   },
   "D:\\Python codes\\hmccontroller\\hmccontroller.py": {
-    "mtime": 1781869794.6055784,
-    "ast_hash": "bd8c9a1f73238b2bab8c65880f20fc8e",
-    "semantic_hash": "bd8c9a1f73238b2bab8c65880f20fc8e"
+    "mtime": 1782810396.9717627,
+    "ast_hash": "d8ccfeb9f62b76740f5e5920721e17c0",
+    "semantic_hash": "d8ccfeb9f62b76740f5e5920721e17c0"
   },
   "D:\\Python codes\\hmccontroller\\main.py": {
-    "mtime": 1781954276.393103,
-    "ast_hash": "cf7ff9ce4bda91202479b78a02ff0760",
-    "semantic_hash": "cf7ff9ce4bda91202479b78a02ff0760"
-  },
-  "D:\\Python codes\\hmccontroller\\smumark1.py": {
-    "mtime": 1749811388.8898182,
-    "ast_hash": "73ff9baa8d0c89f116e19fac1ac6f968",
-    "semantic_hash": "73ff9baa8d0c89f116e19fac1ac6f968"
+    "mtime": 1782810332.7676978,
+    "ast_hash": "3017754ed26332b569c3dda926b0e6f2",
+    "semantic_hash": "3017754ed26332b569c3dda926b0e6f2"
   },
   "D:\\Python codes\\hmccontroller\\smumark2.py": {
-    "mtime": 1781950130.735661,
-    "ast_hash": "1f1c72e4de39d465ea6e4786ede50ac1",
-    "semantic_hash": "1f1c72e4de39d465ea6e4786ede50ac1"
-  },
-  "D:\\Python codes\\hmccontroller\\test.py": {
-    "mtime": 1781606413.9403255,
-    "ast_hash": "356e3202c8ce26c77c91d35fd0418c62",
-    "semantic_hash": "356e3202c8ce26c77c91d35fd0418c62"
-  },
-  "D:\\Python codes\\hmccontroller\\testing.py": {
-    "mtime": 1781173544.9557743,
-    "ast_hash": "f07f8159b4659c81f1399c67bf12e3e6",
-    "semantic_hash": "f07f8159b4659c81f1399c67bf12e3e6"
+    "mtime": 1782109162.5459502,
+    "ast_hash": "b2f5082ced03fa133502fcd2da7d38c4",
+    "semantic_hash": "b2f5082ced03fa133502fcd2da7d38c4"
   },
   "D:\\Python codes\\hmccontroller\\.agent\\rules\\graperoot.md": {
     "mtime": 1782107110.7278962,
@@ -83,11 +68,6 @@
     "mtime": 1781606382.2841642,
     "ast_hash": "84e260d32fa2ffda74884863cf2807f5",
     "semantic_hash": "84e260d32fa2ffda74884863cf2807f5"
-  },
-  "D:\\Python codes\\hmccontroller\\circle.txt": {
-    "mtime": 1781090135.3913138,
-    "ast_hash": "37fc648f82eeeb2f7329c5c9ba20029f",
-    "semantic_hash": "37fc648f82eeeb2f7329c5c9ba20029f"
   },
   "D:\\Python codes\\hmccontroller\\coords\\coordinates.txt": {
     "mtime": 1751374748.8678758,
@@ -130,9 +110,9 @@
     "semantic_hash": "dad4e29658aaef588c3e113df02d79db"
   },
   "D:\\Python codes\\hmccontroller\\le.txt": {
-    "mtime": 1781870480.795694,
-    "ast_hash": "5d38e367b456b89def7338c2dc91c275",
-    "semantic_hash": "5d38e367b456b89def7338c2dc91c275"
+    "mtime": 1782721388.2356343,
+    "ast_hash": "81b2ae2a83a2249bae40a9d4ab64badc",
+    "semantic_hash": "81b2ae2a83a2249bae40a9d4ab64badc"
   },
   "D:\\Python codes\\hmccontroller\\parallel_var.txt": {
     "mtime": 1781606413.9162214,
@@ -145,9 +125,9 @@
     "semantic_hash": "1fccd13c6d26ac64f98b3ed939e97120"
   },
   "D:\\Python codes\\hmccontroller\\parallel_variable_spacing.txt": {
-    "mtime": 1781606413.929494,
-    "ast_hash": "1fccd13c6d26ac64f98b3ed939e97120",
-    "semantic_hash": "1fccd13c6d26ac64f98b3ed939e97120"
+    "mtime": 1782120642.2765157,
+    "ast_hash": "6cd0be6ac6d6f06425c15dad115a28e1",
+    "semantic_hash": "6cd0be6ac6d6f06425c15dad115a28e1"
   },
   "D:\\Python codes\\hmccontroller\\test.txt": {
     "mtime": 1781953977.929253,
@@ -158,5 +138,145 @@
     "mtime": 1756702240.1306982,
     "ast_hash": "028529c8f6422dce859df3705ae95108",
     "semantic_hash": "028529c8f6422dce859df3705ae95108"
+  },
+  "D:\\Python codes\\hmccontroller\\api.py": {
+    "mtime": 1782810410.5429528,
+    "ast_hash": "402d344ff3cc941cd711d6d971c88a1a",
+    "semantic_hash": "402d344ff3cc941cd711d6d971c88a1a"
+  },
+  "D:\\Python codes\\hmccontroller\\archive\\smumark1.py": {
+    "mtime": 1749811388.8898182,
+    "ast_hash": "73ff9baa8d0c89f116e19fac1ac6f968",
+    "semantic_hash": "73ff9baa8d0c89f116e19fac1ac6f968"
+  },
+  "D:\\Python codes\\hmccontroller\\archive\\speed_caliberation.py": {
+    "mtime": 1782469505.861526,
+    "ast_hash": "6bdb85ac6938223b8245eac519203924",
+    "semantic_hash": "6bdb85ac6938223b8245eac519203924"
+  },
+  "D:\\Python codes\\hmccontroller\\archive\\speed_detailed_test.py": {
+    "mtime": 1782470178.754717,
+    "ast_hash": "bb6c1d2113cbb03e5d821cdb45216529",
+    "semantic_hash": "bb6c1d2113cbb03e5d821cdb45216529"
+  },
+  "D:\\Python codes\\hmccontroller\\archive\\speed_sweep_test.py": {
+    "mtime": 1782472517.6137052,
+    "ast_hash": "3b62b0fed0d6963e217e21a42b39bcbe",
+    "semantic_hash": "3b62b0fed0d6963e217e21a42b39bcbe"
+  },
+  "D:\\Python codes\\hmccontroller\\archive\\testing.py": {
+    "mtime": 1781173544.9557743,
+    "ast_hash": "f07f8159b4659c81f1399c67bf12e3e6",
+    "semantic_hash": "f07f8159b4659c81f1399c67bf12e3e6"
+  },
+  "D:\\Python codes\\hmccontroller\\config.py": {
+    "mtime": 1782810167.7911484,
+    "ast_hash": "100ca28c417bfec003c32f363f0880cf",
+    "semantic_hash": "100ca28c417bfec003c32f363f0880cf"
+  },
+  "D:\\Python codes\\hmccontroller\\lithography.py": {
+    "mtime": 1782810264.0942688,
+    "ast_hash": "6ee5421795395b4da1668b7616747682",
+    "semantic_hash": "6ee5421795395b4da1668b7616747682"
+  },
+  "D:\\Python codes\\hmccontroller\\modes\\__init__.py": {
+    "mtime": 1782810335.3902977,
+    "ast_hash": "561e99fd367b0c1dc94e12a503736468",
+    "semantic_hash": "561e99fd367b0c1dc94e12a503736468"
+  },
+  "D:\\Python codes\\hmccontroller\\modes\\mode_async_litho.py": {
+    "mtime": 1782810328.4391952,
+    "ast_hash": "663936d8f0ee5a6d5deaedf2e02a1f8e",
+    "semantic_hash": "663936d8f0ee5a6d5deaedf2e02a1f8e"
+  },
+  "D:\\Python codes\\hmccontroller\\modes\\mode_home.py": {
+    "mtime": 1782810274.4120052,
+    "ast_hash": "3fcc44ee2becacade86d6f09be9d33b4",
+    "semantic_hash": "3fcc44ee2becacade86d6f09be9d33b4"
+  },
+  "D:\\Python codes\\hmccontroller\\modes\\mode_manual.py": {
+    "mtime": 1782810271.53976,
+    "ast_hash": "32d45c4296bea6eb7e9389b39b39093b",
+    "semantic_hash": "32d45c4296bea6eb7e9389b39b39093b"
+  },
+  "D:\\Python codes\\hmccontroller\\modes\\mode_probe.py": {
+    "mtime": 1782810294.9282513,
+    "ast_hash": "e2af153f40fb9aeed2df90cda3a9055a",
+    "semantic_hash": "e2af153f40fb9aeed2df90cda3a9055a"
+  },
+  "D:\\Python codes\\hmccontroller\\modes\\mode_step_test.py": {
+    "mtime": 1782810319.4832692,
+    "ast_hash": "420884a493cd72ea6b01616da293a2b5",
+    "semantic_hash": "420884a493cd72ea6b01616da293a2b5"
+  },
+  "D:\\Python codes\\hmccontroller\\modes\\mode_sync_litho.py": {
+    "mtime": 1782810307.4091969,
+    "ast_hash": "5f2461095aa20a073feb516761527af0",
+    "semantic_hash": "5f2461095aa20a073feb516761527af0"
+  },
+  "D:\\Python codes\\hmccontroller\\modes\\mode_trajectory.py": {
+    "mtime": 1782810277.633997,
+    "ast_hash": "426c068f9036342165a34bb15e9e9f80",
+    "semantic_hash": "426c068f9036342165a34bb15e9e9f80"
+  },
+  "D:\\Python codes\\hmccontroller\\pattern_generator.py": {
+    "mtime": 1782197194.833909,
+    "ast_hash": "de58c108a07d1ea84f0e6d771297f2db",
+    "semantic_hash": "de58c108a07d1ea84f0e6d771297f2db"
+  },
+  "D:\\Python codes\\hmccontroller\\scratch\\check_z_inversion.py": {
+    "mtime": 1782810618.0111482,
+    "ast_hash": "7a78cd08d9d68a5fbbaa23569e0bde3a",
+    "semantic_hash": "7a78cd08d9d68a5fbbaa23569e0bde3a"
+  },
+  "D:\\Python codes\\hmccontroller\\speed_fine_sweep.py": {
+    "mtime": 1782717078.5009365,
+    "ast_hash": "ba33e57758900df853228828dcf293c6",
+    "semantic_hash": "ba33e57758900df853228828dcf293c6"
+  },
+  "D:\\Python codes\\hmccontroller\\tests\\test_byte_encoding.py": {
+    "mtime": 1782810132.5881455,
+    "ast_hash": "abde4644db7159b7702b5f86d4529bdc",
+    "semantic_hash": "abde4644db7159b7702b5f86d4529bdc"
+  },
+  "D:\\Python codes\\hmccontroller\\tests\\test_speed_calc.py": {
+    "mtime": 1782810121.8912222,
+    "ast_hash": "73e8d423a2906c31cc16ac7a9bb3cc0c",
+    "semantic_hash": "73e8d423a2906c31cc16ac7a9bb3cc0c"
+  },
+  "D:\\Python codes\\hmccontroller\\circles.txt": {
+    "mtime": 1782196814.1908014,
+    "ast_hash": "a5bd24472f09d6fb49e4be8caa4754a4",
+    "semantic_hash": "a5bd24472f09d6fb49e4be8caa4754a4"
+  },
+  "D:\\Python codes\\hmccontroller\\diagnostic_and_fix_history.md": {
+    "mtime": 1782802351.3067956,
+    "ast_hash": "25e4fc3a84755c930825bc67248a0886",
+    "semantic_hash": "25e4fc3a84755c930825bc67248a0886"
+  },
+  "D:\\Python codes\\hmccontroller\\hexagons.txt": {
+    "mtime": 1782120813.218777,
+    "ast_hash": "9430862f4fe4e24e3fe5cbd503bb0230",
+    "semantic_hash": "9430862f4fe4e24e3fe5cbd503bb0230"
+  },
+  "D:\\Python codes\\hmccontroller\\log.txt": {
+    "mtime": 1782471832.2782912,
+    "ast_hash": "24606e2b172c067c24e67a7a30aab762",
+    "semantic_hash": "24606e2b172c067c24e67a7a30aab762"
+  },
+  "D:\\Python codes\\hmccontroller\\circles_plot.png": {
+    "mtime": 1782197496.8742793,
+    "ast_hash": "3bc4bb0523b3b6ad79808a69022db324",
+    "semantic_hash": "3bc4bb0523b3b6ad79808a69022db324"
+  },
+  "D:\\Python codes\\hmccontroller\\images\\1.jpg": {
+    "mtime": 1782715772.8861806,
+    "ast_hash": "97ab98ef6d0153f4b6ba637edbf9edf6",
+    "semantic_hash": "97ab98ef6d0153f4b6ba637edbf9edf6"
+  },
+  "D:\\Python codes\\hmccontroller\\images\\2.jpg": {
+    "mtime": 1782715768.4614909,
+    "ast_hash": "502ba3f74763157939d37549feb79032",
+    "semantic_hash": "502ba3f74763157939d37549feb79032"
   }
 }

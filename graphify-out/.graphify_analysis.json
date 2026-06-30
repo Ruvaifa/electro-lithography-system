@@ -1,0 +1,548 @@
+{
+  "communities": {
+    "0": [
+      "exception",
+      "hmccontroller_hmccontrolcs",
+      "hmccontroller_hmccontrolcs_acceleration_and_deceleration",
+      "hmccontroller_hmccontrolcs_axis_read_value",
+      "hmccontroller_hmccontrolcs_byte3_byte2_byte1_byte0",
+      "hmccontroller_hmccontrolcs_config_serial_port",
+      "hmccontroller_hmccontrolcs_connect",
+      "hmccontroller_hmccontrolcs_contact_point_move",
+      "hmccontroller_hmccontrolcs_current_x",
+      "hmccontroller_hmccontrolcs_current_y",
+      "hmccontroller_hmccontrolcs_current_z",
+      "hmccontroller_hmccontrolcs_disconnect",
+      "hmccontroller_hmccontrolcs_get_position",
+      "hmccontroller_hmccontrolcs_initialise_current_position",
+      "hmccontroller_hmccontrolcs_logical_z_to_motor_z",
+      "hmccontroller_hmccontrolcs_move",
+      "hmccontroller_hmccontrolcs_move_home",
+      "hmccontroller_hmccontrolcs_move_status",
+      "hmccontroller_hmccontrolcs_msb_csb_lsb",
+      "hmccontroller_hmccontrolcs_msb_lsb",
+      "hmccontroller_hmccontrolcs_on_startup",
+      "hmccontroller_hmccontrolcs_read_ack",
+      "hmccontroller_hmccontrolcs_read_axis_data",
+      "hmccontroller_hmccontrolcs_read_move_bytes",
+      "hmccontroller_hmccontrolcs_read_value",
+      "hmccontroller_hmccontrolcs_safe_move",
+      "hmccontroller_hmccontrolcs_send_axis_data",
+      "hmccontroller_hmccontrolcs_send_axis_speed",
+      "hmccontroller_hmccontrolcs_set_move_data",
+      "hmccontroller_hmccontrolcs_set_speed",
+      "hmccontroller_hmccontrolcs_update_current_position",
+      "hmccontroller_hmccontrolcs_write_port",
+      "tests_test_byte_encoding",
+      "tests_test_byte_encoding_testbyteencoding",
+      "tests_test_byte_encoding_testbyteencoding_setup",
+      "tests_test_byte_encoding_testbyteencoding_test_byte3_byte2_byte1_byte0",
+      "tests_test_byte_encoding_testbyteencoding_test_msb_csb_lsb",
+      "tests_test_byte_encoding_testbyteencoding_test_msb_lsb"
+    ],
+    "1": [
+      "basler_camera",
+      "basler_camera_baslercamera",
+      "basler_camera_baslercamera_apply_settings",
+      "basler_camera_baslercamera_close",
+      "basler_camera_baslercamera_enter",
+      "basler_camera_baslercamera_exit",
+      "basler_camera_baslercamera_get_frame",
+      "basler_camera_baslercamera_init",
+      "basler_camera_baslercamera_is_writable",
+      "basler_camera_baslercamera_open",
+      "basler_camera_baslercamera_require_open_camera",
+      "basler_camera_baslercamera_show_live",
+      "basler_camera_baslercamera_start_stream",
+      "basler_camera_baslercamera_stop_stream",
+      "basler_camera_baslercamera_try_set_bool",
+      "basler_camera_baslercamera_try_set_enum",
+      "basler_camera_baslercamera_try_set_float",
+      "basler_camera_baslercamera_try_set_int",
+      "basler_camera_baslercamerasettings",
+      "basler_camera_list_basler_cameras",
+      "basler_camera_main",
+      "basler_camera_rationale_1",
+      "basler_camera_rationale_101",
+      "basler_camera_rationale_132",
+      "basler_camera_rationale_177",
+      "basler_camera_rationale_198",
+      "basler_camera_rationale_276",
+      "basler_camera_rationale_36",
+      "basler_camera_rationale_47",
+      "basler_camera_rationale_72",
+      "basler_camera_rationale_91",
+      "framecallback"
+    ],
+    "2": [
+      "hmccontroller_app_start_thread",
+      "lithography",
+      "lithography_abort_patterning",
+      "lithography_classify_voltage",
+      "lithography_ensure_z_below_limit",
+      "lithography_feedback_direction_label",
+      "lithography_find_contact_point",
+      "lithography_find_contact_point_custom",
+      "lithography_patternabort",
+      "lithography_rationale_41",
+      "lithography_read_pattern_file",
+      "lithography_read_voltage_sample",
+      "lithography_smuvoltagesampler",
+      "lithography_smuvoltagesampler_init",
+      "lithography_smuvoltagesampler_run",
+      "lithography_time_block",
+      "lithography_voltagefeedbackstate",
+      "lithography_voltagefeedbackstate_snapshot",
+      "lithography_voltagefeedbackstate_update",
+      "lithography_zfeedbackworker",
+      "lithography_zfeedbackworker_init",
+      "lithography_zfeedbackworker_run",
+      "modes_mode_async_litho",
+      "modes_mode_async_litho_run",
+      "modes_mode_probe",
+      "modes_mode_probe_run_pause_resume",
+      "modes_mode_probe_run_probe",
+      "modes_mode_probe_user_input_listener",
+      "modes_mode_probe_z_probe_move",
+      "modes_mode_sync_litho",
+      "modes_mode_sync_litho_run",
+      "thread"
+    ],
+    "3": [
+      "labview_integration_readme_anglecalculation",
+      "labview_integration_readme_liftoff_reengage",
+      "labview_integration_readme_lithographyrun",
+      "labview_integration_readme_loadcoordinatefile",
+      "labview_integration_readme_logging",
+      "labview_integration_readme_motor_move",
+      "labview_integration_readme_motor_setspeed",
+      "labview_integration_readme_motorprotocol",
+      "labview_integration_readme_overview",
+      "labview_integration_readme_real_time_z_feedback",
+      "labview_integration_readme_smu_init",
+      "labview_integration_readme_smu_readcurrent",
+      "labview_integration_readme_smu_readvoltage",
+      "labview_integration_readme_smu_reset",
+      "labview_integration_readme_smu_sourcecurrent",
+      "labview_integration_readme_smu_sourcevoltage",
+      "labview_integration_readme_systemconfig",
+      "labview_integration_readme_velocity_decomposition",
+      "labview_integration_readme_z_feedbackloop",
+      "labview_integration_readme_z_probe_contact_detection",
+      "labview_integration_readme_zprobe",
+      "readme_coordinates_ref",
+      "readme_electro_lithography",
+      "readme_hmccontroller_ref",
+      "readme_main_ref",
+      "readme_overview",
+      "report_liquid_electromigration",
+      "report_overview",
+      "report_ruvaifa_author",
+      "report_talukder_advisor",
+      "report_water_bridge_formation"
+    ],
+    "4": [
+      "api",
+      "archive_speed_caliberation",
+      "archive_speed_caliberation_list_ports",
+      "archive_speed_caliberation_main",
+      "archive_speed_detailed_test",
+      "archive_speed_detailed_test_list_ports",
+      "archive_speed_detailed_test_main",
+      "archive_speed_detailed_test_test_speed_band",
+      "archive_speed_sweep_test",
+      "archive_speed_sweep_test_list_ports",
+      "archive_speed_sweep_test_main",
+      "archive_testing",
+      "archive_testing_main",
+      "config",
+      "hmccontroller",
+      "hmccontroller_app",
+      "hmccontroller_app_check_thread_is_alive",
+      "hmccontroller_app_get_controllers",
+      "hmccontroller_app_init",
+      "hmccontroller_app_start_process",
+      "hmccontroller_app_stop_process",
+      "hmccontroller_hmccontrolcs_init",
+      "scratch_check_z_inversion",
+      "speed_fine_sweep",
+      "speed_fine_sweep_list_ports",
+      "speed_fine_sweep_main"
+    ],
+    "5": [
+      "main",
+      "main_compute_synchronized_speeds",
+      "main_format_elapsed_time",
+      "main_list_ports",
+      "main_main",
+      "main_print_timing_summary",
+      "main_rationale_32",
+      "main_step_size_listener",
+      "main_wait_for_motion",
+      "modes_mode_home",
+      "modes_mode_home_run",
+      "modes_mode_manual",
+      "modes_mode_manual_run",
+      "modes_mode_step_test",
+      "modes_mode_step_test_run",
+      "modes_mode_trajectory",
+      "modes_mode_trajectory_run",
+      "tests_test_speed_calc",
+      "tests_test_speed_calc_testspeedcalculation",
+      "tests_test_speed_calc_testspeedcalculation_test_bad_speed_avoidance_band_a",
+      "tests_test_speed_calc_testspeedcalculation_test_bad_speed_avoidance_band_b",
+      "tests_test_speed_calc_testspeedcalculation_test_proportional_speed",
+      "tests_test_speed_calc_testspeedcalculation_test_zero_displacement",
+      "tests_test_speed_calc_testspeedcalculation_test_zero_speed"
+    ],
+    "6": [
+      "api_lithographysystem",
+      "api_lithographysystem_connect",
+      "api_lithographysystem_disconnect",
+      "api_lithographysystem_get_position",
+      "api_lithographysystem_home_all",
+      "api_lithographysystem_init",
+      "api_lithographysystem_list_ports",
+      "api_lithographysystem_move",
+      "api_lithographysystem_stop",
+      "api_rationale_12",
+      "api_rationale_22",
+      "api_rationale_27",
+      "api_rationale_50",
+      "api_rationale_64",
+      "api_rationale_81",
+      "api_rationale_91",
+      "api_rationale_99"
+    ],
+    "7": [
+      "circles_data",
+      "diagnostic_and_fix_history",
+      "diagnostic_and_fix_history_circle_distortion",
+      "diagnostic_and_fix_history_coordinated_motion_workarounds",
+      "diagnostic_and_fix_history_empirical_speed_blacklist",
+      "diagnostic_and_fix_history_fine_grained_calibration",
+      "diagnostic_and_fix_history_firmware_speed_bands_bug",
+      "diagnostic_and_fix_history_parameter_safety_in_parsers",
+      "diagnostic_and_fix_history_proportional_speed_scaling",
+      "diagnostic_and_fix_history_serial_state_parser_collision",
+      "hexagons_data",
+      "images_1_exposure_line_thickness_variation",
+      "images_1_micrograph",
+      "images_1_successful_circular_trajectory",
+      "le_calibration_runs",
+      "log_calibration_output"
+    ],
+    "8": [
+      "pattern_generator",
+      "pattern_generator_generate_circle_coordinates",
+      "pattern_generator_generate_concentric_circles",
+      "pattern_generator_generate_concentric_hexagons",
+      "pattern_generator_generate_e_like_snake_coordinates",
+      "pattern_generator_generate_grid_lines_to_file",
+      "pattern_generator_generate_parallel_lines",
+      "pattern_generator_generate_parallel_lines_variable_spacing",
+      "pattern_generator_plot_concentric_circles",
+      "pattern_generator_plot_concentric_hexagons",
+      "pattern_generator_rationale_411",
+      "pattern_generator_rationale_481",
+      "pattern_generator_rationale_537",
+      "pattern_generator_shift_coordinates"
+    ],
+    "9": [
+      "smumark2",
+      "smumark2_check_current",
+      "smumark2_check_smu_errors",
+      "smumark2_check_voltage",
+      "smumark2_check_voltage_testing",
+      "smumark2_init_smu",
+      "smumark2_out_off",
+      "smumark2_out_on",
+      "smumark2_read_current_sample",
+      "smumark2_read_sample",
+      "smumark2_read_voltage_sample",
+      "smumark2_reset_smu",
+      "smumark2_use_case_1",
+      "smumark2_use_case_2"
+    ],
+    "10": [
+      "hmccontroller_circles_plot_chart",
+      "hmccontroller_circles_plot_concentric_circles_pattern",
+      "hmccontroller_circles_plot_drawing_path",
+      "hmccontroller_circles_plot_travel_liftoff_path",
+      "hmccontroller_circles_plot_vertices"
+    ],
+    "11": [
+      "archive_smumark1",
+      "archive_smumark1_check_voltage",
+      "archive_smumark1_init_smu"
+    ],
+    "12": [
+      "images_2_concentric_ghost_circle_trace",
+      "images_2_stepping_smoothness_at_0_2_um_resolution",
+      "images_2_zoomed_in_circle_segment_microscope_image"
+    ],
+    "13": [
+      "claude_policy_overview",
+      "rules_graperoot_policy"
+    ],
+    "14": [
+      "coords_coordinates_data",
+      "coords_coords_data"
+    ],
+    "15": [
+      "coords_parallel_1_data",
+      "parallel_var1_data"
+    ],
+    "16": [
+      "coords_parallel_data",
+      "parallel_variable_spacing_data"
+    ],
+    "17": [
+      "coords_test_data",
+      "test_data"
+    ],
+    "18": [
+      "labview_integration_readme_motor_readposition",
+      "labview_integration_readme_position_tracking"
+    ],
+    "19": [
+      "coords_parallel_large_data"
+    ],
+    "20": [
+      "coords_square_data"
+    ],
+    "21": [
+      "coords_test_coords_data"
+    ],
+    "22": [
+      "dual_graph_prime"
+    ],
+    "23": [
+      "dual_graph_stop_hook"
+    ],
+    "24": [
+      "labview_integration_readme_manualmove"
+    ],
+    "25": [
+      "labview_integration_readme_motor_checklimits"
+    ],
+    "26": [
+      "labview_integration_readme_motor_close"
+    ],
+    "27": [
+      "labview_integration_readme_motor_init"
+    ],
+    "28": [
+      "labview_integration_readme_motor_movehome"
+    ],
+    "29": [
+      "labview_integration_readme_motor_readstatus"
+    ],
+    "30": [
+      "labview_integration_readme_motor_stop"
+    ],
+    "31": [
+      "labview_integration_readme_smu_close"
+    ],
+    "32": [
+      "labview_integration_readme_smu_outputonoff"
+    ],
+    "33": [
+      "labview_integration_readme_smuprotocol"
+    ],
+    "34": [
+      "labview_integration_readme_validatecoordinates"
+    ],
+    "35": [
+      "modes_init"
+    ],
+    "36": [
+      "parallel_var_data"
+    ]
+  },
+  "cohesion": {
+    "0": 0.11522048364153627,
+    "1": 0.10080645161290322,
+    "2": 0.09475806451612903,
+    "3": 0.07526881720430108,
+    "4": 0.13538461538461538,
+    "5": 0.11231884057971014,
+    "6": 0.1323529411764706,
+    "7": 0.16666666666666666,
+    "8": 0.14285714285714285,
+    "9": 0.25274725274725274,
+    "10": 0.6,
+    "11": 0.6666666666666666,
+    "12": 0.6666666666666666,
+    "13": 1.0,
+    "14": 1.0,
+    "15": 1.0,
+    "16": 1.0,
+    "17": 1.0,
+    "18": 1.0,
+    "19": 1.0,
+    "20": 1.0,
+    "21": 1.0,
+    "22": 1.0,
+    "23": 1.0,
+    "24": 1.0,
+    "25": 1.0,
+    "26": 1.0,
+    "27": 1.0,
+    "28": 1.0,
+    "29": 1.0,
+    "30": 1.0,
+    "31": 1.0,
+    "32": 1.0,
+    "33": 1.0,
+    "34": 1.0,
+    "35": 1.0,
+    "36": 1.0
+  },
+  "gods": [
+    {
+      "id": "hmccontroller_hmccontrolcs",
+      "label": "HmcControlCs",
+      "degree": 51
+    },
+    {
+      "id": "hmccontroller_app",
+      "label": "App",
+      "degree": 22
+    },
+    {
+      "id": "basler_camera_baslercamera",
+      "label": "BaslerCamera",
+      "degree": 19
+    },
+    {
+      "id": "labview_integration_readme_lithographyrun",
+      "label": "LithographyRun.vi",
+      "degree": 15
+    },
+    {
+      "id": "api_lithographysystem",
+      "label": "LithographySystem",
+      "degree": 12
+    },
+    {
+      "id": "main_compute_synchronized_speeds",
+      "label": "compute_synchronized_speeds()",
+      "degree": 9
+    },
+    {
+      "id": "diagnostic_and_fix_history_fine_grained_calibration",
+      "label": "Fine-Grained Calibration",
+      "degree": 7
+    },
+    {
+      "id": "tests_test_byte_encoding_testbyteencoding",
+      "label": "TestByteEncoding",
+      "degree": 6
+    },
+    {
+      "id": "tests_test_speed_calc_testspeedcalculation",
+      "label": "TestSpeedCalculation",
+      "degree": 6
+    },
+    {
+      "id": "archive_speed_detailed_test_main",
+      "label": "main()",
+      "degree": 5
+    }
+  ],
+  "surprises": [
+    {
+      "source": "Electro-Lithography Concept",
+      "target": "Liquid Electromigration Principle",
+      "source_files": [
+        "README.md",
+        "Report.pdf"
+      ],
+      "confidence": "INFERRED",
+      "relation": "semantically_similar_to",
+      "why": "inferred connection - not explicitly stated in source; crosses file types (doc ↔ paper); connects across different repos/directories; semantically similar concepts with no structural link"
+    },
+    {
+      "source": "Python Main Script (main.py)",
+      "target": "LithographyRun.vi",
+      "source_files": [
+        "README.md",
+        "Labview integration/README.md"
+      ],
+      "confidence": "INFERRED",
+      "relation": "semantically_similar_to",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; semantically similar concepts with no structural link; peripheral node `Python Main Script (main.py)` unexpectedly reaches hub `LithographyRun.vi`"
+    },
+    {
+      "source": "Proportional Speed Scaling",
+      "target": "compute_synchronized_speeds()",
+      "source_files": [
+        "diagnostic_and_fix_history.md",
+        "main.py"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "crosses file types (code ↔ doc); connects across different repos/directories; bridges separate communities"
+    },
+    {
+      "source": "Dual-Graph Context Policy",
+      "target": "Dual-Graph Context Policy Rules",
+      "source_files": [
+        "CLAUDE.md",
+        ".agent/rules/graperoot.md"
+      ],
+      "confidence": "INFERRED",
+      "relation": "semantically_similar_to",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; semantically similar concepts with no structural link"
+    },
+    {
+      "source": "Python Holmarc Motor Controller (hmccontroller.py)",
+      "target": "MotorProtocol.lvlib",
+      "source_files": [
+        "README.md",
+        "Labview integration/README.md"
+      ],
+      "confidence": "INFERRED",
+      "relation": "semantically_similar_to",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; semantically similar concepts with no structural link"
+    }
+  ],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `HmcControlCs` connect `Community 0` to `Community 4`, `Community 5`, `Community 6`?",
+      "why": "High betweenness centrality (0.163) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `App` connect `Community 4` to `Community 2`, `Community 5`, `Community 6`?",
+      "why": "High betweenness centrality (0.056) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `LithographySystem` connect `Community 6` to `Community 0`, `Community 4`?",
+      "why": "High betweenness centrality (0.055) - this node is a cross-community bridge."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 2 inferred relationships involving `HmcControlCs` (e.g. with `LithographySystem` and `TestByteEncoding`) actually correct?",
+      "why": "`HmcControlCs` has 2 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 2 inferred relationships involving `LithographySystem` (e.g. with `App` and `HmcControlCs`) actually correct?",
+      "why": "`LithographySystem` has 2 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `Core api class for the electro-lithography system.`, `Return available COM ports as list of dicts.`, `Connect to all three axes. Returns success status.` to the rest of the system?",
+      "why": "74 weakly-connected nodes found - possible documentation gaps or missing edges."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Community 0` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.11522048364153627 - nodes in this community are weakly interconnected."
+    }
+  ]
+}

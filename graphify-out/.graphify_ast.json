@@ -1,0 +1,5889 @@
+{
+  "nodes": [
+    {
+      "id": "dual_graph_prime",
+      "label": "prime.ps1",
+      "file_type": "code",
+      "source_file": ".dual-graph/prime.ps1",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "dual_graph_stop_hook",
+      "label": "stop_hook.ps1",
+      "file_type": "code",
+      "source_file": ".dual-graph/stop_hook.ps1",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "api",
+      "label": "api.py",
+      "file_type": "code",
+      "source_file": "api.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "api_lithographysystem",
+      "label": "LithographySystem",
+      "file_type": "code",
+      "source_file": "api.py",
+      "source_location": "L11",
+      "_origin": "ast"
+    },
+    {
+      "id": "api_lithographysystem_init",
+      "label": ".__init__()",
+      "file_type": "code",
+      "source_file": "api.py",
+      "source_location": "L14",
+      "_origin": "ast"
+    },
+    {
+      "id": "api_lithographysystem_list_ports",
+      "label": ".list_ports()",
+      "file_type": "code",
+      "source_file": "api.py",
+      "source_location": "L21",
+      "_origin": "ast"
+    },
+    {
+      "id": "api_lithographysystem_connect",
+      "label": ".connect()",
+      "file_type": "code",
+      "source_file": "api.py",
+      "source_location": "L26",
+      "_origin": "ast"
+    },
+    {
+      "id": "api_lithographysystem_home_all",
+      "label": ".home_all()",
+      "file_type": "code",
+      "source_file": "api.py",
+      "source_location": "L49",
+      "_origin": "ast"
+    },
+    {
+      "id": "api_lithographysystem_move",
+      "label": ".move()",
+      "file_type": "code",
+      "source_file": "api.py",
+      "source_location": "L63",
+      "_origin": "ast"
+    },
+    {
+      "id": "api_lithographysystem_get_position",
+      "label": ".get_position()",
+      "file_type": "code",
+      "source_file": "api.py",
+      "source_location": "L80",
+      "_origin": "ast"
+    },
+    {
+      "id": "api_lithographysystem_stop",
+      "label": ".stop()",
+      "file_type": "code",
+      "source_file": "api.py",
+      "source_location": "L90",
+      "_origin": "ast"
+    },
+    {
+      "id": "api_lithographysystem_disconnect",
+      "label": ".disconnect()",
+      "file_type": "code",
+      "source_file": "api.py",
+      "source_location": "L98",
+      "_origin": "ast"
+    },
+    {
+      "id": "api_rationale_12",
+      "label": "Core api class for the electro-lithography system.",
+      "file_type": "rationale",
+      "source_file": "api.py",
+      "source_location": "L12",
+      "_origin": "ast"
+    },
+    {
+      "id": "api_rationale_22",
+      "label": "Return available COM ports as list of dicts.",
+      "file_type": "rationale",
+      "source_file": "api.py",
+      "source_location": "L22",
+      "_origin": "ast"
+    },
+    {
+      "id": "api_rationale_27",
+      "label": "Connect to all three axes. Returns success status.",
+      "file_type": "rationale",
+      "source_file": "api.py",
+      "source_location": "L27",
+      "_origin": "ast"
+    },
+    {
+      "id": "api_rationale_50",
+      "label": "Home all axes in startup sequence.",
+      "file_type": "rationale",
+      "source_file": "api.py",
+      "source_location": "L50",
+      "_origin": "ast"
+    },
+    {
+      "id": "api_rationale_64",
+      "label": "Move logical Z distance (relative move).",
+      "file_type": "rationale",
+      "source_file": "api.py",
+      "source_location": "L64",
+      "_origin": "ast"
+    },
+    {
+      "id": "api_rationale_81",
+      "label": "Get absolute current position of all axes.",
+      "file_type": "rationale",
+      "source_file": "api.py",
+      "source_location": "L81",
+      "_origin": "ast"
+    },
+    {
+      "id": "api_rationale_91",
+      "label": "Stop all axis movements immediately.",
+      "file_type": "rationale",
+      "source_file": "api.py",
+      "source_location": "L91",
+      "_origin": "ast"
+    },
+    {
+      "id": "api_rationale_99",
+      "label": "Clean shutdown and disconnect serial ports.",
+      "file_type": "rationale",
+      "source_file": "api.py",
+      "source_location": "L99",
+      "_origin": "ast"
+    },
+    {
+      "id": "archive_smumark1",
+      "label": "smumark1.py",
+      "file_type": "code",
+      "source_file": "archive/smumark1.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "archive_smumark1_init_smu",
+      "label": "init_smu()",
+      "file_type": "code",
+      "source_file": "archive/smumark1.py",
+      "source_location": "L4",
+      "_origin": "ast"
+    },
+    {
+      "id": "archive_smumark1_check_voltage",
+      "label": "check_voltage()",
+      "file_type": "code",
+      "source_file": "archive/smumark1.py",
+      "source_location": "L24",
+      "_origin": "ast"
+    },
+    {
+      "id": "archive_speed_caliberation",
+      "label": "speed_caliberation.py",
+      "file_type": "code",
+      "source_file": "archive/speed_caliberation.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "archive_speed_caliberation_list_ports",
+      "label": "list_ports()",
+      "file_type": "code",
+      "source_file": "archive/speed_caliberation.py",
+      "source_location": "L6",
+      "_origin": "ast"
+    },
+    {
+      "id": "archive_speed_caliberation_main",
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "archive/speed_caliberation.py",
+      "source_location": "L16",
+      "_origin": "ast"
+    },
+    {
+      "id": "archive_speed_detailed_test",
+      "label": "speed_detailed_test.py",
+      "file_type": "code",
+      "source_file": "archive/speed_detailed_test.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "archive_speed_detailed_test_list_ports",
+      "label": "list_ports()",
+      "file_type": "code",
+      "source_file": "archive/speed_detailed_test.py",
+      "source_location": "L6",
+      "_origin": "ast"
+    },
+    {
+      "id": "archive_speed_detailed_test_test_speed_band",
+      "label": "test_speed_band()",
+      "file_type": "code",
+      "source_file": "archive/speed_detailed_test.py",
+      "source_location": "L16",
+      "_origin": "ast"
+    },
+    {
+      "id": "archive_speed_detailed_test_main",
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "archive/speed_detailed_test.py",
+      "source_location": "L85",
+      "_origin": "ast"
+    },
+    {
+      "id": "archive_speed_sweep_test",
+      "label": "speed_sweep_test.py",
+      "file_type": "code",
+      "source_file": "archive/speed_sweep_test.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "archive_speed_sweep_test_list_ports",
+      "label": "list_ports()",
+      "file_type": "code",
+      "source_file": "archive/speed_sweep_test.py",
+      "source_location": "L6",
+      "_origin": "ast"
+    },
+    {
+      "id": "archive_speed_sweep_test_main",
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "archive/speed_sweep_test.py",
+      "source_location": "L16",
+      "_origin": "ast"
+    },
+    {
+      "id": "archive_testing",
+      "label": "testing.py",
+      "file_type": "code",
+      "source_file": "archive/testing.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "archive_testing_main",
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "archive/testing.py",
+      "source_location": "L10",
+      "_origin": "ast"
+    },
+    {
+      "id": "basler_camera",
+      "label": "basler_camera.py",
+      "file_type": "code",
+      "source_file": "basler_camera.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "basler_camera_baslercamerasettings",
+      "label": "BaslerCameraSettings",
+      "file_type": "code",
+      "source_file": "basler_camera.py",
+      "source_location": "L35",
+      "_origin": "ast"
+    },
+    {
+      "id": "basler_camera_baslercamera",
+      "label": "BaslerCamera",
+      "file_type": "code",
+      "source_file": "basler_camera.py",
+      "source_location": "L46",
+      "_origin": "ast"
+    },
+    {
+      "id": "basler_camera_baslercamera_init",
+      "label": ".__init__()",
+      "file_type": "code",
+      "source_file": "basler_camera.py",
+      "source_location": "L57",
+      "_origin": "ast"
+    },
+    {
+      "id": "basler_camera_baslercamera_open",
+      "label": ".open()",
+      "file_type": "code",
+      "source_file": "basler_camera.py",
+      "source_location": "L71",
+      "_origin": "ast"
+    },
+    {
+      "id": "basler_camera_baslercamera_close",
+      "label": ".close()",
+      "file_type": "code",
+      "source_file": "basler_camera.py",
+      "source_location": "L90",
+      "_origin": "ast"
+    },
+    {
+      "id": "basler_camera_baslercamera_get_frame",
+      "label": ".get_frame()",
+      "file_type": "code",
+      "source_file": "basler_camera.py",
+      "source_location": "L100",
+      "_origin": "ast"
+    },
+    {
+      "id": "basler_camera_baslercamera_show_live",
+      "label": ".show_live()",
+      "file_type": "code",
+      "source_file": "basler_camera.py",
+      "source_location": "L125",
+      "_origin": "ast"
+    },
+    {
+      "id": "framecallback",
+      "label": "FrameCallback",
+      "file_type": "code",
+      "source_file": "basler_camera.py",
+      "source_location": "L125",
+      "_origin": "ast"
+    },
+    {
+      "id": "basler_camera_baslercamera_start_stream",
+      "label": ".start_stream()",
+      "file_type": "code",
+      "source_file": "basler_camera.py",
+      "source_location": "L172",
+      "_origin": "ast"
+    },
+    {
+      "id": "basler_camera_baslercamera_stop_stream",
+      "label": ".stop_stream()",
+      "file_type": "code",
+      "source_file": "basler_camera.py",
+      "source_location": "L197",
+      "_origin": "ast"
+    },
+    {
+      "id": "basler_camera_baslercamera_apply_settings",
+      "label": "._apply_settings()",
+      "file_type": "code",
+      "source_file": "basler_camera.py",
+      "source_location": "L204",
+      "_origin": "ast"
+    },
+    {
+      "id": "basler_camera_baslercamera_try_set_bool",
+      "label": "._try_set_bool()",
+      "file_type": "code",
+      "source_file": "basler_camera.py",
+      "source_location": "L219",
+      "_origin": "ast"
+    },
+    {
+      "id": "basler_camera_baslercamera_try_set_int",
+      "label": "._try_set_int()",
+      "file_type": "code",
+      "source_file": "basler_camera.py",
+      "source_location": "L224",
+      "_origin": "ast"
+    },
+    {
+      "id": "basler_camera_baslercamera_try_set_float",
+      "label": "._try_set_float()",
+      "file_type": "code",
+      "source_file": "basler_camera.py",
+      "source_location": "L234",
+      "_origin": "ast"
+    },
+    {
+      "id": "basler_camera_baslercamera_try_set_enum",
+      "label": "._try_set_enum()",
+      "file_type": "code",
+      "source_file": "basler_camera.py",
+      "source_location": "L241",
+      "_origin": "ast"
+    },
+    {
+      "id": "basler_camera_baslercamera_is_writable",
+      "label": "._is_writable()",
+      "file_type": "code",
+      "source_file": "basler_camera.py",
+      "source_location": "L252",
+      "_origin": "ast"
+    },
+    {
+      "id": "basler_camera_baslercamera_require_open_camera",
+      "label": "._require_open_camera()",
+      "file_type": "code",
+      "source_file": "basler_camera.py",
+      "source_location": "L263",
+      "_origin": "ast"
+    },
+    {
+      "id": "basler_camera_baslercamera_enter",
+      "label": ".__enter__()",
+      "file_type": "code",
+      "source_file": "basler_camera.py",
+      "source_location": "L267",
+      "_origin": "ast"
+    },
+    {
+      "id": "basler_camera_baslercamera_exit",
+      "label": ".__exit__()",
+      "file_type": "code",
+      "source_file": "basler_camera.py",
+      "source_location": "L271",
+      "_origin": "ast"
+    },
+    {
+      "id": "basler_camera_list_basler_cameras",
+      "label": "list_basler_cameras()",
+      "file_type": "code",
+      "source_file": "basler_camera.py",
+      "source_location": "L275",
+      "_origin": "ast"
+    },
+    {
+      "id": "basler_camera_main",
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "basler_camera.py",
+      "source_location": "L281",
+      "_origin": "ast"
+    },
+    {
+      "id": "basler_camera_rationale_1",
+      "label": "Basler camera live-view support using the pypylon SDK.  This module is intenti",
+      "file_type": "rationale",
+      "source_file": "basler_camera.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "basler_camera_rationale_36",
+      "label": "Optional camera settings used during initialization.",
+      "file_type": "rationale",
+      "source_file": "basler_camera.py",
+      "source_location": "L36",
+      "_origin": "ast"
+    },
+    {
+      "id": "basler_camera_rationale_47",
+      "label": "Small wrapper around pypylon for live display and future integration.      Exa",
+      "file_type": "rationale",
+      "source_file": "basler_camera.py",
+      "source_location": "L47",
+      "_origin": "ast"
+    },
+    {
+      "id": "basler_camera_rationale_72",
+      "label": "Open the selected Basler camera and apply configured settings.",
+      "file_type": "rationale",
+      "source_file": "basler_camera.py",
+      "source_location": "L72",
+      "_origin": "ast"
+    },
+    {
+      "id": "basler_camera_rationale_91",
+      "label": "Stop streaming and close the camera connection.",
+      "file_type": "rationale",
+      "source_file": "basler_camera.py",
+      "source_location": "L91",
+      "_origin": "ast"
+    },
+    {
+      "id": "basler_camera_rationale_101",
+      "label": "Grab and return one frame as an OpenCV BGR image.          This is useful for",
+      "file_type": "rationale",
+      "source_file": "basler_camera.py",
+      "source_location": "L101",
+      "_origin": "ast"
+    },
+    {
+      "id": "basler_camera_rationale_132",
+      "label": "Display a blocking live video stream.          Press the exit key, default 'q'",
+      "file_type": "rationale",
+      "source_file": "basler_camera.py",
+      "source_location": "L132",
+      "_origin": "ast"
+    },
+    {
+      "id": "basler_camera_rationale_177",
+      "label": "Start live view in a background thread.          This is the integration-frien",
+      "file_type": "rationale",
+      "source_file": "basler_camera.py",
+      "source_location": "L177",
+      "_origin": "ast"
+    },
+    {
+      "id": "basler_camera_rationale_198",
+      "label": "Request the live-view thread to stop and wait briefly for it.",
+      "file_type": "rationale",
+      "source_file": "basler_camera.py",
+      "source_location": "L198",
+      "_origin": "ast"
+    },
+    {
+      "id": "basler_camera_rationale_276",
+      "label": "Return display names for all connected Basler cameras.",
+      "file_type": "rationale",
+      "source_file": "basler_camera.py",
+      "source_location": "L276",
+      "_origin": "ast"
+    },
+    {
+      "id": "config",
+      "label": "config.py",
+      "file_type": "code",
+      "source_file": "config.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller",
+      "label": "hmccontroller.py",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_app",
+      "label": "App",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L11",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_app_init",
+      "label": ".__init__()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L12",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_app_get_controllers",
+      "label": "._get_controllers()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L24",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_app_stop_process",
+      "label": ".stop_process()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L33",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_app_check_thread_is_alive",
+      "label": ".check_thread_is_alive()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L38",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_app_start_thread",
+      "label": ".start_thread()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L46",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_app_start_process",
+      "label": ".start_process()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L51",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_hmccontrolcs",
+      "label": "HmcControlCs",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L119",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_hmccontrolcs_init",
+      "label": ".__init__()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L120",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_hmccontrolcs_on_startup",
+      "label": ".on_startup()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L202",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_hmccontrolcs_config_serial_port",
+      "label": ".config_serial_port()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L252",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_hmccontrolcs_disconnect",
+      "label": ".disconnect()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L279",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_hmccontrolcs_write_port",
+      "label": ".write_port()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L286",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_hmccontrolcs_read_ack",
+      "label": ".read_ack()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L291",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_hmccontrolcs_read_value",
+      "label": ".read_value()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L307",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_hmccontrolcs_axis_read_value",
+      "label": ".axis_read_value()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L323",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_hmccontrolcs_msb_csb_lsb",
+      "label": ".msb_csb_lsb()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L339",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_hmccontrolcs_byte3_byte2_byte1_byte0",
+      "label": ".byte3_byte2_byte1_byte0()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L347",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_hmccontrolcs_msb_lsb",
+      "label": ".msb_lsb()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L356",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_hmccontrolcs_connect",
+      "label": ".connect()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L363",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_hmccontrolcs_move",
+      "label": ".move()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L386",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_hmccontrolcs_logical_z_to_motor_z",
+      "label": "._logical_z_to_motor_z()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L528",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_hmccontrolcs_acceleration_and_deceleration",
+      "label": ".acceleration_and_deceleration()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L533",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_hmccontrolcs_move_status",
+      "label": ".move_status()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L550",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_hmccontrolcs_set_move_data",
+      "label": ".set_move_data()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L555",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_hmccontrolcs_send_axis_data",
+      "label": ".send_axis_data()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L593",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_hmccontrolcs_read_move_bytes",
+      "label": ".read_move_bytes()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L617",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_hmccontrolcs_read_axis_data",
+      "label": ".read_axis_data()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L675",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_hmccontrolcs_send_axis_speed",
+      "label": "._send_axis_speed()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L697",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_hmccontrolcs_set_speed",
+      "label": ".set_speed()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L714",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_hmccontrolcs_current_x",
+      "label": ".current_x()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L782",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_hmccontrolcs_current_y",
+      "label": ".current_y()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L790",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_hmccontrolcs_current_z",
+      "label": ".current_z()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L798",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_hmccontrolcs_get_position",
+      "label": ".get_position()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L805",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_hmccontrolcs_initialise_current_position",
+      "label": ".initialise_current_position()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L812",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_hmccontrolcs_update_current_position",
+      "label": ".update_current_position()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L817",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_hmccontrolcs_safe_move",
+      "label": ".safe_move()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L822",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_hmccontrolcs_move_home",
+      "label": ".move_home()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L837",
+      "_origin": "ast"
+    },
+    {
+      "id": "hmccontroller_hmccontrolcs_contact_point_move",
+      "label": ".contact_point_move()",
+      "file_type": "code",
+      "source_file": "hmccontroller.py",
+      "source_location": "L901",
+      "_origin": "ast"
+    },
+    {
+      "id": "lithography",
+      "label": "lithography.py",
+      "file_type": "code",
+      "source_file": "lithography.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "lithography_voltagefeedbackstate",
+      "label": "VoltageFeedbackState",
+      "file_type": "code",
+      "source_file": "lithography.py",
+      "source_location": "L13",
+      "_origin": "ast"
+    },
+    {
+      "id": "lithography_voltagefeedbackstate_update",
+      "label": ".update()",
+      "file_type": "code",
+      "source_file": "lithography.py",
+      "source_location": "L21",
+      "_origin": "ast"
+    },
+    {
+      "id": "lithography_voltagefeedbackstate_snapshot",
+      "label": ".snapshot()",
+      "file_type": "code",
+      "source_file": "lithography.py",
+      "source_location": "L29",
+      "_origin": "ast"
+    },
+    {
+      "id": "lithography_patternabort",
+      "label": "PatternAbort",
+      "file_type": "code",
+      "source_file": "lithography.py",
+      "source_location": "L40",
+      "_origin": "ast"
+    },
+    {
+      "id": "exception",
+      "label": "Exception",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "lithography_time_block",
+      "label": "time_block()",
+      "file_type": "code",
+      "source_file": "lithography.py",
+      "source_location": "L45",
+      "_origin": "ast"
+    },
+    {
+      "id": "lithography_classify_voltage",
+      "label": "classify_voltage()",
+      "file_type": "code",
+      "source_file": "lithography.py",
+      "source_location": "L55",
+      "_origin": "ast"
+    },
+    {
+      "id": "lithography_feedback_direction_label",
+      "label": "feedback_direction_label()",
+      "file_type": "code",
+      "source_file": "lithography.py",
+      "source_location": "L65",
+      "_origin": "ast"
+    },
+    {
+      "id": "lithography_read_voltage_sample",
+      "label": "read_voltage_sample()",
+      "file_type": "code",
+      "source_file": "lithography.py",
+      "source_location": "L75",
+      "_origin": "ast"
+    },
+    {
+      "id": "lithography_abort_patterning",
+      "label": "abort_patterning()",
+      "file_type": "code",
+      "source_file": "lithography.py",
+      "source_location": "L79",
+      "_origin": "ast"
+    },
+    {
+      "id": "lithography_ensure_z_below_limit",
+      "label": "ensure_z_below_limit()",
+      "file_type": "code",
+      "source_file": "lithography.py",
+      "source_location": "L90",
+      "_origin": "ast"
+    },
+    {
+      "id": "lithography_find_contact_point",
+      "label": "find_contact_point()",
+      "file_type": "code",
+      "source_file": "lithography.py",
+      "source_location": "L99",
+      "_origin": "ast"
+    },
+    {
+      "id": "lithography_find_contact_point_custom",
+      "label": "find_contact_point_custom()",
+      "file_type": "code",
+      "source_file": "lithography.py",
+      "source_location": "L137",
+      "_origin": "ast"
+    },
+    {
+      "id": "lithography_read_pattern_file",
+      "label": "read_pattern_file()",
+      "file_type": "code",
+      "source_file": "lithography.py",
+      "source_location": "L179",
+      "_origin": "ast"
+    },
+    {
+      "id": "lithography_smuvoltagesampler",
+      "label": "SmuVoltageSampler",
+      "file_type": "code",
+      "source_file": "lithography.py",
+      "source_location": "L190",
+      "_origin": "ast"
+    },
+    {
+      "id": "thread",
+      "label": "Thread",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast"
+    },
+    {
+      "id": "lithography_smuvoltagesampler_init",
+      "label": ".__init__()",
+      "file_type": "code",
+      "source_file": "lithography.py",
+      "source_location": "L191",
+      "_origin": "ast"
+    },
+    {
+      "id": "lithography_smuvoltagesampler_run",
+      "label": ".run()",
+      "file_type": "code",
+      "source_file": "lithography.py",
+      "source_location": "L203",
+      "_origin": "ast"
+    },
+    {
+      "id": "lithography_zfeedbackworker",
+      "label": "ZFeedbackWorker",
+      "file_type": "code",
+      "source_file": "lithography.py",
+      "source_location": "L232",
+      "_origin": "ast"
+    },
+    {
+      "id": "lithography_zfeedbackworker_init",
+      "label": ".__init__()",
+      "file_type": "code",
+      "source_file": "lithography.py",
+      "source_location": "L233",
+      "_origin": "ast"
+    },
+    {
+      "id": "lithography_zfeedbackworker_run",
+      "label": ".run()",
+      "file_type": "code",
+      "source_file": "lithography.py",
+      "source_location": "L244",
+      "_origin": "ast"
+    },
+    {
+      "id": "lithography_rationale_41",
+      "label": "Raised when patterning needs to be aborted due to safety or user request.",
+      "file_type": "rationale",
+      "source_file": "lithography.py",
+      "source_location": "L41",
+      "_origin": "ast"
+    },
+    {
+      "id": "main",
+      "label": "main.py",
+      "file_type": "code",
+      "source_file": "main.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "main_format_elapsed_time",
+      "label": "format_elapsed_time()",
+      "file_type": "code",
+      "source_file": "main.py",
+      "source_location": "L21",
+      "_origin": "ast"
+    },
+    {
+      "id": "main_compute_synchronized_speeds",
+      "label": "compute_synchronized_speeds()",
+      "file_type": "code",
+      "source_file": "main.py",
+      "source_location": "L31",
+      "_origin": "ast"
+    },
+    {
+      "id": "main_wait_for_motion",
+      "label": "wait_for_motion()",
+      "file_type": "code",
+      "source_file": "main.py",
+      "source_location": "L89",
+      "_origin": "ast"
+    },
+    {
+      "id": "main_print_timing_summary",
+      "label": "print_timing_summary()",
+      "file_type": "code",
+      "source_file": "main.py",
+      "source_location": "L94",
+      "_origin": "ast"
+    },
+    {
+      "id": "main_list_ports",
+      "label": "list_ports()",
+      "file_type": "code",
+      "source_file": "main.py",
+      "source_location": "L102",
+      "_origin": "ast"
+    },
+    {
+      "id": "main_step_size_listener",
+      "label": "step_size_listener()",
+      "file_type": "code",
+      "source_file": "main.py",
+      "source_location": "L113",
+      "_origin": "ast"
+    },
+    {
+      "id": "main_main",
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "main.py",
+      "source_location": "L126",
+      "_origin": "ast"
+    },
+    {
+      "id": "main_rationale_32",
+      "label": "Compute per-axis speeds so both X and Y finish each segment in exactly the same",
+      "file_type": "rationale",
+      "source_file": "main.py",
+      "source_location": "L32",
+      "_origin": "ast"
+    },
+    {
+      "id": "modes_init",
+      "label": "__init__.py",
+      "file_type": "code",
+      "source_file": "modes/__init__.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "modes_mode_async_litho",
+      "label": "mode_async_litho.py",
+      "file_type": "code",
+      "source_file": "modes/mode_async_litho.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "modes_mode_async_litho_run",
+      "label": "run()",
+      "file_type": "code",
+      "source_file": "modes/mode_async_litho.py",
+      "source_location": "L14",
+      "_origin": "ast"
+    },
+    {
+      "id": "modes_mode_home",
+      "label": "mode_home.py",
+      "file_type": "code",
+      "source_file": "modes/mode_home.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "modes_mode_home_run",
+      "label": "run()",
+      "file_type": "code",
+      "source_file": "modes/mode_home.py",
+      "source_location": "L4",
+      "_origin": "ast"
+    },
+    {
+      "id": "modes_mode_manual",
+      "label": "mode_manual.py",
+      "file_type": "code",
+      "source_file": "modes/mode_manual.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "modes_mode_manual_run",
+      "label": "run()",
+      "file_type": "code",
+      "source_file": "modes/mode_manual.py",
+      "source_location": "L6",
+      "_origin": "ast"
+    },
+    {
+      "id": "modes_mode_probe",
+      "label": "mode_probe.py",
+      "file_type": "code",
+      "source_file": "modes/mode_probe.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "modes_mode_probe_user_input_listener",
+      "label": "user_input_listener()",
+      "file_type": "code",
+      "source_file": "modes/mode_probe.py",
+      "source_location": "L8",
+      "_origin": "ast"
+    },
+    {
+      "id": "modes_mode_probe_z_probe_move",
+      "label": "z_probe_move()",
+      "file_type": "code",
+      "source_file": "modes/mode_probe.py",
+      "source_location": "L19",
+      "_origin": "ast"
+    },
+    {
+      "id": "modes_mode_probe_run_probe",
+      "label": "run_probe()",
+      "file_type": "code",
+      "source_file": "modes/mode_probe.py",
+      "source_location": "L77",
+      "_origin": "ast"
+    },
+    {
+      "id": "modes_mode_probe_run_pause_resume",
+      "label": "run_pause_resume()",
+      "file_type": "code",
+      "source_file": "modes/mode_probe.py",
+      "source_location": "L89",
+      "_origin": "ast"
+    },
+    {
+      "id": "modes_mode_step_test",
+      "label": "mode_step_test.py",
+      "file_type": "code",
+      "source_file": "modes/mode_step_test.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "modes_mode_step_test_run",
+      "label": "run()",
+      "file_type": "code",
+      "source_file": "modes/mode_step_test.py",
+      "source_location": "L6",
+      "_origin": "ast"
+    },
+    {
+      "id": "modes_mode_sync_litho",
+      "label": "mode_sync_litho.py",
+      "file_type": "code",
+      "source_file": "modes/mode_sync_litho.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "modes_mode_sync_litho_run",
+      "label": "run()",
+      "file_type": "code",
+      "source_file": "modes/mode_sync_litho.py",
+      "source_location": "L13",
+      "_origin": "ast"
+    },
+    {
+      "id": "modes_mode_trajectory",
+      "label": "mode_trajectory.py",
+      "file_type": "code",
+      "source_file": "modes/mode_trajectory.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "modes_mode_trajectory_run",
+      "label": "run()",
+      "file_type": "code",
+      "source_file": "modes/mode_trajectory.py",
+      "source_location": "L7",
+      "_origin": "ast"
+    },
+    {
+      "id": "pattern_generator",
+      "label": "pattern_generator.py",
+      "file_type": "code",
+      "source_file": "pattern_generator.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "pattern_generator_generate_e_like_snake_coordinates",
+      "label": "generate_e_like_snake_coordinates()",
+      "file_type": "code",
+      "source_file": "pattern_generator.py",
+      "source_location": "L137",
+      "_origin": "ast"
+    },
+    {
+      "id": "pattern_generator_shift_coordinates",
+      "label": "shift_coordinates()",
+      "file_type": "code",
+      "source_file": "pattern_generator.py",
+      "source_location": "L193",
+      "_origin": "ast"
+    },
+    {
+      "id": "pattern_generator_generate_parallel_lines",
+      "label": "generate_parallel_lines()",
+      "file_type": "code",
+      "source_file": "pattern_generator.py",
+      "source_location": "L208",
+      "_origin": "ast"
+    },
+    {
+      "id": "pattern_generator_generate_parallel_lines_variable_spacing",
+      "label": "generate_parallel_lines_variable_spacing()",
+      "file_type": "code",
+      "source_file": "pattern_generator.py",
+      "source_location": "L244",
+      "_origin": "ast"
+    },
+    {
+      "id": "pattern_generator_generate_grid_lines_to_file",
+      "label": "generate_grid_lines_to_file()",
+      "file_type": "code",
+      "source_file": "pattern_generator.py",
+      "source_location": "L279",
+      "_origin": "ast"
+    },
+    {
+      "id": "pattern_generator_generate_circle_coordinates",
+      "label": "generate_circle_coordinates()",
+      "file_type": "code",
+      "source_file": "pattern_generator.py",
+      "source_location": "L315",
+      "_origin": "ast"
+    },
+    {
+      "id": "pattern_generator_generate_concentric_hexagons",
+      "label": "generate_concentric_hexagons()",
+      "file_type": "code",
+      "source_file": "pattern_generator.py",
+      "source_location": "L358",
+      "_origin": "ast"
+    },
+    {
+      "id": "pattern_generator_plot_concentric_hexagons",
+      "label": "plot_concentric_hexagons()",
+      "file_type": "code",
+      "source_file": "pattern_generator.py",
+      "source_location": "L410",
+      "_origin": "ast"
+    },
+    {
+      "id": "pattern_generator_generate_concentric_circles",
+      "label": "generate_concentric_circles()",
+      "file_type": "code",
+      "source_file": "pattern_generator.py",
+      "source_location": "L474",
+      "_origin": "ast"
+    },
+    {
+      "id": "pattern_generator_plot_concentric_circles",
+      "label": "plot_concentric_circles()",
+      "file_type": "code",
+      "source_file": "pattern_generator.py",
+      "source_location": "L536",
+      "_origin": "ast"
+    },
+    {
+      "id": "pattern_generator_rationale_411",
+      "label": "Optional visualization of the generated concentric hexagons path using matplotli",
+      "file_type": "rationale",
+      "source_file": "pattern_generator.py",
+      "source_location": "L411",
+      "_origin": "ast"
+    },
+    {
+      "id": "pattern_generator_rationale_481",
+      "label": "Generates coordinates for concentric circles of defined radii.     Points are c",
+      "file_type": "rationale",
+      "source_file": "pattern_generator.py",
+      "source_location": "L481",
+      "_origin": "ast"
+    },
+    {
+      "id": "pattern_generator_rationale_537",
+      "label": "Optional visualization of the generated concentric circles path using matplotlib",
+      "file_type": "rationale",
+      "source_file": "pattern_generator.py",
+      "source_location": "L537",
+      "_origin": "ast"
+    },
+    {
+      "id": "scratch_check_z_inversion",
+      "label": "check_z_inversion.py",
+      "file_type": "code",
+      "source_file": "scratch/check_z_inversion.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "smumark2",
+      "label": "smumark2.py",
+      "file_type": "code",
+      "source_file": "smumark2.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "smumark2_check_smu_errors",
+      "label": "check_smu_errors()",
+      "file_type": "code",
+      "source_file": "smumark2.py",
+      "source_location": "L4",
+      "_origin": "ast"
+    },
+    {
+      "id": "smumark2_init_smu",
+      "label": "init_smu()",
+      "file_type": "code",
+      "source_file": "smumark2.py",
+      "source_location": "L19",
+      "_origin": "ast"
+    },
+    {
+      "id": "smumark2_reset_smu",
+      "label": "reset_smu()",
+      "file_type": "code",
+      "source_file": "smumark2.py",
+      "source_location": "L36",
+      "_origin": "ast"
+    },
+    {
+      "id": "smumark2_use_case_1",
+      "label": "use_case_1()",
+      "file_type": "code",
+      "source_file": "smumark2.py",
+      "source_location": "L46",
+      "_origin": "ast"
+    },
+    {
+      "id": "smumark2_use_case_2",
+      "label": "use_case_2()",
+      "file_type": "code",
+      "source_file": "smumark2.py",
+      "source_location": "L57",
+      "_origin": "ast"
+    },
+    {
+      "id": "smumark2_out_on",
+      "label": "out_on()",
+      "file_type": "code",
+      "source_file": "smumark2.py",
+      "source_location": "L67",
+      "_origin": "ast"
+    },
+    {
+      "id": "smumark2_read_sample",
+      "label": "_read_sample()",
+      "file_type": "code",
+      "source_file": "smumark2.py",
+      "source_location": "L71",
+      "_origin": "ast"
+    },
+    {
+      "id": "smumark2_read_voltage_sample",
+      "label": "read_voltage_sample()",
+      "file_type": "code",
+      "source_file": "smumark2.py",
+      "source_location": "L96",
+      "_origin": "ast"
+    },
+    {
+      "id": "smumark2_read_current_sample",
+      "label": "read_current_sample()",
+      "file_type": "code",
+      "source_file": "smumark2.py",
+      "source_location": "L99",
+      "_origin": "ast"
+    },
+    {
+      "id": "smumark2_check_voltage",
+      "label": "check_voltage()",
+      "file_type": "code",
+      "source_file": "smumark2.py",
+      "source_location": "L103",
+      "_origin": "ast"
+    },
+    {
+      "id": "smumark2_check_current",
+      "label": "check_current()",
+      "file_type": "code",
+      "source_file": "smumark2.py",
+      "source_location": "L130",
+      "_origin": "ast"
+    },
+    {
+      "id": "smumark2_check_voltage_testing",
+      "label": "check_voltage_testing()",
+      "file_type": "code",
+      "source_file": "smumark2.py",
+      "source_location": "L142",
+      "_origin": "ast"
+    },
+    {
+      "id": "smumark2_out_off",
+      "label": "out_off()",
+      "file_type": "code",
+      "source_file": "smumark2.py",
+      "source_location": "L157",
+      "_origin": "ast"
+    },
+    {
+      "id": "speed_fine_sweep",
+      "label": "speed_fine_sweep.py",
+      "file_type": "code",
+      "source_file": "speed_fine_sweep.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "speed_fine_sweep_list_ports",
+      "label": "list_ports()",
+      "file_type": "code",
+      "source_file": "speed_fine_sweep.py",
+      "source_location": "L5",
+      "_origin": "ast"
+    },
+    {
+      "id": "speed_fine_sweep_main",
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "speed_fine_sweep.py",
+      "source_location": "L15",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_byte_encoding",
+      "label": "test_byte_encoding.py",
+      "file_type": "code",
+      "source_file": "tests/test_byte_encoding.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_byte_encoding_testbyteencoding",
+      "label": "TestByteEncoding",
+      "file_type": "code",
+      "source_file": "tests/test_byte_encoding.py",
+      "source_location": "L10",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_byte_encoding_testbyteencoding_setup",
+      "label": ".setUp()",
+      "file_type": "code",
+      "source_file": "tests/test_byte_encoding.py",
+      "source_location": "L11",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_byte_encoding_testbyteencoding_test_msb_csb_lsb",
+      "label": ".test_msb_csb_lsb()",
+      "file_type": "code",
+      "source_file": "tests/test_byte_encoding.py",
+      "source_location": "L14",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_byte_encoding_testbyteencoding_test_byte3_byte2_byte1_byte0",
+      "label": ".test_byte3_byte2_byte1_byte0()",
+      "file_type": "code",
+      "source_file": "tests/test_byte_encoding.py",
+      "source_location": "L22",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_byte_encoding_testbyteencoding_test_msb_lsb",
+      "label": ".test_msb_lsb()",
+      "file_type": "code",
+      "source_file": "tests/test_byte_encoding.py",
+      "source_location": "L28",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_speed_calc",
+      "label": "test_speed_calc.py",
+      "file_type": "code",
+      "source_file": "tests/test_speed_calc.py",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_speed_calc_testspeedcalculation",
+      "label": "TestSpeedCalculation",
+      "file_type": "code",
+      "source_file": "tests/test_speed_calc.py",
+      "source_location": "L10",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_speed_calc_testspeedcalculation_test_zero_displacement",
+      "label": ".test_zero_displacement()",
+      "file_type": "code",
+      "source_file": "tests/test_speed_calc.py",
+      "source_location": "L11",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_speed_calc_testspeedcalculation_test_zero_speed",
+      "label": ".test_zero_speed()",
+      "file_type": "code",
+      "source_file": "tests/test_speed_calc.py",
+      "source_location": "L14",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_speed_calc_testspeedcalculation_test_proportional_speed",
+      "label": ".test_proportional_speed()",
+      "file_type": "code",
+      "source_file": "tests/test_speed_calc.py",
+      "source_location": "L18",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_speed_calc_testspeedcalculation_test_bad_speed_avoidance_band_a",
+      "label": ".test_bad_speed_avoidance_band_a()",
+      "file_type": "code",
+      "source_file": "tests/test_speed_calc.py",
+      "source_location": "L23",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_test_speed_calc_testspeedcalculation_test_bad_speed_avoidance_band_b",
+      "label": ".test_bad_speed_avoidance_band_b()",
+      "file_type": "code",
+      "source_file": "tests/test_speed_calc.py",
+      "source_location": "L28",
+      "_origin": "ast"
+    }
+  ],
+  "edges": [
+    {
+      "source": "api",
+      "target": "logging",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "api.py",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "api",
+      "target": "time",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "api.py",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "api",
+      "target": "serial_tools_list_ports",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "api.py",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "api",
+      "target": "typing",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "api.py",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "api",
+      "target": "hmccontroller",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "api.py",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "api",
+      "target": "modes",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "api.py",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "api",
+      "target": "config",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "api.py",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "api",
+      "target": "api_lithographysystem",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api.py",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "api_lithographysystem",
+      "target": "api_lithographysystem_init",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "api.py",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "api_lithographysystem",
+      "target": "api_lithographysystem_list_ports",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "api.py",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "api_lithographysystem",
+      "target": "api_lithographysystem_connect",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "api.py",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "api_lithographysystem",
+      "target": "api_lithographysystem_home_all",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "api.py",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "api_lithographysystem",
+      "target": "api_lithographysystem_move",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "api.py",
+      "source_location": "L63",
+      "weight": 1.0
+    },
+    {
+      "source": "api_lithographysystem",
+      "target": "api_lithographysystem_get_position",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "api.py",
+      "source_location": "L80",
+      "weight": 1.0
+    },
+    {
+      "source": "api_lithographysystem",
+      "target": "api_lithographysystem_stop",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "api.py",
+      "source_location": "L90",
+      "weight": 1.0
+    },
+    {
+      "source": "api_lithographysystem",
+      "target": "api_lithographysystem_disconnect",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "api.py",
+      "source_location": "L98",
+      "weight": 1.0
+    },
+    {
+      "source": "api_lithographysystem_home_all",
+      "target": "api_lithographysystem_get_position",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "api.py",
+      "source_location": "L58",
+      "weight": 1.0
+    },
+    {
+      "source": "api_lithographysystem_move",
+      "target": "api_lithographysystem_get_position",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "api.py",
+      "source_location": "L78",
+      "weight": 1.0
+    },
+    {
+      "source": "api_rationale_12",
+      "target": "api_lithographysystem",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "api.py",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "api_rationale_22",
+      "target": "api_lithographysystem_list_ports",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "api.py",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "api_rationale_27",
+      "target": "api_lithographysystem_connect",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "api.py",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "api_rationale_50",
+      "target": "api_lithographysystem_home_all",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "api.py",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "api_rationale_64",
+      "target": "api_lithographysystem_move",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "api.py",
+      "source_location": "L64",
+      "weight": 1.0
+    },
+    {
+      "source": "api_rationale_81",
+      "target": "api_lithographysystem_get_position",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "api.py",
+      "source_location": "L81",
+      "weight": 1.0
+    },
+    {
+      "source": "api_rationale_91",
+      "target": "api_lithographysystem_stop",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "api.py",
+      "source_location": "L91",
+      "weight": 1.0
+    },
+    {
+      "source": "api_rationale_99",
+      "target": "api_lithographysystem_disconnect",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "api.py",
+      "source_location": "L99",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_smumark1",
+      "target": "pyvisa",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/smumark1.py",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_smumark1",
+      "target": "time",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/smumark1.py",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_smumark1",
+      "target": "archive_smumark1_init_smu",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/smumark1.py",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_smumark1",
+      "target": "archive_smumark1_check_voltage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/smumark1.py",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_caliberation",
+      "target": "serial_tools_list_ports",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_caliberation.py",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_caliberation",
+      "target": "hmccontroller",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_caliberation.py",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_caliberation",
+      "target": "time",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_caliberation.py",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_caliberation",
+      "target": "threading",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_caliberation.py",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_caliberation",
+      "target": "archive_speed_caliberation_list_ports",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_caliberation.py",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_caliberation",
+      "target": "archive_speed_caliberation_main",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_caliberation.py",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_caliberation_main",
+      "target": "archive_speed_caliberation_list_ports",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_caliberation.py",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_detailed_test",
+      "target": "serial_tools_list_ports",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_detailed_test.py",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_detailed_test",
+      "target": "hmccontroller",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_detailed_test.py",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_detailed_test",
+      "target": "time",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_detailed_test.py",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_detailed_test",
+      "target": "threading",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_detailed_test.py",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_detailed_test",
+      "target": "archive_speed_detailed_test_list_ports",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_detailed_test.py",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_detailed_test",
+      "target": "archive_speed_detailed_test_test_speed_band",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_detailed_test.py",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_detailed_test",
+      "target": "archive_speed_detailed_test_main",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_detailed_test.py",
+      "source_location": "L85",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_detailed_test_main",
+      "target": "archive_speed_detailed_test_list_ports",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_detailed_test.py",
+      "source_location": "L86",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_detailed_test_main",
+      "target": "archive_speed_detailed_test_test_speed_band",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_detailed_test.py",
+      "source_location": "L152",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_sweep_test",
+      "target": "serial_tools_list_ports",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_sweep_test.py",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_sweep_test",
+      "target": "hmccontroller",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_sweep_test.py",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_sweep_test",
+      "target": "time",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_sweep_test.py",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_sweep_test",
+      "target": "threading",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_sweep_test.py",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_sweep_test",
+      "target": "archive_speed_sweep_test_list_ports",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_sweep_test.py",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_sweep_test",
+      "target": "archive_speed_sweep_test_main",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_sweep_test.py",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_sweep_test_main",
+      "target": "archive_speed_sweep_test_list_ports",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_sweep_test.py",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_testing",
+      "target": "serial_tools_list_ports",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/testing.py",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_testing",
+      "target": "hmccontroller",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/testing.py",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_testing",
+      "target": "time",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/testing.py",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_testing",
+      "target": "threading",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/testing.py",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_testing",
+      "target": "threading",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/testing.py",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_testing",
+      "target": "math",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/testing.py",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_testing",
+      "target": "queue",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/testing.py",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_testing",
+      "target": "smumark2",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/testing.py",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_testing",
+      "target": "archive_testing_main",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/testing.py",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera",
+      "target": "argparse",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera",
+      "target": "threading",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera",
+      "target": "time",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera",
+      "target": "dataclasses",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera",
+      "target": "typing",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera",
+      "target": "cv2",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera",
+      "target": "pypylon",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera",
+      "target": "basler_camera_baslercamerasettings",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera",
+      "target": "basler_camera_baslercamera",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera",
+      "target": "basler_camera_baslercamera_init",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L57",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera_init",
+      "target": "basler_camera_baslercamerasettings",
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L57",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera",
+      "target": "basler_camera_baslercamera_open",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L71",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera",
+      "target": "basler_camera_baslercamera_close",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L90",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera",
+      "target": "basler_camera_baslercamera_get_frame",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L100",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera",
+      "target": "basler_camera_baslercamera_show_live",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L125",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera_show_live",
+      "target": "framecallback",
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L125",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera",
+      "target": "basler_camera_baslercamera_start_stream",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L172",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera_start_stream",
+      "target": "framecallback",
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L172",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera",
+      "target": "basler_camera_baslercamera_stop_stream",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L197",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera",
+      "target": "basler_camera_baslercamera_apply_settings",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L204",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera",
+      "target": "basler_camera_baslercamera_try_set_bool",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L219",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera",
+      "target": "basler_camera_baslercamera_try_set_int",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L224",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera",
+      "target": "basler_camera_baslercamera_try_set_float",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L234",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera",
+      "target": "basler_camera_baslercamera_try_set_enum",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L241",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera",
+      "target": "basler_camera_baslercamera_is_writable",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L252",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera",
+      "target": "basler_camera_baslercamera_require_open_camera",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L263",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera",
+      "target": "basler_camera_baslercamera_enter",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L267",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera",
+      "target": "basler_camera_baslercamera_exit",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L271",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera",
+      "target": "basler_camera_list_basler_cameras",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L275",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera",
+      "target": "basler_camera_main",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L281",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera_init",
+      "target": "basler_camera_baslercamerasettings",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L63",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera_open",
+      "target": "basler_camera_baslercamera_apply_settings",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L88",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera_close",
+      "target": "basler_camera_baslercamera_stop_stream",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L92",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera_get_frame",
+      "target": "basler_camera_baslercamera_require_open_camera",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L107",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera_show_live",
+      "target": "basler_camera_baslercamera_require_open_camera",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L139",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera_apply_settings",
+      "target": "basler_camera_baslercamera_try_set_enum",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L207",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera_apply_settings",
+      "target": "basler_camera_baslercamera_try_set_bool",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L208",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera_apply_settings",
+      "target": "basler_camera_baslercamera_try_set_int",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L211",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera_apply_settings",
+      "target": "basler_camera_baslercamera_try_set_float",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L215",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera_try_set_bool",
+      "target": "basler_camera_baslercamera_is_writable",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L221",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera_try_set_int",
+      "target": "basler_camera_baslercamera_is_writable",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L226",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera_try_set_float",
+      "target": "basler_camera_baslercamera_is_writable",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L236",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera_try_set_enum",
+      "target": "basler_camera_baslercamera_is_writable",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L243",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_baslercamera_exit",
+      "target": "basler_camera_baslercamera_close",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L272",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_main",
+      "target": "basler_camera_list_basler_cameras",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L292",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_main",
+      "target": "basler_camera_baslercamerasettings",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L300",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_main",
+      "target": "basler_camera_baslercamera",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L307",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_main",
+      "target": "basler_camera_baslercamera_show_live",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L310",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_rationale_1",
+      "target": "basler_camera",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_rationale_36",
+      "target": "basler_camera_baslercamerasettings",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_rationale_47",
+      "target": "basler_camera_baslercamera",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_rationale_72",
+      "target": "basler_camera_baslercamera_open",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L72",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_rationale_91",
+      "target": "basler_camera_baslercamera_close",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L91",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_rationale_101",
+      "target": "basler_camera_baslercamera_get_frame",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L101",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_rationale_132",
+      "target": "basler_camera_baslercamera_show_live",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L132",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_rationale_177",
+      "target": "basler_camera_baslercamera_start_stream",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L177",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_rationale_198",
+      "target": "basler_camera_baslercamera_stop_stream",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L198",
+      "weight": 1.0
+    },
+    {
+      "source": "basler_camera_rationale_276",
+      "target": "basler_camera_list_basler_cameras",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "basler_camera.py",
+      "source_location": "L276",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller",
+      "target": "threading",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller",
+      "target": "threading",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller",
+      "target": "time",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller",
+      "target": "serial",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller",
+      "target": "serial_tools_list_ports",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller",
+      "target": "tkinter",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller",
+      "target": "tkinter",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller",
+      "target": "config",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller",
+      "target": "hmccontroller_app",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_app",
+      "target": "hmccontroller_app_init",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_app",
+      "target": "hmccontroller_app_get_controllers",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_app",
+      "target": "hmccontroller_app_stop_process",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_app",
+      "target": "hmccontroller_app_check_thread_is_alive",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_app",
+      "target": "hmccontroller_app_start_thread",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_app",
+      "target": "hmccontroller_app_start_process",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L51",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller",
+      "target": "hmccontroller_hmccontrolcs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L119",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_init",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_on_startup",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L202",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_config_serial_port",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L252",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_disconnect",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L279",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_write_port",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L286",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_read_ack",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L291",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_read_value",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L307",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_axis_read_value",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L323",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_msb_csb_lsb",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L339",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_byte3_byte2_byte1_byte0",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L347",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_msb_lsb",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L356",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_connect",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L363",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_move",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L386",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_logical_z_to_motor_z",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L528",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_acceleration_and_deceleration",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L533",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_move_status",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L550",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_set_move_data",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L555",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_send_axis_data",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L593",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_read_move_bytes",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L617",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_read_axis_data",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L675",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_send_axis_speed",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L697",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_set_speed",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L714",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_current_x",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L782",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_current_x",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L786",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_current_y",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L790",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_current_y",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L794",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_current_z",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L798",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_current_z",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L802",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_get_position",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L805",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_initialise_current_position",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L812",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_update_current_position",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L817",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_safe_move",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L822",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_move_home",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L837",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs",
+      "target": "hmccontroller_hmccontrolcs_contact_point_move",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L901",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_app_init",
+      "target": "hmccontroller_hmccontrolcs_init",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_app_stop_process",
+      "target": "hmccontroller_app_get_controllers",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_app_start_process",
+      "target": "hmccontroller_app_get_controllers",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L53",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_app_start_process",
+      "target": "hmccontroller_hmccontrolcs_move",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L79",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_app_start_process",
+      "target": "hmccontroller_hmccontrolcs_contact_point_move",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L103",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_on_startup",
+      "target": "hmccontroller_hmccontrolcs_set_speed",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L207",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_on_startup",
+      "target": "hmccontroller_hmccontrolcs_move_home",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L209",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_on_startup",
+      "target": "hmccontroller_hmccontrolcs_initialise_current_position",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L222",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_move",
+      "target": "hmccontroller_hmccontrolcs_set_move_data",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L446",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_move",
+      "target": "hmccontroller_hmccontrolcs_logical_z_to_motor_z",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L446",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_move",
+      "target": "hmccontroller_hmccontrolcs_move_status",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L457",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_move",
+      "target": "hmccontroller_hmccontrolcs_write_port",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L461",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_move",
+      "target": "hmccontroller_hmccontrolcs_read_ack",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L462",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_move",
+      "target": "hmccontroller_hmccontrolcs_read_move_bytes",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L491",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_acceleration_and_deceleration",
+      "target": "hmccontroller_hmccontrolcs_write_port",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L535",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_acceleration_and_deceleration",
+      "target": "hmccontroller_hmccontrolcs_read_ack",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L539",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_move_status",
+      "target": "hmccontroller_hmccontrolcs_read_value",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L551",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_set_move_data",
+      "target": "hmccontroller_hmccontrolcs_write_port",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L561",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_set_move_data",
+      "target": "hmccontroller_hmccontrolcs_read_ack",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L562",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_set_move_data",
+      "target": "hmccontroller_hmccontrolcs_send_axis_data",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L567",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_send_axis_data",
+      "target": "hmccontroller_hmccontrolcs_byte3_byte2_byte1_byte0",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L595",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_send_axis_data",
+      "target": "hmccontroller_hmccontrolcs_write_port",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L597",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_send_axis_data",
+      "target": "hmccontroller_hmccontrolcs_read_ack",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L598",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_read_move_bytes",
+      "target": "hmccontroller_hmccontrolcs_read_axis_data",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L645",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_send_axis_speed",
+      "target": "hmccontroller_hmccontrolcs_write_port",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L702",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_send_axis_speed",
+      "target": "hmccontroller_hmccontrolcs_read_ack",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L703",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_send_axis_speed",
+      "target": "hmccontroller_hmccontrolcs_msb_csb_lsb",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L705",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_set_speed",
+      "target": "hmccontroller_hmccontrolcs_send_axis_speed",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L728",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_set_speed",
+      "target": "hmccontroller_hmccontrolcs_write_port",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L754",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_set_speed",
+      "target": "hmccontroller_hmccontrolcs_read_ack",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L755",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_set_speed",
+      "target": "hmccontroller_hmccontrolcs_msb_csb_lsb",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L757",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_safe_move",
+      "target": "hmccontroller_hmccontrolcs_set_speed",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L824",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_safe_move",
+      "target": "hmccontroller_hmccontrolcs_move",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L825",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_move_home",
+      "target": "hmccontroller_hmccontrolcs_set_move_data",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L856",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_move_home",
+      "target": "hmccontroller_hmccontrolcs_move_status",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L861",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_move_home",
+      "target": "hmccontroller_hmccontrolcs_write_port",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L867",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_move_home",
+      "target": "hmccontroller_hmccontrolcs_read_ack",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L868",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_move_home",
+      "target": "hmccontroller_hmccontrolcs_read_move_bytes",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L896",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_move_home",
+      "target": "hmccontroller_hmccontrolcs_update_current_position",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L898",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_contact_point_move",
+      "target": "hmccontroller_hmccontrolcs_set_move_data",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L924",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_contact_point_move",
+      "target": "hmccontroller_hmccontrolcs_logical_z_to_motor_z",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L924",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_contact_point_move",
+      "target": "hmccontroller_hmccontrolcs_move_status",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L928",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_contact_point_move",
+      "target": "hmccontroller_hmccontrolcs_write_port",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L932",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_contact_point_move",
+      "target": "hmccontroller_hmccontrolcs_read_ack",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L933",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_contact_point_move",
+      "target": "hmccontroller_hmccontrolcs_update_current_position",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "hmccontroller.py",
+      "source_location": "L960",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography",
+      "target": "time",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography",
+      "target": "threading",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography",
+      "target": "threading",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography",
+      "target": "dataclasses",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography",
+      "target": "typing",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography",
+      "target": "config",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography",
+      "target": "smumark2",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography",
+      "target": "lithography_voltagefeedbackstate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography_voltagefeedbackstate",
+      "target": "lithography_voltagefeedbackstate_update",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography_voltagefeedbackstate",
+      "target": "lithography_voltagefeedbackstate_snapshot",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography",
+      "target": "lithography_patternabort",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography_patternabort",
+      "target": "exception",
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography",
+      "target": "lithography_time_block",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L45",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography",
+      "target": "lithography_classify_voltage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L55",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography",
+      "target": "lithography_feedback_direction_label",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L65",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography",
+      "target": "lithography_read_voltage_sample",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L75",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography",
+      "target": "lithography_abort_patterning",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L79",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography",
+      "target": "lithography_ensure_z_below_limit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L90",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography",
+      "target": "lithography_find_contact_point",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L99",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography",
+      "target": "lithography_find_contact_point_custom",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L137",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography",
+      "target": "lithography_read_pattern_file",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L179",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography",
+      "target": "lithography_smuvoltagesampler",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L190",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography_smuvoltagesampler",
+      "target": "thread",
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L190",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography_smuvoltagesampler",
+      "target": "lithography_smuvoltagesampler_init",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L191",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography_smuvoltagesampler",
+      "target": "lithography_smuvoltagesampler_run",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L203",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography",
+      "target": "lithography_zfeedbackworker",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L232",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography_zfeedbackworker",
+      "target": "thread",
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L232",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography_zfeedbackworker",
+      "target": "lithography_zfeedbackworker_init",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L233",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography_zfeedbackworker",
+      "target": "lithography_zfeedbackworker_run",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L244",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography_abort_patterning",
+      "target": "lithography_patternabort",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L87",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography_ensure_z_below_limit",
+      "target": "lithography_abort_patterning",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L92",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography_find_contact_point",
+      "target": "lithography_time_block",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L123",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography_find_contact_point_custom",
+      "target": "lithography_ensure_z_below_limit",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L142",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography_find_contact_point_custom",
+      "target": "lithography_time_block",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L148",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography_smuvoltagesampler_init",
+      "target": "lithography_zfeedbackworker_init",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L192",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography_smuvoltagesampler_run",
+      "target": "lithography_read_voltage_sample",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L212",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography_smuvoltagesampler_run",
+      "target": "lithography_classify_voltage",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L213",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography_smuvoltagesampler_run",
+      "target": "lithography_voltagefeedbackstate_update",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L214",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography_smuvoltagesampler_run",
+      "target": "lithography_feedback_direction_label",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L219",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography_zfeedbackworker_run",
+      "target": "lithography_voltagefeedbackstate_snapshot",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L252",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography_zfeedbackworker_run",
+      "target": "lithography_feedback_direction_label",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L267",
+      "weight": 1.0
+    },
+    {
+      "source": "lithography_rationale_41",
+      "target": "lithography_patternabort",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "lithography.py",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "serial_tools_list_ports",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "hmccontroller",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "time",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "threading",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "threading",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "collections",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "config",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "modes",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "modes",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "modes",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "modes",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "modes",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "modes",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "modes",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "main_format_elapsed_time",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "main_compute_synchronized_speeds",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "main_wait_for_motion",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L89",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "main_print_timing_summary",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L94",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "main_list_ports",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L102",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "main_step_size_listener",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L113",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "main_main",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L126",
+      "weight": 1.0
+    },
+    {
+      "source": "main_print_timing_summary",
+      "target": "main_format_elapsed_time",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L97",
+      "weight": 1.0
+    },
+    {
+      "source": "main_main",
+      "target": "main_list_ports",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L127",
+      "weight": 1.0
+    },
+    {
+      "source": "main_rationale_32",
+      "target": "main_compute_synchronized_speeds",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_async_litho",
+      "target": "time",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_async_litho.py",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_async_litho",
+      "target": "math",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_async_litho.py",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_async_litho",
+      "target": "queue",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_async_litho.py",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_async_litho",
+      "target": "threading",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_async_litho.py",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_async_litho",
+      "target": "threading",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_async_litho.py",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_async_litho",
+      "target": "collections",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_async_litho.py",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_async_litho",
+      "target": "main",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_async_litho.py",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_async_litho",
+      "target": "smumark2",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_async_litho.py",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_async_litho",
+      "target": "lithography",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_async_litho.py",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_async_litho",
+      "target": "modes_mode_async_litho_run",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_async_litho.py",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_home",
+      "target": "modes_mode_home_run",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_home.py",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_manual",
+      "target": "time",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_manual.py",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_manual",
+      "target": "modes_mode_manual_run",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_manual.py",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_probe",
+      "target": "time",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_probe.py",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_probe",
+      "target": "queue",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_probe.py",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_probe",
+      "target": "threading",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_probe.py",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_probe",
+      "target": "modes_mode_probe_user_input_listener",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_probe.py",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_probe",
+      "target": "modes_mode_probe_z_probe_move",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_probe.py",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_probe",
+      "target": "modes_mode_probe_run_probe",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_probe.py",
+      "source_location": "L77",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_probe",
+      "target": "modes_mode_probe_run_pause_resume",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_probe.py",
+      "source_location": "L89",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_step_test",
+      "target": "time",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_step_test.py",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_step_test",
+      "target": "modes_mode_step_test_run",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_step_test.py",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_sync_litho",
+      "target": "time",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_sync_litho.py",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_sync_litho",
+      "target": "math",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_sync_litho.py",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_sync_litho",
+      "target": "queue",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_sync_litho.py",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_sync_litho",
+      "target": "threading",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_sync_litho.py",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_sync_litho",
+      "target": "collections",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_sync_litho.py",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_sync_litho",
+      "target": "main",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_sync_litho.py",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_sync_litho",
+      "target": "smumark2",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_sync_litho.py",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_sync_litho",
+      "target": "lithography",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_sync_litho.py",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_sync_litho",
+      "target": "modes_mode_sync_litho_run",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_sync_litho.py",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_trajectory",
+      "target": "time",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_trajectory.py",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_trajectory",
+      "target": "main",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_trajectory.py",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_trajectory",
+      "target": "modes_mode_trajectory_run",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "modes/mode_trajectory.py",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "pattern_generator",
+      "target": "pattern_generator_generate_e_like_snake_coordinates",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "pattern_generator.py",
+      "source_location": "L137",
+      "weight": 1.0
+    },
+    {
+      "source": "pattern_generator",
+      "target": "pattern_generator_shift_coordinates",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "pattern_generator.py",
+      "source_location": "L193",
+      "weight": 1.0
+    },
+    {
+      "source": "pattern_generator",
+      "target": "pattern_generator_generate_parallel_lines",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "pattern_generator.py",
+      "source_location": "L208",
+      "weight": 1.0
+    },
+    {
+      "source": "pattern_generator",
+      "target": "pattern_generator_generate_parallel_lines_variable_spacing",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "pattern_generator.py",
+      "source_location": "L244",
+      "weight": 1.0
+    },
+    {
+      "source": "pattern_generator",
+      "target": "pattern_generator_generate_grid_lines_to_file",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "pattern_generator.py",
+      "source_location": "L279",
+      "weight": 1.0
+    },
+    {
+      "source": "pattern_generator",
+      "target": "math",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "pattern_generator.py",
+      "source_location": "L312",
+      "weight": 1.0
+    },
+    {
+      "source": "pattern_generator",
+      "target": "csv",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "pattern_generator.py",
+      "source_location": "L313",
+      "weight": 1.0
+    },
+    {
+      "source": "pattern_generator",
+      "target": "pattern_generator_generate_circle_coordinates",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "pattern_generator.py",
+      "source_location": "L315",
+      "weight": 1.0
+    },
+    {
+      "source": "pattern_generator",
+      "target": "pattern_generator_generate_concentric_hexagons",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "pattern_generator.py",
+      "source_location": "L358",
+      "weight": 1.0
+    },
+    {
+      "source": "pattern_generator",
+      "target": "pattern_generator_plot_concentric_hexagons",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "pattern_generator.py",
+      "source_location": "L410",
+      "weight": 1.0
+    },
+    {
+      "source": "pattern_generator",
+      "target": "pattern_generator_generate_concentric_circles",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "pattern_generator.py",
+      "source_location": "L474",
+      "weight": 1.0
+    },
+    {
+      "source": "pattern_generator",
+      "target": "pattern_generator_plot_concentric_circles",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "pattern_generator.py",
+      "source_location": "L536",
+      "weight": 1.0
+    },
+    {
+      "source": "pattern_generator_rationale_411",
+      "target": "pattern_generator_plot_concentric_hexagons",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "pattern_generator.py",
+      "source_location": "L411",
+      "weight": 1.0
+    },
+    {
+      "source": "pattern_generator_rationale_481",
+      "target": "pattern_generator_generate_concentric_circles",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "pattern_generator.py",
+      "source_location": "L481",
+      "weight": 1.0
+    },
+    {
+      "source": "pattern_generator_rationale_537",
+      "target": "pattern_generator_plot_concentric_circles",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "pattern_generator.py",
+      "source_location": "L537",
+      "weight": 1.0
+    },
+    {
+      "source": "scratch_check_z_inversion",
+      "target": "sys",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scratch/check_z_inversion.py",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "scratch_check_z_inversion",
+      "target": "os",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scratch/check_z_inversion.py",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "scratch_check_z_inversion",
+      "target": "hmccontroller",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scratch/check_z_inversion.py",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "smumark2",
+      "target": "pyvisa",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "smumark2.py",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "smumark2",
+      "target": "time",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "smumark2.py",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "smumark2",
+      "target": "smumark2_check_smu_errors",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "smumark2.py",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "smumark2",
+      "target": "smumark2_init_smu",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "smumark2.py",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "smumark2",
+      "target": "smumark2_reset_smu",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "smumark2.py",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "smumark2",
+      "target": "smumark2_use_case_1",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "smumark2.py",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "smumark2",
+      "target": "smumark2_use_case_2",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "smumark2.py",
+      "source_location": "L57",
+      "weight": 1.0
+    },
+    {
+      "source": "smumark2",
+      "target": "smumark2_out_on",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "smumark2.py",
+      "source_location": "L67",
+      "weight": 1.0
+    },
+    {
+      "source": "smumark2",
+      "target": "smumark2_read_sample",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "smumark2.py",
+      "source_location": "L71",
+      "weight": 1.0
+    },
+    {
+      "source": "smumark2",
+      "target": "smumark2_read_voltage_sample",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "smumark2.py",
+      "source_location": "L96",
+      "weight": 1.0
+    },
+    {
+      "source": "smumark2",
+      "target": "smumark2_read_current_sample",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "smumark2.py",
+      "source_location": "L99",
+      "weight": 1.0
+    },
+    {
+      "source": "smumark2",
+      "target": "smumark2_check_voltage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "smumark2.py",
+      "source_location": "L103",
+      "weight": 1.0
+    },
+    {
+      "source": "smumark2",
+      "target": "smumark2_check_current",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "smumark2.py",
+      "source_location": "L130",
+      "weight": 1.0
+    },
+    {
+      "source": "smumark2",
+      "target": "smumark2_check_voltage_testing",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "smumark2.py",
+      "source_location": "L142",
+      "weight": 1.0
+    },
+    {
+      "source": "smumark2",
+      "target": "smumark2_out_off",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "smumark2.py",
+      "source_location": "L157",
+      "weight": 1.0
+    },
+    {
+      "source": "smumark2_init_smu",
+      "target": "smumark2_check_smu_errors",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "smumark2.py",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "smumark2_reset_smu",
+      "target": "smumark2_check_smu_errors",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "smumark2.py",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "smumark2_use_case_1",
+      "target": "smumark2_reset_smu",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "smumark2.py",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "smumark2_use_case_1",
+      "target": "smumark2_check_smu_errors",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "smumark2.py",
+      "source_location": "L54",
+      "weight": 1.0
+    },
+    {
+      "source": "smumark2_use_case_2",
+      "target": "smumark2_reset_smu",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "smumark2.py",
+      "source_location": "L58",
+      "weight": 1.0
+    },
+    {
+      "source": "smumark2_use_case_2",
+      "target": "smumark2_check_smu_errors",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "smumark2.py",
+      "source_location": "L64",
+      "weight": 1.0
+    },
+    {
+      "source": "smumark2_read_voltage_sample",
+      "target": "smumark2_read_sample",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "smumark2.py",
+      "source_location": "L97",
+      "weight": 1.0
+    },
+    {
+      "source": "smumark2_read_current_sample",
+      "target": "smumark2_read_sample",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "smumark2.py",
+      "source_location": "L100",
+      "weight": 1.0
+    },
+    {
+      "source": "smumark2_check_voltage",
+      "target": "smumark2_read_voltage_sample",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "smumark2.py",
+      "source_location": "L106",
+      "weight": 1.0
+    },
+    {
+      "source": "smumark2_check_current",
+      "target": "smumark2_read_current_sample",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "smumark2.py",
+      "source_location": "L132",
+      "weight": 1.0
+    },
+    {
+      "source": "speed_fine_sweep",
+      "target": "serial_tools_list_ports",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_fine_sweep.py",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "speed_fine_sweep",
+      "target": "hmccontroller",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_fine_sweep.py",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "speed_fine_sweep",
+      "target": "time",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_fine_sweep.py",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "speed_fine_sweep",
+      "target": "speed_fine_sweep_list_ports",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_fine_sweep.py",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "speed_fine_sweep",
+      "target": "speed_fine_sweep_main",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_fine_sweep.py",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "speed_fine_sweep_main",
+      "target": "speed_fine_sweep_list_ports",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_fine_sweep.py",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_byte_encoding",
+      "target": "unittest",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_byte_encoding.py",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_byte_encoding",
+      "target": "sys",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_byte_encoding.py",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_byte_encoding",
+      "target": "os",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_byte_encoding.py",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_byte_encoding",
+      "target": "hmccontroller",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_byte_encoding.py",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_byte_encoding",
+      "target": "tests_test_byte_encoding_testbyteencoding",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_byte_encoding.py",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_byte_encoding_testbyteencoding",
+      "target": "tests_test_byte_encoding_testbyteencoding_setup",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_byte_encoding.py",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_byte_encoding_testbyteencoding",
+      "target": "tests_test_byte_encoding_testbyteencoding_test_msb_csb_lsb",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_byte_encoding.py",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_byte_encoding_testbyteencoding",
+      "target": "tests_test_byte_encoding_testbyteencoding_test_byte3_byte2_byte1_byte0",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_byte_encoding.py",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_byte_encoding_testbyteencoding",
+      "target": "tests_test_byte_encoding_testbyteencoding_test_msb_lsb",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_byte_encoding.py",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_speed_calc",
+      "target": "unittest",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_speed_calc.py",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_speed_calc",
+      "target": "sys",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_speed_calc.py",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_speed_calc",
+      "target": "os",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_speed_calc.py",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_speed_calc",
+      "target": "main",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_speed_calc.py",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_speed_calc",
+      "target": "tests_test_speed_calc_testspeedcalculation",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_speed_calc.py",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_speed_calc_testspeedcalculation",
+      "target": "tests_test_speed_calc_testspeedcalculation_test_zero_displacement",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_speed_calc.py",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_speed_calc_testspeedcalculation",
+      "target": "tests_test_speed_calc_testspeedcalculation_test_zero_speed",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_speed_calc.py",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_speed_calc_testspeedcalculation",
+      "target": "tests_test_speed_calc_testspeedcalculation_test_proportional_speed",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_speed_calc.py",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_speed_calc_testspeedcalculation",
+      "target": "tests_test_speed_calc_testspeedcalculation_test_bad_speed_avoidance_band_a",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_speed_calc.py",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_speed_calc_testspeedcalculation",
+      "target": "tests_test_speed_calc_testspeedcalculation_test_bad_speed_avoidance_band_b",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_speed_calc.py",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "api",
+      "target": "hmccontroller_hmccontrolcs",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "api.py",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "api",
+      "target": "hmccontroller_app",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "api.py",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_caliberation",
+      "target": "hmccontroller_hmccontrolcs",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_caliberation.py",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_caliberation",
+      "target": "hmccontroller_app",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_caliberation.py",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_detailed_test",
+      "target": "hmccontroller_hmccontrolcs",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_detailed_test.py",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_detailed_test",
+      "target": "hmccontroller_app",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_detailed_test.py",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_sweep_test",
+      "target": "hmccontroller_hmccontrolcs",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_sweep_test.py",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_sweep_test",
+      "target": "hmccontroller_app",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_sweep_test.py",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_testing",
+      "target": "hmccontroller_hmccontrolcs",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/testing.py",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_testing",
+      "target": "hmccontroller_app",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/testing.py",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "hmccontroller_hmccontrolcs",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "hmccontroller_app",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "scratch_check_z_inversion",
+      "target": "hmccontroller_hmccontrolcs",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scratch/check_z_inversion.py",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "speed_fine_sweep",
+      "target": "hmccontroller_hmccontrolcs",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_fine_sweep.py",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "speed_fine_sweep",
+      "target": "hmccontroller_app",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_fine_sweep.py",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_byte_encoding",
+      "target": "hmccontroller_hmccontrolcs",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_byte_encoding.py",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_speed_calc",
+      "target": "main_compute_synchronized_speeds",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test_speed_calc.py",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "api",
+      "target": "modes_mode_async_litho",
+      "relation": "imports_from",
+      "context": "submodule_import",
+      "confidence": "EXTRACTED",
+      "source_file": "api.py",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "modes_mode_manual",
+      "relation": "imports_from",
+      "context": "submodule_import",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "modes_mode_home",
+      "relation": "imports_from",
+      "context": "submodule_import",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "modes_mode_trajectory",
+      "relation": "imports_from",
+      "context": "submodule_import",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "modes_mode_probe",
+      "relation": "imports_from",
+      "context": "submodule_import",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "modes_mode_sync_litho",
+      "relation": "imports_from",
+      "context": "submodule_import",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "modes_mode_step_test",
+      "relation": "imports_from",
+      "context": "submodule_import",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "main",
+      "target": "modes_mode_async_litho",
+      "relation": "imports_from",
+      "context": "submodule_import",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_caliberation_main",
+      "target": "hmccontroller_hmccontrolcs",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_caliberation.py",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_caliberation_main",
+      "target": "hmccontroller_app",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_caliberation.py",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_detailed_test_main",
+      "target": "hmccontroller_hmccontrolcs",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_detailed_test.py",
+      "source_location": "L93",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_detailed_test_main",
+      "target": "hmccontroller_app",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_detailed_test.py",
+      "source_location": "L107",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_sweep_test_main",
+      "target": "hmccontroller_hmccontrolcs",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_sweep_test.py",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_speed_sweep_test_main",
+      "target": "hmccontroller_app",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/speed_sweep_test.py",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_testing_main",
+      "target": "hmccontroller_hmccontrolcs",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/testing.py",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_testing_main",
+      "target": "hmccontroller_app",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "archive/testing.py",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "main_main",
+      "target": "hmccontroller_hmccontrolcs",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L135",
+      "weight": 1.0
+    },
+    {
+      "source": "main_main",
+      "target": "hmccontroller_app",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L149",
+      "weight": 1.0
+    },
+    {
+      "source": "speed_fine_sweep_main",
+      "target": "hmccontroller_hmccontrolcs",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_fine_sweep.py",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "speed_fine_sweep_main",
+      "target": "hmccontroller_app",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_fine_sweep.py",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "api_lithographysystem",
+      "target": "hmccontroller_hmccontrolcs",
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "api.py",
+      "source_location": "L5",
+      "weight": 0.8
+    },
+    {
+      "source": "api_lithographysystem",
+      "target": "hmccontroller_app",
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "api.py",
+      "source_location": "L5",
+      "weight": 0.8
+    },
+    {
+      "source": "tests_test_byte_encoding_testbyteencoding",
+      "target": "hmccontroller_hmccontrolcs",
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "tests/test_byte_encoding.py",
+      "source_location": "L8",
+      "weight": 0.8
+    },
+    {
+      "source": "api_lithographysystem_connect",
+      "target": "hmccontroller_hmccontrolcs",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "api.py",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "api_lithographysystem_connect",
+      "target": "hmccontroller_app",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "api.py",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_testing_main",
+      "target": "thread",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "archive/testing.py",
+      "source_location": "L321",
+      "weight": 1.0
+    },
+    {
+      "source": "archive_testing_main",
+      "target": "lithography_find_contact_point",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "archive/testing.py",
+      "source_location": "L324",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_app_start_thread",
+      "target": "thread",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "hmccontroller.py",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_app_start_process",
+      "target": "thread",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "hmccontroller.py",
+      "source_location": "L67",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_read_ack",
+      "target": "exception",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "hmccontroller.py",
+      "source_location": "L305",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_connect",
+      "target": "exception",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "hmccontroller.py",
+      "source_location": "L369",
+      "weight": 1.0
+    },
+    {
+      "source": "hmccontroller_hmccontrolcs_read_move_bytes",
+      "target": "exception",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "hmccontroller.py",
+      "source_location": "L640",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_async_litho_run",
+      "target": "thread",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "modes/mode_async_litho.py",
+      "source_location": "L89",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_probe_run_probe",
+      "target": "thread",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "modes/mode_probe.py",
+      "source_location": "L86",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_probe_run_pause_resume",
+      "target": "thread",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "modes/mode_probe.py",
+      "source_location": "L134",
+      "weight": 1.0
+    },
+    {
+      "source": "modes_mode_sync_litho_run",
+      "target": "thread",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "modes/mode_sync_litho.py",
+      "source_location": "L76",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_byte_encoding_testbyteencoding_setup",
+      "target": "hmccontroller_hmccontrolcs",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "tests/test_byte_encoding.py",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_speed_calc_testspeedcalculation_test_zero_displacement",
+      "target": "main_compute_synchronized_speeds",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "tests/test_speed_calc.py",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_speed_calc_testspeedcalculation_test_zero_speed",
+      "target": "main_compute_synchronized_speeds",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "tests/test_speed_calc.py",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_speed_calc_testspeedcalculation_test_proportional_speed",
+      "target": "main_compute_synchronized_speeds",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "tests/test_speed_calc.py",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_speed_calc_testspeedcalculation_test_bad_speed_avoidance_band_a",
+      "target": "main_compute_synchronized_speeds",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "tests/test_speed_calc.py",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_speed_calc_testspeedcalculation_test_bad_speed_avoidance_band_b",
+      "target": "main_compute_synchronized_speeds",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "tests/test_speed_calc.py",
+      "source_location": "L29",
+      "weight": 1.0
+    }
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0
+}

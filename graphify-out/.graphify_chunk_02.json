@@ -1,0 +1,96 @@
+{
+  "nodes": [
+    {
+      "id": "images_1_micrograph",
+      "label": "Complete Plotted Circle Microscope Image",
+      "file_type": "image",
+      "source_file": "D:\\Python codes\\hmccontroller\\images\\1.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "images_1_successful_circular_trajectory",
+      "label": "Successful Circular Trajectory",
+      "file_type": "concept",
+      "source_file": "D:\\Python codes\\hmccontroller\\images\\1.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "images_1_exposure_line_thickness_variation",
+      "label": "Exposure & Line Thickness Variation",
+      "file_type": "concept",
+      "source_file": "D:\\Python codes\\hmccontroller\\images\\1.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "images_1_micrograph",
+      "target": "images_1_successful_circular_trajectory",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Python codes\\hmccontroller\\images\\1.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "images_1_micrograph",
+      "target": "images_1_exposure_line_thickness_variation",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "D:\\Python codes\\hmccontroller\\images\\1.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "images_1_successful_circular_trajectory",
+      "target": "diagnostic_and_fix_history_circle_distortion",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "D:\\Python codes\\hmccontroller\\images\\1.jpg",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "images_1_successful_circular_trajectory",
+      "target": "diagnostic_and_fix_history_fine_grained_calibration",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "D:\\Python codes\\hmccontroller\\images\\1.jpg",
+      "source_location": null,
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "circle_lithography_verification",
+      "label": "Circle Lithography Quality Verification",
+      "nodes": [
+        "images_1_micrograph",
+        "images_1_successful_circular_trajectory",
+        "images_1_exposure_line_thickness_variation"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "D:\\Python codes\\hmccontroller\\images\\1.jpg"
+    }
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0
+}
