@@ -10,23 +10,49 @@ import main
 import smumark2
 import lithography
 
-def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup_all_fn):
+def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup_all_fn, params=None):
     timers = defaultdict(float)
 
-    disable_ramps = input("Disable motor acceleration/deceleration ramps? (y/n): ").strip().lower() == 'y'
-    contact_voltage = float(input("Enter source voltage in V for contact detection (use case 1): "))
-    contact_compliance_current_ua = float(input("Enter compliance current in micro amps for contact detection (use case 1): "))
-    threshold_current_ua = float(input("Enter threshold current in micro amps to detect contact: "))
-    volt_source = float(input("Enter source voltage (use_case_2): "))
-    curr_comp = float(input("Enter compliance current in micro amps (use_case_2): "))
-    voltage_threshold_1 = float(input("Enter voltage lower threshold for feedback (V): "))
-    voltage_threshold_2 = float(input("Enter voltage upper threshold for feedback (V): "))
-    delta_z = float(input("Enter Z adjustment step for plotting (in µm): "))
-    z_contact_step = float(input("Enter Z adjustment step for finding contact point:"))
-    speed = float(input("Enter speed for xy axis: "))
-    liftoff_height = float(input("Enter liftoff height in µm: "))
-    max_safe_z_margin = float(input("Enter maximum allowed Z increase above first contact point (in um, e.g. 100): "))
-    filename = input("Enter filename: ")
+    if params is not None:
+        disable_ramps = params.get('disable_ramps', True)
+        contact_voltage = float(params.get('contact_voltage', 5.0))
+        contact_compliance_current_ua = float(params.get('contact_compliance_current_ua', 0.3))
+        threshold_current_ua = float(params.get('threshold_current_ua', 0.1))
+        volt_source = float(params.get('volt_source', 20.0))
+        curr_comp = float(params.get('curr_comp', 1.0))
+        voltage_threshold_1 = float(params.get('voltage_threshold_1', 1.9))
+        voltage_threshold_2 = float(params.get('voltage_threshold_2', 2.2))
+        delta_z = float(params.get('delta_z', 0.1))
+        z_contact_step = float(params.get('z_contact_step', 1.0))
+        speed = float(params.get('speed', 5000))
+        liftoff_height = float(params.get('liftoff_height', 1000))
+        max_safe_z_margin = float(params.get('max_safe_z_margin', 100))
+        filename = params.get('filename', 'circles')
+    else:
+        disable_ramps = input("Disable motor acceleration/deceleration ramps? (y/n): ").strip().lower() == 'y'
+        contact_voltage = float(input("Enter source voltage in V for contact detection (use case 1): "))
+        contact_compliance_current_ua = float(input("Enter compliance current in micro amps for contact detection (use case 1): "))
+        threshold_current_ua = float(input("Enter threshold current in micro amps to detect contact: "))
+        volt_source = float(input("Enter source voltage (use_case_2): "))
+        curr_comp = float(input("Enter compliance current in micro amps (use_case_2): "))
+        voltage_threshold_1 = float(input("Enter voltage lower threshold for feedback (V): "))
+        voltage_threshold_2 = float(input("Enter voltage upper threshold for feedback (V): "))
+        delta_z = float(input("Enter Z adjustment step for plotting (in µm): "))
+        z_contact_step = float(input("Enter Z adjustment step for finding contact point:"))
+        speed = float(input("Enter speed for xy axis: "))
+        liftoff_height = float(input("Enter liftoff height in µm: "))
+        max_safe_z_margin = float(input("Enter maximum allowed Z increase above first contact point (in um, e.g. 100): "))
+        filename = input("Enter filename: ")
+
+    # Initialize live telemetry attributes for frontend monitoring
+    app.patterning_active = True
+    app.patterning_mode = 6
+    app.total_moves = 0
+    app.moves_done = 0
+    app.moves_left = 0
+    app.z_feedback_direction = "inactive"
+    app.smu_voltage = 0.0
+    app.smu_current = 0.0
 
     with lithography.time_block(timers, "smu.init_smu"):
         smu = smumark2.init_smu()
@@ -98,6 +124,7 @@ def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup
                 z_hmc.acceleration_and_deceleration(False, False)
 
         def plot_from_file(v):
+            app.total_moves = len(lines)
             with lithography.time_block(timers, "smu.use_case_2"):
                 smumark2.use_case_2(smu, voltage=volt_source, compliance_current_ua=curr_comp)
             smumark2.out_on(smu)
@@ -114,6 +141,8 @@ def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup
             liftoff = False
 
             for x, y, flag in lines:
+                app.moves_done = i
+                app.moves_left = max(0, app.total_moves - i)
                 dx = x - x_hmc.current_x
                 dy = y - y_hmc.current_y
                 print(f"flag:{flag}")
@@ -123,6 +152,7 @@ def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup
                     z = z_contact_point
                     continue
                 elif flag == 1:
+                    app.z_feedback_direction = "liftoff"
                     if prev_flag == 0:
                         print("[INFO] liftoff Initiated")
                         z = prev_z - liftoff_height
@@ -131,6 +161,7 @@ def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup
                         z = prev_z
                 elif flag == 0:
                     if liftoff:
+                        app.z_feedback_direction = "finding_contact"
                         print("[INFO] Finding new contact point...")
                         z = lithography.find_contact_point_custom(
                             app=app,
@@ -155,16 +186,21 @@ def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup
                                 threshold_voltage_2=voltage_threshold_2,
                                 ensure_output_on=False,
                                 verbose=False,
-                            )
+                             )
+                        app.smu_voltage = getattr(smu, "latest_voltage", 0.0)
+                        app.smu_current = getattr(smu, "latest_current", 0.0)
                         if direction == 2:
+                            app.z_feedback_direction = "voltage_low"
                             print("[FEEDBACK] Voltage too low — going down")
                             z = prev_z - delta_z
                             print(f"Prev z: {prev_z}, delta z: {delta_z}, new z: {z}")
                         elif direction == 3:
+                            app.z_feedback_direction = "voltage_high"
                             print("[FEEDBACK] Voltage too high — going up")
                             z = prev_z + delta_z
                             print(f"Prev z: {prev_z}, delta z: {delta_z}, new z: {z}")
                         else:
+                            app.z_feedback_direction = "aligned"
                             print("[FEEDBACK] Voltage in range — Z aligned")
                             z = prev_z
                 else:
@@ -176,15 +212,20 @@ def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup
                             ensure_output_on=False,
                             verbose=False,
                         )
+                    app.smu_voltage = getattr(smu, "latest_voltage", 0.0)
+                    app.smu_current = getattr(smu, "latest_current", 0.0)
                     if direction == 2:
+                        app.z_feedback_direction = "voltage_low"
                         print("[FEEDBACK] Voltage too low — going down")
                         z = prev_z - delta_z
                         print(f"Prev z: {prev_z}, delta z: {delta_z}, new z: {z}")
                     elif direction == 3:
+                        app.z_feedback_direction = "voltage_high"
                         print("[FEEDBACK] Voltage too high — going up")
                         z = prev_z + delta_z
                         print(f"Prev z: {prev_z}, delta z: {delta_z}, new z: {z}")
                     else:
+                        app.z_feedback_direction = "aligned"
                         print("[FEEDBACK] Voltage in range — Z aligned")
                         z = prev_z
 
@@ -263,6 +304,7 @@ def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup
     except lithography.PatternAbort as pa:
         print(f"[ABORT] Lithography run aborted: {pa}")
     finally:
+        app.patterning_active = False
         if disable_ramps:
             x_hmc.acceleration_and_deceleration(True, True)
             y_hmc.acceleration_and_deceleration(True, True)

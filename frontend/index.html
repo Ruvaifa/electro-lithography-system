@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electro-Lithography Controller Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="glow-bg"></div>
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="main-header glass-panel">
+            <div class="header-left">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none">
+                        <circle cx="12" cy="12" r="9"></circle>
+                        <path d="M12 3v9h9"></path>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1>Antigravity Litho</h1>
+                    <p>Electro-Lithography Stage Control Interface</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="status-badge" id="system-status">
+                    <span class="status-indicator"></span>
+                    <span class="status-text">Disconnected</span>
+                </div>
+                <button class="btn btn-danger" id="btn-emergency-stop">
+                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none">
+                        <polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    Emergency Stop
+                </button>
+            </div>
+        </header>
+
+        <!-- DASHBOARD GRID -->
+        <div class="dashboard-grid">
+            
+            <!-- LEFT PANEL: Connection & Control -->
+            <div class="panel-column">
+                
+                <!-- CONNECTION PANEL -->
+                <section class="card glass-panel" id="connection-panel">
+                    <div class="card-header">
+                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+                            <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                            <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                            <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                            <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                        </svg>
+                        <h2>Serial Connections</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="input-grid">
+                            <div class="input-group">
+                                <label for="port-x">X Axis Port</label>
+                                <select id="port-x" class="port-select"><option value="">Scanning...</option></select>
+                            </div>
+                            <div class="input-group">
+                                <label for="port-y">Y Axis Port</label>
+                                <select id="port-y" class="port-select"><option value="">Scanning...</option></select>
+                            </div>
+                            <div class="input-group">
+                                <label for="port-z">Z Axis Port</label>
+                                <select id="port-z" class="port-select"><option value="">Scanning...</option></select>
+                            </div>
+                        </div>
+                        <div class="action-row">
+                            <button class="btn btn-primary" id="btn-connect">Connect Ports</button>
+                            <button class="btn btn-secondary" id="btn-home" disabled>Home All Axes</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- JOG JOGGER PANEL -->
+                <section class="card glass-panel" id="jog-panel">
+                    <div class="card-header">
+                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+                            <polyline points="5 9 2 12 5 15"></polyline>
+                            <polyline points="9 5 12 2 15 5"></polyline>
+                            <polyline points="15 19 12 22 9 19"></polyline>
+                            <polyline points="19 9 22 12 19 15"></polyline>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <line x1="12" y1="2" x2="12" y2="22"></line>
+                        </svg>
+                        <h2>Manual Axis Jogging</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="position-display">
+                            <div class="pos-coord">
+                                <span class="coord-label">X</span>
+                                <span class="coord-val" id="pos-x">0.00</span>
+                                <span class="coord-unit">µm</span>
+                            </div>
+                            <div class="pos-coord">
+                                <span class="coord-label">Y</span>
+                                <span class="coord-val" id="pos-y">0.00</span>
+                                <span class="coord-unit">µm</span>
+                            </div>
+                            <div class="pos-coord">
+                                <span class="coord-label">Z</span>
+                                <span class="coord-val" id="pos-z">0.00</span>
+                                <span class="coord-unit">µm</span>
+                            </div>
+                        </div>
+
+                        <div class="jog-layout">
+                            <div class="jog-step-selector">
+                                <label>Jog Step Size (µm)</label>
+                                <div class="step-buttons">
+                                    <button class="step-btn active" data-step="0.2">0.2</button>
+                                    <button class="step-btn" data-step="1.0">1.0</button>
+                                    <button class="step-btn" data-step="10.0">10</button>
+                                    <button class="step-btn" data-step="100.0">100</button>
+                                    <button class="step-btn" data-step="1000.0">1000</button>
+                                </div>
+                            </div>
+
+                            <div class="jog-controls">
+                                <div class="jog-xy-grid">
+                                    <div></div>
+                                    <button class="jog-btn" id="jog-y-plus" disabled title="Y Positive">Y+</button>
+                                    <div></div>
+                                    <button class="jog-btn" id="jog-x-minus" disabled title="X Negative">X-</button>
+                                    <div class="jog-center">XY</div>
+                                    <button class="jog-btn" id="jog-x-plus" disabled title="X Positive">X+</button>
+                                    <div></div>
+                                    <button class="jog-btn" id="jog-y-minus" disabled title="Y Negative">Y-</button>
+                                    <div></div>
+                                </div>
+                                <div class="jog-z-column">
+                                    <button class="jog-btn" id="jog-z-plus" disabled title="Z Positive (Up)">Z+</button>
+                                    <div class="jog-center">Z</div>
+                                    <button class="jog-btn" id="jog-z-minus" disabled title="Z Negative (Down)">Z-</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- RIGHT PANEL: Telemetry & Patterning -->
+            <div class="panel-column">
+                
+                <!-- TELEMETRY PANEL -->
+                <section class="card glass-panel" id="telemetry-panel">
+                    <div class="card-header">
+                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+                            <path d="M3 3v18h18"></path>
+                            <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"></path>
+                        </svg>
+                        <h2>Real-Time Run Telemetry</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="telemetry-grid">
+                            <div class="tel-item card-sub">
+                                <div class="tel-label">Voltage (SMU)</div>
+                                <div class="tel-value" id="tel-voltage">0.0000</div>
+                                <div class="tel-unit">V</div>
+                            </div>
+                            <div class="tel-item card-sub">
+                                <div class="tel-label">Current (SMU)</div>
+                                <div class="tel-value" id="tel-current">0.0000</div>
+                                <div class="tel-unit">µA</div>
+                            </div>
+                            <div class="tel-item card-sub">
+                                <div class="tel-label">Z-Feedback Direction</div>
+                                <div class="tel-value-badge inactive" id="tel-feedback-direction">INACTIVE</div>
+                            </div>
+                            <div class="tel-item card-sub">
+                                <div class="tel-label">Progress (Moves)</div>
+                                <div class="tel-progress-summary">
+                                    <span id="tel-moves-done">0</span> / <span id="tel-moves-total">0</span>
+                                </div>
+                                <div class="tel-subtext">Left: <span id="tel-moves-left">0</span></div>
+                            </div>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" id="run-progress-bar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PARAMETERS PANEL -->
+                <section class="card glass-panel" id="parameters-panel">
+                    <div class="card-header">
+                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                        </svg>
+                        <h2>Patterning Parameters & Setup</h2>
+                    </div>
+                    <div class="card-body">
+                        <!-- Mode Selector & Pattern Selection -->
+                        <div class="row">
+                            <div class="input-group">
+                                <label for="param-mode">Lithography Mode</label>
+                                <select id="param-mode">
+                                    <option value="8" selected>Async Threaded Continuous (Mode 8)</option>
+                                    <option value="6">Sync Probed Feedback (Mode 6)</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label for="param-filename">Coordinate Pattern File</label>
+                                <select id="param-filename"><option value="circles">Loading files...</option></select>
+                            </div>
+                        </div>
+
+                        <!-- Param categories -->
+                        <div class="param-accordion">
+                            <div class="accordion-item active">
+                                <div class="accordion-header">Keithley SMU Settings</div>
+                                <div class="accordion-content">
+                                    <div class="row">
+                                        <div class="input-group">
+                                            <label for="param-contact_voltage">Sweep Voltage (V)</label>
+                                            <input type="number" id="param-contact_voltage" value="5.0" step="0.1">
+                                        </div>
+                                        <div class="input-group">
+                                            <label for="param-contact_compliance">Sweep Compliance (µA)</label>
+                                            <input type="number" id="param-contact_compliance" value="0.3" step="0.1">
+                                        </div>
+                                        <div class="input-group">
+                                            <label for="param-threshold_current">Probe Contact Thr. (µA)</label>
+                                            <input type="number" id="param-threshold_current" value="0.1" step="0.01">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-group">
+                                            <label for="param-volt_source">Plot Voltage (V)</label>
+                                            <input type="number" id="param-volt_source" value="20.0" step="0.5">
+                                        </div>
+                                        <div class="input-group">
+                                            <label for="param-curr_comp">Plot Compliance (µA)</label>
+                                            <input type="number" id="param-curr_comp" value="1.0" step="0.1">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <div class="accordion-header">Z-Feedback Loop Parameters</div>
+                                <div class="accordion-content">
+                                    <div class="row">
+                                        <div class="input-group">
+                                            <label for="param-voltage_threshold_1">Lower Band Limit (V)</label>
+                                            <input type="number" id="param-voltage_threshold_1" value="1.9" step="0.1">
+                                        </div>
+                                        <div class="input-group">
+                                            <label for="param-voltage_threshold_2">Upper Band Limit (V)</label>
+                                            <input type="number" id="param-voltage_threshold_2" value="2.2" step="0.1">
+                                        </div>
+                                        <div class="input-group">
+                                            <label for="param-delta_z">Z Step size (µm)</label>
+                                            <input type="number" id="param-delta_z" value="0.1" step="0.05">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-group">
+                                            <label for="param-z_contact_step">Coarse Contact Step (µm)</label>
+                                            <input type="number" id="param-z_contact_step" value="1.0" step="0.5">
+                                        </div>
+                                        <div class="input-group">
+                                            <label for="param-liftoff_height">Liftoff Height (µm)</label>
+                                            <input type="number" id="param-liftoff_height" value="1000.0" step="100">
+                                        </div>
+                                        <div class="input-group">
+                                            <label for="param-max_safe_z_margin">Max Z Margin (µm)</label>
+                                            <input type="number" id="param-max_safe_z_margin" value="100.0" step="10">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <div class="accordion-header">Speeds & Timing</div>
+                                <div class="accordion-content">
+                                    <div class="row">
+                                        <div class="input-group">
+                                            <label for="param-speed">XY Plotting Speed (µm/s)</label>
+                                            <input type="number" id="param-speed" value="5000" step="500">
+                                        </div>
+                                        <div class="input-group" id="group-z-feedback-speed">
+                                            <label for="param-z_feedback_speed">Z Feedback Speed (µm/s)</label>
+                                            <input type="number" id="param-z_feedback_speed" value="3000" step="500">
+                                        </div>
+                                        <div class="input-group" id="group-sample-interval">
+                                            <label for="param-sample_interval">Sampling Interval (ms)</label>
+                                            <input type="number" id="param-sample_interval" value="50" step="10">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row check-row">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="param-disable_ramps" checked>
+                                <span class="checkmark"></span>
+                                Disable Motor Accel/Decel Ramps (Recommended)
+                            </label>
+                        </div>
+
+                        <div class="action-row">
+                            <button class="btn btn-action" id="btn-start-pattern" disabled>Execute Pattern</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- CONSOLE LOGGER PANEL -->
+        <section class="card glass-panel" id="console-panel">
+            <div class="card-header">
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+                    <polyline points="4 17 10 11 4 5"></polyline>
+                    <line x1="12" y1="19" x2="20" y2="19"></line>
+                </svg>
+                <h2>System Output Console</h2>
+                <div class="console-actions">
+                    <button class="btn btn-small" id="btn-clear-console">Clear</button>
+                    <label class="checkbox-container small">
+                        <input type="checkbox" id="chk-autoscroll" checked>
+                        <span class="checkmark"></span>
+                        Autoscroll
+                    </label>
+                </div>
+            </div>
+            <div class="card-body console-body" id="console-output">
+                <div class="console-line system-line">[SYSTEM] Interface initialized. Waiting for serial connections...</div>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

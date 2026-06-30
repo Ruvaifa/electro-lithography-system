@@ -104,6 +104,8 @@ def check_voltage(smu, threshold_voltage_1, threshold_voltage_2, ensure_output_o
     alpha = 0
     try:
         voltage, current = read_voltage_sample(smu, ensure_output_on=ensure_output_on)
+        setattr(smu, "latest_voltage", voltage)
+        setattr(smu, "latest_current", current)
         if verbose:
             print(f"[VOLTAGE] {voltage:.4f} V, [CURRENT] {current:.4e} A")
         if threshold_voltage_1 <voltage < threshold_voltage_2:
@@ -130,6 +132,8 @@ def check_voltage(smu, threshold_voltage_1, threshold_voltage_2, ensure_output_o
 def check_current(smu, threshold_current_1, ensure_output_on=True, verbose=True):
     beta = 0
     voltage, current = read_current_sample(smu, ensure_output_on=ensure_output_on)
+    setattr(smu, "latest_voltage", voltage)
+    setattr(smu, "latest_current", current)
     if verbose:
         print(f"[VOLTAGE] {voltage:.4f} V, [CURRENT] {current:.4e} A")
     if  current > threshold_current_1:

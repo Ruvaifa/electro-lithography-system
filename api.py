@@ -2,6 +2,7 @@ import logging
 import time
 import serial.tools.list_ports
 from typing import Optional, Dict, Any
+from threading import Thread
 from hmccontroller import HmcControlCs, App
 from modes import mode_async_litho
 import config
@@ -106,3 +107,106 @@ class LithographySystem:
             self.z_hmc.disconnect()
         self.connected = False
         return {"success": True}
+
+    def run_pattern(self, mode_num: int, params: Dict[str, Any]) -> dict:
+        """Starts a patterning run (Mode 6 or Mode 8) inside a non-blocking background thread."""
+        if not self.connected:
+            return {"success": False, "error": "Not connected to system."}
+        
+        if getattr(self.app, "patterning_active", False):
+            return {"success": False, "error": "Patterning is already in progress."}
+
+        def reset_all_serial():
+            self.x_hmc.config_serial_port(self.x_hmc.ser.port)
+            self.y_hmc.config_serial_port(self.y_hmc.ser.port)
+            self.z_hmc.config_serial_port(self.z_hmc.ser.port)
+
+        def set_all_speed(vx, vy, vz):
+            self.x_hmc.set_speed(vx, 0, 0)
+            self.y_hmc.set_speed(0, vy, 0)
+            self.z_hmc.set_speed(0, 0, vz)
+
+        def startup_all():
+            self.z_hmc.on_startup()
+            self.x_hmc.on_startup()
+            self.y_hmc.on_startup()
+
+        # Set initial status flags
+        self.app.patterning_active = True
+        self.app.patterning_mode = mode_num
+        self.app.total_moves = 0
+        self.app.moves_done = 0
+        self.app.moves_left = 0
+        self.app.z_feedback_direction = "inactive"
+        self.app.smu_voltage = 0.0
+        self.app.smu_current = 0.0
+
+        def worker():
+            try:
+                if mode_num == 6:
+                    from modes import mode_sync_litho
+                    mode_sync_litho.run(
+                        self.app,
+                        self.x_hmc,
+                        self.y_hmc,
+                        self.z_hmc,
+                        reset_all_serial,
+                        set_all_speed,
+                        startup_all,
+                        params=params
+                    )
+                elif mode_num == 8:
+                    from modes import mode_async_litho
+                    mode_async_litho.run(
+                        self.app,
+                        self.x_hmc,
+                        self.y_hmc,
+                        self.z_hmc,
+                        reset_all_serial,
+                        set_all_speed,
+                        startup_all,
+                        params=params
+                    )
+                else:
+                    logger.error(f"Unsupported patterning mode: {mode_num}")
+            except Exception as e:
+                logger.error(f"Exception in patterning worker thread: {e}")
+            finally:
+                self.app.patterning_active = False
+
+        t = Thread(target=worker, name="PatterningWorker", daemon=True)
+        t.start()
+        return {"success": True}
+
+    def get_status(self) -> dict:
+        """Get full system status, including axis positions and real-time patterning telemetry."""
+        pos = self.get_position()
+        
+        status = {
+            "connected": self.connected,
+            "position": pos,
+            "patterning": {
+                "active": False,
+                "mode": None,
+                "total_moves": 0,
+                "moves_done": 0,
+                "moves_left": 0,
+                "z_feedback_direction": "inactive",
+                "smu_voltage": 0.0,
+                "smu_current": 0.0
+            }
+        }
+        
+        if self.app is not None:
+            status["patterning"] = {
+                "active": getattr(self.app, "patterning_active", False),
+                "mode": getattr(self.app, "patterning_mode", None),
+                "total_moves": getattr(self.app, "total_moves", 0),
+                "moves_done": getattr(self.app, "moves_done", 0),
+                "moves_left": getattr(self.app, "moves_left", 0),
+                "z_feedback_direction": getattr(self.app, "z_feedback_direction", "inactive"),
+                "smu_voltage": getattr(self.app, "smu_voltage", 0.0),
+                "smu_current": getattr(self.app, "smu_current", 0.0)
+            }
+            
+        return status

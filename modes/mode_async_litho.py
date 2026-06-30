@@ -11,28 +11,56 @@ import main
 import smumark2
 import lithography
 
-def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup_all_fn):
+def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup_all_fn, params=None):
     init_speed = 1000
     timers = defaultdict(float)
     disable_ramps = False
     
-    # Prompt variables from user
-    disable_ramps = input("Disable motor acceleration/deceleration ramps? (y/n): ").strip().lower() == 'y'
-    contact_voltage = float(input("Enter source voltage in V for contact detection (use case 1): "))
-    contact_compliance_current_ua = float(input("Enter compliance current in micro amps for contact detection (use case 1): "))
-    threshold_current_ua = float(input("Enter threshold current in micro amps to detect contact: "))
-    volt_source = float(input("Enter source voltage (use_case_2): "))
-    curr_comp = float(input("Enter compliance current in micro amps (use_case_2): "))
-    voltage_threshold_1 = float(input("Enter voltage lower threshold for feedback (V): "))
-    voltage_threshold_2 = float(input("Enter voltage upper threshold for feedback (V): "))
-    delta_z = float(input("Enter Z adjustment step for plotting (in µm): "))
-    z_contact_step = float(input("Enter Z adjustment step for finding contact point:"))
-    speed = float(input("Enter speed for xy axis: "))
-    z_feedback_speed = float(input("Enter speed for Z feedback in µm/s (e.g. 3000): "))
-    liftoff_height = float(input("Enter liftoff height in µm: "))
-    max_safe_z_margin = float(input("Enter maximum allowed Z increase above first contact point (in um, e.g. 100): "))
-    sample_interval_ms = float(input("Enter sampling interval in ms (e.g. 50): "))
-    filename = input("Enter filename: ")
+    # Prompt or load variables
+    if params is not None:
+        disable_ramps = params.get('disable_ramps', True)
+        contact_voltage = float(params.get('contact_voltage', 5.0))
+        contact_compliance_current_ua = float(params.get('contact_compliance_current_ua', 0.3))
+        threshold_current_ua = float(params.get('threshold_current_ua', 0.1))
+        volt_source = float(params.get('volt_source', 20.0))
+        curr_comp = float(params.get('curr_comp', 1.0))
+        voltage_threshold_1 = float(params.get('voltage_threshold_1', 1.9))
+        voltage_threshold_2 = float(params.get('voltage_threshold_2', 2.2))
+        delta_z = float(params.get('delta_z', 0.1))
+        z_contact_step = float(params.get('z_contact_step', 1.0))
+        speed = float(params.get('speed', 5000))
+        z_feedback_speed = float(params.get('z_feedback_speed', 3000))
+        liftoff_height = float(params.get('liftoff_height', 1000))
+        max_safe_z_margin = float(params.get('max_safe_z_margin', 100))
+        sample_interval_ms = float(params.get('sample_interval_ms', 50))
+        filename = params.get('filename', 'circles')
+    else:
+        disable_ramps = input("Disable motor acceleration/deceleration ramps? (y/n): ").strip().lower() == 'y'
+        contact_voltage = float(input("Enter source voltage in V for contact detection (use case 1): "))
+        contact_compliance_current_ua = float(input("Enter compliance current in micro amps for contact detection (use case 1): "))
+        threshold_current_ua = float(input("Enter threshold current in micro amps to detect contact: "))
+        volt_source = float(input("Enter source voltage (use_case_2): "))
+        curr_comp = float(input("Enter compliance current in micro amps (use_case_2): "))
+        voltage_threshold_1 = float(input("Enter voltage lower threshold for feedback (V): "))
+        voltage_threshold_2 = float(input("Enter voltage upper threshold for feedback (V): "))
+        delta_z = float(input("Enter Z adjustment step for plotting (in µm): "))
+        z_contact_step = float(input("Enter Z adjustment step for finding contact point:"))
+        speed = float(input("Enter speed for xy axis: "))
+        z_feedback_speed = float(input("Enter speed for Z feedback in µm/s (e.g. 3000): "))
+        liftoff_height = float(input("Enter liftoff height in µm: "))
+        max_safe_z_margin = float(input("Enter maximum allowed Z increase above first contact point (in um, e.g. 100): "))
+        sample_interval_ms = float(input("Enter sampling interval in ms (e.g. 50): "))
+        filename = input("Enter filename: ")
+
+    # Initialize live telemetry attributes for frontend monitoring
+    app.patterning_active = True
+    app.patterning_mode = 8
+    app.total_moves = 0
+    app.moves_done = 0
+    app.moves_left = 0
+    app.z_feedback_direction = "inactive"
+    app.smu_voltage = 0.0
+    app.smu_current = 0.0
 
     with lithography.time_block(timers, "smu.init_smu"):
         smu = smumark2.init_smu()
@@ -153,14 +181,20 @@ def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup
         prev_x, prev_y = first_x, first_y
         prev_flag = first_flag
         liftoff = False
-
+        app.total_moves = len(lines)
         for idx in range(1, len(lines)):
+            app.moves_done = idx
+            app.moves_left = max(0, app.total_moves - idx)
+            app.smu_voltage = getattr(smu, "latest_voltage", 0.0)
+            app.smu_current = getattr(smu, "latest_current", 0.0)
+            
             x, y, flag = lines[idx]
             dx = x - x_hmc.current_x
             dy = y - y_hmc.current_y
             print(f"[MOVE {idx}] Target coordinates: X={x:.1f}, Y={y:.1f}, flag={flag}")
 
             if flag == 1:
+                app.z_feedback_direction = "liftoff"
                 if prev_flag == 0:
                     print("[INFO] liftoff Initiated")
                     z_worker.enabled.clear()
@@ -177,6 +211,7 @@ def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup
             else:
                 # flag == 0
                 if liftoff:
+                    app.z_feedback_direction = "finding_contact"
                     print("[INFO] Finding new contact point...")
                     z_worker.enabled.clear()
                     sampler.enabled.clear()
@@ -214,6 +249,15 @@ def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup
                     sampler.enabled.set()
                     liftoff = False
                 else:
+                    direction = feedback_state.direction
+                    if direction == 2:
+                        app.z_feedback_direction = "voltage_low"
+                    elif direction == 3:
+                        app.z_feedback_direction = "voltage_high"
+                    elif direction == 1:
+                        app.z_feedback_direction = "aligned"
+                    else:
+                        app.z_feedback_direction = "aligned"
                     z_worker.enabled.set()
                     sampler.enabled.set()
 
@@ -243,6 +287,7 @@ def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup
             print(f"[MOVE {idx}] Completed. Position: X={x_hmc.current_x:.1f}, Y={y_hmc.current_y:.1f}, Z={z_hmc.z_current_position:.1f}")
 
     finally:
+        app.patterning_active = False
         if disable_ramps:
             try:
                 x_hmc.acceleration_and_deceleration(True, True)
