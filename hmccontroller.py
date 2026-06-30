@@ -523,7 +523,7 @@ class HmcControlCs:
                     else:
                         self.z_current_position -= self.z_moving
 
-            print(f"z_current_position: {self.z_current_position}")
+            #print(f"z_current_position: {self.z_current_position}")
 
     def _logical_z_to_motor_z(self, move_z):
         if self.axis in (None, 'z'):
