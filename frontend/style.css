@@ -356,9 +356,11 @@ body {
 /* FORMS & INPUTS */
 .input-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     gap: 12px;
     margin-bottom: 16px;
+    width: 100%;
+    min-width: 0;
 }
 
 .input-group {
@@ -383,6 +385,10 @@ select, input[type="number"], input[type="text"] {
     font-size: 0.85rem;
     outline: none;
     transition: border-color 0.15s ease, background-color 0.3s ease, color 0.3s ease;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 select:focus, input:focus {
