@@ -129,13 +129,18 @@ class APIHandler(http.server.SimpleHTTPRequestHandler):
 def run_server(port=8080):
     server_address = ('', port)
     httpd = http.server.HTTPServer(server_address, APIHandler)
+    httpd.timeout = 0.5
     print(f"Electro-Lithography Web Dashboard running at http://localhost:{port}/")
     try:
-        httpd.serve_forever()
+        while True:
+            httpd.handle_request()
     except KeyboardInterrupt:
-        print("\n[SYSTEM] KeyboardInterrupt received. Initiating graceful shutdown...")
+        pass
     finally:
-        # Stop any active patterning and release serial COM ports
+        # Restore standard stdout/stderr for terminal shutdown prints
+        sys.stdout = sys.__stdout__
+        sys.stderr = sys.__stderr__
+        print("\n[SYSTEM] KeyboardInterrupt received. Initiating graceful shutdown...")
         try:
             print("[SYSTEM] Stopping any active stage movements...")
             system.stop()
