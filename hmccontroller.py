@@ -277,11 +277,13 @@ class HmcControlCs:
             return False
 
     def disconnect(self):
-        with self.serial_lock:
-            if hasattr(self, 'ser') and self.ser and self.ser.is_open:
+        if hasattr(self, 'ser') and self.ser and self.ser.is_open:
+            try:
                 self.ser.close()
-            self.com_open = False
-            print(f"Serial port for axis {self.axis or 'xyz'} disconnected")
+            except Exception:
+                pass
+        self.com_open = False
+        print(f"Serial port for axis {self.axis or 'xyz'} disconnected")
 
     def write_port(self, value):  #Sends a single byte command to the serial port
         out = [value]

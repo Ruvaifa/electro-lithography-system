@@ -152,6 +152,7 @@ def run_server(port=8080):
         except Exception:
             pass
         print("[SYSTEM] Server shutdown completed successfully.")
+        os._exit(0)
 
 if __name__ == "__main__":
     port = 8080
