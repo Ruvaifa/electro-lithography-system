@@ -4,6 +4,47 @@
   "graph": {
     "hyperedges": [
       {
+        "id": "calibration_and_resolution_flow",
+        "label": "Calibration and Circle Distortion Resolution Flow",
+        "nodes": [
+          "diagnostic_and_fix_history_circle_distortion",
+          "diagnostic_and_fix_history_firmware_speed_bands_bug",
+          "diagnostic_and_fix_history_fine_grained_calibration"
+        ],
+        "relation": "form",
+        "confidence": "INFERRED",
+        "confidence_score": 0.95,
+        "source_file": "D:\\Python codes\\hmccontroller\\diagnostic_and_fix_history.md"
+      },
+      {
+        "id": "plotter_coordinate_patterns",
+        "label": "Plotter Coordinate Patterns",
+        "nodes": [
+          "circles_coordinates",
+          "hexagons_coordinates",
+          "coords_square_coordinates",
+          "coords_parallel_coordinates"
+        ],
+        "relation": "participate_in",
+        "confidence": "INFERRED",
+        "confidence_score": 0.85,
+        "source_file": "D:\\Python codes\\hmccontroller\\diagnostic_and_fix_history.md"
+      },
+      {
+        "id": "circles_patterning_flow",
+        "label": "Concentric Circles Patterning Flow",
+        "nodes": [
+          "hmccontroller_circles_plot_concentric_circles_pattern",
+          "hmccontroller_circles_plot_drawing_path",
+          "hmccontroller_circles_plot_travel_liftoff_path",
+          "hmccontroller_circles_plot_vertices"
+        ],
+        "relation": "participate_in",
+        "confidence": "INFERRED",
+        "confidence_score": 0.85,
+        "source_file": "D:\\Python codes\\hmccontroller\\circles_plot.png"
+      },
+      {
         "id": "motor_control_protocol_vvis",
         "label": "LabVIEW Motor Control VISA VIs",
         "nodes": [
@@ -59,7 +100,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "dual_graph_prime",
-      "community": 9,
+      "community": 16,
       "norm_label": "prime.ps1"
     },
     {
@@ -69,7 +110,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "dual_graph_stop_hook",
-      "community": 10,
+      "community": 17,
       "norm_label": "stop_hook.ps1"
     },
     {
@@ -79,7 +120,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "basler_camera",
-      "community": 1,
+      "community": 0,
       "norm_label": "basler_camera.py"
     },
     {
@@ -89,7 +130,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "basler_camera_baslercamerasettings",
-      "community": 1,
+      "community": 0,
       "norm_label": "baslercamerasettings"
     },
     {
@@ -99,7 +140,7 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "basler_camera_baslercamera",
-      "community": 1,
+      "community": 0,
       "norm_label": "baslercamera"
     },
     {
@@ -109,7 +150,7 @@
       "source_location": "L57",
       "_origin": "ast",
       "id": "basler_camera_baslercamera_init",
-      "community": 1,
+      "community": 0,
       "norm_label": ".__init__()"
     },
     {
@@ -119,7 +160,7 @@
       "source_location": "L71",
       "_origin": "ast",
       "id": "basler_camera_baslercamera_open",
-      "community": 1,
+      "community": 0,
       "norm_label": ".open()"
     },
     {
@@ -129,7 +170,7 @@
       "source_location": "L90",
       "_origin": "ast",
       "id": "basler_camera_baslercamera_close",
-      "community": 1,
+      "community": 0,
       "norm_label": ".close()"
     },
     {
@@ -139,7 +180,7 @@
       "source_location": "L100",
       "_origin": "ast",
       "id": "basler_camera_baslercamera_get_frame",
-      "community": 1,
+      "community": 0,
       "norm_label": ".get_frame()"
     },
     {
@@ -149,7 +190,7 @@
       "source_location": "L125",
       "_origin": "ast",
       "id": "basler_camera_baslercamera_show_live",
-      "community": 1,
+      "community": 0,
       "norm_label": ".show_live()"
     },
     {
@@ -159,7 +200,7 @@
       "source_location": "L125",
       "_origin": "ast",
       "id": "framecallback",
-      "community": 1,
+      "community": 0,
       "norm_label": "framecallback"
     },
     {
@@ -169,7 +210,7 @@
       "source_location": "L172",
       "_origin": "ast",
       "id": "basler_camera_baslercamera_start_stream",
-      "community": 1,
+      "community": 0,
       "norm_label": ".start_stream()"
     },
     {
@@ -179,7 +220,7 @@
       "source_location": "L197",
       "_origin": "ast",
       "id": "basler_camera_baslercamera_stop_stream",
-      "community": 1,
+      "community": 0,
       "norm_label": ".stop_stream()"
     },
     {
@@ -189,7 +230,7 @@
       "source_location": "L204",
       "_origin": "ast",
       "id": "basler_camera_baslercamera_apply_settings",
-      "community": 1,
+      "community": 0,
       "norm_label": "._apply_settings()"
     },
     {
@@ -199,7 +240,7 @@
       "source_location": "L219",
       "_origin": "ast",
       "id": "basler_camera_baslercamera_try_set_bool",
-      "community": 1,
+      "community": 0,
       "norm_label": "._try_set_bool()"
     },
     {
@@ -209,7 +250,7 @@
       "source_location": "L224",
       "_origin": "ast",
       "id": "basler_camera_baslercamera_try_set_int",
-      "community": 1,
+      "community": 0,
       "norm_label": "._try_set_int()"
     },
     {
@@ -219,7 +260,7 @@
       "source_location": "L234",
       "_origin": "ast",
       "id": "basler_camera_baslercamera_try_set_float",
-      "community": 1,
+      "community": 0,
       "norm_label": "._try_set_float()"
     },
     {
@@ -229,7 +270,7 @@
       "source_location": "L241",
       "_origin": "ast",
       "id": "basler_camera_baslercamera_try_set_enum",
-      "community": 1,
+      "community": 0,
       "norm_label": "._try_set_enum()"
     },
     {
@@ -239,7 +280,7 @@
       "source_location": "L252",
       "_origin": "ast",
       "id": "basler_camera_baslercamera_is_writable",
-      "community": 1,
+      "community": 0,
       "norm_label": "._is_writable()"
     },
     {
@@ -249,7 +290,7 @@
       "source_location": "L263",
       "_origin": "ast",
       "id": "basler_camera_baslercamera_require_open_camera",
-      "community": 1,
+      "community": 0,
       "norm_label": "._require_open_camera()"
     },
     {
@@ -259,7 +300,7 @@
       "source_location": "L267",
       "_origin": "ast",
       "id": "basler_camera_baslercamera_enter",
-      "community": 1,
+      "community": 0,
       "norm_label": ".__enter__()"
     },
     {
@@ -269,7 +310,7 @@
       "source_location": "L271",
       "_origin": "ast",
       "id": "basler_camera_baslercamera_exit",
-      "community": 1,
+      "community": 0,
       "norm_label": ".__exit__()"
     },
     {
@@ -279,7 +320,7 @@
       "source_location": "L275",
       "_origin": "ast",
       "id": "basler_camera_list_basler_cameras",
-      "community": 1,
+      "community": 0,
       "norm_label": "list_basler_cameras()"
     },
     {
@@ -289,7 +330,7 @@
       "source_location": "L281",
       "_origin": "ast",
       "id": "basler_camera_main",
-      "community": 1,
+      "community": 0,
       "norm_label": "main()"
     },
     {
@@ -299,7 +340,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "basler_camera_rationale_1",
-      "community": 1,
+      "community": 0,
       "norm_label": "basler camera live-view support using the pypylon sdk.  this module is intenti"
     },
     {
@@ -309,7 +350,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "basler_camera_rationale_36",
-      "community": 1,
+      "community": 0,
       "norm_label": "optional camera settings used during initialization."
     },
     {
@@ -319,7 +360,7 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "basler_camera_rationale_47",
-      "community": 1,
+      "community": 0,
       "norm_label": "small wrapper around pypylon for live display and future integration.      exa"
     },
     {
@@ -329,7 +370,7 @@
       "source_location": "L72",
       "_origin": "ast",
       "id": "basler_camera_rationale_72",
-      "community": 1,
+      "community": 0,
       "norm_label": "open the selected basler camera and apply configured settings."
     },
     {
@@ -339,7 +380,7 @@
       "source_location": "L91",
       "_origin": "ast",
       "id": "basler_camera_rationale_91",
-      "community": 1,
+      "community": 0,
       "norm_label": "stop streaming and close the camera connection."
     },
     {
@@ -349,7 +390,7 @@
       "source_location": "L101",
       "_origin": "ast",
       "id": "basler_camera_rationale_101",
-      "community": 1,
+      "community": 0,
       "norm_label": "grab and return one frame as an opencv bgr image.          this is useful for"
     },
     {
@@ -359,7 +400,7 @@
       "source_location": "L132",
       "_origin": "ast",
       "id": "basler_camera_rationale_132",
-      "community": 1,
+      "community": 0,
       "norm_label": "display a blocking live video stream.          press the exit key, default 'q'"
     },
     {
@@ -369,7 +410,7 @@
       "source_location": "L177",
       "_origin": "ast",
       "id": "basler_camera_rationale_177",
-      "community": 1,
+      "community": 0,
       "norm_label": "start live view in a background thread.          this is the integration-frien"
     },
     {
@@ -379,7 +420,7 @@
       "source_location": "L198",
       "_origin": "ast",
       "id": "basler_camera_rationale_198",
-      "community": 1,
+      "community": 0,
       "norm_label": "request the live-view thread to stop and wait briefly for it."
     },
     {
@@ -389,7 +430,7 @@
       "source_location": "L276",
       "_origin": "ast",
       "id": "basler_camera_rationale_276",
-      "community": 1,
+      "community": 0,
       "norm_label": "return display names for all connected basler cameras."
     },
     {
@@ -399,7 +440,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "hmccontroller",
-      "community": 0,
+      "community": 3,
       "norm_label": "hmccontroller.py"
     },
     {
@@ -409,7 +450,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "hmccontroller_app",
-      "community": 0,
+      "community": 3,
       "norm_label": "app"
     },
     {
@@ -419,7 +460,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "hmccontroller_app_init",
-      "community": 7,
+      "community": 3,
       "norm_label": ".__init__()"
     },
     {
@@ -429,7 +470,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "hmccontroller_app_get_controllers",
-      "community": 0,
+      "community": 3,
       "norm_label": "._get_controllers()"
     },
     {
@@ -439,7 +480,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "hmccontroller_app_stop_process",
-      "community": 0,
+      "community": 3,
       "norm_label": ".stop_process()"
     },
     {
@@ -449,7 +490,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "hmccontroller_app_check_thread_is_alive",
-      "community": 0,
+      "community": 3,
       "norm_label": ".check_thread_is_alive()"
     },
     {
@@ -459,7 +500,7 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "hmccontroller_app_start_thread",
-      "community": 0,
+      "community": 3,
       "norm_label": ".start_thread()"
     },
     {
@@ -469,7 +510,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "hmccontroller_app_start_process",
-      "community": 0,
+      "community": 3,
       "norm_label": ".start_process()"
     },
     {
@@ -479,7 +520,7 @@
       "source_location": "L118",
       "_origin": "ast",
       "id": "hmccontroller_hmccontrolcs",
-      "community": 3,
+      "community": 4,
       "norm_label": "hmccontrolcs"
     },
     {
@@ -489,7 +530,7 @@
       "source_location": "L119",
       "_origin": "ast",
       "id": "hmccontroller_hmccontrolcs_init",
-      "community": 7,
+      "community": 3,
       "norm_label": ".__init__()"
     },
     {
@@ -499,7 +540,7 @@
       "source_location": "L204",
       "_origin": "ast",
       "id": "hmccontroller_hmccontrolcs_on_startup",
-      "community": 3,
+      "community": 4,
       "norm_label": ".on_startup()"
     },
     {
@@ -509,7 +550,7 @@
       "source_location": "L254",
       "_origin": "ast",
       "id": "hmccontroller_hmccontrolcs_config_serial_port",
-      "community": 3,
+      "community": 4,
       "norm_label": ".config_serial_port()"
     },
     {
@@ -519,7 +560,7 @@
       "source_location": "L281",
       "_origin": "ast",
       "id": "hmccontroller_hmccontrolcs_write_port",
-      "community": 3,
+      "community": 4,
       "norm_label": ".write_port()"
     },
     {
@@ -529,7 +570,7 @@
       "source_location": "L286",
       "_origin": "ast",
       "id": "hmccontroller_hmccontrolcs_read_ack",
-      "community": 3,
+      "community": 4,
       "norm_label": ".read_ack()"
     },
     {
@@ -539,7 +580,7 @@
       "source_location": "L301",
       "_origin": "ast",
       "id": "hmccontroller_hmccontrolcs_read_value",
-      "community": 3,
+      "community": 4,
       "norm_label": ".read_value()"
     },
     {
@@ -549,7 +590,7 @@
       "source_location": "L312",
       "_origin": "ast",
       "id": "hmccontroller_hmccontrolcs_axis_read_value",
-      "community": 3,
+      "community": 4,
       "norm_label": ".axis_read_value()"
     },
     {
@@ -559,7 +600,7 @@
       "source_location": "L327",
       "_origin": "ast",
       "id": "hmccontroller_hmccontrolcs_msb_csb_lsb",
-      "community": 3,
+      "community": 4,
       "norm_label": ".msb_csb_lsb()"
     },
     {
@@ -569,7 +610,7 @@
       "source_location": "L335",
       "_origin": "ast",
       "id": "hmccontroller_hmccontrolcs_byte3_byte2_byte1_byte0",
-      "community": 3,
+      "community": 4,
       "norm_label": ".byte3_byte2_byte1_byte0()"
     },
     {
@@ -579,7 +620,7 @@
       "source_location": "L344",
       "_origin": "ast",
       "id": "hmccontroller_hmccontrolcs_msb_lsb",
-      "community": 3,
+      "community": 4,
       "norm_label": ".msb_lsb()"
     },
     {
@@ -589,7 +630,7 @@
       "source_location": "L351",
       "_origin": "ast",
       "id": "hmccontroller_hmccontrolcs_connect",
-      "community": 3,
+      "community": 4,
       "norm_label": ".connect()"
     },
     {
@@ -599,157 +640,157 @@
       "source_location": "L374",
       "_origin": "ast",
       "id": "hmccontroller_hmccontrolcs_move",
-      "community": 3,
+      "community": 4,
       "norm_label": ".move()"
     },
     {
       "label": "._logical_z_to_motor_z()",
       "file_type": "code",
       "source_file": "hmccontroller.py",
-      "source_location": "L503",
+      "source_location": "L520",
       "_origin": "ast",
       "id": "hmccontroller_hmccontrolcs_logical_z_to_motor_z",
-      "community": 3,
+      "community": 4,
       "norm_label": "._logical_z_to_motor_z()"
     },
     {
       "label": ".acceleration_and_deceleration()",
       "file_type": "code",
       "source_file": "hmccontroller.py",
-      "source_location": "L508",
+      "source_location": "L525",
       "_origin": "ast",
       "id": "hmccontroller_hmccontrolcs_acceleration_and_deceleration",
-      "community": 3,
+      "community": 4,
       "norm_label": ".acceleration_and_deceleration()"
     },
     {
       "label": ".move_status()",
       "file_type": "code",
       "source_file": "hmccontroller.py",
-      "source_location": "L525",
+      "source_location": "L542",
       "_origin": "ast",
       "id": "hmccontroller_hmccontrolcs_move_status",
-      "community": 3,
+      "community": 4,
       "norm_label": ".move_status()"
     },
     {
       "label": ".set_move_data()",
       "file_type": "code",
       "source_file": "hmccontroller.py",
-      "source_location": "L530",
+      "source_location": "L547",
       "_origin": "ast",
       "id": "hmccontroller_hmccontrolcs_set_move_data",
-      "community": 3,
+      "community": 4,
       "norm_label": ".set_move_data()"
     },
     {
       "label": ".send_axis_data()",
       "file_type": "code",
       "source_file": "hmccontroller.py",
-      "source_location": "L568",
+      "source_location": "L585",
       "_origin": "ast",
       "id": "hmccontroller_hmccontrolcs_send_axis_data",
-      "community": 3,
+      "community": 4,
       "norm_label": ".send_axis_data()"
     },
     {
       "label": ".read_move_bytes()",
       "file_type": "code",
       "source_file": "hmccontroller.py",
-      "source_location": "L592",
+      "source_location": "L609",
       "_origin": "ast",
       "id": "hmccontroller_hmccontrolcs_read_move_bytes",
-      "community": 3,
+      "community": 4,
       "norm_label": ".read_move_bytes()"
     },
     {
       "label": ".Read_axis_data()",
       "file_type": "code",
       "source_file": "hmccontroller.py",
-      "source_location": "L650",
+      "source_location": "L667",
       "_origin": "ast",
       "id": "hmccontroller_hmccontrolcs_read_axis_data",
-      "community": 3,
+      "community": 4,
       "norm_label": ".read_axis_data()"
     },
     {
       "label": "._send_axis_speed()",
       "file_type": "code",
       "source_file": "hmccontroller.py",
-      "source_location": "L672",
+      "source_location": "L689",
       "_origin": "ast",
       "id": "hmccontroller_hmccontrolcs_send_axis_speed",
-      "community": 3,
+      "community": 4,
       "norm_label": "._send_axis_speed()"
     },
     {
       "label": ".set_speed()",
       "file_type": "code",
       "source_file": "hmccontroller.py",
-      "source_location": "L688",
+      "source_location": "L706",
       "_origin": "ast",
       "id": "hmccontroller_hmccontrolcs_set_speed",
-      "community": 3,
+      "community": 4,
       "norm_label": ".set_speed()"
     },
     {
       "label": ".get_position()",
       "file_type": "code",
       "source_file": "hmccontroller.py",
-      "source_location": "L755",
+      "source_location": "L773",
       "_origin": "ast",
       "id": "hmccontroller_hmccontrolcs_get_position",
-      "community": 3,
+      "community": 4,
       "norm_label": ".get_position()"
     },
     {
       "label": ".initialise_current_position()",
       "file_type": "code",
       "source_file": "hmccontroller.py",
-      "source_location": "L762",
+      "source_location": "L780",
       "_origin": "ast",
       "id": "hmccontroller_hmccontrolcs_initialise_current_position",
-      "community": 3,
+      "community": 4,
       "norm_label": ".initialise_current_position()"
     },
     {
       "label": ".update_current_position()",
       "file_type": "code",
       "source_file": "hmccontroller.py",
-      "source_location": "L769",
+      "source_location": "L787",
       "_origin": "ast",
       "id": "hmccontroller_hmccontrolcs_update_current_position",
-      "community": 3,
+      "community": 4,
       "norm_label": ".update_current_position()"
     },
     {
       "label": ".safe_move()",
       "file_type": "code",
       "source_file": "hmccontroller.py",
-      "source_location": "L777",
+      "source_location": "L795",
       "_origin": "ast",
       "id": "hmccontroller_hmccontrolcs_safe_move",
-      "community": 3,
+      "community": 4,
       "norm_label": ".safe_move()"
     },
     {
       "label": ".move_home()",
       "file_type": "code",
       "source_file": "hmccontroller.py",
-      "source_location": "L792",
+      "source_location": "L810",
       "_origin": "ast",
       "id": "hmccontroller_hmccontrolcs_move_home",
-      "community": 3,
+      "community": 4,
       "norm_label": ".move_home()"
     },
     {
       "label": ".contact_point_move()",
       "file_type": "code",
       "source_file": "hmccontroller.py",
-      "source_location": "L856",
+      "source_location": "L874",
       "_origin": "ast",
       "id": "hmccontroller_hmccontrolcs_contact_point_move",
-      "community": 3,
+      "community": 4,
       "norm_label": ".contact_point_move()"
     },
     {
@@ -759,7 +800,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "main",
-      "community": 0,
+      "community": 2,
       "norm_label": "main.py"
     },
     {
@@ -769,117 +810,127 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "main_format_elapsed_time",
-      "community": 0,
+      "community": 2,
       "norm_label": "format_elapsed_time()"
+    },
+    {
+      "label": "compute_synchronized_speeds()",
+      "file_type": "code",
+      "source_file": "main.py",
+      "source_location": "L27",
+      "_origin": "ast",
+      "id": "main_compute_synchronized_speeds",
+      "community": 2,
+      "norm_label": "compute_synchronized_speeds()"
     },
     {
       "label": "wait_for_motion()",
       "file_type": "code",
       "source_file": "main.py",
-      "source_location": "L27",
+      "source_location": "L105",
       "_origin": "ast",
       "id": "main_wait_for_motion",
-      "community": 0,
+      "community": 2,
       "norm_label": "wait_for_motion()"
     },
     {
       "label": "time_block()",
       "file_type": "code",
       "source_file": "main.py",
-      "source_location": "L31",
+      "source_location": "L109",
       "_origin": "ast",
       "id": "main_time_block",
-      "community": 0,
+      "community": 2,
       "norm_label": "time_block()"
     },
     {
       "label": "print_timing_summary()",
       "file_type": "code",
       "source_file": "main.py",
-      "source_location": "L42",
+      "source_location": "L120",
       "_origin": "ast",
       "id": "main_print_timing_summary",
-      "community": 0,
+      "community": 2,
       "norm_label": "print_timing_summary()"
     },
     {
       "label": "VoltageFeedbackState",
       "file_type": "code",
       "source_file": "main.py",
-      "source_location": "L50",
+      "source_location": "L128",
       "_origin": "ast",
       "id": "main_voltagefeedbackstate",
-      "community": 0,
+      "community": 2,
       "norm_label": "voltagefeedbackstate"
     },
     {
       "label": ".update()",
       "file_type": "code",
       "source_file": "main.py",
-      "source_location": "L58",
+      "source_location": "L136",
       "_origin": "ast",
       "id": "main_voltagefeedbackstate_update",
-      "community": 0,
+      "community": 2,
       "norm_label": ".update()"
     },
     {
       "label": ".snapshot()",
       "file_type": "code",
       "source_file": "main.py",
-      "source_location": "L66",
+      "source_location": "L144",
       "_origin": "ast",
       "id": "main_voltagefeedbackstate_snapshot",
-      "community": 0,
+      "community": 2,
       "norm_label": ".snapshot()"
     },
     {
       "label": "classify_voltage()",
       "file_type": "code",
       "source_file": "main.py",
-      "source_location": "L76",
+      "source_location": "L154",
       "_origin": "ast",
       "id": "main_classify_voltage",
-      "community": 0,
+      "community": 2,
       "norm_label": "classify_voltage()"
     },
     {
       "label": "feedback_direction_label()",
       "file_type": "code",
       "source_file": "main.py",
-      "source_location": "L85",
+      "source_location": "L163",
       "_origin": "ast",
       "id": "main_feedback_direction_label",
-      "community": 0,
+      "community": 2,
       "norm_label": "feedback_direction_label()"
     },
     {
       "label": "read_voltage_sample()",
       "file_type": "code",
       "source_file": "main.py",
-      "source_location": "L94",
+      "source_location": "L172",
       "_origin": "ast",
       "id": "main_read_voltage_sample",
-      "community": 0,
+      "community": 2,
       "norm_label": "read_voltage_sample()"
     },
     {
       "label": "read_first_last_point()",
       "file_type": "code",
       "source_file": "main.py",
-      "source_location": "L97",
+      "source_location": "L175",
       "_origin": "ast",
       "id": "main_read_first_last_point",
-      "community": 0,
+      "community": 2,
       "norm_label": "read_first_last_point()"
     },
     {
       "label": "SmuVoltageSampler",
       "file_type": "code",
       "source_file": "main.py",
-      "source_location": "L112",
+      "source_location": "L190",
       "_origin": "ast",
       "id": "main_smuvoltagesampler",
-      "community": 0,
+      "community": 2,
       "norm_label": "smuvoltagesampler"
     },
     {
@@ -889,118 +940,128 @@
       "source_location": "",
       "_origin": "ast",
       "id": "thread",
-      "community": 0,
+      "community": 3,
       "norm_label": "thread"
     },
     {
       "label": ".__init__()",
       "file_type": "code",
       "source_file": "main.py",
-      "source_location": "L113",
+      "source_location": "L191",
       "_origin": "ast",
       "id": "main_smuvoltagesampler_init",
-      "community": 0,
+      "community": 2,
       "norm_label": ".__init__()"
     },
     {
       "label": ".run()",
       "file_type": "code",
       "source_file": "main.py",
-      "source_location": "L123",
+      "source_location": "L203",
       "_origin": "ast",
       "id": "main_smuvoltagesampler_run",
-      "community": 0,
+      "community": 2,
       "norm_label": ".run()"
     },
     {
       "label": "ZFeedbackWorker",
       "file_type": "code",
       "source_file": "main.py",
-      "source_location": "L148",
+      "source_location": "L231",
       "_origin": "ast",
       "id": "main_zfeedbackworker",
-      "community": 0,
+      "community": 2,
       "norm_label": "zfeedbackworker"
     },
     {
       "label": ".__init__()",
       "file_type": "code",
       "source_file": "main.py",
-      "source_location": "L149",
+      "source_location": "L232",
       "_origin": "ast",
       "id": "main_zfeedbackworker_init",
-      "community": 0,
+      "community": 2,
       "norm_label": ".__init__()"
     },
     {
       "label": ".run()",
       "file_type": "code",
       "source_file": "main.py",
-      "source_location": "L160",
+      "source_location": "L243",
       "_origin": "ast",
       "id": "main_zfeedbackworker_run",
-      "community": 0,
+      "community": 2,
       "norm_label": ".run()"
     },
     {
       "label": "list_ports()",
       "file_type": "code",
       "source_file": "main.py",
-      "source_location": "L203",
+      "source_location": "L286",
       "_origin": "ast",
       "id": "main_list_ports",
-      "community": 0,
+      "community": 2,
       "norm_label": "list_ports()"
     },
     {
       "label": "user_input_listener()",
       "file_type": "code",
       "source_file": "main.py",
-      "source_location": "L215",
+      "source_location": "L298",
       "_origin": "ast",
       "id": "main_user_input_listener",
-      "community": 0,
+      "community": 2,
       "norm_label": "user_input_listener()"
     },
     {
       "label": "step_size_listener()",
       "file_type": "code",
       "source_file": "main.py",
-      "source_location": "L224",
+      "source_location": "L307",
       "_origin": "ast",
       "id": "main_step_size_listener",
-      "community": 0,
+      "community": 2,
       "norm_label": "step_size_listener()"
     },
     {
       "label": "z_probe_move()",
       "file_type": "code",
       "source_file": "main.py",
-      "source_location": "L237",
+      "source_location": "L320",
       "_origin": "ast",
       "id": "main_z_probe_move",
-      "community": 0,
+      "community": 2,
       "norm_label": "z_probe_move()"
     },
     {
       "label": "z_movement()",
       "file_type": "code",
       "source_file": "main.py",
-      "source_location": "L304",
+      "source_location": "L387",
       "_origin": "ast",
       "id": "main_z_movement",
-      "community": 0,
+      "community": 2,
       "norm_label": "z_movement()"
     },
     {
       "label": "main()",
       "file_type": "code",
       "source_file": "main.py",
-      "source_location": "L360",
+      "source_location": "L443",
       "_origin": "ast",
       "id": "main_main",
-      "community": 0,
+      "community": 2,
       "norm_label": "main()"
+    },
+    {
+      "label": "Compute per-axis speeds so both X and Y finish each segment in exactly the same",
+      "file_type": "rationale",
+      "source_file": "main.py",
+      "source_location": "L28",
+      "_origin": "ast",
+      "id": "main_rationale_28",
+      "community": 2,
+      "norm_label": "compute per-axis speeds so both x and y finish each segment in exactly the same"
     },
     {
       "label": "smumark1.py",
@@ -1009,7 +1070,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "smumark1",
-      "community": 0,
+      "community": 2,
       "norm_label": "smumark1.py"
     },
     {
@@ -1019,7 +1080,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "smumark1_init_smu",
-      "community": 0,
+      "community": 2,
       "norm_label": "init_smu()"
     },
     {
@@ -1029,7 +1090,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "smumark1_check_voltage",
-      "community": 0,
+      "community": 2,
       "norm_label": "check_voltage()"
     },
     {
@@ -1039,7 +1100,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "smumark2",
-      "community": 4,
+      "community": 6,
       "norm_label": "smumark2.py"
     },
     {
@@ -1049,7 +1110,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "smumark2_check_smu_errors",
-      "community": 4,
+      "community": 6,
       "norm_label": "check_smu_errors()"
     },
     {
@@ -1059,7 +1120,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "smumark2_init_smu",
-      "community": 4,
+      "community": 6,
       "norm_label": "init_smu()"
     },
     {
@@ -1069,7 +1130,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "smumark2_reset_smu",
-      "community": 4,
+      "community": 6,
       "norm_label": "reset_smu()"
     },
     {
@@ -1079,7 +1140,7 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "smumark2_use_case_1",
-      "community": 4,
+      "community": 6,
       "norm_label": "use_case_1()"
     },
     {
@@ -1089,7 +1150,7 @@
       "source_location": "L57",
       "_origin": "ast",
       "id": "smumark2_use_case_2",
-      "community": 4,
+      "community": 6,
       "norm_label": "use_case_2()"
     },
     {
@@ -1099,7 +1160,7 @@
       "source_location": "L67",
       "_origin": "ast",
       "id": "smumark2_out_on",
-      "community": 4,
+      "community": 6,
       "norm_label": "out_on()"
     },
     {
@@ -1109,68 +1170,198 @@
       "source_location": "L71",
       "_origin": "ast",
       "id": "smumark2_read_sample",
-      "community": 4,
+      "community": 6,
       "norm_label": "_read_sample()"
     },
     {
       "label": "read_voltage_sample()",
       "file_type": "code",
       "source_file": "smumark2.py",
-      "source_location": "L84",
+      "source_location": "L96",
       "_origin": "ast",
       "id": "smumark2_read_voltage_sample",
-      "community": 4,
+      "community": 6,
       "norm_label": "read_voltage_sample()"
     },
     {
       "label": "read_current_sample()",
       "file_type": "code",
       "source_file": "smumark2.py",
-      "source_location": "L87",
+      "source_location": "L99",
       "_origin": "ast",
       "id": "smumark2_read_current_sample",
-      "community": 4,
+      "community": 6,
       "norm_label": "read_current_sample()"
     },
     {
       "label": "check_voltage()",
       "file_type": "code",
       "source_file": "smumark2.py",
-      "source_location": "L91",
+      "source_location": "L103",
       "_origin": "ast",
       "id": "smumark2_check_voltage",
-      "community": 4,
+      "community": 6,
       "norm_label": "check_voltage()"
     },
     {
       "label": "check_current()",
       "file_type": "code",
       "source_file": "smumark2.py",
-      "source_location": "L118",
+      "source_location": "L130",
       "_origin": "ast",
       "id": "smumark2_check_current",
-      "community": 4,
+      "community": 6,
       "norm_label": "check_current()"
     },
     {
       "label": "check_voltage_testing()",
       "file_type": "code",
       "source_file": "smumark2.py",
-      "source_location": "L130",
+      "source_location": "L142",
       "_origin": "ast",
       "id": "smumark2_check_voltage_testing",
-      "community": 4,
+      "community": 6,
       "norm_label": "check_voltage_testing()"
     },
     {
       "label": "out_off()",
       "file_type": "code",
       "source_file": "smumark2.py",
-      "source_location": "L145",
+      "source_location": "L157",
       "_origin": "ast",
       "id": "smumark2_out_off",
-      "community": 4,
+      "community": 6,
       "norm_label": "out_off()"
+    },
+    {
+      "label": "speed_caliberation.py",
+      "file_type": "code",
+      "source_file": "speed_caliberation.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "speed_caliberation",
+      "community": 3,
+      "norm_label": "speed_caliberation.py"
+    },
+    {
+      "label": "list_ports()",
+      "file_type": "code",
+      "source_file": "speed_caliberation.py",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "speed_caliberation_list_ports",
+      "community": 3,
+      "norm_label": "list_ports()"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "speed_caliberation.py",
+      "source_location": "L16",
+      "_origin": "ast",
+      "id": "speed_caliberation_main",
+      "community": 3,
+      "norm_label": "main()"
+    },
+    {
+      "label": "speed_detailed_test.py",
+      "file_type": "code",
+      "source_file": "speed_detailed_test.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "speed_detailed_test",
+      "community": 3,
+      "norm_label": "speed_detailed_test.py"
+    },
+    {
+      "label": "list_ports()",
+      "file_type": "code",
+      "source_file": "speed_detailed_test.py",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "speed_detailed_test_list_ports",
+      "community": 3,
+      "norm_label": "list_ports()"
+    },
+    {
+      "label": "test_speed_band()",
+      "file_type": "code",
+      "source_file": "speed_detailed_test.py",
+      "source_location": "L16",
+      "_origin": "ast",
+      "id": "speed_detailed_test_test_speed_band",
+      "community": 3,
+      "norm_label": "test_speed_band()"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "speed_detailed_test.py",
+      "source_location": "L85",
+      "_origin": "ast",
+      "id": "speed_detailed_test_main",
+      "community": 3,
+      "norm_label": "main()"
+    },
+    {
+      "label": "speed_fine_sweep.py",
+      "file_type": "code",
+      "source_file": "speed_fine_sweep.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "speed_fine_sweep",
+      "community": 3,
+      "norm_label": "speed_fine_sweep.py"
+    },
+    {
+      "label": "list_ports()",
+      "file_type": "code",
+      "source_file": "speed_fine_sweep.py",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "speed_fine_sweep_list_ports",
+      "community": 3,
+      "norm_label": "list_ports()"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "speed_fine_sweep.py",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "speed_fine_sweep_main",
+      "community": 3,
+      "norm_label": "main()"
+    },
+    {
+      "label": "speed_sweep_test.py",
+      "file_type": "code",
+      "source_file": "speed_sweep_test.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "speed_sweep_test",
+      "community": 3,
+      "norm_label": "speed_sweep_test.py"
+    },
+    {
+      "label": "list_ports()",
+      "file_type": "code",
+      "source_file": "speed_sweep_test.py",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "speed_sweep_test_list_ports",
+      "community": 3,
+      "norm_label": "list_ports()"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "speed_sweep_test.py",
+      "source_location": "L16",
+      "_origin": "ast",
+      "id": "speed_sweep_test_main",
+      "community": 3,
+      "norm_label": "main()"
     },
     {
       "label": "test.py",
@@ -1179,7 +1370,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "test",
-      "community": 5,
+      "community": 7,
       "norm_label": "test.py"
     },
     {
@@ -1189,7 +1380,7 @@
       "source_location": "L137",
       "_origin": "ast",
       "id": "test_generate_e_like_snake_coordinates",
-      "community": 5,
+      "community": 7,
       "norm_label": "generate_e_like_snake_coordinates()"
     },
     {
@@ -1199,7 +1390,7 @@
       "source_location": "L193",
       "_origin": "ast",
       "id": "test_shift_coordinates",
-      "community": 5,
+      "community": 7,
       "norm_label": "shift_coordinates()"
     },
     {
@@ -1209,7 +1400,7 @@
       "source_location": "L208",
       "_origin": "ast",
       "id": "test_generate_parallel_lines",
-      "community": 5,
+      "community": 7,
       "norm_label": "generate_parallel_lines()"
     },
     {
@@ -1219,7 +1410,7 @@
       "source_location": "L244",
       "_origin": "ast",
       "id": "test_generate_parallel_lines_variable_spacing",
-      "community": 5,
+      "community": 7,
       "norm_label": "generate_parallel_lines_variable_spacing()"
     },
     {
@@ -1229,7 +1420,7 @@
       "source_location": "L279",
       "_origin": "ast",
       "id": "test_generate_grid_lines_to_file",
-      "community": 5,
+      "community": 7,
       "norm_label": "generate_grid_lines_to_file()"
     },
     {
@@ -1239,8 +1430,78 @@
       "source_location": "L315",
       "_origin": "ast",
       "id": "test_generate_circle_coordinates",
-      "community": 5,
+      "community": 7,
       "norm_label": "generate_circle_coordinates()"
+    },
+    {
+      "label": "generate_concentric_hexagons()",
+      "file_type": "code",
+      "source_file": "test.py",
+      "source_location": "L358",
+      "_origin": "ast",
+      "id": "test_generate_concentric_hexagons",
+      "community": 7,
+      "norm_label": "generate_concentric_hexagons()"
+    },
+    {
+      "label": "plot_concentric_hexagons()",
+      "file_type": "code",
+      "source_file": "test.py",
+      "source_location": "L410",
+      "_origin": "ast",
+      "id": "test_plot_concentric_hexagons",
+      "community": 7,
+      "norm_label": "plot_concentric_hexagons()"
+    },
+    {
+      "label": "generate_concentric_circles()",
+      "file_type": "code",
+      "source_file": "test.py",
+      "source_location": "L474",
+      "_origin": "ast",
+      "id": "test_generate_concentric_circles",
+      "community": 7,
+      "norm_label": "generate_concentric_circles()"
+    },
+    {
+      "label": "plot_concentric_circles()",
+      "file_type": "code",
+      "source_file": "test.py",
+      "source_location": "L536",
+      "_origin": "ast",
+      "id": "test_plot_concentric_circles",
+      "community": 7,
+      "norm_label": "plot_concentric_circles()"
+    },
+    {
+      "label": "Optional visualization of the generated concentric hexagons path using matplotli",
+      "file_type": "rationale",
+      "source_file": "test.py",
+      "source_location": "L411",
+      "_origin": "ast",
+      "id": "test_rationale_411",
+      "community": 7,
+      "norm_label": "optional visualization of the generated concentric hexagons path using matplotli"
+    },
+    {
+      "label": "Generates coordinates for concentric circles of defined radii.     Points are c",
+      "file_type": "rationale",
+      "source_file": "test.py",
+      "source_location": "L481",
+      "_origin": "ast",
+      "id": "test_rationale_481",
+      "community": 7,
+      "norm_label": "generates coordinates for concentric circles of defined radii.     points are c"
+    },
+    {
+      "label": "Optional visualization of the generated concentric circles path using matplotlib",
+      "file_type": "rationale",
+      "source_file": "test.py",
+      "source_location": "L537",
+      "_origin": "ast",
+      "id": "test_rationale_537",
+      "community": 7,
+      "norm_label": "optional visualization of the generated concentric circles path using matplotlib"
     },
     {
       "label": "testing.py",
@@ -1249,7 +1510,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "testing",
-      "community": 0,
+      "community": 3,
       "norm_label": "testing.py"
     },
     {
@@ -1259,73 +1520,307 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "testing_main",
-      "community": 0,
+      "community": 3,
       "norm_label": "main()"
     },
     {
-      "label": "Electro-Lithography System Overview",
+      "label": "Calibration and Circle Distortion Resolution History",
       "file_type": "document",
-      "source_file": "README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "readme_overview",
-      "community": 2,
-      "norm_label": "electro-lithography system overview"
+      "source_file": "diagnostic_and_fix_history.md",
+      "id": "diagnostic_and_fix_history_calibration_history",
+      "community": 3,
+      "norm_label": "calibration and circle distortion resolution history"
     },
     {
-      "label": "Electro-Lithography Concept",
+      "label": "Holmarc Stepper Motor Stage",
       "file_type": "concept",
-      "source_file": "README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "readme_electro_lithography",
-      "community": 2,
-      "norm_label": "electro-lithography concept"
+      "source_file": "diagnostic_and_fix_history.md",
+      "id": "diagnostic_and_fix_history_holmarc_stage",
+      "community": 3,
+      "norm_label": "holmarc stepper motor stage"
     },
     {
-      "label": "Python Holmarc Motor Controller (hmccontroller.py)",
-      "file_type": "code",
-      "source_file": "README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "readme_hmccontroller_ref",
-      "community": 2,
-      "norm_label": "python holmarc motor controller (hmccontroller.py)"
+      "label": "Circle Distortion at Cardinal Points",
+      "file_type": "concept",
+      "source_file": "diagnostic_and_fix_history.md",
+      "id": "diagnostic_and_fix_history_circle_distortion",
+      "community": 5,
+      "norm_label": "circle distortion at cardinal points"
     },
     {
-      "label": "Python Main Script (main.py)",
-      "file_type": "code",
-      "source_file": "README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "readme_main_ref",
-      "community": 2,
-      "norm_label": "python main script (main.py)"
+      "label": "Firmware Speed Bands Bug",
+      "file_type": "concept",
+      "source_file": "diagnostic_and_fix_history.md",
+      "id": "diagnostic_and_fix_history_firmware_speed_bands_bug",
+      "community": 5,
+      "norm_label": "firmware speed bands bug"
     },
     {
-      "label": "Coordinates File (coordinates.txt)",
+      "label": "Serial State Parser Collision",
+      "file_type": "rationale",
+      "source_file": "diagnostic_and_fix_history.md",
+      "id": "diagnostic_and_fix_history_serial_state_parser_collision",
+      "community": 5,
+      "norm_label": "serial state parser collision"
+    },
+    {
+      "label": "Attempt 1: Independent Speed Shifting",
+      "file_type": "rationale",
+      "source_file": "diagnostic_and_fix_history.md",
+      "id": "diagnostic_and_fix_history_independent_speed_shifting",
+      "community": 5,
+      "norm_label": "attempt 1: independent speed shifting"
+    },
+    {
+      "label": "Attempt 2: Proportional Speed Scaling",
+      "file_type": "rationale",
+      "source_file": "diagnostic_and_fix_history.md",
+      "id": "diagnostic_and_fix_history_proportional_speed_scaling",
+      "community": 2,
+      "norm_label": "attempt 2: proportional speed scaling"
+    },
+    {
+      "label": "High-Resolution Sweep Calibration",
+      "file_type": "concept",
+      "source_file": "diagnostic_and_fix_history.md",
+      "id": "diagnostic_and_fix_history_fine_grained_calibration",
+      "community": 5,
+      "norm_label": "high-resolution sweep calibration"
+    },
+    {
+      "label": "Commanded vs. Actual Speed Duration Data",
       "file_type": "document",
-      "source_file": "README.md",
+      "source_file": "le.txt",
+      "id": "le_calibration_data",
+      "community": 5,
+      "norm_label": "commanded vs. actual speed duration data"
+    },
+    {
+      "label": "Calibration Log Output",
+      "file_type": "document",
+      "source_file": "log.txt",
+      "id": "log_verification_run",
+      "community": 5,
+      "norm_label": "calibration log output"
+    },
+    {
+      "label": "Circle Plotting Coordinates",
+      "file_type": "document",
+      "source_file": "circles.txt",
+      "id": "circles_coordinates",
+      "community": 5,
+      "norm_label": "circle plotting coordinates"
+    },
+    {
+      "label": "Hexagon Plotting Coordinates",
+      "file_type": "document",
+      "source_file": "hexagons.txt",
+      "id": "hexagons_coordinates",
+      "community": 18,
+      "norm_label": "hexagon plotting coordinates"
+    },
+    {
+      "label": "Square Plotting Coordinates",
+      "file_type": "document",
+      "source_file": "coords/square.txt",
+      "id": "coords_square_coordinates",
+      "community": 3,
+      "norm_label": "square plotting coordinates"
+    },
+    {
+      "label": "Parallel Lines Plotting Coordinates",
+      "file_type": "document",
+      "source_file": "coords/parallel.txt",
+      "id": "coords_parallel_coordinates",
+      "community": 14,
+      "norm_label": "parallel lines plotting coordinates"
+    },
+    {
+      "label": "Parallel Lines 1 Plotting Coordinates",
+      "file_type": "document",
+      "source_file": "coords/parallel_1.txt",
+      "id": "coords_parallel_1_coordinates",
+      "community": 13,
+      "norm_label": "parallel lines 1 plotting coordinates"
+    },
+    {
+      "label": "Large Parallel Lines Plotting Coordinates",
+      "file_type": "document",
+      "source_file": "coords/parallel_large.txt",
+      "id": "coords_parallel_large_coordinates",
+      "community": 15,
+      "norm_label": "large parallel lines plotting coordinates"
+    },
+    {
+      "label": "Generic Coordinate Path Data",
+      "file_type": "document",
+      "source_file": "coords/coordinates.txt",
+      "id": "coords_coordinates_data",
+      "community": 11,
+      "norm_label": "generic coordinate path data"
+    },
+    {
+      "label": "Coordinate Sequence Data",
+      "file_type": "document",
+      "source_file": "coords/coords.txt",
+      "id": "coords_coords_data",
+      "community": 12,
+      "norm_label": "coordinate sequence data"
+    },
+    {
+      "label": "Variable Parallel Coordinates",
+      "file_type": "document",
+      "source_file": "parallel_var.txt",
+      "id": "parallel_var_coordinates",
+      "community": 31,
+      "norm_label": "variable parallel coordinates"
+    },
+    {
+      "label": "Variable Parallel 1 Coordinates",
+      "file_type": "document",
+      "source_file": "parallel_var1.txt",
+      "id": "parallel_var1_coordinates",
+      "community": 30,
+      "norm_label": "variable parallel 1 coordinates"
+    },
+    {
+      "label": "Variable Spacing Parallel Coordinates",
+      "file_type": "document",
+      "source_file": "parallel_variable_spacing.txt",
+      "id": "parallel_variable_spacing_coordinates",
+      "community": 32,
+      "norm_label": "variable spacing parallel coordinates"
+    },
+    {
+      "label": "Concentric Circles Patterning Path & Liftoff Signals Plot",
+      "file_type": "image",
+      "source_file": "circles_plot.png",
+      "id": "hmccontroller_circles_plot_image",
+      "community": 8,
+      "norm_label": "concentric circles patterning path & liftoff signals plot"
+    },
+    {
+      "label": "Concentric Circles Patterning",
+      "file_type": "concept",
+      "source_file": "circles_plot.png",
+      "rationale": "Generating concentric circles requires discrete paths centered at a common coordinate. This design patterns concentric circles of radii 500, 1000, and 1500 microns centered at (10000, 10000) microns.",
+      "id": "hmccontroller_circles_plot_concentric_circles_pattern",
+      "community": 8,
+      "norm_label": "concentric circles patterning"
+    },
+    {
+      "label": "Drawing Path (flag=0)",
+      "file_type": "concept",
+      "source_file": "circles_plot.png",
+      "rationale": "Flag=0 denotes active drawing/patterning periods where the lithography system exposes the material along the circular path.",
+      "id": "hmccontroller_circles_plot_drawing_path",
+      "community": 8,
+      "norm_label": "drawing path (flag=0)"
+    },
+    {
+      "label": "Travel/Liftoff Path (flag=1)",
+      "file_type": "concept",
+      "source_file": "circles_plot.png",
+      "rationale": "Flag=1 is used to transition between different concentric circles without exposure (shutter closed / liftoff). The travel path is plotted as a horizontal red dashed line connecting the boundaries of consecutive circles at Y=10000.",
+      "id": "hmccontroller_circles_plot_travel_liftoff_path",
+      "community": 8,
+      "norm_label": "travel/liftoff path (flag=1)"
+    },
+    {
+      "label": "Pattern Vertices",
+      "file_type": "concept",
+      "source_file": "circles_plot.png",
+      "rationale": "Vertices are individual discrete coordinate points representing the path trajectory. The system interpolates or moves point-to-point through these coordinates during the patterning process.",
+      "id": "hmccontroller_circles_plot_vertices",
+      "community": 8,
+      "norm_label": "pattern vertices"
+    },
+    {
+      "label": "Exposure Segmentation Mechanism",
+      "file_type": "rationale",
+      "source_file": "circles_plot.png",
+      "rationale": "Segmenting exposure via flags (drawing vs travel) allows a continuous sequence of coordinates to describe complex geometries while preventing stray exposure during positional transitions.",
+      "id": "hmccontroller_circles_plot_exposure_segmentation",
+      "community": 8,
+      "norm_label": "exposure segmentation mechanism"
+    },
+    {
+      "label": "Complete Plotted Circle Microscope Image",
+      "file_type": "image",
+      "source_file": "images/1.jpg",
+      "id": "hmccontroller_images_1_jpg",
+      "community": 5,
+      "norm_label": "complete plotted circle microscope image"
+    },
+    {
+      "label": "Successful Circular Trajectory",
+      "file_type": "concept",
+      "source_file": "images/1.jpg",
+      "rationale": "Microscope image showing complete circle of radius 500 microns drawn after the firmware speed override fix.",
+      "id": "hmccontroller_complete_plotted_circle",
+      "community": 5,
+      "norm_label": "successful circular trajectory"
+    },
+    {
+      "label": "Exposure & Line Thickness Variation",
+      "file_type": "concept",
+      "source_file": "images/1.jpg",
+      "rationale": "Observation that the line quality is thicker in top-left and thinner/fading in the bottom-right, suggesting substrate tilt or Z-stage contact force variance.",
+      "id": "hmccontroller_line_exposure_quality",
+      "community": 5,
+      "norm_label": "exposure & line thickness variation"
+    },
+    {
+      "label": "Zoomed-in Circle Segment Microscope Image",
+      "file_type": "image",
+      "source_file": "images/2.jpg",
+      "id": "hmccontroller_images_2_jpg",
+      "community": 5,
+      "norm_label": "zoomed-in circle segment microscope image"
+    },
+    {
+      "label": "Stepping Smoothness at 0.2 \u00b5m Resolution",
+      "file_type": "concept",
+      "source_file": "images/2.jpg",
+      "rationale": "Close-up view of the drawn line confirming the 0.2 micron step resolution of the stage does not introduce visible staircase artifacts.",
+      "id": "hmccontroller_smoothness_vs_stepping",
+      "community": 5,
+      "norm_label": "stepping smoothness at 0.2 \u03bcm resolution"
+    },
+    {
+      "label": "Concentric Ghost Circle Trace",
+      "file_type": "concept",
+      "source_file": "images/2.jpg",
+      "rationale": "Close-up showing a faint concentric dotted track inside the main path, which likely is a result of prior failed attempts or calibration residuals.",
+      "id": "hmccontroller_ghost_trace",
+      "community": 5,
+      "norm_label": "concentric ghost circle trace"
+    },
+    {
+      "label": "Dual-Graph Context Policy Rules",
+      "file_type": "document",
+      "source_file": ".agent/rules/graperoot.md",
       "source_location": null,
       "source_url": null,
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "readme_coordinates_ref",
-      "community": 2,
-      "norm_label": "coordinates file (coordinates.txt)"
+      "id": "rules_graperoot_policy",
+      "community": 9,
+      "norm_label": "dual-graph context policy rules"
+    },
+    {
+      "label": "Dual-Graph Context Policy",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "claude_policy_overview",
+      "community": 9,
+      "norm_label": "dual-graph context policy"
     },
     {
       "label": "LabVIEW Integration & Architecture Plan",
@@ -1337,7 +1832,7 @@
       "author": null,
       "contributor": null,
       "id": "labview_integration_readme_overview",
-      "community": 2,
+      "community": 1,
       "norm_label": "labview integration & architecture plan"
     },
     {
@@ -1350,7 +1845,7 @@
       "author": null,
       "contributor": null,
       "id": "labview_integration_readme_motorprotocol",
-      "community": 2,
+      "community": 1,
       "norm_label": "motorprotocol.lvlib"
     },
     {
@@ -1363,7 +1858,7 @@
       "author": null,
       "contributor": null,
       "id": "labview_integration_readme_smuprotocol",
-      "community": 20,
+      "community": 28,
       "norm_label": "smuprotocol.lvlib"
     },
     {
@@ -1377,7 +1872,7 @@
       "contributor": null,
       "rationale": "No global objects; init in startup state only to fix Python's module-level side effects.",
       "id": "labview_integration_readme_motor_init",
-      "community": 14,
+      "community": 22,
       "norm_label": "motor_init.vi"
     },
     {
@@ -1390,7 +1885,7 @@
       "author": null,
       "contributor": null,
       "id": "labview_integration_readme_motor_close",
-      "community": 13,
+      "community": 21,
       "norm_label": "motor_close.vi"
     },
     {
@@ -1403,7 +1898,7 @@
       "author": null,
       "contributor": null,
       "id": "labview_integration_readme_motor_setspeed",
-      "community": 2,
+      "community": 1,
       "norm_label": "motor_setspeed.vi"
     },
     {
@@ -1416,7 +1911,7 @@
       "author": null,
       "contributor": null,
       "id": "labview_integration_readme_motor_move",
-      "community": 2,
+      "community": 1,
       "norm_label": "motor_move.vi"
     },
     {
@@ -1429,7 +1924,7 @@
       "author": null,
       "contributor": null,
       "id": "labview_integration_readme_motor_movehome",
-      "community": 15,
+      "community": 23,
       "norm_label": "motor_movehome.vi"
     },
     {
@@ -1442,7 +1937,7 @@
       "author": null,
       "contributor": null,
       "id": "labview_integration_readme_motor_stop",
-      "community": 17,
+      "community": 25,
       "norm_label": "motor_stop.vi"
     },
     {
@@ -1455,7 +1950,7 @@
       "author": null,
       "contributor": null,
       "id": "labview_integration_readme_motor_readposition",
-      "community": 8,
+      "community": 10,
       "norm_label": "motor_readposition.vi"
     },
     {
@@ -1468,7 +1963,7 @@
       "author": null,
       "contributor": null,
       "id": "labview_integration_readme_motor_readstatus",
-      "community": 16,
+      "community": 24,
       "norm_label": "motor_readstatus.vi"
     },
     {
@@ -1482,7 +1977,7 @@
       "contributor": null,
       "rationale": "Reject user inputs moving motor more than 50,000 steps and implement serial port reset to prevent controller unresponsiveness on limit switches.",
       "id": "labview_integration_readme_motor_checklimits",
-      "community": 12,
+      "community": 20,
       "norm_label": "motor_checklimits.vi"
     },
     {
@@ -1495,7 +1990,7 @@
       "author": null,
       "contributor": null,
       "id": "labview_integration_readme_smu_init",
-      "community": 2,
+      "community": 1,
       "norm_label": "smu_init.vi"
     },
     {
@@ -1509,7 +2004,7 @@
       "contributor": null,
       "rationale": "Always include 100ms delay between serial close/open to prevent port lockups.",
       "id": "labview_integration_readme_smu_close",
-      "community": 18,
+      "community": 26,
       "norm_label": "smu_close.vi"
     },
     {
@@ -1522,7 +2017,7 @@
       "author": null,
       "contributor": null,
       "id": "labview_integration_readme_smu_reset",
-      "community": 2,
+      "community": 1,
       "norm_label": "smu_reset.vi"
     },
     {
@@ -1535,7 +2030,7 @@
       "author": null,
       "contributor": null,
       "id": "labview_integration_readme_smu_sourcecurrent",
-      "community": 2,
+      "community": 1,
       "norm_label": "smu_sourcecurrent.vi"
     },
     {
@@ -1548,7 +2043,7 @@
       "author": null,
       "contributor": null,
       "id": "labview_integration_readme_smu_sourcevoltage",
-      "community": 2,
+      "community": 1,
       "norm_label": "smu_sourcevoltage.vi"
     },
     {
@@ -1561,7 +2056,7 @@
       "author": null,
       "contributor": null,
       "id": "labview_integration_readme_smu_readvoltage",
-      "community": 2,
+      "community": 1,
       "norm_label": "smu_readvoltage.vi"
     },
     {
@@ -1574,7 +2069,7 @@
       "author": null,
       "contributor": null,
       "id": "labview_integration_readme_smu_readcurrent",
-      "community": 2,
+      "community": 1,
       "norm_label": "smu_readcurrent.vi"
     },
     {
@@ -1587,7 +2082,7 @@
       "author": null,
       "contributor": null,
       "id": "labview_integration_readme_smu_outputonoff",
-      "community": 19,
+      "community": 27,
       "norm_label": "smu_outputonoff.vi"
     },
     {
@@ -1600,7 +2095,7 @@
       "author": null,
       "contributor": null,
       "id": "labview_integration_readme_loadcoordinatefile",
-      "community": 2,
+      "community": 1,
       "norm_label": "loadcoordinatefile.vi"
     },
     {
@@ -1613,7 +2108,7 @@
       "author": null,
       "contributor": null,
       "id": "labview_integration_readme_validatecoordinates",
-      "community": 21,
+      "community": 29,
       "norm_label": "validatecoordinates.vi"
     },
     {
@@ -1626,7 +2121,7 @@
       "author": null,
       "contributor": null,
       "id": "labview_integration_readme_anglecalculation",
-      "community": 2,
+      "community": 1,
       "norm_label": "anglecalculation.vi"
     },
     {
@@ -1639,7 +2134,7 @@
       "author": null,
       "contributor": null,
       "id": "labview_integration_readme_logging",
-      "community": 2,
+      "community": 1,
       "norm_label": "logging.vi"
     },
     {
@@ -1653,7 +2148,7 @@
       "contributor": null,
       "rationale": "Always read back actual steps after move to prevent missing position updates in contact_point_move.",
       "id": "labview_integration_readme_manualmove",
-      "community": 11,
+      "community": 19,
       "norm_label": "manualmove.vi"
     },
     {
@@ -1666,7 +2161,7 @@
       "author": null,
       "contributor": null,
       "id": "labview_integration_readme_zprobe",
-      "community": 2,
+      "community": 1,
       "norm_label": "zprobe.vi"
     },
     {
@@ -1679,7 +2174,7 @@
       "author": null,
       "contributor": null,
       "id": "labview_integration_readme_lithographyrun",
-      "community": 2,
+      "community": 1,
       "norm_label": "lithographyrun.vi"
     },
     {
@@ -1692,7 +2187,7 @@
       "author": null,
       "contributor": null,
       "id": "labview_integration_readme_z_feedbackloop",
-      "community": 2,
+      "community": 1,
       "norm_label": "z_feedbackloop.vi"
     },
     {
@@ -1705,7 +2200,7 @@
       "author": null,
       "contributor": null,
       "id": "labview_integration_readme_systemconfig",
-      "community": 2,
+      "community": 1,
       "norm_label": "systemconfig.vi"
     },
     {
@@ -1718,7 +2213,7 @@
       "author": null,
       "contributor": null,
       "id": "labview_integration_readme_z_probe_contact_detection",
-      "community": 2,
+      "community": 1,
       "norm_label": "z-probe contact detection algorithm"
     },
     {
@@ -1731,7 +2226,7 @@
       "author": null,
       "contributor": null,
       "id": "labview_integration_readme_real_time_z_feedback",
-      "community": 2,
+      "community": 1,
       "norm_label": "real-time z-feedback adjustment"
     },
     {
@@ -1744,7 +2239,7 @@
       "author": null,
       "contributor": null,
       "id": "labview_integration_readme_liftoff_reengage",
-      "community": 2,
+      "community": 1,
       "norm_label": "liftoff and re-engage algorithm"
     },
     {
@@ -1757,7 +2252,7 @@
       "author": null,
       "contributor": null,
       "id": "labview_integration_readme_velocity_decomposition",
-      "community": 2,
+      "community": 1,
       "norm_label": "velocity decomposition algorithm"
     },
     {
@@ -1770,8 +2265,73 @@
       "author": null,
       "contributor": null,
       "id": "labview_integration_readme_position_tracking",
-      "community": 8,
+      "community": 10,
       "norm_label": "position tracking algorithm"
+    },
+    {
+      "label": "Electro-Lithography System Overview",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "readme_overview",
+      "community": 1,
+      "norm_label": "electro-lithography system overview"
+    },
+    {
+      "label": "Electro-Lithography Concept",
+      "file_type": "concept",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "readme_electro_lithography",
+      "community": 1,
+      "norm_label": "electro-lithography concept"
+    },
+    {
+      "label": "Python Holmarc Motor Controller (hmccontroller.py)",
+      "file_type": "code",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "readme_hmccontroller_ref",
+      "community": 1,
+      "norm_label": "python holmarc motor controller (hmccontroller.py)"
+    },
+    {
+      "label": "Python Main Script (main.py)",
+      "file_type": "code",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "readme_main_ref",
+      "community": 1,
+      "norm_label": "python main script (main.py)"
+    },
+    {
+      "label": "Coordinates File (coordinates.txt)",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "readme_coordinates_ref",
+      "community": 1,
+      "norm_label": "coordinates file (coordinates.txt)"
     },
     {
       "label": "Electro-Lithography System Report",
@@ -1783,7 +2343,7 @@
       "author": "Mohammad Ruvaifa",
       "contributor": "Dr. Santanu Talukder",
       "id": "report_overview",
-      "community": 2,
+      "community": 1,
       "norm_label": "electro-lithography system report"
     },
     {
@@ -1796,7 +2356,7 @@
       "author": "Mohammad Ruvaifa",
       "contributor": "Dr. Santanu Talukder",
       "id": "report_liquid_electromigration",
-      "community": 2,
+      "community": 1,
       "norm_label": "liquid electromigration principle"
     },
     {
@@ -1809,7 +2369,7 @@
       "author": "Mohammad Ruvaifa",
       "contributor": "Dr. Santanu Talukder",
       "id": "report_water_bridge_formation",
-      "community": 2,
+      "community": 1,
       "norm_label": "nanoscale water bridge formation"
     },
     {
@@ -1822,7 +2382,7 @@
       "author": "Mohammad Ruvaifa",
       "contributor": "Dr. Santanu Talukder",
       "id": "report_ruvaifa_author",
-      "community": 2,
+      "community": 1,
       "norm_label": "mohammad ruvaifa"
     },
     {
@@ -1835,34 +2395,8 @@
       "author": "Mohammad Ruvaifa",
       "contributor": "Dr. Santanu Talukder",
       "id": "report_talukder_advisor",
-      "community": 2,
+      "community": 1,
       "norm_label": "dr. santanu talukder"
-    },
-    {
-      "label": "Dual-Graph Context Policy",
-      "file_type": "document",
-      "source_file": "CLAUDE.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "claude_policy_overview",
-      "community": 6,
-      "norm_label": "dual-graph context policy"
-    },
-    {
-      "label": "Dual-Graph Context Policy Rules",
-      "file_type": "document",
-      "source_file": ".agent/rules/graperoot.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "rules_graperoot_policy",
-      "community": 6,
-      "norm_label": "dual-graph context policy rules"
     }
   ],
   "links": [
@@ -2421,6 +2955,50 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "speed_caliberation.py",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "speed_caliberation",
+      "target": "hmccontroller",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_detailed_test.py",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "speed_detailed_test",
+      "target": "hmccontroller",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_fine_sweep.py",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "speed_fine_sweep",
+      "target": "hmccontroller",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_sweep_test.py",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "speed_sweep_test",
+      "target": "hmccontroller",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "testing.py",
       "source_location": "L2",
       "weight": 1.0,
@@ -2504,7 +3082,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L384",
+      "source_location": "L467",
       "weight": 1.0,
       "source": "main_main",
       "target": "hmccontroller_app",
@@ -2539,6 +3117,94 @@
       "source": "main_zfeedbackworker",
       "target": "hmccontroller_app",
       "confidence_score": 0.5
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_caliberation.py",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "speed_caliberation",
+      "target": "hmccontroller_app",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_caliberation.py",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "speed_caliberation_main",
+      "target": "hmccontroller_app",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_detailed_test.py",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "speed_detailed_test",
+      "target": "hmccontroller_app",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_detailed_test.py",
+      "source_location": "L107",
+      "weight": 1.0,
+      "source": "speed_detailed_test_main",
+      "target": "hmccontroller_app",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_fine_sweep.py",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "speed_fine_sweep",
+      "target": "hmccontroller_app",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_fine_sweep.py",
+      "source_location": "L37",
+      "weight": 1.0,
+      "source": "speed_fine_sweep_main",
+      "target": "hmccontroller_app",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_sweep_test.py",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "speed_sweep_test",
+      "target": "hmccontroller_app",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_sweep_test.py",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "speed_sweep_test_main",
+      "target": "hmccontroller_app",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -2643,7 +3309,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L508",
+      "source_location": "L525",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs",
       "target": "hmccontroller_hmccontrolcs_acceleration_and_deceleration",
@@ -2693,7 +3359,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L856",
+      "source_location": "L874",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs",
       "target": "hmccontroller_hmccontrolcs_contact_point_move",
@@ -2703,7 +3369,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L755",
+      "source_location": "L773",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs",
       "target": "hmccontroller_hmccontrolcs_get_position",
@@ -2723,7 +3389,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L762",
+      "source_location": "L780",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs",
       "target": "hmccontroller_hmccontrolcs_initialise_current_position",
@@ -2733,7 +3399,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L503",
+      "source_location": "L520",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs",
       "target": "hmccontroller_hmccontrolcs_logical_z_to_motor_z",
@@ -2753,7 +3419,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L792",
+      "source_location": "L810",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs",
       "target": "hmccontroller_hmccontrolcs_move_home",
@@ -2763,7 +3429,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L525",
+      "source_location": "L542",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs",
       "target": "hmccontroller_hmccontrolcs_move_status",
@@ -2813,7 +3479,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L650",
+      "source_location": "L667",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs",
       "target": "hmccontroller_hmccontrolcs_read_axis_data",
@@ -2823,7 +3489,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L592",
+      "source_location": "L609",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs",
       "target": "hmccontroller_hmccontrolcs_read_move_bytes",
@@ -2843,7 +3509,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L777",
+      "source_location": "L795",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs",
       "target": "hmccontroller_hmccontrolcs_safe_move",
@@ -2853,7 +3519,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L568",
+      "source_location": "L585",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs",
       "target": "hmccontroller_hmccontrolcs_send_axis_data",
@@ -2863,7 +3529,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L672",
+      "source_location": "L689",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs",
       "target": "hmccontroller_hmccontrolcs_send_axis_speed",
@@ -2873,7 +3539,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L530",
+      "source_location": "L547",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs",
       "target": "hmccontroller_hmccontrolcs_set_move_data",
@@ -2883,7 +3549,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L688",
+      "source_location": "L706",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs",
       "target": "hmccontroller_hmccontrolcs_set_speed",
@@ -2893,7 +3559,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L769",
+      "source_location": "L787",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs",
       "target": "hmccontroller_hmccontrolcs_update_current_position",
@@ -2925,7 +3591,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L370",
+      "source_location": "L453",
       "weight": 1.0,
       "source": "main_main",
       "target": "hmccontroller_hmccontrolcs",
@@ -2960,6 +3626,94 @@
       "source": "main_zfeedbackworker",
       "target": "hmccontroller_hmccontrolcs",
       "confidence_score": 0.5
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_caliberation.py",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "speed_caliberation",
+      "target": "hmccontroller_hmccontrolcs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_caliberation.py",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "speed_caliberation_main",
+      "target": "hmccontroller_hmccontrolcs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_detailed_test.py",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "speed_detailed_test",
+      "target": "hmccontroller_hmccontrolcs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_detailed_test.py",
+      "source_location": "L93",
+      "weight": 1.0,
+      "source": "speed_detailed_test_main",
+      "target": "hmccontroller_hmccontrolcs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_fine_sweep.py",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "speed_fine_sweep",
+      "target": "hmccontroller_hmccontrolcs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_fine_sweep.py",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "speed_fine_sweep_main",
+      "target": "hmccontroller_hmccontrolcs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_sweep_test.py",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "speed_sweep_test",
+      "target": "hmccontroller_hmccontrolcs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_sweep_test.py",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "speed_sweep_test_main",
+      "target": "hmccontroller_hmccontrolcs",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -3021,7 +3775,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L510",
+      "source_location": "L527",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_acceleration_and_deceleration",
       "target": "hmccontroller_hmccontrolcs_write_port",
@@ -3032,7 +3786,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L882",
+      "source_location": "L900",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_contact_point_move",
       "target": "hmccontroller_hmccontrolcs_write_port",
@@ -3043,7 +3797,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L432",
+      "source_location": "L449",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_move",
       "target": "hmccontroller_hmccontrolcs_write_port",
@@ -3054,7 +3808,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L822",
+      "source_location": "L840",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_move_home",
       "target": "hmccontroller_hmccontrolcs_write_port",
@@ -3065,7 +3819,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L572",
+      "source_location": "L589",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_send_axis_data",
       "target": "hmccontroller_hmccontrolcs_write_port",
@@ -3076,7 +3830,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L676",
+      "source_location": "L694",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_send_axis_speed",
       "target": "hmccontroller_hmccontrolcs_write_port",
@@ -3087,7 +3841,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L536",
+      "source_location": "L553",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_set_move_data",
       "target": "hmccontroller_hmccontrolcs_write_port",
@@ -3098,7 +3852,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L728",
+      "source_location": "L746",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_set_speed",
       "target": "hmccontroller_hmccontrolcs_write_port",
@@ -3109,7 +3863,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L514",
+      "source_location": "L531",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_acceleration_and_deceleration",
       "target": "hmccontroller_hmccontrolcs_read_ack",
@@ -3120,7 +3874,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L883",
+      "source_location": "L901",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_contact_point_move",
       "target": "hmccontroller_hmccontrolcs_read_ack",
@@ -3131,7 +3885,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L433",
+      "source_location": "L450",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_move",
       "target": "hmccontroller_hmccontrolcs_read_ack",
@@ -3142,7 +3896,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L823",
+      "source_location": "L841",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_move_home",
       "target": "hmccontroller_hmccontrolcs_read_ack",
@@ -3153,7 +3907,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L573",
+      "source_location": "L590",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_send_axis_data",
       "target": "hmccontroller_hmccontrolcs_read_ack",
@@ -3164,7 +3918,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L677",
+      "source_location": "L695",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_send_axis_speed",
       "target": "hmccontroller_hmccontrolcs_read_ack",
@@ -3175,7 +3929,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L537",
+      "source_location": "L554",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_set_move_data",
       "target": "hmccontroller_hmccontrolcs_read_ack",
@@ -3186,7 +3940,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L729",
+      "source_location": "L747",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_set_speed",
       "target": "hmccontroller_hmccontrolcs_read_ack",
@@ -3197,7 +3951,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L526",
+      "source_location": "L543",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_move_status",
       "target": "hmccontroller_hmccontrolcs_read_value",
@@ -3208,7 +3962,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L679",
+      "source_location": "L697",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_send_axis_speed",
       "target": "hmccontroller_hmccontrolcs_msb_csb_lsb",
@@ -3219,7 +3973,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L731",
+      "source_location": "L749",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_set_speed",
       "target": "hmccontroller_hmccontrolcs_msb_csb_lsb",
@@ -3230,7 +3984,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L570",
+      "source_location": "L587",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_send_axis_data",
       "target": "hmccontroller_hmccontrolcs_byte3_byte2_byte1_byte0",
@@ -3241,7 +3995,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L417",
+      "source_location": "L434",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_move",
       "target": "hmccontroller_hmccontrolcs_logical_z_to_motor_z",
@@ -3252,7 +4006,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L428",
+      "source_location": "L445",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_move",
       "target": "hmccontroller_hmccontrolcs_move_status",
@@ -3263,7 +4017,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L462",
+      "source_location": "L479",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_move",
       "target": "hmccontroller_hmccontrolcs_read_move_bytes",
@@ -3274,7 +4028,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L417",
+      "source_location": "L434",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_move",
       "target": "hmccontroller_hmccontrolcs_set_move_data",
@@ -3285,7 +4039,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L780",
+      "source_location": "L798",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_safe_move",
       "target": "hmccontroller_hmccontrolcs_move",
@@ -3296,7 +4050,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L874",
+      "source_location": "L892",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_contact_point_move",
       "target": "hmccontroller_hmccontrolcs_logical_z_to_motor_z",
@@ -3307,7 +4061,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L878",
+      "source_location": "L896",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_contact_point_move",
       "target": "hmccontroller_hmccontrolcs_move_status",
@@ -3318,7 +4072,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L816",
+      "source_location": "L834",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_move_home",
       "target": "hmccontroller_hmccontrolcs_move_status",
@@ -3329,7 +4083,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L874",
+      "source_location": "L892",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_contact_point_move",
       "target": "hmccontroller_hmccontrolcs_set_move_data",
@@ -3340,7 +4094,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L811",
+      "source_location": "L829",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_move_home",
       "target": "hmccontroller_hmccontrolcs_set_move_data",
@@ -3351,7 +4105,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L542",
+      "source_location": "L559",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_set_move_data",
       "target": "hmccontroller_hmccontrolcs_send_axis_data",
@@ -3362,7 +4116,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L851",
+      "source_location": "L869",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_move_home",
       "target": "hmccontroller_hmccontrolcs_read_move_bytes",
@@ -3373,7 +4127,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L620",
+      "source_location": "L637",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_read_move_bytes",
       "target": "hmccontroller_hmccontrolcs_read_axis_data",
@@ -3384,7 +4138,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L702",
+      "source_location": "L720",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_set_speed",
       "target": "hmccontroller_hmccontrolcs_send_axis_speed",
@@ -3395,7 +4149,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L779",
+      "source_location": "L797",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_safe_move",
       "target": "hmccontroller_hmccontrolcs_set_speed",
@@ -3406,7 +4160,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L910",
+      "source_location": "L928",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_contact_point_move",
       "target": "hmccontroller_hmccontrolcs_update_current_position",
@@ -3417,7 +4171,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "hmccontroller.py",
-      "source_location": "L853",
+      "source_location": "L871",
       "weight": 1.0,
       "source": "hmccontroller_hmccontrolcs_move_home",
       "target": "hmccontroller_hmccontrolcs_update_current_position",
@@ -3427,7 +4181,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L76",
+      "source_location": "L154",
       "weight": 1.0,
       "source": "main",
       "target": "main_classify_voltage",
@@ -3437,7 +4191,17 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L85",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "main",
+      "target": "main_compute_synchronized_speeds",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L163",
       "weight": 1.0,
       "source": "main",
       "target": "main_feedback_direction_label",
@@ -3457,7 +4221,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L203",
+      "source_location": "L286",
       "weight": 1.0,
       "source": "main",
       "target": "main_list_ports",
@@ -3467,7 +4231,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L360",
+      "source_location": "L443",
       "weight": 1.0,
       "source": "main",
       "target": "main_main",
@@ -3477,7 +4241,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L42",
+      "source_location": "L120",
       "weight": 1.0,
       "source": "main",
       "target": "main_print_timing_summary",
@@ -3487,7 +4251,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L97",
+      "source_location": "L175",
       "weight": 1.0,
       "source": "main",
       "target": "main_read_first_last_point",
@@ -3497,7 +4261,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L94",
+      "source_location": "L172",
       "weight": 1.0,
       "source": "main",
       "target": "main_read_voltage_sample",
@@ -3507,7 +4271,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L112",
+      "source_location": "L190",
       "weight": 1.0,
       "source": "main",
       "target": "main_smuvoltagesampler",
@@ -3517,7 +4281,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L224",
+      "source_location": "L307",
       "weight": 1.0,
       "source": "main",
       "target": "main_step_size_listener",
@@ -3527,7 +4291,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L31",
+      "source_location": "L109",
       "weight": 1.0,
       "source": "main",
       "target": "main_time_block",
@@ -3537,7 +4301,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L215",
+      "source_location": "L298",
       "weight": 1.0,
       "source": "main",
       "target": "main_user_input_listener",
@@ -3547,7 +4311,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L50",
+      "source_location": "L128",
       "weight": 1.0,
       "source": "main",
       "target": "main_voltagefeedbackstate",
@@ -3557,7 +4321,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L27",
+      "source_location": "L105",
       "weight": 1.0,
       "source": "main",
       "target": "main_wait_for_motion",
@@ -3567,7 +4331,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L304",
+      "source_location": "L387",
       "weight": 1.0,
       "source": "main",
       "target": "main_z_movement",
@@ -3577,7 +4341,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L237",
+      "source_location": "L320",
       "weight": 1.0,
       "source": "main",
       "target": "main_z_probe_move",
@@ -3587,7 +4351,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L148",
+      "source_location": "L231",
       "weight": 1.0,
       "source": "main",
       "target": "main_zfeedbackworker",
@@ -3620,7 +4384,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L1224",
+      "source_location": "L1398",
       "weight": 1.0,
       "source": "main_main",
       "target": "main_format_elapsed_time",
@@ -3631,10 +4395,40 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L45",
+      "source_location": "L123",
       "weight": 1.0,
       "source": "main_print_timing_summary",
       "target": "main_format_elapsed_time",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "diagnostic_and_fix_history.md",
+      "weight": 1.0,
+      "source": "diagnostic_and_fix_history_proportional_speed_scaling",
+      "target": "main_compute_synchronized_speeds"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L542",
+      "weight": 1.0,
+      "source": "main_main",
+      "target": "main_compute_synchronized_speeds",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "main.py",
+      "source_location": "L28",
+      "weight": 1.0,
+      "source": "main_rationale_28",
+      "target": "main_compute_synchronized_speeds",
       "confidence_score": 1.0
     },
     {
@@ -3642,7 +4436,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L859",
+      "source_location": "L948",
       "weight": 1.0,
       "source": "main_main",
       "target": "main_wait_for_motion",
@@ -3653,7 +4447,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L829",
+      "source_location": "L918",
       "weight": 1.0,
       "source": "main_main",
       "target": "main_time_block",
@@ -3664,7 +4458,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L1231",
+      "source_location": "L1405",
       "weight": 1.0,
       "source": "main_main",
       "target": "main_print_timing_summary",
@@ -3675,7 +4469,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L1087",
+      "source_location": "L1238",
       "weight": 1.0,
       "source": "main_main",
       "target": "main_voltagefeedbackstate",
@@ -3685,7 +4479,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L66",
+      "source_location": "L144",
       "weight": 1.0,
       "source": "main_voltagefeedbackstate",
       "target": "main_voltagefeedbackstate_snapshot",
@@ -3695,7 +4489,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L58",
+      "source_location": "L136",
       "weight": 1.0,
       "source": "main_voltagefeedbackstate",
       "target": "main_voltagefeedbackstate_update",
@@ -3706,7 +4500,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L131",
+      "source_location": "L214",
       "weight": 1.0,
       "source": "main_smuvoltagesampler_run",
       "target": "main_voltagefeedbackstate_update",
@@ -3717,7 +4511,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L168",
+      "source_location": "L251",
       "weight": 1.0,
       "source": "main_zfeedbackworker_run",
       "target": "main_voltagefeedbackstate_snapshot",
@@ -3728,7 +4522,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L130",
+      "source_location": "L213",
       "weight": 1.0,
       "source": "main_smuvoltagesampler_run",
       "target": "main_classify_voltage",
@@ -3739,7 +4533,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L136",
+      "source_location": "L219",
       "weight": 1.0,
       "source": "main_smuvoltagesampler_run",
       "target": "main_feedback_direction_label",
@@ -3750,7 +4544,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L183",
+      "source_location": "L266",
       "weight": 1.0,
       "source": "main_zfeedbackworker_run",
       "target": "main_feedback_direction_label",
@@ -3761,7 +4555,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L129",
+      "source_location": "L212",
       "weight": 1.0,
       "source": "main_smuvoltagesampler_run",
       "target": "main_read_voltage_sample",
@@ -3772,7 +4566,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L1089",
+      "source_location": "L1240",
       "weight": 1.0,
       "source": "main_main",
       "target": "main_smuvoltagesampler",
@@ -3782,7 +4576,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L113",
+      "source_location": "L191",
       "weight": 1.0,
       "source": "main_smuvoltagesampler",
       "target": "main_smuvoltagesampler_init",
@@ -3792,7 +4586,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L123",
+      "source_location": "L203",
       "weight": 1.0,
       "source": "main_smuvoltagesampler",
       "target": "main_smuvoltagesampler_run",
@@ -3802,7 +4596,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L112",
+      "source_location": "L190",
       "weight": 1.0,
       "source": "main_smuvoltagesampler",
       "target": "thread",
@@ -3813,7 +4607,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L493",
+      "source_location": "L578",
       "weight": 1.0,
       "source": "main_main",
       "target": "thread",
@@ -3823,7 +4617,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L148",
+      "source_location": "L231",
       "weight": 1.0,
       "source": "main_zfeedbackworker",
       "target": "thread",
@@ -3845,7 +4639,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L114",
+      "source_location": "L192",
       "weight": 1.0,
       "source": "main_smuvoltagesampler_init",
       "target": "main_zfeedbackworker_init",
@@ -3856,7 +4650,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L1097",
+      "source_location": "L1248",
       "weight": 1.0,
       "source": "main_main",
       "target": "main_zfeedbackworker",
@@ -3866,7 +4660,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L149",
+      "source_location": "L232",
       "weight": 1.0,
       "source": "main_zfeedbackworker",
       "target": "main_zfeedbackworker_init",
@@ -3876,7 +4670,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L160",
+      "source_location": "L243",
       "weight": 1.0,
       "source": "main_zfeedbackworker",
       "target": "main_zfeedbackworker_run",
@@ -3887,22 +4681,11 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "main.py",
-      "source_location": "L362",
+      "source_location": "L445",
       "weight": 1.0,
       "source": "main_main",
       "target": "main_list_ports",
       "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "testing.py",
-      "source_location": "L15",
-      "weight": 1.0,
-      "source": "testing_main",
-      "target": "main_list_ports"
     },
     {
       "relation": "contains",
@@ -3928,7 +4711,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "smumark2.py",
-      "source_location": "L118",
+      "source_location": "L130",
       "weight": 1.0,
       "source": "smumark2",
       "target": "smumark2_check_current",
@@ -3948,7 +4731,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "smumark2.py",
-      "source_location": "L91",
+      "source_location": "L103",
       "weight": 1.0,
       "source": "smumark2",
       "target": "smumark2_check_voltage",
@@ -3958,7 +4741,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "smumark2.py",
-      "source_location": "L130",
+      "source_location": "L142",
       "weight": 1.0,
       "source": "smumark2",
       "target": "smumark2_check_voltage_testing",
@@ -3978,7 +4761,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "smumark2.py",
-      "source_location": "L145",
+      "source_location": "L157",
       "weight": 1.0,
       "source": "smumark2",
       "target": "smumark2_out_off",
@@ -3998,7 +4781,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "smumark2.py",
-      "source_location": "L87",
+      "source_location": "L99",
       "weight": 1.0,
       "source": "smumark2",
       "target": "smumark2_read_current_sample",
@@ -4018,7 +4801,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "smumark2.py",
-      "source_location": "L84",
+      "source_location": "L96",
       "weight": 1.0,
       "source": "smumark2",
       "target": "smumark2_read_voltage_sample",
@@ -4136,7 +4919,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "smumark2.py",
-      "source_location": "L88",
+      "source_location": "L100",
       "weight": 1.0,
       "source": "smumark2_read_current_sample",
       "target": "smumark2_read_sample",
@@ -4147,7 +4930,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "smumark2.py",
-      "source_location": "L85",
+      "source_location": "L97",
       "weight": 1.0,
       "source": "smumark2_read_voltage_sample",
       "target": "smumark2_read_sample",
@@ -4158,7 +4941,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "smumark2.py",
-      "source_location": "L94",
+      "source_location": "L106",
       "weight": 1.0,
       "source": "smumark2_check_voltage",
       "target": "smumark2_read_voltage_sample",
@@ -4169,10 +4952,173 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "smumark2.py",
-      "source_location": "L120",
+      "source_location": "L132",
       "weight": 1.0,
       "source": "smumark2_check_current",
       "target": "smumark2_read_current_sample",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_caliberation.py",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "speed_caliberation",
+      "target": "speed_caliberation_list_ports",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_caliberation.py",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "speed_caliberation",
+      "target": "speed_caliberation_main",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_caliberation.py",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "speed_caliberation_main",
+      "target": "speed_caliberation_list_ports",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_detailed_test.py",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "speed_detailed_test",
+      "target": "speed_detailed_test_list_ports",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_detailed_test.py",
+      "source_location": "L85",
+      "weight": 1.0,
+      "source": "speed_detailed_test",
+      "target": "speed_detailed_test_main",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_detailed_test.py",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "speed_detailed_test",
+      "target": "speed_detailed_test_test_speed_band",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_detailed_test.py",
+      "source_location": "L86",
+      "weight": 1.0,
+      "source": "speed_detailed_test_main",
+      "target": "speed_detailed_test_list_ports",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_detailed_test.py",
+      "source_location": "L152",
+      "weight": 1.0,
+      "source": "speed_detailed_test_main",
+      "target": "speed_detailed_test_test_speed_band",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "diagnostic_and_fix_history.md",
+      "weight": 1.0,
+      "source": "diagnostic_and_fix_history_calibration_history",
+      "target": "speed_fine_sweep"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_fine_sweep.py",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "speed_fine_sweep",
+      "target": "speed_fine_sweep_list_ports",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_fine_sweep.py",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "speed_fine_sweep",
+      "target": "speed_fine_sweep_main",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_fine_sweep.py",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "speed_fine_sweep_main",
+      "target": "speed_fine_sweep_list_ports",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "diagnostic_and_fix_history.md",
+      "weight": 1.0,
+      "source": "diagnostic_and_fix_history_calibration_history",
+      "target": "speed_sweep_test"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_sweep_test.py",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "speed_sweep_test",
+      "target": "speed_sweep_test_list_ports",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_sweep_test.py",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "speed_sweep_test",
+      "target": "speed_sweep_test_main",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "speed_sweep_test.py",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "speed_sweep_test_main",
+      "target": "speed_sweep_test_list_ports",
       "confidence_score": 1.0
     },
     {
@@ -4183,6 +5129,26 @@
       "weight": 1.0,
       "source": "test",
       "target": "test_generate_circle_coordinates",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "test.py",
+      "source_location": "L474",
+      "weight": 1.0,
+      "source": "test",
+      "target": "test_generate_concentric_circles",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "test.py",
+      "source_location": "L358",
+      "weight": 1.0,
+      "source": "test",
+      "target": "test_generate_concentric_hexagons",
       "confidence_score": 1.0
     },
     {
@@ -4229,10 +5195,60 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "test.py",
+      "source_location": "L536",
+      "weight": 1.0,
+      "source": "test",
+      "target": "test_plot_concentric_circles",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "test.py",
+      "source_location": "L410",
+      "weight": 1.0,
+      "source": "test",
+      "target": "test_plot_concentric_hexagons",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "test.py",
       "source_location": "L193",
       "weight": 1.0,
       "source": "test",
       "target": "test_shift_coordinates",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "test.py",
+      "source_location": "L411",
+      "weight": 1.0,
+      "source": "test_rationale_411",
+      "target": "test_plot_concentric_hexagons",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "test.py",
+      "source_location": "L481",
+      "weight": 1.0,
+      "source": "test_rationale_481",
+      "target": "test_generate_concentric_circles",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "test.py",
+      "source_location": "L537",
+      "weight": 1.0,
+      "source": "test_rationale_537",
+      "target": "test_plot_concentric_circles",
       "confidence_score": 1.0
     },
     {
@@ -4246,54 +5262,249 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "README.md",
-      "source_location": null,
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "coords/square.txt",
       "weight": 1.0,
-      "source": "readme_overview",
-      "target": "readme_coordinates_ref"
+      "source": "coords_square_coordinates",
+      "target": "diagnostic_and_fix_history_calibration_history"
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "README.md",
-      "source_location": null,
+      "source_file": "diagnostic_and_fix_history.md",
       "weight": 1.0,
-      "source": "readme_overview",
-      "target": "readme_electro_lithography"
+      "source": "diagnostic_and_fix_history_calibration_history",
+      "target": "diagnostic_and_fix_history_circle_distortion"
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "README.md",
-      "source_location": null,
+      "source_file": "diagnostic_and_fix_history.md",
       "weight": 1.0,
-      "source": "readme_overview",
-      "target": "readme_hmccontroller_ref"
+      "source": "diagnostic_and_fix_history_calibration_history",
+      "target": "diagnostic_and_fix_history_holmarc_stage"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "circles.txt",
+      "weight": 1.0,
+      "source": "circles_coordinates",
+      "target": "diagnostic_and_fix_history_circle_distortion"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "diagnostic_and_fix_history.md",
+      "weight": 1.0,
+      "source": "diagnostic_and_fix_history_circle_distortion",
+      "target": "diagnostic_and_fix_history_firmware_speed_bands_bug"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "diagnostic_and_fix_history.md",
+      "weight": 1.0,
+      "source": "diagnostic_and_fix_history_independent_speed_shifting",
+      "target": "diagnostic_and_fix_history_circle_distortion"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "diagnostic_and_fix_history.md",
+      "weight": 1.0,
+      "source": "diagnostic_and_fix_history_proportional_speed_scaling",
+      "target": "diagnostic_and_fix_history_circle_distortion"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "images/1.jpg",
+      "weight": 1.0,
+      "source": "hmccontroller_complete_plotted_circle",
+      "target": "diagnostic_and_fix_history_circle_distortion"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "diagnostic_and_fix_history.md",
+      "weight": 1.0,
+      "source": "diagnostic_and_fix_history_fine_grained_calibration",
+      "target": "diagnostic_and_fix_history_firmware_speed_bands_bug"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "diagnostic_and_fix_history.md",
+      "weight": 1.0,
+      "source": "diagnostic_and_fix_history_serial_state_parser_collision",
+      "target": "diagnostic_and_fix_history_firmware_speed_bands_bug"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "le.txt",
+      "weight": 1.0,
+      "source": "le_calibration_data",
+      "target": "diagnostic_and_fix_history_firmware_speed_bands_bug"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "log.txt",
+      "weight": 1.0,
+      "source": "log_verification_run",
+      "target": "diagnostic_and_fix_history_fine_grained_calibration"
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "README.md",
-      "source_location": null,
+      "source_file": "circles_plot.png",
       "weight": 1.0,
-      "source": "readme_overview",
-      "target": "readme_main_ref"
+      "source": "hmccontroller_circles_plot_image",
+      "target": "hmccontroller_circles_plot_concentric_circles_pattern"
     },
     {
-      "relation": "cites",
+      "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "README.md",
+      "source_file": "circles_plot.png",
+      "weight": 1.0,
+      "source": "hmccontroller_circles_plot_image",
+      "target": "hmccontroller_circles_plot_drawing_path"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "circles_plot.png",
+      "weight": 1.0,
+      "source": "hmccontroller_circles_plot_image",
+      "target": "hmccontroller_circles_plot_exposure_segmentation"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "circles_plot.png",
+      "weight": 1.0,
+      "source": "hmccontroller_circles_plot_image",
+      "target": "hmccontroller_circles_plot_travel_liftoff_path"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "circles_plot.png",
+      "weight": 1.0,
+      "source": "hmccontroller_circles_plot_image",
+      "target": "hmccontroller_circles_plot_vertices"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "circles_plot.png",
+      "weight": 1.0,
+      "source": "hmccontroller_circles_plot_drawing_path",
+      "target": "hmccontroller_circles_plot_travel_liftoff_path"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "circles_plot.png",
+      "weight": 1.0,
+      "source": "hmccontroller_circles_plot_vertices",
+      "target": "hmccontroller_circles_plot_drawing_path"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "circles_plot.png",
+      "weight": 1.0,
+      "source": "hmccontroller_circles_plot_exposure_segmentation",
+      "target": "hmccontroller_circles_plot_travel_liftoff_path"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "images/1.jpg",
+      "weight": 1.0,
+      "source": "hmccontroller_images_1_jpg",
+      "target": "hmccontroller_complete_plotted_circle"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "images/1.jpg",
+      "weight": 1.0,
+      "source": "hmccontroller_images_1_jpg",
+      "target": "hmccontroller_line_exposure_quality"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "images/2.jpg",
+      "weight": 1.0,
+      "source": "hmccontroller_ghost_trace",
+      "target": "hmccontroller_complete_plotted_circle"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "images/2.jpg",
+      "weight": 1.0,
+      "source": "hmccontroller_images_2_jpg",
+      "target": "hmccontroller_ghost_trace"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "images/2.jpg",
+      "weight": 1.0,
+      "source": "hmccontroller_images_2_jpg",
+      "target": "hmccontroller_smoothness_vs_stepping"
+    },
+    {
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "CLAUDE.md",
       "source_location": null,
       "weight": 1.0,
-      "source": "readme_overview",
-      "target": "report_talukder_advisor"
+      "source": "claude_policy_overview",
+      "target": "rules_graperoot_policy"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Labview integration/README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "labview_integration_readme_overview",
+      "target": "labview_integration_readme_lithographyrun"
     },
     {
       "relation": "conceptually_related_to",
@@ -4312,38 +5523,8 @@
       "source_file": "README.md",
       "source_location": null,
       "weight": 1.0,
-      "source": "readme_electro_lithography",
-      "target": "report_liquid_electromigration"
-    },
-    {
-      "relation": "semantically_similar_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.95,
-      "source_file": "README.md",
-      "source_location": null,
-      "weight": 1.0,
       "source": "readme_hmccontroller_ref",
       "target": "labview_integration_readme_motorprotocol"
-    },
-    {
-      "relation": "semantically_similar_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.95,
-      "source_file": "README.md",
-      "source_location": null,
-      "weight": 1.0,
-      "source": "readme_main_ref",
-      "target": "labview_integration_readme_lithographyrun"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "Labview integration/README.md",
-      "source_location": null,
-      "weight": 1.0,
-      "source": "labview_integration_readme_overview",
-      "target": "labview_integration_readme_lithographyrun"
     },
     {
       "relation": "calls",
@@ -4546,6 +5727,16 @@
       "target": "labview_integration_readme_systemconfig"
     },
     {
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "readme_main_ref",
+      "target": "labview_integration_readme_lithographyrun"
+    },
+    {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
@@ -4564,6 +5755,66 @@
       "weight": 1.0,
       "source": "report_water_bridge_formation",
       "target": "labview_integration_readme_real_time_z_feedback"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "readme_overview",
+      "target": "readme_coordinates_ref"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "readme_overview",
+      "target": "readme_electro_lithography"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "readme_overview",
+      "target": "readme_hmccontroller_ref"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "readme_overview",
+      "target": "readme_main_ref"
+    },
+    {
+      "relation": "cites",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "readme_overview",
+      "target": "report_talukder_advisor"
+    },
+    {
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "readme_electro_lithography",
+      "target": "report_liquid_electromigration"
     },
     {
       "relation": "references",
@@ -4604,19 +5855,50 @@
       "weight": 1.0,
       "source": "report_overview",
       "target": "report_water_bridge_formation"
-    },
-    {
-      "relation": "semantically_similar_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.95,
-      "source_file": "CLAUDE.md",
-      "source_location": null,
-      "weight": 1.0,
-      "source": "claude_policy_overview",
-      "target": "rules_graperoot_policy"
     }
   ],
   "hyperedges": [
+    {
+      "id": "calibration_and_resolution_flow",
+      "label": "Calibration and Circle Distortion Resolution Flow",
+      "nodes": [
+        "diagnostic_and_fix_history_circle_distortion",
+        "diagnostic_and_fix_history_firmware_speed_bands_bug",
+        "diagnostic_and_fix_history_fine_grained_calibration"
+      ],
+      "relation": "form",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "D:\\Python codes\\hmccontroller\\diagnostic_and_fix_history.md"
+    },
+    {
+      "id": "plotter_coordinate_patterns",
+      "label": "Plotter Coordinate Patterns",
+      "nodes": [
+        "circles_coordinates",
+        "hexagons_coordinates",
+        "coords_square_coordinates",
+        "coords_parallel_coordinates"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "D:\\Python codes\\hmccontroller\\diagnostic_and_fix_history.md"
+    },
+    {
+      "id": "circles_patterning_flow",
+      "label": "Concentric Circles Patterning Flow",
+      "nodes": [
+        "hmccontroller_circles_plot_concentric_circles_pattern",
+        "hmccontroller_circles_plot_drawing_path",
+        "hmccontroller_circles_plot_travel_liftoff_path",
+        "hmccontroller_circles_plot_vertices"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "D:\\Python codes\\hmccontroller\\circles_plot.png"
+    },
     {
       "id": "motor_control_protocol_vvis",
       "label": "LabVIEW Motor Control VISA VIs",
@@ -4664,5 +5946,5 @@
       "source_file": "D:\\Python codes\\hmccontroller\\Labview integration\\README.md"
     }
   ],
-  "built_at_commit": "79e509f9e3f73cbea2a4a711f20374f0587fe702"
+  "built_at_commit": "2c3954313b4f29910eb88e02353b9f188cb5f86e"
 }
