@@ -3,7 +3,12 @@ import json
 import os
 import sys
 import collections
+from socketserver import ThreadingMixIn
 from api import LithographySystem
+
+class ThreadingHTTPServer(ThreadingMixIn, http.server.HTTPServer):
+    daemon_threads = True
+
 
 class LogBuffer:
     def __init__(self, limit=200):
@@ -133,7 +138,7 @@ class APIHandler(http.server.SimpleHTTPRequestHandler):
 
 def run_server(port=8080):
     server_address = ('', port)
-    httpd = http.server.HTTPServer(server_address, APIHandler)
+    httpd = ThreadingHTTPServer(server_address, APIHandler)
     httpd.timeout = 0.5
     print(f"Electro-Lithography Web Dashboard running at http://localhost:{port}/")
     try:

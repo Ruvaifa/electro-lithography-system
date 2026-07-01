@@ -128,14 +128,23 @@ async function scanPorts() {
         const res = await fetch(`${API_BASE}/api/ports`);
         const ports = await res.json();
         
+        // Ensure COM3, COM10, and COM8 are always present in the ports list
+        const defaultPorts = [
+            { device: "COM3", description: "Default Port" },
+            { device: "COM10", description: "Default Port" },
+            { device: "COM8", description: "Default Port" }
+        ];
+        defaultPorts.forEach(defPort => {
+            const exists = ports.some(p => p.device.toUpperCase() === defPort.device.toUpperCase());
+            if (!exists) {
+                ports.push(defPort);
+            }
+        });
+        
         const selectors = [portXSelect, portYSelect, portZSelect];
         selectors.forEach(select => {
             select.innerHTML = "";
-            if (ports.length === 0) {
-                select.innerHTML = '<option value="">No ports found</option>';
-                return;
-            }
-            ports.forEach((p, idx) => {
+            ports.forEach(p => {
                 const opt = document.createElement("option");
                 opt.value = p.device;
                 opt.textContent = `${p.device} (${p.description})`;
@@ -143,17 +152,12 @@ async function scanPorts() {
             });
         });
         
-        // Auto-select defaults if there are at least 3 ports (fallback)
-        if (ports.length >= 1) portXSelect.value = ports[0].device;
-        if (ports.length >= 2) portYSelect.value = ports[1].device;
-        if (ports.length >= 3) portZSelect.value = ports[2].device;
-
-        // Custom defaults (COM3 for X, COM10 for Y, COM8 for Z) override fallback if available
+        // Auto-select defaults: X=COM3, Y=COM10, Z=COM8
         ports.forEach(p => {
             const dev = p.device.toUpperCase();
-            if (dev === "COM3" || dev === "COM3" || dev === "3") portXSelect.value = p.device;
-            if (dev === "COM10" || dev === "COM10" || dev === "10") portYSelect.value = p.device;
-            if (dev === "COM8" || dev === "COM8" || dev === "8") portZSelect.value = p.device;
+            if (dev === "COM3" || dev === "3") portXSelect.value = p.device;
+            if (dev === "COM10" || dev === "10") portYSelect.value = p.device;
+            if (dev === "COM8" || dev === "8") portZSelect.value = p.device;
         });
         
     } catch (err) {
@@ -695,5 +699,10 @@ function logToConsole(message, isError = false) {
         console.error(message);
     } else {
         console.log(message);
+    }
+    const statusMsg = document.getElementById("connection-status-msg");
+    if (statusMsg) {
+        statusMsg.textContent = message;
+        statusMsg.style.color = isError ? "#fca5a5" : "#9ca3af";
     }
 }
