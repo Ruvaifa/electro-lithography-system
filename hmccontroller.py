@@ -835,7 +835,6 @@ class HmcControlCs:
             self.ser.reset_input_buffer()
             raise  # re-raise so caller knows move failed
     
-
     def move_home(self, move_a, move_b, move_c):
 
         if self.dummy:
@@ -853,6 +852,11 @@ class HmcControlCs:
             self.z_far_reached = False
 
         self.movement_completed = False
+
+        # Reset serial input buffer to clear stale status polling bytes
+        with self.serial_lock:
+            if hasattr(self, 'ser') and self.ser and self.ser.is_open:
+                self.ser.reset_input_buffer()
         
         #print("[DEBUG] move_home: sending set_move_data")
         self.set_move_data(move_a, move_b, move_c)

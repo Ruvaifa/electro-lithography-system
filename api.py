@@ -45,6 +45,15 @@ class LithographySystem:
         self.app.hmcControl = self.z_hmc
 
         self.connected = True
+
+        # Automatically home all axes on connection startup
+        logger.info("Automatically homing all axes on connection...")
+        home_res = self.home_all()
+        if not home_res["success"]:
+            # De-register connected flag if homing failed
+            self.connected = False
+            return home_res
+
         return {"success": True}
 
     def home_all(self) -> dict:
