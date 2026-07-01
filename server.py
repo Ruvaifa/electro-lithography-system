@@ -46,32 +46,31 @@ class APIHandler(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
-        if self.path.startswith("/api/"):
-            self.handle_api_get()
+        clean_path = self.path.split("?")[0]
+        if clean_path.startswith("/api/"):
+            self.handle_api_get(clean_path)
         else:
-            original_path = self.path
-            if self.path == "/":
-                self.path = "/index.html"
+            if clean_path == "/":
+                clean_path = "/index.html"
             
             frontend_dir = os.path.join(os.getcwd(), "frontend")
-            target_file = os.path.join(frontend_dir, self.path.lstrip("/"))
+            target_file = os.path.join(frontend_dir, clean_path.lstrip("/"))
             
             if os.path.exists(target_file) and os.path.isfile(target_file):
-                self.path = "/frontend" + original_path
-                if original_path == "/":
-                    self.path = "/frontend/index.html"
+                self.path = "/frontend" + clean_path
                 super().do_GET()
             else:
                 self.send_error(404, "File not found")
 
     def do_POST(self):
-        if self.path.startswith("/api/"):
-            self.handle_api_post()
+        clean_path = self.path.split("?")[0]
+        if clean_path.startswith("/api/"):
+            self.handle_api_post(clean_path)
         else:
             self.send_error(404, "Not Found")
 
-    def handle_api_get(self):
-        endpoint = self.path[len("/api/"):]
+    def handle_api_get(self, clean_path):
+        endpoint = clean_path[len("/api/"):]
         self.send_response(200)
         self.send_header("Content-Type", "application/json")
         self.end_headers()
@@ -96,8 +95,8 @@ class APIHandler(http.server.SimpleHTTPRequestHandler):
         else:
             self.wfile.write(json.dumps({"error": f"Unknown endpoint {endpoint}"}).encode())
 
-    def handle_api_post(self):
-        endpoint = self.path[len("/api/"):]
+    def handle_api_post(self, clean_path):
+        endpoint = clean_path[len("/api/"):]
         
         content_length = int(self.headers.get('Content-Length', 0))
         post_data = self.rfile.read(content_length)
