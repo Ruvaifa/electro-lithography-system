@@ -35,6 +35,89 @@ sys.stderr = log_buffer
 
 system = LithographySystem()
 
+# --- Basler camera globals ---
+camera_instance = None
+camera_failed = False
+
+def get_camera_frames():
+    """MJPEG frame generator. Yields raw JPEG bytes from the Basler camera,
+    or from a simulated crosshair view if the camera is unavailable."""
+    global camera_instance, camera_failed
+
+    try:
+        import cv2
+        import numpy as np
+    except ImportError:
+        # Absolute fallback: 1x1 black JPEG if OpenCV is missing
+        mock_jpeg = (
+            b'\xff\xd8\xff\xe0\x00\x10JFIF\x00\x01\x01\x01\x00`\x00`\x00\x00\xff\xdb\x00C\x00\x08\x06\x06'
+            b'\x07\x06\x05\x08\x07\x07\x07\t\t\x08\n\x0c\x14\r\x0c\x0b\x0b\x0c\x19\x12\x13\x0f\x14\x1d\x1a'
+            b'\x1f\x1e\x1d\x1a\x1c\x1c $.\'  ",#\x1c\x1c(7),01444\x1f\'9=82<.342\xff\xc0\x00\x0b\x08\x00'
+            b'\x01\x00\x01\x01\x01\x11\x01\xff\xc4\x00\x1f\x00\x00\x01\x05\x01\x01\x01\x01\x01\x01\x00\x00'
+            b'\x00\x00\x00\x00\x00\x00\x01\x02\x03\x04\x05\x06\x07\x08\t\n\x0b\xff\xda\x00\x08\x01\x01\x00'
+            b'\x00?\x007\xff\xd9'
+        )
+        while True:
+            time.sleep(1.0)
+            yield mock_jpeg
+
+    # Try to open the physical Basler camera once
+    if not camera_instance and not camera_failed:
+        try:
+            from pypylon import pylon
+            from basler_camera import BaslerCamera
+            camera_instance = BaslerCamera()
+            camera_instance.open()  # _apply_settings() sets ExposureAuto=Continuous via NodeMap
+            camera_instance.camera.StartGrabbing(pylon.GrabStrategy_LatestImageOnly)
+            print("[CAMERA] Basler Camera initialized successfully.")
+        except Exception as e:
+            print(f"[CAMERA] Physical camera initialization failed: {e}. Using simulated camera.")
+            camera_failed = True
+
+    while True:
+        frame = None
+        if camera_instance and not camera_failed:
+            try:
+                from pypylon import pylon
+                if camera_instance.camera.IsGrabbing():
+                    grab_result = camera_instance.camera.RetrieveResult(
+                        3000,                          # 3 s — enough for camera to warm up
+                        pylon.TimeoutHandling_Return,  # return None instead of throwing on timeout
+                    )
+                    try:
+                        if grab_result and grab_result.GrabSucceeded():
+                            frame = camera_instance.converter.Convert(grab_result).GetArray()
+                    finally:
+                        if grab_result:
+                            grab_result.Release()
+            except Exception as e:
+                print(f"[CAMERA] Failed to grab physical frame: {e}. Switching to simulated.")
+                camera_failed = True
+                try:
+                    camera_instance.close()
+                except Exception:
+                    pass
+                camera_instance = None
+
+        if frame is None:
+            # Simulated crosshair/probe view
+            frame = np.zeros((480, 640, 3), dtype=np.uint8)
+            cv2.line(frame, (320, 0), (320, 480), (45, 45, 45), 1)
+            cv2.line(frame, (0, 240), (640, 240), (45, 45, 45), 1)
+            cv2.circle(frame, (320, 240), 40, (0, 242, 254), 1)
+            cv2.circle(frame, (320, 240), 5, (0, 242, 254), -1)
+            t = time.time()
+            offset_x = int(12 * np.sin(t * 3.14))
+            offset_y = int(12 * np.cos(t * 3.14))
+            cv2.rectangle(frame, (312 + offset_x, 232 + offset_y), (328 + offset_x, 248 + offset_y), (255, 0, 127), 1)
+            cv2.putText(frame, "BASLER LIVE CAMERA STREAM (MODE 8/6)", (15, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (255, 255, 255), 1, cv2.LINE_AA)
+            cv2.putText(frame, f"FPS: 15 | TIME: {time.strftime('%H:%M:%S')}", (15, 55), cv2.FONT_HERSHEY_SIMPLEX, 0.38, (120, 120, 120), 1, cv2.LINE_AA)
+            cv2.putText(frame, "SIMULATED VIEW: NO PHYSICAL HARDWARE DETECTED", (15, 455), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 100, 255), 1, cv2.LINE_AA)
+            time.sleep(0.066)
+
+        _, jpeg = cv2.imencode('.jpg', frame)
+        yield jpeg.tobytes()
+
 class APIHandler(http.server.SimpleHTTPRequestHandler):
     def end_headers(self):
         self.send_header("Access-Control-Allow-Origin", "*")

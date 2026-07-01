@@ -21,7 +21,7 @@ except ImportError as exc:  # pragma: no cover - depends on local install
     ) from exc
 
 try:
-    from pypylon import pylon
+    from pypylon import pylon, genicam
 except ImportError as exc:  # pragma: no cover - depends on local install
     raise ImportError(
         "pypylon is required for Basler camera control. Install it with: pip install pypylon"
@@ -202,63 +202,80 @@ class BaslerCamera:
         self._stream_thread = None
 
     def _apply_settings(self) -> None:
+        """Apply camera settings via the proper pypylon NodeMap API."""
         assert self.camera is not None
+        node_map = self.camera.GetNodeMap()
 
-        self._try_set_enum("ExposureAuto", "Continuous")
-        self._try_set_bool("CenterX", self.settings.center_x)
-        self._try_set_bool("CenterY", self.settings.center_y)
+        # Ensure exposure mode is Timed so ExposureAuto can be set
+        self._nm_set_enum(node_map, "ExposureMode", "Timed")
+        # Set continuous auto-exposure so the camera adjusts brightness automatically
+        self._nm_set_enum(node_map, "ExposureAuto", "Continuous")
+        print("[CAMERA] ExposureAuto set to Continuous.")
+
+        self._nm_set_bool(node_map, "CenterX", self.settings.center_x)
+        self._nm_set_bool(node_map, "CenterY", self.settings.center_y)
         if self.settings.width is not None:
-            self._try_set_int("Width", self.settings.width)
+            self._nm_set_int(node_map, "Width", self.settings.width)
         if self.settings.height is not None:
-            self._try_set_int("Height", self.settings.height)
+            self._nm_set_int(node_map, "Height", self.settings.height)
         if self.settings.exposure_time_us is not None:
-            self._try_set_float("ExposureTime", self.settings.exposure_time_us)
+            # Manual exposure overrides auto — switch off ExposureAuto first
+            self._nm_set_enum(node_map, "ExposureAuto", "Off")
+            self._nm_set_float(node_map, "ExposureTime", self.settings.exposure_time_us)
         if self.settings.gain is not None:
-            self._try_set_float("Gain", self.settings.gain)
+            self._nm_set_float(node_map, "Gain", self.settings.gain)
 
-    def _try_set_bool(self, node_name: str, value: bool) -> None:
-        node = getattr(self.camera, node_name, None)
-        if node and self._is_writable(node):
-            node.SetValue(value)
+    # ------------------------------------------------------------------
+    # NodeMap helpers — use genicam.IsWritable() (correct pypylon API)
+    # ------------------------------------------------------------------
 
-    def _try_set_int(self, node_name: str, value: int) -> None:
-        node = getattr(self.camera, node_name, None)
-        if node and self._is_writable(node):
-            minimum = node.GetMin()
-            maximum = node.GetMax()
-            increment = max(node.GetInc(), 1) if hasattr(node, "GetInc") else 1
-            clamped = max(minimum, min(maximum, int(value)))
-            aligned = minimum + ((clamped - minimum) // increment) * increment
-            node.SetValue(aligned)
-
-    def _try_set_float(self, node_name: str, value: float) -> None:
-        node = getattr(self.camera, node_name, None)
-        if node and self._is_writable(node):
-            minimum = node.GetMin()
-            maximum = node.GetMax()
-            node.SetValue(max(minimum, min(maximum, float(value))))
-
-    def _try_set_enum(self, node_name: str, value: str) -> None:
-        node = getattr(self.camera, node_name, None)
-        if node and self._is_writable(node):
-            try:
-                node.SetValue(value)
-            except Exception:
-                try:
-                    node.SetIntValue(node.GetEntryByName(value).GetValue())
-                except Exception:
-                    pass
-
-    def _is_writable(self, node: object) -> bool:
+    def _nm_set_enum(self, node_map, node_name: str, value: str) -> None:
+        """Set an enumeration node by string value."""
         try:
-            access_mode = node.GetAccessMode()
-        except AttributeError:
-            return False
-        return access_mode in (
-            pylon.Accessibility_Ok,
-            pylon.Accessibility_Opened,
-            pylon.Accessibility_OpenedExclusively,
-        )
+            node = node_map.GetNode(node_name)
+            if node and genicam.IsWritable(node):
+                enum_node = genicam.CEnumerationPtr(node)
+                entry = enum_node.GetEntryByName(value)
+                if entry and genicam.IsAvailable(entry):
+                    enum_node.SetIntValue(entry.GetValue())
+        except Exception as e:
+            print(f"[CAMERA] Could not set {node_name}={value}: {e}")
+
+    def _nm_set_bool(self, node_map, node_name: str, value: bool) -> None:
+        """Set a boolean node."""
+        try:
+            node = node_map.GetNode(node_name)
+            if node and genicam.IsWritable(node):
+                genicam.CBooleanPtr(node).SetValue(value)
+        except Exception as e:
+            print(f"[CAMERA] Could not set {node_name}={value}: {e}")
+
+    def _nm_set_int(self, node_map, node_name: str, value: int) -> None:
+        """Set an integer node, clamped and aligned to valid range."""
+        try:
+            node = node_map.GetNode(node_name)
+            if node and genicam.IsWritable(node):
+                int_node = genicam.CIntegerPtr(node)
+                minimum = int_node.GetMin()
+                maximum = int_node.GetMax()
+                increment = int_node.GetInc() if int_node.GetInc() > 0 else 1
+                clamped = max(minimum, min(maximum, int(value)))
+                aligned = minimum + ((clamped - minimum) // increment) * increment
+                int_node.SetValue(aligned)
+        except Exception as e:
+            print(f"[CAMERA] Could not set {node_name}={value}: {e}")
+
+    def _nm_set_float(self, node_map, node_name: str, value: float) -> None:
+        """Set a float node, clamped to valid range."""
+        try:
+            node = node_map.GetNode(node_name)
+            if node and genicam.IsWritable(node):
+                float_node = genicam.CFloatPtr(node)
+                minimum = float_node.GetMin()
+                maximum = float_node.GetMax()
+                float_node.SetValue(max(minimum, min(maximum, float(value))))
+        except Exception as e:
+            print(f"[CAMERA] Could not set {node_name}={value}: {e}")
 
     def _require_open_camera(self) -> None:
         if not self.camera or not self.camera.IsOpen():
