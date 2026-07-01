@@ -19,6 +19,18 @@ class LithographySystem:
         self.app: Optional[App] = None
         self.connected = False
 
+    def reset_abort_flags(self):
+        """Reset emergency stop and thread abort flags for a clean movement run."""
+        if self.connected:
+            if self.app:
+                self.app.stop = False
+            if self.x_hmc:
+                self.x_hmc.stop_thread = False
+            if self.y_hmc:
+                self.y_hmc.stop_thread = False
+            if self.z_hmc:
+                self.z_hmc.stop_thread = False
+
     def list_ports(self) -> list[dict]:
         """Return available COM ports as list of dicts."""
         ports = serial.tools.list_ports.comports()
@@ -45,6 +57,7 @@ class LithographySystem:
         self.app.hmcControl = self.z_hmc
 
         self.connected = True
+        self.reset_abort_flags()
 
         # Automatically home all axes on connection startup
         logger.info("Automatically homing all axes on connection...")
@@ -60,6 +73,7 @@ class LithographySystem:
         """Home all axes in startup sequence."""
         if not self.connected:
             return {"success": False, "error": "Not connected to system."}
+        self.reset_abort_flags()
         try:
             logger.info("Starting homing sequence...")
             self.z_hmc.on_startup()
@@ -74,6 +88,7 @@ class LithographySystem:
         """Move logical Z distance (relative move)."""
         if not self.connected:
             return {"success": False, "error": "Not connected to system."}
+        self.reset_abort_flags()
         
         self.app.command = '1'
         self.app.x_value = x_um
@@ -125,6 +140,8 @@ class LithographySystem:
         if getattr(self.app, "patterning_active", False):
             return {"success": False, "error": "Patterning is already in progress."}
 
+        self.reset_abort_flags()
+
         def reset_all_serial():
             self.x_hmc.config_serial_port(self.x_hmc.ser.port)
             self.y_hmc.config_serial_port(self.y_hmc.ser.port)
@@ -152,6 +169,16 @@ class LithographySystem:
 
         def worker():
             try:
+                # Reset abort and stop flags inside the worker thread
+                self.reset_abort_flags()
+                
+                # Automatically home all axes before starting pattern
+                logger.info("Automatically homing all axes before starting pattern...")
+                home_res = self.home_all()
+                if not home_res["success"]:
+                    logger.error(f"Homing failed before pattern start: {home_res.get('error')}")
+                    return
+
                 if mode_num == 6:
                     from modes import mode_sync_litho
                     mode_sync_litho.run(

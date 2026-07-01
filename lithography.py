@@ -210,6 +210,8 @@ class SmuVoltageSampler(Thread):
                 continue
             try:
                 voltage, current = read_voltage_sample(self.smu)
+                setattr(self.smu, "latest_voltage", voltage)
+                setattr(self.smu, "latest_current", current)
                 direction = classify_voltage(voltage, self.threshold_voltage_1, self.threshold_voltage_2)
                 self.state.update(voltage, current, direction)
                 now = time.perf_counter()

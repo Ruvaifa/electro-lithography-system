@@ -141,6 +141,9 @@ def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup
             liftoff = False
 
             for x, y, flag in lines:
+                if app.stop or x_hmc.stop_thread or y_hmc.stop_thread or z_hmc.stop_thread:
+                    raise lithography.PatternAbort("User triggered stop.")
+
                 app.moves_done = i
                 app.moves_left = max(0, app.total_moves - i)
                 dx = x - x_hmc.current_x

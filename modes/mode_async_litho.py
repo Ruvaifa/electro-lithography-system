@@ -183,10 +183,14 @@ def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup
         liftoff = False
         app.total_moves = len(lines)
         for idx in range(1, len(lines)):
+            if app.stop or x_hmc.stop_thread or y_hmc.stop_thread or z_hmc.stop_thread:
+                print("[ABORT] Async patterning run aborted mid-way by user!")
+                break
+
             app.moves_done = idx
             app.moves_left = max(0, app.total_moves - idx)
-            app.smu_voltage = getattr(smu, "latest_voltage", 0.0)
-            app.smu_current = getattr(smu, "latest_current", 0.0)
+            app.smu_voltage = state.voltage if state.voltage is not None else 0.0
+            app.smu_current = state.current if state.current is not None else 0.0
             
             x, y, flag = lines[idx]
             dx = x - x_hmc.current_x
