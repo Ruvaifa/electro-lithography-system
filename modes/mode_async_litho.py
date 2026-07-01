@@ -236,12 +236,15 @@ def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup
                     print("[INFO] liftoff Initiated")
                     z_worker.enabled.clear()
                     sampler.enabled.clear()
+                    # Wait for any active Z feedback move to finish to prevent serial race condition
+                    while getattr(z_worker, "is_moving", False):
+                        time.sleep(0.01)
                     try:
                         # Move Z up by liftoff_height (negative logical Z)
                         z_hmc.move(0, 0, -liftoff_height)
                         print(f"[LIFTOFF] Z moved up by {liftoff_height} um")
                     except Exception as e:
-                        print(f"[WARN] Liftoff Z move failed: {e}")
+                        raise lithography.PatternAbort(f"Liftoff Z move failed: {e}")
                     liftoff = True
                 else:
                     pass
@@ -252,6 +255,9 @@ def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup
                     print("[INFO] Finding new contact point...")
                     z_worker.enabled.clear()
                     sampler.enabled.clear()
+                    # Wait for any active Z feedback move to finish to prevent serial race condition
+                    while getattr(z_worker, "is_moving", False):
+                        time.sleep(0.01)
                     # Couple Z back temporarily for find_contact_point
                     app.z_hmc = z_hmc
                     app.hmcControl = z_hmc

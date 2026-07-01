@@ -313,6 +313,7 @@ class ZFeedbackWorker(Thread):
         self.feedback_speed = feedback_speed
         self.enabled = threading.Event()
         self.enabled.set()
+        self.is_moving = False
 
     def run(self):
         print(f"[Z FEEDBACK] Worker started, step={self.step_um} um, speed={self.feedback_speed} um/s")
@@ -345,6 +346,7 @@ class ZFeedbackWorker(Thread):
                 break
 
             try:
+                self.is_moving = True
                 previous_timeout = self.z_hmc.motion_timeout_seconds
                 self.z_hmc.motion_timeout_seconds = max(5.0, abs(delta_z) / max(self.feedback_speed, 1) + 2.0)
                 self.z_hmc.move(0, 0, delta_z)
@@ -356,3 +358,4 @@ class ZFeedbackWorker(Thread):
             finally:
                 self.z_hmc.motion_timeout_seconds = previous_timeout
                 move_finish_time = time.perf_counter()
+                self.is_moving = False
