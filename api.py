@@ -117,7 +117,15 @@ class LithographySystem:
         if not self.connected:
             return {"success": False, "error": "Not connected."}
         logger.warning("Emergency stop triggered.")
+        # Set stop on App-level (covers hmcControl / z axis)
         self.app.stop_process()
+        # Explicitly set stop flags on ALL individual axis controllers.
+        # app.stop_process() only iterates app._get_controllers() which only
+        # contains hmcControl (Z). X and Y are separate instances stored here.
+        for h in [self.x_hmc, self.y_hmc, self.z_hmc]:
+            if h:
+                h.stop_thread = True
+                h.force_stop_thread = True
         return {"success": True}
 
     def disconnect(self) -> dict:
