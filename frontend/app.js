@@ -135,7 +135,7 @@ async function scanPorts() {
             { device: "COM8", description: "Default Port" }
         ];
         defaultPorts.forEach(defPort => {
-            const exists = ports.some(p => p.device.toUpperCase() === defPort.device.toUpperCase());
+            const exists = ports.some(p => p.device && p.device.toUpperCase() === defPort.device.toUpperCase());
             if (!exists) {
                 ports.push(defPort);
             }
@@ -145,19 +145,23 @@ async function scanPorts() {
         selectors.forEach(select => {
             select.innerHTML = "";
             ports.forEach(p => {
-                const opt = document.createElement("option");
-                opt.value = p.device;
-                opt.textContent = `${p.device} (${p.description})`;
-                select.appendChild(opt);
+                if (p.device) {
+                    const opt = document.createElement("option");
+                    opt.value = p.device;
+                    opt.textContent = `${p.device} (${p.description || 'Unscanned'})`;
+                    select.appendChild(opt);
+                }
             });
         });
         
         // Auto-select defaults: X=COM3, Y=COM10, Z=COM8
         ports.forEach(p => {
-            const dev = p.device.toUpperCase();
-            if (dev === "COM3" || dev === "3") portXSelect.value = p.device;
-            if (dev === "COM10" || dev === "10") portYSelect.value = p.device;
-            if (dev === "COM8" || dev === "8") portZSelect.value = p.device;
+            if (p.device) {
+                const dev = p.device.toUpperCase();
+                if (dev === "COM3" || dev === "3") portXSelect.value = p.device;
+                if (dev === "COM10" || dev === "10") portYSelect.value = p.device;
+                if (dev === "COM8" || dev === "8") portZSelect.value = p.device;
+            }
         });
         
     } catch (err) {
