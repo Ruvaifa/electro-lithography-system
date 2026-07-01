@@ -67,6 +67,18 @@ def get_camera_frames():
             from basler_camera import BaslerCamera
             camera_instance = BaslerCamera()
             camera_instance.open()
+            # Explicitly set ExposureAuto=Continuous via NodeMap.
+            # The _apply_settings() path uses getattr() which silently fails
+            # for enum nodes on InstantCamera — use GetNodeMap() directly.
+            try:
+                from pypylon import genicam
+                node_map = camera_instance.camera.GetNodeMap()
+                exp_auto = node_map.GetNode("ExposureAuto")
+                if exp_auto and genicam.IsWritable(exp_auto):
+                    exp_auto.SetIntValue(exp_auto.GetEntryByName("Continuous").GetValue())
+                    print("[CAMERA] ExposureAuto set to Continuous.")
+            except Exception as cam_e:
+                print(f"[CAMERA] Could not set ExposureAuto=Continuous: {cam_e}")
             camera_instance.camera.StartGrabbing(pylon.GrabStrategy_LatestImageOnly)
             print("[CAMERA] Basler Camera initialized successfully.")
         except Exception as e:
@@ -80,14 +92,15 @@ def get_camera_frames():
                 from pypylon import pylon
                 if camera_instance.camera.IsGrabbing():
                     grab_result = camera_instance.camera.RetrieveResult(
-                        100,
-                        pylon.TimeoutHandling_ThrowException,
+                        3000,                             # 3s — gives camera time to produce first frame
+                        pylon.TimeoutHandling_Return,    # return None instead of throwing on timeout
                     )
                     try:
-                        if grab_result.GrabSucceeded():
+                        if grab_result and grab_result.GrabSucceeded():
                             frame = camera_instance.converter.Convert(grab_result).GetArray()
                     finally:
-                        grab_result.Release()
+                        if grab_result:
+                            grab_result.Release()
             except Exception as e:
                 print(f"[CAMERA] Failed to grab physical frame: {e}. Switching to simulated.")
                 camera_failed = True
