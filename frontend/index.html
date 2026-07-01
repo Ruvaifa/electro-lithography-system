@@ -350,6 +350,20 @@
                     </div>
                 </section>
 
+                <!-- CAMERA STREAM PANEL -->
+                <section class="card glass-panel" id="camera-panel">
+                    <div class="card-header">
+                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                            <circle cx="12" cy="13" r="4"></circle>
+                        </svg>
+                        <h2>Basler Camera Live View</h2>
+                    </div>
+                    <div class="card-body" style="flex: 1; min-height: 0; padding: 0; display: flex; justify-content: center; align-items: center; overflow: hidden; background: #000; border-radius: 0 0 10px 10px;">
+                        <img id="camera-feed" src="/api/camera/stream" style="width: 100%; height: 100%; object-fit: contain; display: block;" alt="Camera Live Feed">
+                    </div>
+                </section>
+
             </div>
         </div>
     </div>
