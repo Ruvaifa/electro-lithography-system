@@ -214,7 +214,7 @@ body {
 /* DASHBOARD GRID */
 .dashboard-grid {
     display: grid;
-    grid-template-columns: 1.1fr 1.3fr;
+    grid-template-columns: 1fr 1.25fr;
     gap: 8px;
     width: 100%;
     min-width: 0;
@@ -239,6 +239,26 @@ body {
     height: 100%;
     min-height: 0;
     overflow: hidden;
+}
+
+.right-telemetry {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    height: 100%;
+    min-height: 0;
+}
+
+.telemetry-top-row {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+    min-height: 0;
+}
+
+.telemetry-top-row > section {
+    flex: 1;
+    min-height: 0;
 }
 
 /* CARD / SECTION */
@@ -921,11 +941,14 @@ select:focus, input:focus {
 }
 
 #chart-panel {
-    flex-shrink: 0;
-    height: 180px;
+    flex: 1;
+    min-height: 0;
     display: flex;
     flex-direction: column;
-    min-height: 0;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
+    max-width: 100%;
+    max-height: calc(100% - 215px);
 }
 
 /* Extra element compacting */

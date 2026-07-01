@@ -50,8 +50,8 @@
         <!-- DASHBOARD GRID -->
         <div class="dashboard-grid">
             
-            <!-- LEFT PANEL: Connection & Control -->
-            <div class="panel-column">
+            <!-- LEFT PANEL: Data Input (Connection & Setup Parameters) -->
+            <div class="panel-column left-inputs">
                 
                 <!-- CONNECTION PANEL -->
                 <section class="card glass-panel" id="connection-panel">
@@ -83,116 +83,7 @@
                             <button class="btn btn-primary" id="btn-connect">Connect Ports</button>
                             <button class="btn btn-secondary" id="btn-home" disabled>Home All Axes</button>
                         </div>
-                        <div id="connection-status-msg" style="margin-top: 8px; font-size: 0.72rem; color: var(--text-secondary); min-height: 15px; text-align: center;"></div>
-                    </div>
-                </section>
-
-                <!-- JOG JOGGER PANEL -->
-                <section class="card glass-panel" id="jog-panel">
-                    <div class="card-header">
-                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
-                            <polyline points="5 9 2 12 5 15"></polyline>
-                            <polyline points="9 5 12 2 15 5"></polyline>
-                            <polyline points="15 19 12 22 9 19"></polyline>
-                            <polyline points="19 9 22 12 19 15"></polyline>
-                            <line x1="2" y1="12" x2="22" y2="12"></line>
-                            <line x1="12" y1="2" x2="12" y2="22"></line>
-                        </svg>
-                        <h2>Manual Axis Jogging</h2>
-                    </div>
-                    <div class="card-body">
-                        <div class="position-display">
-                            <div class="pos-coord">
-                                <span class="coord-label">X</span>
-                                <span class="coord-val" id="pos-x">0.00</span>
-                                <span class="coord-unit">µm</span>
-                            </div>
-                            <div class="pos-coord">
-                                <span class="coord-label">Y</span>
-                                <span class="coord-val" id="pos-y">0.00</span>
-                                <span class="coord-unit">µm</span>
-                            </div>
-                            <div class="pos-coord">
-                                <span class="coord-label">Z</span>
-                                <span class="coord-val" id="pos-z">0.00</span>
-                                <span class="coord-unit">µm</span>
-                            </div>
-                        </div>
-
-                        <div class="jog-layout">
-                            <div class="jog-step-selector">
-                                <label>Jog Step Size (µm)</label>
-                                <div class="step-buttons">
-                                    <button class="step-btn active" data-step="0.2">0.2</button>
-                                    <button class="step-btn" data-step="1.0">1.0</button>
-                                    <button class="step-btn" data-step="10.0">10</button>
-                                    <button class="step-btn" data-step="100.0">100</button>
-                                    <button class="step-btn" data-step="1000.0">1000</button>
-                                </div>
-                            </div>
-
-                            <div class="jog-controls">
-                                <div class="jog-xy-grid">
-                                    <div></div>
-                                    <button class="jog-btn" id="jog-y-plus" disabled title="Y Positive">Y+</button>
-                                    <div></div>
-                                    <button class="jog-btn" id="jog-x-minus" disabled title="X Negative">X-</button>
-                                    <div class="jog-center">XY</div>
-                                    <button class="jog-btn" id="jog-x-plus" disabled title="X Positive">X+</button>
-                                    <div></div>
-                                    <button class="jog-btn" id="jog-y-minus" disabled title="Y Negative">Y-</button>
-                                    <div></div>
-                                </div>
-                                <div class="jog-z-column">
-                                    <button class="jog-btn" id="jog-z-plus" disabled title="Z Positive (Up)">Z+</button>
-                                    <div class="jog-center">Z</div>
-                                    <button class="jog-btn" id="jog-z-minus" disabled title="Z Negative (Down)">Z-</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-            <!-- RIGHT PANEL: Telemetry & Patterning -->
-            <div class="panel-column">
-                
-                <!-- TELEMETRY PANEL -->
-                <section class="card glass-panel" id="telemetry-panel">
-                    <div class="card-header">
-                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
-                            <path d="M3 3v18h18"></path>
-                            <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"></path>
-                        </svg>
-                        <h2>Real-Time Run Telemetry</h2>
-                    </div>
-                    <div class="card-body">
-                        <div class="telemetry-grid">
-                            <div class="tel-item card-sub">
-                                <div class="tel-label">Voltage (SMU)</div>
-                                <div class="tel-value" id="tel-voltage">0.0000</div>
-                                <div class="tel-unit">V</div>
-                            </div>
-                            <div class="tel-item card-sub">
-                                <div class="tel-label">Current (SMU)</div>
-                                <div class="tel-value" id="tel-current">0.0000</div>
-                                <div class="tel-unit">µA</div>
-                            </div>
-                            <div class="tel-item card-sub">
-                                <div class="tel-label">Z-Feedback Direction</div>
-                                <div class="tel-value-badge inactive" id="tel-feedback-direction">INACTIVE</div>
-                            </div>
-                            <div class="tel-item card-sub">
-                                <div class="tel-label">Progress (Moves)</div>
-                                <div class="tel-progress-summary">
-                                    <span id="tel-moves-done">0</span> / <span id="tel-moves-total">0</span>
-                                </div>
-                                <div class="tel-subtext">Left: <span id="tel-moves-left">0</span></div>
-                            </div>
-                        </div>
-                        <div class="progress-bar-container">
-                            <div class="progress-bar" id="run-progress-bar" style="width: 0%"></div>
-                        </div>
+                        <div id="connection-status-msg" style="margin-top: 6px; font-size: 0.72rem; color: var(--text-secondary); min-height: 12px; text-align: center;"></div>
                     </div>
                 </section>
 
@@ -322,32 +213,145 @@
                     </div>
                 </section>
             </div>
-        </div>
 
-        <!-- REAL-TIME TELEMETRY CHART PANEL -->
-        <section class="card glass-panel" id="chart-panel">
-            <div class="card-header">
-                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
-                    <line x1="18" y1="20" x2="18" y2="10"></line>
-                    <line x1="12" y1="20" x2="12" y2="4"></line>
-                    <line x1="6" y1="20" x2="6" y2="14"></line>
-                </svg>
-                <h2>Real-Time SMU Telemetry (Voltage & Current vs Time)</h2>
-                <div style="margin-left: auto; display: flex; gap: 15px; font-size: 0.72rem;">
-                    <span style="display: flex; align-items: center; gap: 5px;">
-                        <span style="width: 10px; height: 10px; background: #00f2fe; border-radius: 2px;"></span>
-                        Voltage (V)
-                    </span>
-                    <span style="display: flex; align-items: center; gap: 5px;">
-                        <span style="width: 10px; height: 10px; background: #ff007f; border-radius: 2px;"></span>
-                        Current (µA)
-                    </span>
+            <!-- RIGHT PANEL: Telemetry, Jogging & Square Graph -->
+            <div class="panel-column right-telemetry">
+                
+                <!-- TOP ROW: JOGGING & STATUS info side-by-side -->
+                <div class="telemetry-top-row">
+                    <!-- JOG JOGGER PANEL -->
+                    <section class="card glass-panel" id="jog-panel">
+                        <div class="card-header">
+                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+                                <polyline points="5 9 2 12 5 15"></polyline>
+                                <polyline points="9 5 12 2 15 5"></polyline>
+                                <polyline points="15 19 12 22 9 19"></polyline>
+                                <polyline points="19 9 22 12 19 15"></polyline>
+                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                <line x1="12" y1="2" x2="12" y2="22"></line>
+                            </svg>
+                            <h2>Manual Axis Jogging</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="position-display">
+                                <div class="pos-coord">
+                                    <span class="coord-label">X</span>
+                                    <span class="coord-val" id="pos-x">0.00</span>
+                                    <span class="coord-unit">µm</span>
+                                </div>
+                                <div class="pos-coord">
+                                    <span class="coord-label">Y</span>
+                                    <span class="coord-val" id="pos-y">0.00</span>
+                                    <span class="coord-unit">µm</span>
+                                </div>
+                                <div class="pos-coord">
+                                    <span class="coord-label">Z</span>
+                                    <span class="coord-val" id="pos-z">0.00</span>
+                                    <span class="coord-unit">µm</span>
+                                </div>
+                            </div>
+
+                            <div class="jog-layout">
+                                <div class="jog-step-selector">
+                                    <label>Jog Step Size (µm)</label>
+                                    <div class="step-buttons">
+                                        <button class="step-btn active" data-step="0.2">0.2</button>
+                                        <button class="step-btn" data-step="1.0">1.0</button>
+                                        <button class="step-btn" data-step="10.0">10</button>
+                                        <button class="step-btn" data-step="100.0">100</button>
+                                        <button class="step-btn" data-step="1000.0">1000</button>
+                                    </div>
+                                </div>
+
+                                <div class="jog-controls">
+                                    <div class="jog-xy-grid">
+                                        <div></div>
+                                        <button class="jog-btn" id="jog-y-plus" disabled title="Y Positive">Y+</button>
+                                        <div></div>
+                                        <button class="jog-btn" id="jog-x-minus" disabled title="X Negative">X-</button>
+                                        <div class="jog-center">XY</div>
+                                        <button class="jog-btn" id="jog-x-plus" disabled title="X Positive">X+</button>
+                                        <div></div>
+                                        <button class="jog-btn" id="jog-y-minus" disabled title="Y Negative">Y-</button>
+                                        <div></div>
+                                    </div>
+                                    <div class="jog-z-column">
+                                        <button class="jog-btn" id="jog-z-plus" disabled title="Z Positive (Up)">Z+</button>
+                                        <div class="jog-center">Z</div>
+                                        <button class="jog-btn" id="jog-z-minus" disabled title="Z Negative (Down)">Z-</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- TELEMETRY PANEL -->
+                    <section class="card glass-panel" id="telemetry-panel">
+                        <div class="card-header">
+                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+                                <path d="M3 3v18h18"></path>
+                                <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"></path>
+                            </svg>
+                            <h2>Real-Time Run Telemetry</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="telemetry-grid">
+                                <div class="tel-item card-sub">
+                                    <div class="tel-label">Voltage (SMU)</div>
+                                    <div class="tel-value" id="tel-voltage">0.0000</div>
+                                    <div class="tel-unit">V</div>
+                                </div>
+                                <div class="tel-item card-sub">
+                                    <div class="tel-label">Current (SMU)</div>
+                                    <div class="tel-value" id="tel-current">0.0000</div>
+                                    <div class="tel-unit">µA</div>
+                                </div>
+                                <div class="tel-item card-sub">
+                                    <div class="tel-label">Z-Feedback Direction</div>
+                                    <div class="tel-value-badge inactive" id="tel-feedback-direction">INACTIVE</div>
+                                </div>
+                                <div class="tel-item card-sub">
+                                    <div class="tel-label">Progress (Moves)</div>
+                                    <div class="tel-progress-summary">
+                                        <span id="tel-moves-done">0</span> / <span id="tel-moves-total">0</span>
+                                    </div>
+                                    <div class="tel-subtext">Left: <span id="tel-moves-left">0</span></div>
+                                </div>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar" id="run-progress-bar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </section>
                 </div>
+
+                <!-- REAL-TIME TELEMETRY CHART PANEL -->
+                <section class="card glass-panel" id="chart-panel">
+                    <div class="card-header">
+                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+                            <line x1="18" y1="20" x2="18" y2="10"></line>
+                            <line x1="12" y1="20" x2="12" y2="4"></line>
+                            <line x1="6" y1="20" x2="6" y2="14"></line>
+                        </svg>
+                        <h2>Real-Time SMU Telemetry (Voltage & Current vs Time)</h2>
+                        <div style="margin-left: auto; display: flex; gap: 15px; font-size: 0.72rem;">
+                            <span style="display: flex; align-items: center; gap: 5px;">
+                                <span style="width: 10px; height: 10px; background: #00f2fe; border-radius: 2px;"></span>
+                                Voltage (V)
+                            </span>
+                            <span style="display: flex; align-items: center; gap: 5px;">
+                                <span style="width: 10px; height: 10px; background: #ff007f; border-radius: 2px;"></span>
+                                Current (µA)
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-body" style="flex: 1; min-height: 0; padding: 5px 10px; display: flex; justify-content: center; align-items: center;">
+                        <canvas id="telemetry-canvas" style="width: 100%; height: 100%; display: block;"></canvas>
+                    </div>
+                </section>
+
             </div>
-            <div class="card-body" style="flex: 1; min-height: 0; padding: 5px 10px; display: flex; justify-content: center; align-items: center;">
-                <canvas id="telemetry-canvas" style="width: 100%; height: 100%; display: block;"></canvas>
-            </div>
-        </section>
+        </div>
     </div>
 
     <script src="app.js?v=2.0"></script>
