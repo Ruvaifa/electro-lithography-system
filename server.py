@@ -9,9 +9,14 @@ class LogBuffer:
     def __init__(self, limit=200):
         self.buffer = collections.deque(maxlen=limit)
         self.stdout = sys.stdout
+        os.makedirs("logs", exist_ok=True)
+        self.log_file = open("logs/system_log.txt", "a", encoding="utf-8")
 
     def write(self, message):
         self.stdout.write(message)
+        if message:
+            self.log_file.write(message)
+            self.log_file.flush()
         if message.strip():
             self.buffer.append(message.strip())
 

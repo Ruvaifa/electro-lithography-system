@@ -5,6 +5,7 @@ import time
 import math
 import queue
 import threading
+import os
 from threading import Thread
 from collections import defaultdict
 import main
@@ -61,6 +62,14 @@ def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup
     app.z_feedback_direction = "inactive"
     app.smu_voltage = 0.0
     app.smu_current = 0.0
+
+    # Initialize CSV logger
+    timestamp = time.strftime("%Y%m%d_%H%M%S")
+    pattern_name = os.path.splitext(os.path.basename(filename))[0] if filename else "pattern"
+    csv_path = os.path.join("smu_logs", f"smu_log_{pattern_name}_{timestamp}.csv")
+    app.csv_logger = lithography.CSVLogger(csv_path, app)
+    app.current_flag = 0
+    print(f"[LOG] CSV logging initialized: {csv_path}")
 
     with lithography.time_block(timers, "smu.init_smu"):
         smu = smumark2.init_smu()
@@ -156,6 +165,7 @@ def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup
         voltage_threshold_2,
         feedback_state,
         feedback_stop,
+        app=app,
         sample_interval=sample_interval_ms / 1000.0,
     )
     z_worker = lithography.ZFeedbackWorker(
@@ -203,6 +213,7 @@ def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup
             app.smu_current = feedback_state.latest_current if feedback_state.latest_current is not None else 0.0
             
             x, y, flag = lines[idx]
+            app.current_flag = flag
             dx = x - x_hmc.current_x
             dy = y - y_hmc.current_y
             print(f"[MOVE {idx}] Target coordinates: X={x:.1f}, Y={y:.1f}, flag={flag}")
@@ -302,6 +313,9 @@ def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup
 
     finally:
         app.patterning_active = False
+        if getattr(app, "csv_logger", None):
+            app.csv_logger.close()
+            app.csv_logger = None
         if disable_ramps:
             try:
                 x_hmc.acceleration_and_deceleration(True, True)

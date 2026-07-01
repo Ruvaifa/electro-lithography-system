@@ -4,6 +4,7 @@
 import time
 import math
 import queue
+import os
 from threading import Thread
 from collections import defaultdict
 import main
@@ -53,6 +54,14 @@ def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup
     app.z_feedback_direction = "inactive"
     app.smu_voltage = 0.0
     app.smu_current = 0.0
+
+    # Initialize CSV logger
+    timestamp = time.strftime("%Y%m%d_%H%M%S")
+    pattern_name = os.path.splitext(os.path.basename(filename))[0] if filename else "pattern"
+    csv_path = os.path.join("smu_logs", f"smu_log_{pattern_name}_{timestamp}.csv")
+    app.csv_logger = lithography.CSVLogger(csv_path, app)
+    app.current_flag = 0
+    print(f"[LOG] CSV logging initialized: {csv_path}")
 
     with lithography.time_block(timers, "smu.init_smu"):
         smu = smumark2.init_smu()
@@ -156,6 +165,7 @@ def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup
 
                 app.moves_done = i
                 app.moves_left = max(0, app.total_moves - i)
+                app.current_flag = flag
                 dx = x - x_hmc.current_x
                 dy = y - y_hmc.current_y
                 print(f"flag:{flag}")
@@ -202,6 +212,8 @@ def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup
                              )
                         app.smu_voltage = getattr(smu, "latest_voltage", 0.0)
                         app.smu_current = getattr(smu, "latest_current", 0.0)
+                        if getattr(app, "csv_logger", None):
+                            app.csv_logger.log(app.smu_voltage, app.smu_current, app.moves_done, flag)
                         if direction == 2:
                             app.z_feedback_direction = "voltage_low"
                             print("[FEEDBACK] Voltage too low — going down")
@@ -227,6 +239,8 @@ def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup
                         )
                     app.smu_voltage = getattr(smu, "latest_voltage", 0.0)
                     app.smu_current = getattr(smu, "latest_current", 0.0)
+                    if getattr(app, "csv_logger", None):
+                        app.csv_logger.log(app.smu_voltage, app.smu_current, app.moves_done, flag)
                     if direction == 2:
                         app.z_feedback_direction = "voltage_low"
                         print("[FEEDBACK] Voltage too low — going down")
@@ -318,6 +332,9 @@ def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup
         print(f"[ABORT] Lithography run aborted: {pa}")
     finally:
         app.patterning_active = False
+        if getattr(app, "csv_logger", None):
+            app.csv_logger.close()
+            app.csv_logger = None
         if disable_ramps:
             x_hmc.acceleration_and_deceleration(True, True)
             y_hmc.acceleration_and_deceleration(True, True)

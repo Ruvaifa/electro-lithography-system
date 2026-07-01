@@ -3,6 +3,8 @@
 
 import time
 import threading
+import csv
+import os
 from threading import Thread
 from dataclasses import dataclass, field
 from typing import Optional
@@ -35,6 +37,40 @@ class VoltageFeedbackState:
                 "update_id": self.update_id,
                 "sample_time": self.sample_time,
             }
+
+
+class CSVLogger:
+    def __init__(self, csv_path, app):
+        self.csv_path = csv_path
+        self.app = app
+        self.data_point_counter = 0
+        self.csv_file = None
+        self.csv_writer = None
+        if self.csv_path:
+            try:
+                os.makedirs(os.path.dirname(self.csv_path), exist_ok=True)
+                self.csv_file = open(self.csv_path, "w", newline="", encoding="utf-8")
+                self.csv_writer = csv.writer(self.csv_file)
+                self.csv_writer.writerow(["data point", "voltage", "current", "move number", "flag"])
+                self.csv_file.flush()
+            except Exception as e:
+                print(f"[ERROR] Failed to initialize CSV logger: {e}")
+
+    def log(self, voltage, current, move_number, flag):
+        if self.csv_writer:
+            try:
+                self.data_point_counter += 1
+                self.csv_writer.writerow([self.data_point_counter, voltage, current, move_number, flag])
+                self.csv_file.flush()
+            except Exception as e:
+                print(f"[ERROR] Failed to write CSV row: {e}")
+
+    def close(self):
+        if self.csv_file:
+            try:
+                self.csv_file.close()
+            except Exception:
+                pass
 
 
 class PatternAbort(Exception):
@@ -129,6 +165,13 @@ def find_contact_point(app, z_hmc, initial_step_size, smu, threshold_current_ua,
             )
         app.smu_voltage = getattr(smu, "latest_voltage", 0.0)
         app.smu_current = getattr(smu, "latest_current", 0.0)
+        if getattr(app, "csv_logger", None):
+            app.csv_logger.log(
+                app.smu_voltage,
+                app.smu_current,
+                getattr(app, "moves_done", 0),
+                getattr(app, "current_flag", 0)
+            )
 
         if status == 1:
             print("[CONTACT] Probe contact confirmed by current.")
@@ -174,6 +217,13 @@ def find_contact_point_custom(app, z_hmc, smu, contact_voltage, contact_complian
             )
         app.smu_voltage = getattr(smu, "latest_voltage", 0.0)
         app.smu_current = getattr(smu, "latest_current", 0.0)
+        if getattr(app, "csv_logger", None):
+            app.csv_logger.log(
+                app.smu_voltage,
+                app.smu_current,
+                getattr(app, "moves_done", 0),
+                getattr(app, "current_flag", 0)
+            )
         if status == 1:
             print(f"[CONTACT] Contact at {total_distance} µm")
             z_hmc.z_current_position = total_distance
@@ -192,13 +242,14 @@ def read_pattern_file(filename):
 
 
 class SmuVoltageSampler(Thread):
-    def __init__(self, smu, threshold_voltage_1, threshold_voltage_2, state, stop_event, sample_interval=0.05, log_interval=1.0):
+    def __init__(self, smu, threshold_voltage_1, threshold_voltage_2, state, stop_event, app=None, sample_interval=0.05, log_interval=1.0):
         super().__init__(daemon=True)
         self.smu = smu
         self.threshold_voltage_1 = threshold_voltage_1
         self.threshold_voltage_2 = threshold_voltage_2
         self.state = state
         self.stop_event = stop_event
+        self.app = app
         self.sample_interval = sample_interval
         self.log_interval = log_interval
         self.enabled = threading.Event()
@@ -218,6 +269,16 @@ class SmuVoltageSampler(Thread):
                 setattr(self.smu, "latest_current", current)
                 direction = classify_voltage(voltage, self.threshold_voltage_1, self.threshold_voltage_2)
                 self.state.update(voltage, current, direction)
+                
+                # Log to app's CSV logger if available
+                if self.app and getattr(self.app, "csv_logger", None):
+                    self.app.csv_logger.log(
+                        voltage,
+                        current,
+                        getattr(self.app, "moves_done", 0),
+                        getattr(self.app, "current_flag", 0)
+                    )
+                
                 now = time.perf_counter()
                 if direction != last_direction or now - last_log_time >= self.log_interval:
                     print(

@@ -7,8 +7,7 @@ let isConnected = false;
 let isPatterning = false;
 let selectedStep = 0.2;
 let statusInterval = null;
-let logOffset = 0;
-let lastLogsLength = 0;
+
 
 // DOM Elements
 const systemStatusBadge = document.getElementById("system-status");
@@ -55,11 +54,14 @@ const paramLiftoffHeight = document.getElementById("param-liftoff_height");
 const paramMaxSafeZMargin = document.getElementById("param-max_safe_z_margin");
 const paramSampleInterval = document.getElementById("param-sample_interval");
 
-const consoleOutput = document.getElementById("console-output");
-const btnClearConsole = document.getElementById("btn-clear-console");
-const chkAutoscroll = document.getElementById("chk-autoscroll");
 const btnThemeToggle = document.getElementById("btn-theme-toggle");
 const themeIcon = document.getElementById("theme-icon");
+
+// Real-time canvas chart state
+const canvas = document.getElementById("telemetry-canvas");
+const ctx = canvas ? canvas.getContext("2d") : null;
+let chartData = [];
+let patterningStartTime = null;
 
 // Theme toggling logic
 const SUN_SVG = `<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>`;
@@ -369,6 +371,11 @@ btnStartPattern.addEventListener("click", async () => {
 
 async function executePatternRun(params) {
     logToConsole(`[SYSTEM] Executing pattern run: ${params.filename} (Mode ${params.mode})...`);
+    // Reset chart data for a clean run
+    chartData = [];
+    patterningStartTime = Date.now();
+    drawTelemetryChart();
+
     try {
         const res = await fetch(`${API_BASE}/api/run_pattern`, {
             method: "POST",
@@ -440,8 +447,6 @@ function startFastTelemetryPoll() {
                 stopFastTelemetryPoll();
             }
         } catch (err) {}
-        
-        pollLogs();
     }, 300);
 }
 
@@ -450,26 +455,6 @@ function stopFastTelemetryPoll() {
         clearInterval(statusInterval);
         statusInterval = null;
     }
-}
-
-// POLL CONSOLE OUTPUTS
-async function pollLogs() {
-    try {
-        const res = await fetch(`${API_BASE}/api/log`);
-        const data = await res.json();
-        const logs = data.logs;
-        
-        if (logs.length > lastLogsLength) {
-            const newLines = logs.slice(lastLogsLength);
-            newLines.forEach(line => appendConsoleLine(line));
-            lastLogsLength = logs.length;
-        } else if (logs.length < lastLogsLength) {
-            // Buffer was reset
-            consoleOutput.innerHTML = "";
-            logs.forEach(line => appendConsoleLine(line));
-            lastLogsLength = logs.length;
-        }
-    } catch (err) {}
 }
 
 // HELPER UPDATES
@@ -504,6 +489,25 @@ function updateTelemetry(tel) {
         progressBar.style.width = `${pct}%`;
     } else {
         progressBar.style.width = "0%";
+    }
+
+    // Record real-time chart data if patterning is active
+    if (tel.active) {
+        if (!patterningStartTime) {
+            patterningStartTime = Date.now();
+        }
+        const elapsed = (Date.now() - patterningStartTime) / 1000;
+        const v = parseFloat(tel.smu_voltage);
+        const i = parseFloat(tel.smu_current) * 1e6; // Convert to µA
+        
+        // Add point to chart if time advanced or first point
+        if (chartData.length === 0 || elapsed - chartData[chartData.length - 1].time >= 0.05) {
+            chartData.push({ time: elapsed, voltage: v, current: i });
+            if (chartData.length > 300) chartData.shift();
+            drawTelemetryChart();
+        }
+    } else {
+        patterningStartTime = null;
     }
 }
 
@@ -549,39 +553,147 @@ function updateUIState() {
     }
 }
 
-// CONSOLE UTILITIES
-btnClearConsole.addEventListener("click", () => {
-    consoleOutput.innerHTML = "";
-    lastLogsLength = 0;
-    logToConsole("[SYSTEM] Console cleared.");
-});
-
-function logToConsole(message, isError = false) {
-    appendConsoleLine(message, isError);
-}
-
-function appendConsoleLine(line, isError = false) {
-    const div = document.createElement("div");
-    div.className = "console-line";
+// REAL-TIME TELEMETRY CHART DRAWING
+function drawTelemetryChart() {
+    if (!canvas || !ctx) return;
     
-    // Color coding matching pattern tags
-    if (isError || line.includes("[ERROR]") || line.includes("[EXCEPTION]") || line.includes("TimeoutError")) {
-        div.classList.add("error-line");
-    } else if (line.includes("[SYSTEM]") || line.includes("[INFO]") || line.includes("[SAFETY]")) {
-        div.classList.add("system-line");
-    } else if (line.includes("[FEEDBACK]")) {
-        div.classList.add("feedback-line");
-    } else if (line.includes("[VOLTAGE]") || line.includes("[CURRENT]") || line.includes("[SMU]")) {
-        div.classList.add("smu-line");
-    } else if (line.includes("[MOVE]")) {
-        div.classList.add("move-line");
+    const rect = canvas.getBoundingClientRect();
+    if (canvas.width !== rect.width || canvas.height !== rect.height) {
+        canvas.width = rect.width;
+        canvas.height = rect.height;
     }
     
-    div.textContent = line;
-    consoleOutput.appendChild(div);
+    const w = canvas.width;
+    const h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
     
-    // Autoscroll if selected
-    if (chkAutoscroll.checked) {
-        consoleOutput.scrollTop = consoleOutput.scrollHeight;
+    if (chartData.length === 0) {
+        ctx.fillStyle = "rgba(255, 255, 255, 0.2)";
+        ctx.font = "12px sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText("Real-time telemetry chart will plot here during patterning...", w / 2, h / 2);
+        return;
+    }
+    
+    const padLeft = 45;
+    const padRight = 45;
+    const padTop = 15;
+    const padBottom = 20;
+    
+    const plotW = w - padLeft - padRight;
+    const plotH = h - padTop - padBottom;
+    
+    // Find min/max values
+    let minTime = 0;
+    let maxTime = Math.max(10, ...chartData.map(d => d.time));
+    
+    let minVolt = Math.min(...chartData.map(d => d.voltage));
+    let maxVolt = Math.max(...chartData.map(d => d.voltage));
+    if (maxVolt - minVolt < 1.0) {
+        const avg = (maxVolt + minVolt) / 2;
+        minVolt = avg - 0.5;
+        maxVolt = avg + 0.5;
+    }
+    
+    let minCurr = Math.min(...chartData.map(d => d.current));
+    let maxCurr = Math.max(...chartData.map(d => d.current));
+    if (maxCurr - minCurr < 0.1) {
+        const avg = (maxCurr + minCurr) / 2;
+        minCurr = avg - 0.05;
+        maxCurr = avg + 0.05;
+    }
+    
+    // Draw background grid lines
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.05)";
+    ctx.lineWidth = 1;
+    const gridCols = 6;
+    for (let c = 0; c <= gridCols; c++) {
+        const gx = padLeft + (c / gridCols) * plotW;
+        ctx.beginPath();
+        ctx.moveTo(gx, padTop);
+        ctx.lineTo(gx, padTop + plotH);
+        ctx.stroke();
+    }
+    const gridRows = 4;
+    for (let r = 0; r <= gridRows; r++) {
+        const gy = padTop + (r / gridRows) * plotH;
+        ctx.beginPath();
+        ctx.moveTo(padLeft, gy);
+        ctx.lineTo(padLeft + plotW, gy);
+        ctx.stroke();
+    }
+    
+    // Draw Y axis labels (Voltage - Left side in Cyan)
+    ctx.fillStyle = "#00f2fe";
+    ctx.font = "9px monospace";
+    ctx.textAlign = "right";
+    ctx.fillText(maxVolt.toFixed(2) + "V", padLeft - 6, padTop + 4);
+    ctx.fillText(((maxVolt + minVolt) / 2).toFixed(2) + "V", padLeft - 6, padTop + plotH/2 + 3);
+    ctx.fillText(minVolt.toFixed(2) + "V", padLeft - 6, padTop + plotH + 2);
+    
+    // Draw Y axis labels (Current - Right side in Pink)
+    ctx.fillStyle = "#ff007f";
+    ctx.textAlign = "left";
+    ctx.fillText(maxCurr.toFixed(3) + "µA", padLeft + plotW + 6, padTop + 4);
+    ctx.fillText(((maxCurr + minCurr) / 2).toFixed(3) + "µA", padLeft + plotW + 6, padTop + plotH/2 + 3);
+    ctx.fillText(minCurr.toFixed(3) + "µA", padLeft + plotW + 6, padTop + plotH + 2);
+    
+    // Draw X axis label (Time - bottom center)
+    ctx.fillStyle = "rgba(255, 255, 255, 0.4)";
+    ctx.textAlign = "center";
+    ctx.fillText(maxTime.toFixed(1) + "s", padLeft + plotW, padTop + plotH + 12);
+    ctx.fillText("Time (s)", padLeft + plotW / 2, padTop + plotH + 12);
+    
+    // Helper to map coordinates
+    function getX(t) {
+        return padLeft + ((t - minTime) / (maxTime - minTime)) * plotW;
+    }
+    function getYVolt(v) {
+        return padTop + plotH - ((v - minVolt) / (maxVolt - minVolt)) * plotH;
+    }
+    function getYCurr(c) {
+        return padTop + plotH - ((c - minCurr) / (maxCurr - minCurr)) * plotH;
+    }
+    
+    // Draw Voltage line
+    ctx.beginPath();
+    ctx.strokeStyle = "#00f2fe";
+    ctx.lineWidth = 1.8;
+    ctx.shadowColor = "rgba(0, 242, 254, 0.4)";
+    ctx.shadowBlur = 4;
+    chartData.forEach((pt, idx) => {
+        const x = getX(pt.time);
+        const y = getYVolt(pt.voltage);
+        if (idx === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+    
+    // Draw Current line
+    ctx.beginPath();
+    ctx.strokeStyle = "#ff007f";
+    ctx.lineWidth = 1.8;
+    ctx.shadowColor = "rgba(255, 0, 127, 0.4)";
+    ctx.shadowBlur = 4;
+    chartData.forEach((pt, idx) => {
+        const x = getX(pt.time);
+        const y = getYCurr(pt.current);
+        if (idx === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+    
+    // Reset shadow
+    ctx.shadowBlur = 0;
+}
+
+window.addEventListener("resize", drawTelemetryChart);
+
+// CONSOLE UTILITIES
+function logToConsole(message, isError = false) {
+    if (isError) {
+        console.error(message);
+    } else {
+        console.log(message);
     }
 }

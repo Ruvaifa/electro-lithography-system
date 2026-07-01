@@ -920,9 +920,9 @@ select:focus, input:focus {
     min-height: 0;
 }
 
-#console-panel {
+#chart-panel {
     flex-shrink: 0;
-    height: 170px;
+    height: 180px;
     display: flex;
     flex-direction: column;
     min-height: 0;
