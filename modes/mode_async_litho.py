@@ -63,10 +63,22 @@ def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup
     app.smu_voltage = 0.0
     app.smu_current = 0.0
 
-    # Initialize CSV logger
+    import sys
+    # Initialize CSV logger and pattern system log file
     timestamp = time.strftime("%Y%m%d_%H%M%S")
-    pattern_name = os.path.splitext(os.path.basename(filename))[0] if filename else "pattern"
-    csv_path = os.path.join("smu_logs", f"smu_log_{pattern_name}_{timestamp}.csv")
+    
+    # Initialize pattern specific system log file
+    pattern_log_path = os.path.join("logs", f"{timestamp}.txt")
+    try:
+        os.makedirs("logs", exist_ok=True)
+        pattern_log_file = open(pattern_log_path, "w", encoding="utf-8")
+        if hasattr(sys.stdout, "pattern_log_file"):
+            sys.stdout.pattern_log_file = pattern_log_file
+        print(f"[LOG] Pattern system log initialized: {pattern_log_path}")
+    except Exception as e:
+        print(f"[ERROR] Failed to initialize pattern log file: {e}")
+
+    csv_path = os.path.join("smu_logs", f"{timestamp}.csv")
     app.csv_logger = lithography.CSVLogger(csv_path, app)
     app.current_flag = 0
     print(f"[LOG] CSV logging initialized: {csv_path}")
@@ -316,6 +328,14 @@ def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup
         if getattr(app, "csv_logger", None):
             app.csv_logger.close()
             app.csv_logger = None
+
+        # Close pattern specific system log file
+        if hasattr(sys.stdout, "pattern_log_file") and sys.stdout.pattern_log_file:
+            try:
+                sys.stdout.pattern_log_file.close()
+            except Exception:
+                pass
+            sys.stdout.pattern_log_file = None
         if disable_ramps:
             try:
                 x_hmc.acceleration_and_deceleration(True, True)

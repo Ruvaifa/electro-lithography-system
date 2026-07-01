@@ -51,16 +51,16 @@ class CSVLogger:
                 os.makedirs(os.path.dirname(self.csv_path), exist_ok=True)
                 self.csv_file = open(self.csv_path, "w", newline="", encoding="utf-8")
                 self.csv_writer = csv.writer(self.csv_file)
-                self.csv_writer.writerow(["data point", "voltage", "current", "move number", "flag"])
+                self.csv_writer.writerow(["data point", "x", "y", "voltage", "current", "move number", "flag"])
                 self.csv_file.flush()
             except Exception as e:
                 print(f"[ERROR] Failed to initialize CSV logger: {e}")
 
-    def log(self, voltage, current, move_number, flag):
+    def log(self, x, y, voltage, current, move_number, flag):
         if self.csv_writer:
             try:
                 self.data_point_counter += 1
-                self.csv_writer.writerow([self.data_point_counter, voltage, current, move_number, flag])
+                self.csv_writer.writerow([self.data_point_counter, x, y, voltage, current, move_number, flag])
                 self.csv_file.flush()
             except Exception as e:
                 print(f"[ERROR] Failed to write CSV row: {e}")
@@ -167,6 +167,8 @@ def find_contact_point(app, z_hmc, initial_step_size, smu, threshold_current_ua,
         app.smu_current = getattr(smu, "latest_current", 0.0)
         if getattr(app, "csv_logger", None):
             app.csv_logger.log(
+                getattr(getattr(app, "x_hmc", None), "current_x", 0.0),
+                getattr(getattr(app, "y_hmc", None), "current_y", 0.0),
                 app.smu_voltage,
                 app.smu_current,
                 getattr(app, "moves_done", 0),
@@ -219,6 +221,8 @@ def find_contact_point_custom(app, z_hmc, smu, contact_voltage, contact_complian
         app.smu_current = getattr(smu, "latest_current", 0.0)
         if getattr(app, "csv_logger", None):
             app.csv_logger.log(
+                getattr(getattr(app, "x_hmc", None), "current_x", 0.0),
+                getattr(getattr(app, "y_hmc", None), "current_y", 0.0),
                 app.smu_voltage,
                 app.smu_current,
                 getattr(app, "moves_done", 0),
@@ -273,6 +277,8 @@ class SmuVoltageSampler(Thread):
                 # Log to app's CSV logger if available
                 if self.app and getattr(self.app, "csv_logger", None):
                     self.app.csv_logger.log(
+                        getattr(getattr(self.app, "x_hmc", None), "current_x", 0.0),
+                        getattr(getattr(self.app, "y_hmc", None), "current_y", 0.0),
                         voltage,
                         current,
                         getattr(self.app, "moves_done", 0),
