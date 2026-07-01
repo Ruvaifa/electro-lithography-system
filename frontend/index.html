@@ -214,9 +214,9 @@
                                     <option value="6">Sync Probed Feedback (Mode 6)</option>
                                 </select>
                             </div>
-                            <div class="input-group">
-                                <label for="param-filename">Coordinate Pattern File</label>
-                                <select id="param-filename"><option value="circles">Loading files...</option></select>
+                            <div class="input-group" style="flex: 1.5;">
+                                <label for="param-file">Coordinate Pattern File (.txt)</label>
+                                <input type="file" id="param-file" accept=".txt" style="padding: 5px 8px; width: 100%;">
                             </div>
                         </div>
 
@@ -242,11 +242,11 @@
                                     <div class="row">
                                         <div class="input-group">
                                             <label for="param-volt_source">Plot Voltage (V)</label>
-                                            <input type="number" id="param-volt_source" value="20.0" step="0.5">
+                                            <input type="number" id="param-volt_source" value="5.0" step="0.5">
                                         </div>
                                         <div class="input-group">
                                             <label for="param-curr_comp">Plot Compliance (µA)</label>
-                                            <input type="number" id="param-curr_comp" value="1.0" step="0.1">
+                                            <input type="number" id="param-curr_comp" value="0.3" step="0.1">
                                         </div>
                                     </div>
                                 </div>
@@ -258,21 +258,21 @@
                                     <div class="row">
                                         <div class="input-group">
                                             <label for="param-voltage_threshold_1">Lower Band Limit (V)</label>
-                                            <input type="number" id="param-voltage_threshold_1" value="1.9" step="0.1">
+                                            <input type="number" id="param-voltage_threshold_1" value="2.0" step="0.1">
                                         </div>
                                         <div class="input-group">
                                             <label for="param-voltage_threshold_2">Upper Band Limit (V)</label>
-                                            <input type="number" id="param-voltage_threshold_2" value="2.2" step="0.1">
+                                            <input type="number" id="param-voltage_threshold_2" value="4.0" step="0.1">
                                         </div>
                                         <div class="input-group">
                                             <label for="param-delta_z">Z Step size (µm)</label>
-                                            <input type="number" id="param-delta_z" value="0.1" step="0.05">
+                                            <input type="number" id="param-delta_z" value="2.0" step="0.5">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="input-group">
-                                            <label for="param-z_contact_step">Coarse Contact Step (µm)</label>
-                                            <input type="number" id="param-z_contact_step" value="1.0" step="0.5">
+                                            <label for="param-z_contact_step">Step size for contact point (µm)</label>
+                                            <input type="number" id="param-z_contact_step" value="1000.0" step="100">
                                         </div>
                                         <div class="input-group">
                                             <label for="param-liftoff_height">Liftoff Height (µm)</label>
@@ -292,15 +292,15 @@
                                     <div class="row">
                                         <div class="input-group">
                                             <label for="param-speed">XY Plotting Speed (µm/s)</label>
-                                            <input type="number" id="param-speed" value="5000" step="500">
+                                            <input type="number" id="param-speed" value="100.0" step="10">
                                         </div>
                                         <div class="input-group" id="group-z-feedback-speed">
                                             <label for="param-z_feedback_speed">Z Feedback Speed (µm/s)</label>
-                                            <input type="number" id="param-z_feedback_speed" value="3000" step="500">
+                                            <input type="number" id="param-z_feedback_speed" value="1000.0" step="100">
                                         </div>
                                         <div class="input-group" id="group-sample-interval">
                                             <label for="param-sample_interval">Sampling Interval (ms)</label>
-                                            <input type="number" id="param-sample_interval" value="50" step="10">
+                                            <input type="number" id="param-sample_interval" value="5.0" step="1">
                                         </div>
                                     </div>
                                 </div>

@@ -36,7 +36,7 @@ const telMovesLeft = document.getElementById("tel-moves-left");
 const progressBar = document.getElementById("run-progress-bar");
 
 const paramMode = document.getElementById("param-mode");
-const paramFilename = document.getElementById("param-filename");
+const paramFile = document.getElementById("param-file");
 const paramDisableRamps = document.getElementById("param-disable_ramps");
 
 // Parameter inputs
@@ -114,7 +114,6 @@ document.querySelectorAll(".step-btn").forEach(btn => {
 window.addEventListener("DOMContentLoaded", () => {
     loadThemePreference();
     scanPorts();
-    scanFiles();
     updateUIState();
     
     // Start regular state check (once every 1 second when idle, faster when running)
@@ -142,38 +141,25 @@ async function scanPorts() {
             });
         });
         
-        // Auto-select defaults if there are at least 3 ports
+        // Auto-select defaults if there are at least 3 ports (fallback)
         if (ports.length >= 1) portXSelect.value = ports[0].device;
         if (ports.length >= 2) portYSelect.value = ports[1].device;
         if (ports.length >= 3) portZSelect.value = ports[2].device;
+
+        // Custom defaults (COM3 for X, COM10 for Y, COM8 for Z) override fallback if available
+        ports.forEach(p => {
+            const dev = p.device.toUpperCase();
+            if (dev === "COM3" || dev === "COM3" || dev === "3") portXSelect.value = p.device;
+            if (dev === "COM10" || dev === "COM10" || dev === "10") portYSelect.value = p.device;
+            if (dev === "COM8" || dev === "COM8" || dev === "8") portZSelect.value = p.device;
+        });
         
     } catch (err) {
         logToConsole(`[ERROR] Failed to scan COM ports: ${err.message}`, true);
     }
 }
 
-// SCAN COORD FILES
-async function scanFiles() {
-    try {
-        const res = await fetch(`${API_BASE}/api/files`);
-        const files = await res.json();
-        
-        paramFilename.innerHTML = "";
-        if (files.length === 0) {
-            paramFilename.innerHTML = '<option value="circles">None found (fallback to circles)</option>';
-            return;
-        }
-        
-        files.forEach(file => {
-            const opt = document.createElement("option");
-            opt.value = file;
-            opt.textContent = `${file}.txt`;
-            paramFilename.appendChild(opt);
-        });
-    } catch (err) {
-        logToConsole(`[ERROR] Failed to load pattern files: ${err.message}`, true);
-    }
-}
+
 
 // TOGGLE ACCORDION CONTROLS BASED ON SELECTED MODE
 paramMode.addEventListener("change", () => {
@@ -322,6 +308,7 @@ async function jogAxis(deltas) {
 }
 
 // START PATTERNING RUN
+// START PATTERNING RUN
 btnStartPattern.addEventListener("click", async () => {
     if (isPatterning) {
         // Stop current patterning
@@ -334,29 +321,54 @@ btnStartPattern.addEventListener("click", async () => {
         return;
     }
     
-    // Gather and validate parameters
-    const params = {
-        mode: parseInt(paramMode.value),
-        filename: paramFilename.value,
-        disable_ramps: paramDisableRamps.checked,
-        contact_voltage: parseFloat(paramContactVolt.value),
-        contact_compliance_current_ua: parseFloat(paramContactComp.value),
-        threshold_current_ua: parseFloat(paramThresholdCurr.value),
-        volt_source: parseFloat(paramVoltSource.value),
-        curr_comp: parseFloat(paramCurrComp.value),
-        voltage_threshold_1: parseFloat(paramVoltageThr1.value),
-        voltage_threshold_2: parseFloat(paramVoltageThr2.value),
-        delta_z: parseFloat(paramDeltaZ.value),
-        z_contact_step: parseFloat(paramZContactStep.value),
-        speed: parseFloat(paramSpeed.value),
-        z_feedback_speed: parseFloat(paramZFeedbackSpeed.value),
-        liftoff_height: parseFloat(paramLiftoffHeight.value),
-        max_safe_z_margin: parseFloat(paramMaxSafeZMargin.value),
-        sample_interval_ms: parseFloat(paramSampleInterval.value)
-    };
+    // Check if file is selected
+    if (paramFile.files.length === 0) {
+        logToConsole("[ERROR] Please select a coordinate pattern file (.txt) first.", true);
+        return;
+    }
+    const file = paramFile.files[0];
     
-    logToConsole(`[SYSTEM] Starting patterning: ${params.filename}.txt (Mode ${params.mode})...`);
+    // Disable run button while loading
     btnStartPattern.disabled = true;
+    logToConsole(`[SYSTEM] Reading pattern file: ${file.name}...`);
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const fileContent = e.target.result;
+        
+        // Gather parameters
+        const params = {
+            mode: parseInt(paramMode.value),
+            filename: file.name,
+            file_content: fileContent,
+            disable_ramps: paramDisableRamps.checked,
+            contact_voltage: parseFloat(paramContactVolt.value),
+            contact_compliance_current_ua: parseFloat(paramContactComp.value),
+            threshold_current_ua: parseFloat(paramThresholdCurr.value),
+            volt_source: parseFloat(paramVoltSource.value),
+            curr_comp: parseFloat(paramCurrComp.value),
+            voltage_threshold_1: parseFloat(paramVoltageThr1.value),
+            voltage_threshold_2: parseFloat(paramVoltageThr2.value),
+            delta_z: parseFloat(paramDeltaZ.value),
+            z_contact_step: parseFloat(paramZContactStep.value),
+            speed: parseFloat(paramSpeed.value),
+            z_feedback_speed: parseFloat(paramZFeedbackSpeed.value),
+            liftoff_height: parseFloat(paramLiftoffHeight.value),
+            max_safe_z_margin: parseFloat(paramMaxSafeZMargin.value),
+            sample_interval_ms: parseFloat(paramSampleInterval.value)
+        };
+        
+        executePatternRun(params);
+    };
+    reader.onerror = function() {
+        logToConsole("[ERROR] Failed to read coordinate file.", true);
+        btnStartPattern.disabled = false;
+    };
+    reader.readAsText(file);
+});
+
+async function executePatternRun(params) {
+    logToConsole(`[SYSTEM] Executing pattern run: ${params.filename} (Mode ${params.mode})...`);
     try {
         const res = await fetch(`${API_BASE}/api/run_pattern`, {
             method: "POST",
@@ -376,7 +388,7 @@ btnStartPattern.addEventListener("click", async () => {
     }
     btnStartPattern.disabled = false;
     updateUIState();
-});
+}
 
 // STATUS MONITORING AND TELEMETRY
 async function checkSystemStatus() {

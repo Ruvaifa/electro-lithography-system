@@ -127,6 +127,8 @@ def find_contact_point(app, z_hmc, initial_step_size, smu, threshold_current_ua,
                 ensure_output_on=ensure_output_on,
                 verbose=verbose
             )
+        app.smu_voltage = getattr(smu, "latest_voltage", 0.0)
+        app.smu_current = getattr(smu, "latest_current", 0.0)
 
         if status == 1:
             print("[CONTACT] Probe contact confirmed by current.")
@@ -170,6 +172,8 @@ def find_contact_point_custom(app, z_hmc, smu, contact_voltage, contact_complian
                 ensure_output_on=False,
                 verbose=False,
             )
+        app.smu_voltage = getattr(smu, "latest_voltage", 0.0)
+        app.smu_current = getattr(smu, "latest_current", 0.0)
         if status == 1:
             print(f"[CONTACT] Contact at {total_distance} µm")
             z_hmc.z_current_position = total_distance

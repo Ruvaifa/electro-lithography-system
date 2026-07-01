@@ -95,13 +95,23 @@ def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup
 
     # Read pattern points
     try:
-        lines = lithography.read_pattern_file(filename)
+        if params is not None and params.get("file_content"):
+            # Parse from uploaded file content
+            file_content = params.get("file_content")
+            lines = []
+            for line in file_content.splitlines():
+                parts = line.strip().replace(',', ' ').split()
+                if len(parts) >= 2:
+                    flag = int(float(parts[2])) if len(parts) >= 3 else 0
+                    lines.append((float(parts[0]), float(parts[1]), flag))
+        else:
+            lines = lithography.read_pattern_file(filename)
     except Exception as e:
-        print(f"[ERROR] Failed to read pattern file: {e}")
+        print(f"[ERROR] Failed to read pattern points: {e}")
         return
 
     if not lines:
-        print(f"[ERROR] No valid data found in {filename}.txt")
+        print(f"[ERROR] No valid data found in {filename or 'uploaded pattern'}")
         return
 
     first_x, first_y, first_flag = lines[0]
