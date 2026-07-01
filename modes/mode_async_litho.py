@@ -189,8 +189,8 @@ def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup
 
             app.moves_done = idx
             app.moves_left = max(0, app.total_moves - idx)
-            app.smu_voltage = state.voltage if state.voltage is not None else 0.0
-            app.smu_current = state.current if state.current is not None else 0.0
+            app.smu_voltage = feedback_state.latest_voltage if feedback_state.latest_voltage is not None else 0.0
+            app.smu_current = feedback_state.latest_current if feedback_state.latest_current is not None else 0.0
             
             x, y, flag = lines[idx]
             dx = x - x_hmc.current_x
@@ -253,7 +253,7 @@ def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup
                     sampler.enabled.set()
                     liftoff = False
                 else:
-                    direction = feedback_state.direction
+                    direction = feedback_state.latest_direction
                     if direction == 2:
                         app.z_feedback_direction = "voltage_low"
                     elif direction == 3:
