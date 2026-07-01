@@ -202,28 +202,84 @@ class BaslerCamera:
         self._stream_thread = None
 
     def _apply_settings(self) -> None:
-        """Apply camera settings via the proper pypylon NodeMap API."""
+        """Apply camera settings via the proper pypylon NodeMap API.
+
+        Strategy:
+          1. Reset camera to factory defaults so stale settings from a previous
+             run (e.g. a crashed server session) don't leave the image black.
+          2. Set ExposureAuto = Continuous so brightness adjusts automatically.
+          3. As a safety net, also set a 20 ms fallback ExposureTime — this is
+             only visible if ExposureAuto=Continuous cannot be written (rare).
+          4. Apply any explicit overrides from BaslerCameraSettings.
+        """
         assert self.camera is not None
         node_map = self.camera.GetNodeMap()
 
-        # Ensure exposure mode is Timed so ExposureAuto can be set
-        self._nm_set_enum(node_map, "ExposureMode", "Timed")
-        # Set continuous auto-exposure so the camera adjusts brightness automatically
-        self._nm_set_enum(node_map, "ExposureAuto", "Continuous")
-        print("[CAMERA] ExposureAuto set to Continuous.")
+        # --- Step 1: Reset to factory defaults ---
+        # This clears any bad state left by a previous crashed session.
+        try:
+            user_set_sel = genicam.CEnumerationPtr(node_map.GetNode("UserSetSelector"))
+            user_set_load = genicam.CCommandPtr(node_map.GetNode("UserSetLoad"))
+            if (genicam.IsAvailable(user_set_sel) and genicam.IsWritable(user_set_sel)
+                    and genicam.IsAvailable(user_set_load)):
+                default_entry = user_set_sel.GetEntryByName("Default")
+                if default_entry and genicam.IsAvailable(default_entry):
+                    user_set_sel.SetIntValue(default_entry.GetValue())
+                    user_set_load.Execute()
+                    print("[CAMERA] Reset to factory defaults (UserSetLoad=Default).")
+        except Exception as e:
+            print(f"[CAMERA] UserSetLoad reset skipped: {e}")
 
-        self._nm_set_bool(node_map, "CenterX", self.settings.center_x)
-        self._nm_set_bool(node_map, "CenterY", self.settings.center_y)
+        # --- Step 2: Enable continuous auto-exposure ---
+        # Do NOT set ExposureMode=Timed first — it can lock cameras in
+        # hardware-trigger modes. Let the factory default set it.
+        try:
+            exp_auto = genicam.CEnumerationPtr(node_map.GetNode("ExposureAuto"))
+            if genicam.IsAvailable(exp_auto) and genicam.IsWritable(exp_auto):
+                entry = exp_auto.GetEntryByName("Continuous")
+                if entry and genicam.IsAvailable(entry):
+                    exp_auto.SetIntValue(entry.GetValue())
+                    print("[CAMERA] ExposureAuto = Continuous.")
+                else:
+                    print("[CAMERA] ExposureAuto 'Continuous' entry not available on this model.")
+            else:
+                print("[CAMERA] ExposureAuto node not writable — camera may use fixed exposure.")
+        except Exception as e:
+            print(f"[CAMERA] ExposureAuto=Continuous failed: {e}")
+
+        # --- Step 3: Safety-net fallback exposure (20 ms) ---
+        # If ExposureAuto is Off or unsupported, 20 ms gives a visible image
+        # in typical lab lighting without being over/underexposed.
+        try:
+            exp_auto_val = ""
+            try:
+                exp_auto_node = genicam.CEnumerationPtr(node_map.GetNode("ExposureAuto"))
+                exp_auto_val = exp_auto_node.GetCurrentEntry().GetSymbolic()
+            except Exception:
+                pass
+            if exp_auto_val != "Continuous":
+                exp_time = genicam.CFloatPtr(node_map.GetNode("ExposureTime"))
+                if genicam.IsWritable(exp_time):
+                    fallback = max(exp_time.GetMin(), min(exp_time.GetMax(), 20000.0))
+                    exp_time.SetValue(fallback)
+                    print(f"[CAMERA] Fallback ExposureTime = {fallback:.0f} µs.")
+        except Exception as e:
+            print(f"[CAMERA] Fallback ExposureTime skipped: {e}")
+
+        # --- Step 4: Apply explicit user overrides ---
         if self.settings.width is not None:
             self._nm_set_int(node_map, "Width", self.settings.width)
         if self.settings.height is not None:
             self._nm_set_int(node_map, "Height", self.settings.height)
         if self.settings.exposure_time_us is not None:
-            # Manual exposure overrides auto — switch off ExposureAuto first
+            # Manual exposure: turn off auto first, then set value
             self._nm_set_enum(node_map, "ExposureAuto", "Off")
             self._nm_set_float(node_map, "ExposureTime", self.settings.exposure_time_us)
+            print(f"[CAMERA] Manual ExposureTime = {self.settings.exposure_time_us:.0f} µs (ExposureAuto=Off).")
         if self.settings.gain is not None:
             self._nm_set_float(node_map, "Gain", self.settings.gain)
+            print(f"[CAMERA] Gain = {self.settings.gain}.")
+
 
     # ------------------------------------------------------------------
     # NodeMap helpers — use genicam.IsWritable() (correct pypylon API)

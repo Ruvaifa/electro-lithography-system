@@ -260,6 +260,12 @@ def run_server(port=8080):
             system.disconnect()
         except Exception:
             pass
+        try:
+            if camera_instance:
+                print("[SYSTEM] Releasing Basler camera...")
+                camera_instance.close()
+        except Exception:
+            pass
         print("[SYSTEM] Server shutdown completed successfully.")
         os._exit(0)
 
