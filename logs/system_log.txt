@@ -1,0 +1,2899 @@
+Electro-Lithography Web Dashboard running at http://localhost:9000/
+127.0.0.1 - - [01/Jul/2026 15:26:41] "GET /api/ports HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:26:41] "GET /api/files HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:26:41] code 404, message File not found
+127.0.0.1 - - [01/Jul/2026 15:26:41] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [01/Jul/2026 15:26:44] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:26:45] "GET /api/ports HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:26:45] "GET /api/files HTTP/1.1" 200 -
+Electro-Lithography Web Dashboard running at http://localhost:9000/
+127.0.0.1 - - [01/Jul/2026 15:27:09] "GET / HTTP/1.1" 304 -
+127.0.0.1 - - [01/Jul/2026 15:27:09] "GET /api/ports HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:27:09] "GET /api/files HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:27:11] "GET / HTTP/1.1" 304 -
+127.0.0.1 - - [01/Jul/2026 15:27:11] "GET /api/ports HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:27:11] "GET / HTTP/1.1" 304 -
+127.0.0.1 - - [01/Jul/2026 15:27:11] "GET /api/files HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:27:11] "GET /api/ports HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:28:18] "GET / HTTP/1.1" 304 -
+127.0.0.1 - - [01/Jul/2026 15:28:18] "GET /api/ports HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:28:18] "GET /api/files HTTP/1.1" 200 -
+Electro-Lithography Web Dashboard running at http://localhost:9000/
+127.0.0.1 - - [01/Jul/2026 15:32:54] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:32:54] "GET /api/ports HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:32:54] "GET /api/files HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:33:30] "GET / HTTP/1.1" 304 -
+127.0.0.1 - - [01/Jul/2026 15:33:30] "GET /api/ports HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:33:30] "GET /api/files HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:33:45] "GET / HTTP/1.1" 304 -
+127.0.0.1 - - [01/Jul/2026 15:33:45] "GET /api/ports HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:33:45] "GET /api/files HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:33:46] "GET / HTTP/1.1" 304 -
+127.0.0.1 - - [01/Jul/2026 15:33:46] "GET /api/ports HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:33:46] "GET /api/files HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:34:04] "GET / HTTP/1.1" 304 -
+127.0.0.1 - - [01/Jul/2026 15:34:04] "GET /api/ports HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:34:05] "GET /api/files HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:34:41] "GET / HTTP/1.1" 304 -
+127.0.0.1 - - [01/Jul/2026 15:34:41] "GET /api/ports HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:34:41] "GET /api/files HTTP/1.1" 200 -
+Electro-Lithography Web Dashboard running at http://localhost:9000/
+127.0.0.1 - - [01/Jul/2026 15:35:24] "OPTIONS / HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:35:24] code 501, message Unsupported method ('PROPFIND')
+127.0.0.1 - - [01/Jul/2026 15:35:24] "PROPFIND / HTTP/1.1" 501 -
+127.0.0.1 - - [01/Jul/2026 15:35:24] code 501, message Unsupported method ('PROPFIND')
+127.0.0.1 - - [01/Jul/2026 15:35:24] "PROPFIND / HTTP/1.1" 501 -
+127.0.0.1 - - [01/Jul/2026 15:35:24] code 501, message Unsupported method ('PROPFIND')
+127.0.0.1 - - [01/Jul/2026 15:35:24] "PROPFIND / HTTP/1.1" 501 -
+127.0.0.1 - - [01/Jul/2026 15:35:25] "GET / HTTP/1.1" 304 -
+127.0.0.1 - - [01/Jul/2026 15:35:25] "GET /api/ports HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:35:25] "GET /api/files HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:35:25] code 404, message File not found
+127.0.0.1 - - [01/Jul/2026 15:35:25] "GET /favicon.ico HTTP/1.1" 404 -
+Electro-Lithography Web Dashboard running at http://localhost:9000/
+127.0.0.1 - - [01/Jul/2026 15:38:52] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:38:52] code 404, message File not found
+127.0.0.1 - - [01/Jul/2026 15:38:52] "GET /style.css?v=2.0 HTTP/1.1" 404 -
+127.0.0.1 - - [01/Jul/2026 15:38:52] code 404, message File not found
+127.0.0.1 - - [01/Jul/2026 15:38:52] "GET /app.js?v=2.0 HTTP/1.1" 404 -
+127.0.0.1 - - [01/Jul/2026 15:38:55] "GET / HTTP/1.1" 304 -
+127.0.0.1 - - [01/Jul/2026 15:38:55] code 404, message File not found
+127.0.0.1 - - [01/Jul/2026 15:38:55] "GET /style.css?v=2.0 HTTP/1.1" 404 -
+127.0.0.1 - - [01/Jul/2026 15:38:55] code 404, message File not found
+127.0.0.1 - - [01/Jul/2026 15:38:55] "GET /app.js?v=2.0 HTTP/1.1" 404 -
+127.0.0.1 - - [01/Jul/2026 15:38:57] "GET / HTTP/1.1" 304 -
+127.0.0.1 - - [01/Jul/2026 15:38:57] code 404, message File not found
+127.0.0.1 - - [01/Jul/2026 15:38:57] code 404, message File not found
+127.0.0.1 - - [01/Jul/2026 15:38:57] "GET /style.css?v=2.0 HTTP/1.1" 404 -
+127.0.0.1 - - [01/Jul/2026 15:38:57] "GET /app.js?v=2.0 HTTP/1.1" 404 -
+127.0.0.1 - - [01/Jul/2026 15:39:03] "GET / HTTP/1.1" 304 -
+127.0.0.1 - - [01/Jul/2026 15:39:03] code 404, message File not found
+127.0.0.1 - - [01/Jul/2026 15:39:03] code 404, message File not found
+127.0.0.1 - - [01/Jul/2026 15:39:03] "GET /app.js?v=2.0 HTTP/1.1" 404 -
+127.0.0.1 - - [01/Jul/2026 15:39:03] "GET /style.css?v=2.0 HTTP/1.1" 404 -
+Electro-Lithography Web Dashboard running at http://localhost:9000/
+127.0.0.1 - - [01/Jul/2026 15:41:03] "GET / HTTP/1.1" 304 -
+127.0.0.1 - - [01/Jul/2026 15:41:03] "GET /style.css?v=2.0 HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:03] "GET /app.js?v=2.0 HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:03] "GET /api/ports HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:13] "POST /api/connect HTTP/1.1" 200 -
+Serial port initialized
+Serial port initialized
+Serial port initialized
+Sending Z to bottom home
+Far limit reached
+Z bottom home done
+Sending X to Home
+X speed set, starting move_home
+Home limit reached
+X move_home done
+Sending Y to Home
+Y speed set, starting move_home
+Home limit reached
+Y move_home done
+127.0.0.1 - - [01/Jul/2026 15:41:15] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:16] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:18] "POST /api/move HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:18] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:19] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:20] "POST /api/move HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:21] "POST /api/move HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:22] "POST /api/move HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:23] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:23] "POST /api/move HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:24] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:26] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:27] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:29] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:30] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:32] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:33] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:35] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:36] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:38] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:39] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:41] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:42] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:44] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:47] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:50] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:58] "POST /api/run_pattern HTTP/1.1" 200 -
+Sending Z to bottom home
+Far limit reached
+Z bottom home done
+Sending X to Home
+X speed set, starting move_home
+127.0.0.1 - - [01/Jul/2026 15:41:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:41:59] "GET /api/status HTTP/1.1" 200 -
+Home limit reached
+X move_home done
+Sending Y to Home
+Y speed set, starting move_home
+127.0.0.1 - - [01/Jul/2026 15:41:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:00] "GET /api/status HTTP/1.1" 200 -
+Home limit reached
+Y move_home done
+[LOG] CSV logging initialized: smu_logs\smu_log_circles_20260701_154200.csv
+[INFO] SMU Reset complete.
+127.0.0.1 - - [01/Jul/2026 15:42:00] "GET /api/status HTTP/1.1" 200 -
+[INFO] SMU Reset complete.
+[INFO] SMU Reset complete.
+[INFO] Voltage set to 5.0 V, Compliance Current: 0.3 micro A
+127.0.0.1 - - [01/Jul/2026 15:42:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:02] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:02] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:02] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:02] "GET /api/status HTTP/1.1" 200 -
+Enter new Z step size (µm): [INFO] Starting Z probing. You can enter new step sizes any time.
+[STEP 1] Moving Z down by 1000.0 µm...
+127.0.0.1 - - [01/Jul/2026 15:42:03] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:03] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:03] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:03] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:04] "GET /api/status HTTP/1.1" 200 -
+[VOLTAGE] 5.0004 V, [CURRENT] 3.4815e-08 A
+[STEP 2] Moving Z down by 1000.0 µm...
+127.0.0.1 - - [01/Jul/2026 15:42:04] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:04] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:04] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:05] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:05] "GET /api/status HTTP/1.1" 200 -
+[VOLTAGE] 4.9994 V, [CURRENT] -2.0892e-08 A
+[STEP 3] Moving Z down by 1000.0 µm...
+127.0.0.1 - - [01/Jul/2026 15:42:05] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:05] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:06] "GET /api/status HTTP/1.1" 200 -
+[VOLTAGE] 5.0000 V, [CURRENT] 5.4379e-08 A
+[STEP 4] Moving Z down by 1000.0 µm...
+127.0.0.1 - - [01/Jul/2026 15:42:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:07] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:07] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:07] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:07] "GET /api/status HTTP/1.1" 200 -
+[VOLTAGE] 5.0001 V, [CURRENT] -4.5444e-08 A
+[STEP 5] Moving Z down by 1000.0 µm...
+127.0.0.1 - - [01/Jul/2026 15:42:07] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:08] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:08] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:08] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:08] "GET /api/status HTTP/1.1" 200 -
+[VOLTAGE] -0.0006 V, [CURRENT] 2.9999e-07 A
+ current reached the right spot !!
+[CONTACT] Probe contact confirmed by current.
+[SAFETY] Patterning will abort if Z exceeds 45000.0 um.
+[INFO] SMU Reset complete.
+[INFO] SMU Reset complete.
+127.0.0.1 - - [01/Jul/2026 15:42:09] "GET /api/status HTTP/1.1" 200 -
+Voltage set as 5.0 V, Current set as 0.3 micro A 
+[SMU SAMPLE] Sampler started, interval=5.0 ms
+[Z FEEDBACK] Worker started, step=2.0 um, speed=1000.0 um/s
+[WARN] Failed to disable ramps: Invalid Ack 0 given ack 10
+[MOVE 1] Target coordinates: X=10499.6, Y=10020.0, flag=0
+[SMU SAMPLE] V=-0.0008 V, I=2.9998e-07 A, direction=high_move_down
+[Z FEEDBACK] Applying -2.000 um from 5000.000 to 4998.000 for high_move_down
+[Z FEEDBACK] Move complete, Z=4998.000 um
+[Z FEEDBACK] Applying -2.000 um from 4998.000 to 4996.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:09] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=4996.000 um
+[Z FEEDBACK] Applying -2.000 um from 4996.000 to 4994.000 for high_move_down
+[MOVE 1] Completed. Position: X=10499.6, Y=10020.0, Z=4996.0
+[MOVE 2] Target coordinates: X=10498.4, Y=10040.0, flag=0
+[Z FEEDBACK] Move complete, Z=4994.000 um
+[Z FEEDBACK] Applying -2.000 um from 4994.000 to 4992.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:09] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=4992.000 um
+[Z FEEDBACK] Applying -2.000 um from 4992.000 to 4990.000 for high_move_down
+[Z FEEDBACK] Move complete, Z=4990.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:10] "GET /api/status HTTP/1.1" 200 -
+[MOVE 2] Completed. Position: X=10498.4, Y=10040.0, Z=4990.0
+[MOVE 3] Target coordinates: X=10496.4, Y=10059.9, flag=0
+[Z FEEDBACK] Applying -2.000 um from 4990.000 to 4988.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:10] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=4988.000 um
+[Z FEEDBACK] Applying -2.000 um from 4988.000 to 4986.000 for high_move_down
+[SMU SAMPLE] V=-0.0008 V, I=2.9998e-07 A, direction=high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:10] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=4986.000 um
+[Z FEEDBACK] Applying -2.000 um from 4986.000 to 4984.000 for high_move_down
+[MOVE 3] Completed. Position: X=10496.4, Y=10059.8, Z=4986.0
+[MOVE 4] Target coordinates: X=10493.6, Y=10079.7, flag=0
+[Z FEEDBACK] Move complete, Z=4984.000 um
+[Z FEEDBACK] Applying -2.000 um from 4984.000 to 4982.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:10] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=4982.000 um
+[Z FEEDBACK] Applying -2.000 um from 4982.000 to 4980.000 for high_move_down
+[Z FEEDBACK] Move complete, Z=4980.000 um
+[Z FEEDBACK] Applying -2.000 um from 4980.000 to 4978.000 for high_move_down
+[MOVE 4] Completed. Position: X=10493.6, Y=10079.6, Z=4980.0
+[MOVE 5] Target coordinates: X=10490.0, Y=10099.4, flag=0
+127.0.0.1 - - [01/Jul/2026 15:42:10] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=4978.000 um
+[Z FEEDBACK] Applying -2.000 um from 4978.000 to 4976.000 for high_move_down
+[Z FEEDBACK] Move complete, Z=4976.000 um
+[Z FEEDBACK] Applying -2.000 um from 4976.000 to 4974.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:11] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:11] "GET /api/status HTTP/1.1" 200 -
+[MOVE 5] Completed. Position: X=10490.0, Y=10099.4, Z=4976.0
+[MOVE 6] Target coordinates: X=10485.7, Y=10118.9, flag=0
+[SMU SAMPLE] V=-0.0008 V, I=2.9998e-07 A, direction=high_move_down
+[Z FEEDBACK] Move complete, Z=4974.000 um
+[Z FEEDBACK] Applying -2.000 um from 4974.000 to 4972.000 for high_move_down
+[Z FEEDBACK] Move complete, Z=4972.000 um
+[Z FEEDBACK] Applying -2.000 um from 4972.000 to 4970.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:11] "GET /api/status HTTP/1.1" 200 -
+[SMU SAMPLE] V=4.9994 V, I=6.7786e-08 A, direction=low_lift_up
+[Z FEEDBACK] Move complete, Z=4970.000 um
+[MOVE 6] Completed. Position: X=10485.6, Y=10119.0, Z=4970.0
+[MOVE 7] Target coordinates: X=10480.5, Y=10138.2, flag=0
+[Z FEEDBACK] Applying +2.000 um from 4970.000 to 4972.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=4972.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:11] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 4972.000 to 4974.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=4974.000 um
+[Z FEEDBACK] Applying +2.000 um from 4974.000 to 4976.000 for low_lift_up
+[MOVE 7] Completed. Position: X=10480.6, Y=10138.2, Z=4974.0
+[MOVE 8] Target coordinates: X=10474.6, Y=10157.4, flag=0
+[Z FEEDBACK] Move complete, Z=4976.000 um
+[Z FEEDBACK] Applying +2.000 um from 4976.000 to 4978.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=4978.000 um
+[Z FEEDBACK] Applying +2.000 um from 4978.000 to 4980.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:12] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=4980.000 um
+[Z FEEDBACK] Applying +2.000 um from 4980.000 to 4982.000 for low_lift_up
+[MOVE 8] Completed. Position: X=10474.6, Y=10157.4, Z=4980.0
+[MOVE 9] Target coordinates: X=10467.9, Y=10176.2, flag=0
+[Z FEEDBACK] Move complete, Z=4982.000 um
+[SMU SAMPLE] V=4.9996 V, I=2.6121e-08 A, direction=low_lift_up
+[Z FEEDBACK] Applying +2.000 um from 4982.000 to 4984.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:12] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:12] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=4984.000 um
+[Z FEEDBACK] Applying +2.000 um from 4984.000 to 4986.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=4986.000 um
+[Z FEEDBACK] Applying +2.000 um from 4986.000 to 4988.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:13] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:13] "GET /api/status HTTP/1.1" 200 -
+[MOVE 9] Completed. Position: X=10468.0, Y=10176.2, Z=4986.0
+[MOVE 10] Target coordinates: X=10460.5, Y=10194.8, flag=0
+[Z FEEDBACK] Move complete, Z=4988.000 um
+[Z FEEDBACK] Applying +2.000 um from 4988.000 to 4990.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=4990.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:13] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 4990.000 to 4992.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=4992.000 um
+[Z FEEDBACK] Applying +2.000 um from 4992.000 to 4994.000 for low_lift_up
+[MOVE 10] Completed. Position: X=10460.4, Y=10194.8, Z=4992.0
+[MOVE 11] Target coordinates: X=10452.3, Y=10213.1, flag=0
+[Z FEEDBACK] Move complete, Z=4994.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:13] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 4994.000 to 4996.000 for low_lift_up
+[SMU SAMPLE] V=4.9996 V, I=2.3909e-08 A, direction=low_lift_up
+[Z FEEDBACK] Move complete, Z=4996.000 um
+[Z FEEDBACK] Applying +2.000 um from 4996.000 to 4998.000 for low_lift_up
+[MOVE 11] Completed. Position: X=10452.4, Y=10213.0, Z=4996.0
+[MOVE 12] Target coordinates: X=10443.4, Y=10231.0, flag=0
+[Z FEEDBACK] Move complete, Z=4998.000 um
+[Z FEEDBACK] Applying +2.000 um from 4998.000 to 5000.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5000.000 um
+[Z FEEDBACK] Applying +2.000 um from 5000.000 to 5002.000 for low_lift_up
+[SMU SAMPLE] V=-0.0005 V, I=2.9998e-07 A, direction=high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:14] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5002.000 um
+[Z FEEDBACK] Applying -2.000 um from 5002.000 to 5000.000 for high_move_down
+[MOVE 12] Completed. Position: X=10443.4, Y=10231.0, Z=5002.0
+[MOVE 13] Target coordinates: X=10433.8, Y=10248.6, flag=0
+[Z FEEDBACK] Move complete, Z=5000.000 um
+[Z FEEDBACK] Applying -2.000 um from 5000.000 to 4998.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:14] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:14] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=4998.000 um
+[Z FEEDBACK] Applying -2.000 um from 4998.000 to 4996.000 for high_move_down
+[MOVE 13] Completed. Position: X=10433.8, Y=10248.6, Z=4998.0
+[MOVE 14] Target coordinates: X=10423.6, Y=10265.7, flag=0
+[Z FEEDBACK] Move complete, Z=4996.000 um
+[Z FEEDBACK] Applying -2.000 um from 4996.000 to 4994.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:14] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:14] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=4994.000 um
+[Z FEEDBACK] Applying -2.000 um from 4994.000 to 4992.000 for high_move_down
+[Z FEEDBACK] Move complete, Z=4992.000 um
+[MOVE 14] Completed. Position: X=10423.6, Y=10265.8, Z=4992.0
+[MOVE 15] Target coordinates: X=10412.6, Y=10282.4, flag=0
+[Z FEEDBACK] Applying -2.000 um from 4992.000 to 4990.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:15] "GET /api/status HTTP/1.1" 200 -
+[SMU SAMPLE] V=-0.0008 V, I=2.9998e-07 A, direction=high_move_down
+[Z FEEDBACK] Move complete, Z=4990.000 um
+[Z FEEDBACK] Applying -2.000 um from 4990.000 to 4988.000 for high_move_down
+[Z FEEDBACK] Move complete, Z=4988.000 um127.0.0.1 - - [01/Jul/2026 15:42:15] "GET /api/status HTTP/1.1" 200 -
+
+[Z FEEDBACK] Applying -2.000 um from 4988.000 to 4986.000 for high_move_down
+[MOVE 15] Completed. Position: X=10412.6, Y=10282.4, Z=4988.0
+[MOVE 16] Target coordinates: X=10401.0, Y=10298.7, flag=0
+[Z FEEDBACK] Move complete, Z=4986.000 um
+[Z FEEDBACK] Applying -2.000 um from 4986.000 to 4984.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:15] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=4984.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:15] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying -2.000 um from 4984.000 to 4982.000 for high_move_down
+[MOVE 16] Completed. Position: X=10401.0, Y=10298.8, Z=4984.0
+[MOVE 17] Target coordinates: X=10388.7, Y=10314.5, flag=0
+[Z FEEDBACK] Move complete, Z=4982.000 um
+[Z FEEDBACK] Applying -2.000 um from 4982.000 to 4980.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:16] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=4980.000 um
+[Z FEEDBACK] Applying -2.000 um from 4980.000 to 4978.000 for high_move_down
+[MOVE 17] Completed. Position: X=10388.6, Y=10314.6, Z=4980.0
+[MOVE 18] Target coordinates: X=10375.8, Y=10329.8, flag=0
+[Z FEEDBACK] Move complete, Z=4978.000 um
+[SMU SAMPLE] V=-0.0006 V, I=2.9998e-07 A, direction=high_move_down
+[Z FEEDBACK] Applying -2.000 um from 4978.000 to 4976.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:16] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=4976.000 um
+[Z FEEDBACK] Applying -2.000 um from 4976.000 to 4974.000 for high_move_down
+[MOVE 18] Completed. Position: X=10375.8, Y=10329.8, Z=4976.0
+[MOVE 19] Target coordinates: X=10362.3, Y=10344.6, flag=0
+[Z FEEDBACK] Move complete, Z=4974.000 um
+[Z FEEDBACK] Applying -2.000 um from 4974.000 to 4972.000 for high_move_down
+[Z FEEDBACK] Move complete, Z=4972.000 um
+[Z FEEDBACK] Applying -2.000 um from 4972.000 to 4970.000 for high_move_down
+[Z FEEDBACK] Move complete, Z=4970.000 um
+[MOVE 19] Completed. Position: X=10362.2, Y=10344.6, Z=4970.0
+[MOVE 20] Target coordinates: X=10348.2, Y=10358.8, flag=0
+127.0.0.1 - - [01/Jul/2026 15:42:16] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying -2.000 um from 4970.000 to 4968.000 for high_move_down
+[Z FEEDBACK] Move complete, Z=4968.000 um
+[Z FEEDBACK] Applying -2.000 um from 4968.000 to 4966.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:17] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=4966.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:17] "GET /api/status HTTP/1.1" 200 -
+[MOVE 20] Completed. Position: X=10348.2, Y=10358.8, Z=4966.0
+[MOVE 21] Target coordinates: X=10333.6, Y=10372.5, flag=0
+[Z FEEDBACK] Applying -2.000 um from 4966.000 to 4964.000 for high_move_down
+[SMU SAMPLE] V=4.9998 V, I=-3.9160e-08 A, direction=low_lift_up
+[Z FEEDBACK] Move complete, Z=4964.000 um
+[Z FEEDBACK] Applying +2.000 um from 4964.000 to 4966.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:17] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=4966.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:17] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 4966.000 to 4968.000 for low_lift_up
+[MOVE 21] Completed. Position: X=10333.6, Y=10372.4, Z=4966.0
+[MOVE 22] Target coordinates: X=10318.4, Y=10385.5, flag=0
+[Z FEEDBACK] Move complete, Z=4968.000 um
+[Z FEEDBACK] Applying +2.000 um from 4968.000 to 4970.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:17] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=4970.000 um
+[Z FEEDBACK] Applying +2.000 um from 4970.000 to 4972.000 for low_lift_up
+[MOVE 22] Completed. Position: X=10318.4, Y=10385.6, Z=4970.0
+[MOVE 23] Target coordinates: X=10302.7, Y=10397.9, flag=0
+[Z FEEDBACK] Move complete, Z=4972.000 um
+[Z FEEDBACK] Applying +2.000 um from 4972.000 to 4974.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:18] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=4974.000 um
+[Z FEEDBACK] Applying +2.000 um from 4974.000 to 4976.000 for low_lift_up
+[SMU SAMPLE] V=4.9998 V, I=-4.2411e-08 A, direction=low_lift_up
+[MOVE 23] Completed. Position: X=10302.8, Y=10398.0, Z=4974.0
+[MOVE 24] Target coordinates: X=10286.6, Y=10409.7, flag=0
+[Z FEEDBACK] Move complete, Z=4976.000 um
+[Z FEEDBACK] Applying +2.000 um from 4976.000 to 4978.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:18] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=4978.000 um
+[Z FEEDBACK] Applying +2.000 um from 4978.000 to 4980.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=4980.000 um
+[MOVE 24] Completed. Position: X=10286.6, Y=10409.8, Z=4980.0
+[MOVE 25] Target coordinates: X=10269.9, Y=10420.9, flag=0
+[Z FEEDBACK] Applying +2.000 um from 4980.000 to 4982.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:18] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:18] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=4982.000 um
+[Z FEEDBACK] Applying +2.000 um from 4982.000 to 4984.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=4984.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:19] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 4984.000 to 4986.000 for low_lift_up
+[MOVE 25] Completed. Position: X=10270.0, Y=10420.8, Z=4984.0
+[MOVE 26] Target coordinates: X=10252.9, Y=10431.3, flag=0
+[Z FEEDBACK] Move complete, Z=4986.000 um
+[Z FEEDBACK] Applying +2.000 um from 4986.000 to 4988.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:19] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=4988.000 um
+[SMU SAMPLE] V=4.9999 V, I=-4.2591e-08 A, direction=low_lift_up
+[Z FEEDBACK] Applying +2.000 um from 4988.000 to 4990.000 for low_lift_up
+[MOVE 26] Completed. Position: X=10252.8, Y=10431.4, Z=4988.0
+[MOVE 27] Target coordinates: X=10235.4, Y=10441.1, flag=0
+[Z FEEDBACK] Move complete, Z=4990.000 um
+[Z FEEDBACK] Applying +2.000 um from 4990.000 to 4992.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:19] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=4992.000 um
+[Z FEEDBACK] Applying +2.000 um from 4992.000 to 4994.000 for low_lift_up
+[MOVE 27] Completed. Position: X=10235.4, Y=10441.2, Z=4992.0
+[MOVE 28] Target coordinates: X=10217.6, Y=10450.2, flag=0
+[Z FEEDBACK] Move complete, Z=4994.000 um
+[Z FEEDBACK] Applying +2.000 um from 4994.000 to 4996.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:19] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=4996.000 um
+[Z FEEDBACK] Applying +2.000 um from 4996.000 to 4998.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=4998.000 um
+[MOVE 28] Completed. Position: X=10217.6, Y=10450.2, Z=4998.0
+[MOVE 29] Target coordinates: X=10199.4, Y=10458.5, flag=0
+[Z FEEDBACK] Applying +2.000 um from 4998.000 to 5000.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:20] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5000.000 um
+[Z FEEDBACK] Applying +2.000 um from 5000.000 to 5002.000 for low_lift_up
+[SMU SAMPLE] V=5.0003 V, I=-4.1771e-08 A, direction=low_lift_up
+[Z FEEDBACK] Move complete, Z=5002.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:20] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5002.000 to 5004.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:20] "GET /api/status HTTP/1.1" 200 -
+[MOVE 29] Completed. Position: X=10199.4, Y=10458.6, Z=5002.0
+[MOVE 30] Target coordinates: X=10180.9, Y=10466.1, flag=0
+[Z FEEDBACK] Move complete, Z=5004.000 um
+[Z FEEDBACK] Applying +2.000 um from 5004.000 to 5006.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:20] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5006.000 um
+[Z FEEDBACK] Applying +2.000 um from 5006.000 to 5008.000 for low_lift_up
+[MOVE 30] Completed. Position: X=10180.8, Y=10466.2, Z=5006.0
+[MOVE 31] Target coordinates: X=10162.1, Y=10473.0, flag=0
+[Z FEEDBACK] Move complete, Z=5008.000 um
+[Z FEEDBACK] Applying +2.000 um from 5008.000 to 5010.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:21] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5010.000 um
+[Z FEEDBACK] Applying +2.000 um from 5010.000 to 5012.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5012.000 um
+[Z FEEDBACK] Applying +2.000 um from 5012.000 to 5014.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:21] "GET /api/status HTTP/1.1" 200 -
+[SMU SAMPLE] V=5.0006 V, I=-3.8420e-08 A, direction=low_lift_up
+[Z FEEDBACK] Move complete, Z=5014.000 um
+[MOVE 31] Completed. Position: X=10162.2, Y=10473.0, Z=5014.0
+[MOVE 32] Target coordinates: X=10143.0, Y=10479.1, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5014.000 to 5016.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5016.000 um
+[Z FEEDBACK] Applying +2.000 um from 5016.000 to 5018.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:21] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5018.000 um
+[Z FEEDBACK] Applying +2.000 um from 5018.000 to 5020.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5020.000 um
+[MOVE 32] Completed. Position: X=10143.0, Y=10479.2, Z=5020.0
+[MOVE 33] Target coordinates: X=10123.8, Y=10484.4, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5020.000 to 5022.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:22] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5022.000 um
+[Z FEEDBACK] Applying +2.000 um from 5022.000 to 5024.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5024.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:22] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5024.000 to 5026.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5026.000 um
+[MOVE 33] Completed. Position: X=10123.8, Y=10484.4, Z=5026.0
+[MOVE 34] Target coordinates: X=10104.3, Y=10489.0, flag=0
+[SMU SAMPLE] V=5.0005 V, I=-3.3657e-08 A, direction=low_lift_up
+[Z FEEDBACK] Applying +2.000 um from 5026.000 to 5028.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5028.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:22] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5028.000 to 5030.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5030.000 um
+[Z FEEDBACK] Applying +2.000 um from 5030.000 to 5032.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:22] "GET /api/status HTTP/1.1" 200 -
+[MOVE 34] Completed. Position: X=10104.2, Y=10489.0, Z=5030.0
+[MOVE 35] Target coordinates: X=10084.6, Y=10492.8, flag=0
+[Z FEEDBACK] Move complete, Z=5032.000 um
+[Z FEEDBACK] Applying +2.000 um from 5032.000 to 5034.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5034.000 um
+[Z FEEDBACK] Applying +2.000 um from 5034.000 to 5036.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:23] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:23] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5036.000 um
+[Z FEEDBACK] Applying +2.000 um from 5036.000 to 5038.000 for low_lift_up
+[MOVE 35] Completed. Position: X=10084.6, Y=10492.8, Z=5036.0
+[MOVE 36] Target coordinates: X=10064.9, Y=10495.8, flag=0
+[Z FEEDBACK] Move complete, Z=5038.000 um
+[Z FEEDBACK] Applying +2.000 um from 5038.000 to 5040.000 for low_lift_up
+[SMU SAMPLE] V=5.0004 V, I=-2.7831e-08 A, direction=low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:23] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5040.000 um
+[Z FEEDBACK] Applying +2.000 um from 5040.000 to 5042.000 for low_lift_up
+[MOVE 36] Completed. Position: X=10064.8, Y=10495.8, Z=5040.0
+[MOVE 37] Target coordinates: X=10045.0, Y=10498.0, flag=0
+[Z FEEDBACK] Move complete, Z=5042.000 um
+[Z FEEDBACK] Applying +2.000 um from 5042.000 to 5044.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:23] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5044.000 um
+[Z FEEDBACK] Applying +2.000 um from 5044.000 to 5046.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5046.000 um
+[MOVE 37] Completed. Position: X=10045.0, Y=10498.0, Z=5046.0
+[MOVE 38] Target coordinates: X=10025.0, Y=10499.4, flag=0
+127.0.0.1 - - [01/Jul/2026 15:42:24] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5046.000 to 5048.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5048.000 um
+[Z FEEDBACK] Applying +2.000 um from 5048.000 to 5050.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:24] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5050.000 um
+[Z FEEDBACK] Applying +2.000 um from 5050.000 to 5052.000 for low_lift_up
+[MOVE 38] Completed. Position: X=10025.0, Y=10499.4, Z=5050.0
+[MOVE 39] Target coordinates: X=10005.0, Y=10500.0, flag=0
+[SMU SAMPLE] V=5.0007 V, I=-3.1020e-08 A, direction=low_lift_up
+[Z FEEDBACK] Move complete, Z=5052.000 um
+[Z FEEDBACK] Applying +2.000 um from 5052.000 to 5054.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:24] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5054.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:24] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5054.000 to 5056.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5056.000 um[MOVE 39] Completed. Position: X=10005.0, Y=10500.0, Z=5056.0
+
+[MOVE 40] Target coordinates: X=9985.0, Y=10499.8, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5056.000 to 5058.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:25] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5058.000 um
+[Z FEEDBACK] Applying +2.000 um from 5058.000 to 5060.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5060.000 um
+[Z FEEDBACK] Applying +2.000 um from 5060.000 to 5062.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:25] "GET /api/status HTTP/1.1" 200 -
+[MOVE 40] Completed. Position: X=9985.0, Y=10499.8, Z=5060.0
+[MOVE 41] Target coordinates: X=9965.0, Y=10498.8, flag=0
+[Z FEEDBACK] Move complete, Z=5062.000 um
+[Z FEEDBACK] Applying +2.000 um from 5062.000 to 5064.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5064.000 um
+[SMU SAMPLE] V=5.0007 V, I=-2.2004e-08 A, direction=low_lift_up
+[Z FEEDBACK] Applying +2.000 um from 5064.000 to 5066.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:25] "GET /api/status HTTP/1.1" 200 -
+[MOVE 41] Completed. Position: X=9965.0, Y=10498.8, Z=5064.0[Z FEEDBACK] Move complete, Z=5066.000 um
+[MOVE 42] Target coordinates: X=9945.1, Y=10497.0, flag=0
+
+[Z FEEDBACK] Applying +2.000 um from 5066.000 to 5068.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5068.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:25] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5068.000 to 5070.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5070.000 um
+[Z FEEDBACK] Applying +2.000 um from 5070.000 to 5072.000 for low_lift_up
+[MOVE 42] Completed. Position: X=9945.0, Y=10497.0, Z=5070.0
+[MOVE 43] Target coordinates: X=9925.2, Y=10494.4, flag=0
+[Z FEEDBACK] Move complete, Z=5072.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:26] "GET /api/status HTTP/1.1" 200 -
+[SMU SAMPLE] V=-0.0014 V, I=2.9999e-07 A, direction=high_move_down
+[Z FEEDBACK] Applying -2.000 um from 5072.000 to 5070.000 for high_move_down
+[Z FEEDBACK] Move complete, Z=5070.000 um
+[Z FEEDBACK] Applying -2.000 um from 5070.000 to 5068.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:26] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:26] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5068.000 um
+[MOVE 43] Completed. Position: X=9925.2, Y=10494.4, Z=5068.0
+[MOVE 44] Target coordinates: X=9905.5, Y=10491.0, flag=0
+[Z FEEDBACK] Applying -2.000 um from 5068.000 to 5066.000 for high_move_down
+[Z FEEDBACK] Move complete, Z=5066.000 um
+[Z FEEDBACK] Applying -2.000 um from 5066.000 to 5064.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:26] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5064.000 um
+[Z FEEDBACK] Applying -2.000 um from 5064.000 to 5062.000 for high_move_down
+[MOVE 44] Completed. Position: X=9905.6, Y=10491.0, Z=5064.0
+[MOVE 45] Target coordinates: X=9886.0, Y=10486.8, flag=0
+[Z FEEDBACK] Move complete, Z=5062.000 um
+[Z FEEDBACK] Applying -2.000 um from 5062.000 to 5060.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:27] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5060.000 um
+[Z FEEDBACK] Applying -2.000 um from 5060.000 to 5058.000 for high_move_down
+[SMU SAMPLE] V=-0.0010 V, I=2.9998e-07 A, direction=high_move_down
+[Z FEEDBACK] Move complete, Z=5058.000 um
+[MOVE 45] Completed. Position: X=9886.0, Y=10486.8, Z=5058.0
+[MOVE 46] Target coordinates: X=9866.6, Y=10481.9, flag=0
+[Z FEEDBACK] Applying -2.000 um from 5058.000 to 5056.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:27] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5056.000 um
+[Z FEEDBACK] Applying -2.000 um from 5056.000 to 5054.000 for high_move_down
+[Z FEEDBACK] Move complete, Z=5054.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:27] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying -2.000 um from 5054.000 to 5052.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:27] "GET /api/status HTTP/1.1" 200 -
+[MOVE 46] Completed. Position: X=9866.6, Y=10481.8, Z=5054.0
+[MOVE 47] Target coordinates: X=9847.4, Y=10476.1, flag=0
+[Z FEEDBACK] Move complete, Z=5052.000 um
+[Z FEEDBACK] Applying -2.000 um from 5052.000 to 5050.000 for high_move_down
+[Z FEEDBACK] Move complete, Z=5050.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:28] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying -2.000 um from 5050.000 to 5048.000 for high_move_down
+[Z FEEDBACK] Move complete, Z=5048.000 um
+[Z FEEDBACK] Applying -2.000 um from 5048.000 to 5046.000 for high_move_down
+[MOVE 47] Completed. Position: X=9847.4, Y=10476.2, Z=5048.0
+[MOVE 48] Target coordinates: X=9828.5, Y=10469.7, flag=0
+127.0.0.1 - - [01/Jul/2026 15:42:28] "GET /api/status HTTP/1.1" 200 -
+[SMU SAMPLE] V=-0.0013 V, I=2.9998e-07 A, direction=high_move_down
+[Z FEEDBACK] Move complete, Z=5046.000 um
+[Z FEEDBACK] Applying -2.000 um from 5046.000 to 5044.000 for high_move_down
+[Z FEEDBACK] Move complete, Z=5044.000 um
+[Z FEEDBACK] Applying -2.000 um from 5044.000 to 5042.000 for high_move_down
+[Z FEEDBACK] Move complete, Z=5042.000 um
+[Z FEEDBACK] Applying -2.000 um from 5042.000 to 5040.000 for high_move_down
+[MOVE 48] Completed. Position: X=9828.4, Y=10469.6, Z=5042.0
+[MOVE 49] Target coordinates: X=9809.8, Y=10462.4, flag=0
+[Z FEEDBACK] Move complete, Z=5040.000 um
+[Z FEEDBACK] Applying -2.000 um from 5040.000 to 5038.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:28] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5038.000 um
+[Z FEEDBACK] Applying -2.000 um from 5038.000 to 5036.000 for high_move_down
+[MOVE 49] Completed. Position: X=9809.8, Y=10462.4, Z=5038.0[Z FEEDBACK] Move complete, Z=5036.000 um
+[MOVE 50] Target coordinates: X=9791.5, Y=10454.4, flag=0
+
+127.0.0.1 - - [01/Jul/2026 15:42:29] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying -2.000 um from 5036.000 to 5034.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:29] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5034.000 um
+[SMU SAMPLE] V=-0.0011 V, I=2.9999e-07 A, direction=high_move_down
+[Z FEEDBACK] Applying -2.000 um from 5034.000 to 5032.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:29] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5032.000 um
+[Z FEEDBACK] Applying -2.000 um from 5032.000 to 5030.000 for high_move_down
+[MOVE 50] Completed. Position: X=9791.4, Y=10454.4, Z=5032.0
+[MOVE 51] Target coordinates: X=9773.5, Y=10445.7, flag=0
+127.0.0.1 - - [01/Jul/2026 15:42:29] "GET /api/status HTTP/1.1" 200 -
+[SMU SAMPLE] V=5.0005 V, I=6.3975e-08 A, direction=low_lift_up
+[Z FEEDBACK] Move complete, Z=5030.000 um
+[SMU SAMPLE] V=-0.0007 V, I=2.9999e-07 A, direction=high_move_down
+[Z FEEDBACK] Applying -2.000 um from 5030.000 to 5028.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:29] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5028.000 um
+[SMU SAMPLE] V=4.9993 V, I=5.5520e-09 A, direction=low_lift_up
+[Z FEEDBACK] Applying +2.000 um from 5028.000 to 5030.000 for low_lift_up
+[MOVE 51] Completed. Position: X=9773.4, Y=10445.8, Z=5028.0
+[MOVE 52] Target coordinates: X=9755.8, Y=10436.3, flag=0
+[Z FEEDBACK] Move complete, Z=5030.000 um
+[Z FEEDBACK] Applying +2.000 um from 5030.000 to 5032.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:30] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5032.000 um
+[Z FEEDBACK] Applying +2.000 um from 5032.000 to 5034.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5034.000 um
+[MOVE 52] Completed. Position: X=9755.8, Y=10436.4, Z=5034.0
+[MOVE 53] Target coordinates: X=9738.5, Y=10426.2, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5034.000 to 5036.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:30] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5036.000 um
+[Z FEEDBACK] Applying +2.000 um from 5036.000 to 5038.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5038.000 um
+[Z FEEDBACK] Applying +2.000 um from 5038.000 to 5040.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:30] "GET /api/status HTTP/1.1" 200 -
+[MOVE 53] Completed. Position: X=9738.6, Y=10426.2, Z=5038.0
+[MOVE 54] Target coordinates: X=9721.7, Y=10415.4, flag=0
+127.0.0.1 - - [01/Jul/2026 15:42:30] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5040.000 um
+[Z FEEDBACK] Applying +2.000 um from 5040.000 to 5042.000 for low_lift_up
+[SMU SAMPLE] V=4.9994 V, I=2.5240e-09 A, direction=low_lift_up
+[Z FEEDBACK] Move complete, Z=5042.000 um
+[Z FEEDBACK] Applying +2.000 um from 5042.000 to 5044.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:31] "GET /api/status HTTP/1.1" 200 -
+[MOVE 54] Completed. Position: X=9721.6, Y=10415.4, Z=5042.0
+[MOVE 55] Target coordinates: X=9705.3, Y=10403.9, flag=0
+[Z FEEDBACK] Move complete, Z=5044.000 um
+[Z FEEDBACK] Applying +2.000 um from 5044.000 to 5046.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5046.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:31] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5046.000 to 5048.000 for low_lift_up
+[MOVE 55] Completed. Position: X=9705.2, Y=10404.0, Z=5046.0
+[MOVE 56] Target coordinates: X=9689.4, Y=10391.8, flag=0
+[Z FEEDBACK] Move complete, Z=5048.000 um
+[Z FEEDBACK] Applying +2.000 um from 5048.000 to 5050.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:31] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5050.000 um
+[Z FEEDBACK] Applying +2.000 um from 5050.000 to 5052.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5052.000 um
+[MOVE 56] Completed. Position: X=9689.4, Y=10391.8, Z=5052.0
+[MOVE 57] Target coordinates: X=9673.9, Y=10379.1, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5052.000 to 5054.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:31] "GET /api/status HTTP/1.1" 200 -
+[SMU SAMPLE] V=4.9994 V, I=5.1300e-10 A, direction=low_lift_up
+[Z FEEDBACK] Move complete, Z=5054.000 um
+[Z FEEDBACK] Applying +2.000 um from 5054.000 to 5056.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5056.000 um
+[Z FEEDBACK] Applying +2.000 um from 5056.000 to 5058.000 for low_lift_up
+[MOVE 57] Completed. Position: X=9674.0, Y=10379.0, Z=5056.0
+[MOVE 58] Target coordinates: X=9659.0, Y=10365.7, flag=0
+127.0.0.1 - - [01/Jul/2026 15:42:32] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:32] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5058.000 um
+[Z FEEDBACK] Applying +2.000 um from 5058.000 to 5060.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5060.000 um
+[Z FEEDBACK] Applying +2.000 um from 5060.000 to 5062.000 for low_lift_up
+[MOVE 58] Completed. Position: X=9659.0, Y=10365.8, Z=5060.0
+[MOVE 59] Target coordinates: X=9644.7, Y=10351.8, flag=0
+127.0.0.1 - - [01/Jul/2026 15:42:32] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5062.000 um
+[Z FEEDBACK] Applying +2.000 um from 5062.000 to 5064.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5064.000 um
+[Z FEEDBACK] Applying +2.000 um from 5064.000 to 5066.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:32] "GET /api/status HTTP/1.1" 200 -
+[MOVE 59] Completed. Position: X=9644.6, Y=10351.8, Z=5064.0
+[MOVE 60] Target coordinates: X=9630.9, Y=10337.3, flag=0
+[Z FEEDBACK] Move complete, Z=5066.000 um
+[SMU SAMPLE] V=4.9993 V, I=-6.2820e-09 A, direction=low_lift_up
+[Z FEEDBACK] Applying +2.000 um from 5066.000 to 5068.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5068.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:33] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5068.000 to 5070.000 for low_lift_up
+[MOVE 60] Completed. Position: X=9630.8, Y=10337.2, Z=5068.0[Z FEEDBACK] Move complete, Z=5070.000 um
+[MOVE 61] Target coordinates: X=9617.7, Y=10322.2, flag=0
+
+[Z FEEDBACK] Applying +2.000 um from 5070.000 to 5072.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:33] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5072.000 um
+[Z FEEDBACK] Applying +2.000 um from 5072.000 to 5074.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5074.000 um
+[MOVE 61] Completed. Position: X=9617.6, Y=10322.2, Z=5074.0
+[MOVE 62] Target coordinates: X=9605.1, Y=10306.7, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5074.000 to 5076.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:33] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:33] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5076.000 um
+[Z FEEDBACK] Applying +2.000 um from 5076.000 to 5078.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5078.000 um
+[Z FEEDBACK] Applying +2.000 um from 5078.000 to 5080.000 for low_lift_up
+[MOVE 62] Completed. Position: X=9605.2, Y=10306.6, Z=5078.0
+[MOVE 63] Target coordinates: X=9593.2, Y=10290.6, flag=0
+[SMU SAMPLE] V=4.9994 V, I=-4.5210e-09 A, direction=low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:34] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5080.000 um
+[Z FEEDBACK] Applying +2.000 um from 5080.000 to 5082.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5082.000 um
+[Z FEEDBACK] Applying +2.000 um from 5082.000 to 5084.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:34] "GET /api/status HTTP/1.1" 200 -
+[MOVE 63] Completed. Position: X=9593.2, Y=10290.6, Z=5082.0
+[MOVE 64] Target coordinates: X=9581.8, Y=10274.1, flag=0
+[Z FEEDBACK] Move complete, Z=5084.000 um
+[Z FEEDBACK] Applying +2.000 um from 5084.000 to 5086.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5086.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:34] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5086.000 to 5088.000 for low_lift_up
+[MOVE 64] Completed. Position: X=9581.8, Y=10274.2, Z=5086.0
+[MOVE 65] Target coordinates: X=9571.2, Y=10257.2, flag=0
+[Z FEEDBACK] Move complete, Z=5088.000 um
+[Z FEEDBACK] Applying +2.000 um from 5088.000 to 5090.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5090.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:34] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5090.000 to 5092.000 for low_lift_up
+[SMU SAMPLE] V=4.9995 V, I=-5.2350e-09 A, direction=low_lift_up
+[Z FEEDBACK] Move complete, Z=5092.000 um
+[MOVE 65] Completed. Position: X=9571.2, Y=10257.2, Z=5092.0
+[MOVE 66] Target coordinates: X=9561.3, Y=10239.8, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5092.000 to 5094.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5094.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:35] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5094.000 to 5096.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5096.000 um
+[MOVE 66] Completed. Position: X=9561.2, Y=10239.8, Z=5096.0
+[MOVE 67] Target coordinates: X=9552.0, Y=10222.1, flag=0[Z FEEDBACK] Applying +2.000 um from 5096.000 to 5098.000 for low_lift_up
+
+127.0.0.1 - - [01/Jul/2026 15:42:35] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:35] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5098.000 um
+[Z FEEDBACK] Applying +2.000 um from 5098.000 to 5100.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5100.000 um
+[Z FEEDBACK] Applying +2.000 um from 5100.000 to 5102.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:35] "GET /api/status HTTP/1.1" 200 -
+[MOVE 67] Completed. Position: X=9552.0, Y=10222.0, Z=5100.0
+[MOVE 68] Target coordinates: X=9543.5, Y=10204.0, flag=0
+[Z FEEDBACK] Move complete, Z=5102.000 um
+[Z FEEDBACK] Applying +2.000 um from 5102.000 to 5104.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5104.000 um
+[SMU SAMPLE] V=4.9994 V, I=-1.1202e-08 A, direction=low_lift_up
+[Z FEEDBACK] Applying +2.000 um from 5104.000 to 5106.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:36] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5106.000 um
+[MOVE 68] Completed. Position: X=9543.4, Y=10204.0, Z=5106.0
+[MOVE 69] Target coordinates: X=9535.7, Y=10185.5, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5106.000 to 5108.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5108.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:36] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5108.000 to 5110.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5110.000 um
+[Z FEEDBACK] Applying +2.000 um from 5110.000 to 5112.000 for low_lift_up
+[MOVE 69] Completed. Position: X=9535.8, Y=10185.6, Z=5110.0
+[MOVE 70] Target coordinates: X=9528.7, Y=10166.8, flag=0
+[Z FEEDBACK] Move complete, Z=5112.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:36] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5112.000 to 5114.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5114.000 um
+[Z FEEDBACK] Applying +2.000 um from 5114.000 to 5116.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:37] "GET /api/status HTTP/1.1" 200 -
+[MOVE 70] Completed. Position: X=9528.6, Y=10166.8, Z=5114.0
+[MOVE 71] Target coordinates: X=9522.4, Y=10147.8, flag=0
+[Z FEEDBACK] Move complete, Z=5116.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:37] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5116.000 to 5118.000 for low_lift_up
+[SMU SAMPLE] V=4.9993 V, I=-1.3946e-08 A, direction=low_lift_up
+[Z FEEDBACK] Move complete, Z=5118.000 um
+[Z FEEDBACK] Applying +2.000 um from 5118.000 to 5120.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:37] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5120.000 um
+[Z FEEDBACK] Applying +2.000 um from 5120.000 to 5122.000 for low_lift_up
+[MOVE 71] Completed. Position: X=9522.4, Y=10147.8, Z=5120.0
+[MOVE 72] Target coordinates: X=9516.8, Y=10128.6, flag=0
+[Z FEEDBACK] Move complete, Z=5122.000 um
+[Z FEEDBACK] Applying +2.000 um from 5122.000 to 5124.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:37] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5124.000 um
+[Z FEEDBACK] Applying +2.000 um from 5124.000 to 5126.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5126.000 um
+[Z FEEDBACK] Applying +2.000 um from 5126.000 to 5128.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:37] "GET /api/status HTTP/1.1" 200 -
+[MOVE 72] Completed. Position: X=9516.8, Y=10128.6, Z=5126.0
+[MOVE 73] Target coordinates: X=9512.1, Y=10109.2, flag=0
+[Z FEEDBACK] Move complete, Z=5128.000 um
+[Z FEEDBACK] Applying +2.000 um from 5128.000 to 5130.000 for low_lift_up
+[SMU SAMPLE] V=4.9995 V, I=-1.7069e-08 A, direction=low_lift_up
+[Z FEEDBACK] Move complete, Z=5130.000 um
+[Z FEEDBACK] Applying +2.000 um from 5130.000 to 5132.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:38] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5132.000 um
+[MOVE 73] Completed. Position: X=9512.0, Y=10109.2, Z=5132.0[Z FEEDBACK] Applying +2.000 um from 5132.000 to 5134.000 for low_lift_up
+[MOVE 74] Target coordinates: X=9508.1, Y=10089.6, flag=0
+
+127.0.0.1 - - [01/Jul/2026 15:42:38] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5134.000 um
+[Z FEEDBACK] Applying +2.000 um from 5134.000 to 5136.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:38] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5136.000 um
+[Z FEEDBACK] Applying +2.000 um from 5136.000 to 5138.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:38] "GET /api/status HTTP/1.1" 200 -
+[MOVE 74] Completed. Position: X=9508.0, Y=10089.6, Z=5136.0
+[MOVE 75] Target coordinates: X=9504.9, Y=10069.8, flag=0
+[Z FEEDBACK] Move complete, Z=5138.000 um
+[Z FEEDBACK] Applying +2.000 um from 5138.000 to 5140.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5140.000 um
+[Z FEEDBACK] Applying +2.000 um from 5140.000 to 5142.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:39] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5142.000 um
+[SMU SAMPLE] V=4.9994 V, I=-1.6700e-08 A, direction=low_lift_up
+[Z FEEDBACK] Applying +2.000 um from 5142.000 to 5144.000 for low_lift_up
+[MOVE 75] Completed. Position: X=9504.8, Y=10069.8, Z=5142.0
+[MOVE 76] Target coordinates: X=9502.5, Y=10049.9, flag=0
+[Z FEEDBACK] Move complete, Z=5144.000 um
+[Z FEEDBACK] Applying +2.000 um from 5144.000 to 5146.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:39] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5146.000 um
+[Z FEEDBACK] Applying +2.000 um from 5146.000 to 5148.000 for low_lift_up
+[MOVE 76] Completed. Position: X=9502.6, Y=10050.0, Z=5146.0
+[MOVE 77] Target coordinates: X=9500.9, Y=10030.0, flag=0
+[Z FEEDBACK] Move complete, Z=5148.000 um
+[Z FEEDBACK] Applying +2.000 um from 5148.000 to 5150.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:39] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5150.000 um
+[Z FEEDBACK] Applying +2.000 um from 5150.000 to 5152.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5152.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:40] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5152.000 to 5154.000 for low_lift_up
+[MOVE 77] Completed. Position: X=9501.0, Y=10030.0, Z=5152.0
+[MOVE 78] Target coordinates: X=9500.1, Y=10010.0, flag=0
+127.0.0.1 - - [01/Jul/2026 15:42:40] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5154.000 um
+[Z FEEDBACK] Applying +2.000 um from 5154.000 to 5156.000 for low_lift_up
+[SMU SAMPLE] V=4.9995 V, I=-1.2092e-08 A, direction=low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:40] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5156.000 um
+[Z FEEDBACK] Applying +2.000 um from 5156.000 to 5158.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5158.000 um
+[Z FEEDBACK] Applying +2.000 um from 5158.000 to 5160.000 for low_lift_up
+[MOVE 78] Completed. Position: X=9500.2, Y=10010.0, Z=5158.0
+[MOVE 79] Target coordinates: X=9500.1, Y=9990.0, flag=0
+[Z FEEDBACK] Move complete, Z=5160.000 um
+[Z FEEDBACK] Applying +2.000 um from 5160.000 to 5162.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5162.000 um
+[Z FEEDBACK] Applying +2.000 um from 5162.000 to 5164.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:40] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5164.000 um
+[MOVE 79] Completed. Position: X=9500.2, Y=9990.0, Z=5164.0
+[MOVE 80] Target coordinates: X=9500.9, Y=9970.0, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5164.000 to 5166.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5166.000 um
+[Z FEEDBACK] Applying +2.000 um from 5166.000 to 5168.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:41] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:41] "GET /api/status HTTP/1.1" 200 -
+[SMU SAMPLE] V=4.9992 V, I=-2.3256e-08 A, direction=low_lift_up
+[Z FEEDBACK] Move complete, Z=5168.000 um
+[Z FEEDBACK] Applying +2.000 um from 5168.000 to 5170.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5170.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:41] "GET /api/status HTTP/1.1" 200 -
+[MOVE 80] Completed. Position: X=9501.0, Y=9970.0, Z=5170.0
+[MOVE 81] Target coordinates: X=9502.5, Y=9950.1, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5170.000 to 5172.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:41] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5172.000 um
+[Z FEEDBACK] Applying +2.000 um from 5172.000 to 5174.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5174.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:41] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5174.000 to 5176.000 for low_lift_up
+[MOVE 81] Completed. Position: X=9502.6, Y=9950.0, Z=5174.0
+[MOVE 82] Target coordinates: X=9504.9, Y=9930.2, flag=0[Z FEEDBACK] Move complete, Z=5176.000 um
+
+[Z FEEDBACK] Applying +2.000 um from 5176.000 to 5178.000 for low_lift_up
+[SMU SAMPLE] V=-0.0007 V, I=2.9998e-07 A, direction=high_move_down
+[Z FEEDBACK] Move complete, Z=5178.000 um
+[Z FEEDBACK] Applying -2.000 um from 5178.000 to 5176.000 for high_move_down
+[Z FEEDBACK] Move complete, Z=5176.000 um
+[Z FEEDBACK] Applying -2.000 um from 5176.000 to 5174.000 for high_move_down
+[MOVE 82] Completed. Position: X=9504.8, Y=9930.2, Z=5176.0
+[MOVE 83] Target coordinates: X=9508.1, Y=9910.4, flag=0
+127.0.0.1 - - [01/Jul/2026 15:42:42] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5174.000 um
+[Z FEEDBACK] Applying -2.000 um from 5174.000 to 5172.000 for high_move_down
+[Z FEEDBACK] Move complete, Z=5172.000 um
+[Z FEEDBACK] Applying -2.000 um from 5172.000 to 5170.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:42] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:42] "GET /api/status HTTP/1.1" 200 -
+[MOVE 83] Completed. Position: X=9508.0, Y=9910.4, Z=5172.0
+[MOVE 84] Target coordinates: X=9512.1, Y=9890.8, flag=0
+[Z FEEDBACK] Move complete, Z=5170.000 um
+[Z FEEDBACK] Applying -2.000 um from 5170.000 to 5168.000 for high_move_down
+[Z FEEDBACK] Move complete, Z=5168.000 um
+[Z FEEDBACK] Applying -2.000 um from 5168.000 to 5166.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:43] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:43] "GET /api/status HTTP/1.1" 200 -
+[SMU SAMPLE] V=-0.0006 V, I=2.9998e-07 A, direction=high_move_down
+[Z FEEDBACK] Move complete, Z=5166.000 um
+[Z FEEDBACK] Applying -2.000 um from 5166.000 to 5164.000 for high_move_down
+[MOVE 84] Completed. Position: X=9512.0, Y=9890.8, Z=5166.0
+[MOVE 85] Target coordinates: X=9516.8, Y=9871.4, flag=0
+[Z FEEDBACK] Move complete, Z=5164.000 um
+[Z FEEDBACK] Applying -2.000 um from 5164.000 to 5162.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:43] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5162.000 um
+[Z FEEDBACK] Applying -2.000 um from 5162.000 to 5160.000 for high_move_down
+[Z FEEDBACK] Move complete, Z=5160.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:43] "GET /api/status HTTP/1.1" 200 -
+[MOVE 85] Completed. Position: X=9516.8, Y=9871.4, Z=5160.0
+[MOVE 86] Target coordinates: X=9522.4, Y=9852.2, flag=0
+[Z FEEDBACK] Applying -2.000 um from 5160.000 to 5158.000 for high_move_down
+[Z FEEDBACK] Move complete, Z=5158.000 um
+[Z FEEDBACK] Applying -2.000 um from 5158.000 to 5156.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:43] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5156.000 um
+[Z FEEDBACK] Applying -2.000 um from 5156.000 to 5154.000 for high_move_down
+[MOVE 86] Completed. Position: X=9522.4, Y=9852.2, Z=5156.0
+[MOVE 87] Target coordinates: X=9528.7, Y=9833.2, flag=0
+[Z FEEDBACK] Move complete, Z=5154.000 um
+[SMU SAMPLE] V=-0.0005 V, I=2.9998e-07 A, direction=high_move_down
+[Z FEEDBACK] Applying -2.000 um from 5154.000 to 5152.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:44] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5152.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:44] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying -2.000 um from 5152.000 to 5150.000 for high_move_down
+[Z FEEDBACK] Move complete, Z=5150.000 um
+[Z FEEDBACK] Applying -2.000 um from 5150.000 to 5148.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:44] "GET /api/status HTTP/1.1" 200 -
+[MOVE 87] Completed. Position: X=9528.6, Y=9833.2, Z=5150.0
+[MOVE 88] Target coordinates: X=9535.7, Y=9814.5, flag=0
+[Z FEEDBACK] Move complete, Z=5148.000 um
+[Z FEEDBACK] Applying -2.000 um from 5148.000 to 5146.000 for high_move_down
+[Z FEEDBACK] Move complete, Z=5146.000 um
+[Z FEEDBACK] Applying -2.000 um from 5146.000 to 5144.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:44] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5144.000 um
+[MOVE 88] Completed. Position: X=9535.8, Y=9814.4, Z=5144.0
+[MOVE 89] Target coordinates: X=9543.5, Y=9796.0, flag=0
+[Z FEEDBACK] Applying -2.000 um from 5144.000 to 5142.000 for high_move_down
+[Z FEEDBACK] Move complete, Z=5142.000 um
+[Z FEEDBACK] Applying -2.000 um from 5142.000 to 5140.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:45] "GET /api/status HTTP/1.1" 200 -
+[SMU SAMPLE] V=-0.0006 V, I=2.9998e-07 A, direction=high_move_down
+[Z FEEDBACK] Move complete, Z=5140.000 um
+[Z FEEDBACK] Applying -2.000 um from 5140.000 to 5138.000 for high_move_down
+[MOVE 89] Completed. Position: X=9543.4, Y=9796.0, Z=5140.0
+[MOVE 90] Target coordinates: X=9552.0, Y=9777.9, flag=0
+[Z FEEDBACK] Move complete, Z=5138.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:45] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying -2.000 um from 5138.000 to 5136.000 for high_move_down
+[Z FEEDBACK] Move complete, Z=5136.000 um
+[Z FEEDBACK] Applying -2.000 um from 5136.000 to 5134.000 for high_move_down
+[MOVE 90] Completed. Position: X=9552.0, Y=9778.0, Z=5136.0
+[MOVE 91] Target coordinates: X=9561.3, Y=9760.2, flag=0
+127.0.0.1 - - [01/Jul/2026 15:42:45] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5134.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:45] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying -2.000 um from 5134.000 to 5132.000 for high_move_down
+[Z FEEDBACK] Move complete, Z=5132.000 um
+[Z FEEDBACK] Applying -2.000 um from 5132.000 to 5130.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:42:46] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5130.000 um
+[Z FEEDBACK] Applying -2.000 um from 5130.000 to 5128.000 for high_move_down
+[SMU SAMPLE] V=5.0005 V, I=2.2221e-08 A, direction=low_lift_up
+[MOVE 91] Completed. Position: X=9561.2, Y=9760.2, Z=5130.0
+[MOVE 92] Target coordinates: X=9571.2, Y=9742.8, flag=0
+[Z FEEDBACK] Move complete, Z=5128.000 um
+[Z FEEDBACK] Applying +2.000 um from 5128.000 to 5130.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:46] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5130.000 um
+[Z FEEDBACK] Applying +2.000 um from 5130.000 to 5132.000 for low_lift_up
+[MOVE 92] Completed. Position: X=9571.2, Y=9742.8, Z=5130.0
+[MOVE 93] Target coordinates: X=9581.8, Y=9725.9, flag=0
+[Z FEEDBACK] Move complete, Z=5132.000 um
+[Z FEEDBACK] Applying +2.000 um from 5132.000 to 5134.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:46] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5134.000 um
+[Z FEEDBACK] Applying +2.000 um from 5134.000 to 5136.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5136.000 um
+[MOVE 93] Completed. Position: X=9581.8, Y=9725.8, Z=5136.0
+[MOVE 94] Target coordinates: X=9593.2, Y=9709.4, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5136.000 to 5138.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:46] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5138.000 um
+[Z FEEDBACK] Applying +2.000 um from 5138.000 to 5140.000 for low_lift_up
+[SMU SAMPLE] V=5.0004 V, I=1.9132e-08 A, direction=low_lift_up
+[Z FEEDBACK] Move complete, Z=5140.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:47] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5140.000 to 5142.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:47] "GET /api/status HTTP/1.1" 200 -
+[MOVE 94] Completed. Position: X=9593.2, Y=9709.4, Z=5140.0
+[MOVE 95] Target coordinates: X=9605.1, Y=9693.3, flag=0
+[Z FEEDBACK] Move complete, Z=5142.000 um
+[Z FEEDBACK] Applying +2.000 um from 5142.000 to 5144.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5144.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:47] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5144.000 to 5146.000 for low_lift_up
+[MOVE 95] Completed. Position: X=9605.2, Y=9693.4, Z=5144.0
+[MOVE 96] Target coordinates: X=9617.7, Y=9677.8, flag=0
+[Z FEEDBACK] Move complete, Z=5146.000 um
+[Z FEEDBACK] Applying +2.000 um from 5146.000 to 5148.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:47] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5148.000 um
+[Z FEEDBACK] Applying +2.000 um from 5148.000 to 5150.000 for low_lift_up
+[MOVE 96] Completed. Position: X=9617.6, Y=9677.8, Z=5148.0
+[MOVE 97] Target coordinates: X=9630.9, Y=9662.7, flag=0
+[Z FEEDBACK] Move complete, Z=5150.000 um
+[Z FEEDBACK] Applying +2.000 um from 5150.000 to 5152.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:48] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5152.000 um
+[SMU SAMPLE] V=5.0003 V, I=1.7218e-08 A, direction=low_lift_up
+[Z FEEDBACK] Applying +2.000 um from 5152.000 to 5154.000 for low_lift_up
+[MOVE 97] Completed. Position: X=9630.8, Y=9662.8, Z=5152.0
+[MOVE 98] Target coordinates: X=9644.7, Y=9648.2, flag=0
+[Z FEEDBACK] Move complete, Z=5154.000 um
+[Z FEEDBACK] Applying +2.000 um from 5154.000 to 5156.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:48] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5156.000 um
+[Z FEEDBACK] Applying +2.000 um from 5156.000 to 5158.000 for low_lift_up
+[MOVE 98] Completed. Position: X=9644.6, Y=9648.2, Z=5156.0
+[MOVE 99] Target coordinates: X=9659.0, Y=9634.3, flag=0[Z FEEDBACK] Move complete, Z=5158.000 um
+
+[Z FEEDBACK] Applying +2.000 um from 5158.000 to 5160.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:48] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5160.000 um
+[Z FEEDBACK] Applying +2.000 um from 5160.000 to 5162.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5162.000 um
+127.0.0.1 - - [01/Jul/2026 15:42:49] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5162.000 to 5164.000 for low_lift_up
+[MOVE 99] Completed. Position: X=9659.0, Y=9634.2, Z=5162.0
+[MOVE 100] Target coordinates: X=9673.9, Y=9620.9, flag=0
+[Z FEEDBACK] Move complete, Z=5164.000 um
+[Z FEEDBACK] Applying +2.000 um from 5164.000 to 5166.000 for low_lift_up
+[SMU SAMPLE] V=5.0003 V, I=2.2859e-08 A, direction=low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:49] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5166.000 um
+[Z FEEDBACK] Applying +2.000 um from 5166.000 to 5168.000 for low_lift_up
+[MOVE 100] Completed. Position: X=9674.0, Y=9621.0, Z=5166.0
+[MOVE 101] Target coordinates: X=9689.4, Y=9608.2, flag=0
+[Z FEEDBACK] Move complete, Z=5168.000 um
+[Z FEEDBACK] Applying +2.000 um from 5168.000 to 5170.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:49] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5170.000 um
+[Z FEEDBACK] Applying +2.000 um from 5170.000 to 5172.000 for low_lift_up
+[MOVE 101] Completed. Position: X=9689.4, Y=9608.2, Z=5170.0
+[MOVE 102] Target coordinates: X=9705.3, Y=9596.1, flag=0
+[Z FEEDBACK] Move complete, Z=5172.000 um
+[Z FEEDBACK] Applying +2.000 um from 5172.000 to 5174.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5174.000 um
+[Z FEEDBACK] Applying +2.000 um from 5174.000 to 5176.000 for low_lift_up
+[MOVE 102] Completed. Position: X=9705.2, Y=9596.0, Z=5174.0
+[MOVE 103] Target coordinates: X=9721.7, Y=9584.6, flag=0
+[Z FEEDBACK] Move complete, Z=5176.000 um
+[Z FEEDBACK] Applying +2.000 um from 5176.000 to 5178.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:50] "GET /api/status HTTP/1.1" 200 -
+[SMU SAMPLE] V=5.0003 V, I=2.6170e-08 A, direction=low_lift_up
+[Z FEEDBACK] Move complete, Z=5178.000 um
+[Z FEEDBACK] Applying +2.000 um from 5178.000 to 5180.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:50] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5180.000 um
+[MOVE 103] Completed. Position: X=9721.6, Y=9584.6, Z=5180.0
+[MOVE 104] Target coordinates: X=9738.5, Y=9573.8, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5180.000 to 5182.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:50] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5182.000 um
+[Z FEEDBACK] Applying +2.000 um from 5182.000 to 5184.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:50] "POST /api/stop HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:50] "GET /api/status HTTP/1.1" 200 -
+Emergency stop triggered.
+Stop Enabled
+[Z FEEDBACK] Move complete, Z=5184.000 um
+[Z FEEDBACK] Applying +2.000 um from 5184.000 to 5186.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:42:50] "GET /api/status HTTP/1.1" 200 -
+[MOVE 104] Completed. Position: X=9738.6, Y=9582.2, Z=5184.0
+[ABORT] Async patterning run aborted mid-way by user!
+[INFO] Acceleration/deceleration ramps restored.
+[Z FEEDBACK] Move complete, Z=5186.000 um
+[TIMER] Patterning completed in 41.79s.
+[TIMER] X/Y movement time: 33.84s across 104 moves.
+[TIMER] Commanded XY distance: 2081.04 µm
+[TIMER] Estimated pure XY travel at 100.0 µm/s: 20.81s
+[TIMER] Average XY distance per move: 20.01 µm
+[TIMER] Detailed timing summary:
+[TIMER] motion.start_thread: 0.03s
+[TIMER] motion.wait_for_completion: 36.05s
+[TIMER] smu.check_current: 0.24s
+[TIMER] smu.init_smu: 0.13s
+[TIMER] smu.reset_smu: 0.12s
+[TIMER] smu.use_case_1: 0.11s
+[TIMER] smu.use_case_2: 0.04s
+[TIMER] Moves executed: 104
+[TIMER] X/Y moves counted in movement timer: 104
+[INFO] Threaded straight-line feedback run complete.
+Final Z Position: 5186.0
+Sending Z to bottom home
+127.0.0.1 - - [01/Jul/2026 15:42:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:51] "GET /api/status HTTP/1.1" 200 -
+Far limit reached
+Z bottom home done
+Sending X to Home
+X speed set, starting move_home
+Stop Enabled
+X move_home done
+Sending Y to Home
+Y speed set, starting move_home
+Stop Enabled
+Y move_home done
+127.0.0.1 - - [01/Jul/2026 15:42:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:42:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:02] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:04] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:05] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:07] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:08] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:10] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:11] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:13] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:14] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:16] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:17] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:19] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:20] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:22] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:23] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:25] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:26] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:28] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:29] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:32] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:34] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:35] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:37] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:38] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:40] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:41] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:43] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:44] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:47] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:50] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:43:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:44:08] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:45:08] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:46:08] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:47:08] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:48:08] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:49:08] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:50:08] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:50:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:50:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:50:33] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:50:34] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:50:36] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:50:37] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:50:39] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:50:40] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:50:42] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:50:43] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:50:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:50:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:50:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:50:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:50:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:50:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:50:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:50:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:50:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:50:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:03] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:04] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:07] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:09] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:10] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:12] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:13] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:15] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:16] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:18] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:19] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:22] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:24] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:25] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:27] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:28] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:30] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:33] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:34] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:36] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:37] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:39] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:40] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:42] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:43] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:51:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:03] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:04] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:07] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:09] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:10] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:12] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:13] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:15] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:16] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:18] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:19] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:22] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:24] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:25] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:27] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:28] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:30] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:33] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:34] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:36] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:37] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:39] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:40] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:42] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:43] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:52:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:03] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:04] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:07] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:09] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:10] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:12] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:13] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:15] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:16] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:18] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:19] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:22] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:24] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:25] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:27] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:28] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:30] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:33] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:34] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:36] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:37] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:39] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:40] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:42] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:43] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:53:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:03] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:04] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:07] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:09] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:10] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:12] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:13] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:15] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:16] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:18] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:19] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:22] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:24] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:25] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:27] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:28] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:30] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:33] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:34] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:36] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:37] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:39] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:40] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:42] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:43] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:54:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:55:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:55:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:55:03] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:55:04] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:55:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:55:07] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:55:09] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:55:10] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:55:13] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:55:14] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:55:16] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:55:17] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:55:19] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:55:20] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:55:22] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:55:23] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:55:25] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:55:26] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:55:28] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:55:29] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:55:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:55:32] "GET /api/status HTTP/1.1" 200 -
+Electro-Lithography Web Dashboard running at http://localhost:9000/
+127.0.0.1 - - [01/Jul/2026 15:55:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:02] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:02] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:02] "GET /style.css?v=2.0 HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:02] "GET /app.js?v=2.0 HTTP/1.1" 304 -
+127.0.0.1 - - [01/Jul/2026 15:56:02] "GET /api/ports HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:24] "POST /api/connect HTTP/1.1" 200 -
+Serial port initialized
+Serial port initialized
+Serial port initialized
+Sending Z to bottom home
+Far limit reached
+Z bottom home done
+Sending X to Home
+X speed set, starting move_home
+Home limit reached
+X move_home done
+Sending Y to Home
+Y speed set, starting move_home
+Home limit reached
+Y move_home done
+127.0.0.1 - - [01/Jul/2026 15:56:29] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:31] "POST /api/run_pattern HTTP/1.1" 200 -
+Sending Z to bottom home
+Far limit reached
+Z bottom home done
+Sending X to Home
+X speed set, starting move_home
+Home limit reached
+127.0.0.1 - - [01/Jul/2026 15:56:31] "GET /api/status HTTP/1.1" 200 -
+X move_home done
+Sending Y to Home
+Y speed set, starting move_home
+Home limit reached
+Y move_home done
+[LOG] Pattern system log initialized: logs\20260701_155631.txt
+[LOG] CSV logging initialized: smu_logs\20260701_155631.csv
+[INFO] SMU Reset complete.
+127.0.0.1 - - [01/Jul/2026 15:56:31] "GET /api/status HTTP/1.1" 200 -
+[INFO] SMU Reset complete.
+127.0.0.1 - - [01/Jul/2026 15:56:31] "GET /api/status HTTP/1.1" 200 -
+[INFO] SMU Reset complete.
+[INFO] Voltage set to 5.0 V, Compliance Current: 0.3 micro A
+127.0.0.1 - - [01/Jul/2026 15:56:32] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:32] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:32] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:32] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:33] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:33] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:33] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:33] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:34] "GET /api/status HTTP/1.1" 200 -
+Enter new Z step size (µm): [INFO] Starting Z probing. You can enter new step sizes any time.
+[STEP 1] Moving Z down by 1000.0 µm...
+127.0.0.1 - - [01/Jul/2026 15:56:34] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:34] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:34] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:35] "GET /api/status HTTP/1.1" 200 -
+[VOLTAGE] 4.9996 V, [CURRENT] -2.0900e-10 A
+[STEP 2] Moving Z down by 1000.0 µm...
+127.0.0.1 - - [01/Jul/2026 15:56:35] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:35] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:35] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:36] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:36] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:36] "GET /api/status HTTP/1.1" 200 -
+[VOLTAGE] 5.0000 V, [CURRENT] -2.1000e-11 A
+[STEP 3] Moving Z down by 1000.0 µm...
+127.0.0.1 - - [01/Jul/2026 15:56:37] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:37] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:37] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:37] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:37] "GET /api/status HTTP/1.1" 200 -
+[VOLTAGE] 4.9998 V, [CURRENT] 5.5920e-09 A
+[STEP 4] Moving Z down by 1000.0 µm...
+127.0.0.1 - - [01/Jul/2026 15:56:38] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:38] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:38] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:38] "GET /api/status HTTP/1.1" 200 -
+[VOLTAGE] 4.9999 V, [CURRENT] 2.0520e-09 A
+[STEP 5] Moving Z down by 1000.0 µm...
+127.0.0.1 - - [01/Jul/2026 15:56:39] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:39] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:39] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:39] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:40] "GET /api/status HTTP/1.1" 200 -
+[VOLTAGE] -0.0006 V, [CURRENT] 2.9998e-07 A
+ current reached the right spot !!
+[CONTACT] Probe contact confirmed by current.
+[SAFETY] Patterning will abort if Z exceeds 45000.0 um.
+[INFO] SMU Reset complete.
+[INFO] SMU Reset complete.
+Voltage set as 5.0 V, Current set as 0.3 micro A 
+[SMU SAMPLE] Sampler started, interval=5.0 ms[Z FEEDBACK] Worker started, step=2.0 um, speed=1000.0 um/s
+
+[WARN] Failed to disable ramps: Invalid Ack 0 given ack 10
+[MOVE 1] Target coordinates: X=10499.6, Y=10020.0, flag=0
+127.0.0.1 - - [01/Jul/2026 15:56:40] "GET /api/status HTTP/1.1" 200 -
+[SMU SAMPLE] V=-0.0004 V, I=2.9999e-07 A, direction=high_move_down[Z FEEDBACK] Applying -2.000 um from 5000.000 to 4998.000 for high_move_down
+
+[Z FEEDBACK] Move complete, Z=4998.000 um
+[Z FEEDBACK] Applying -2.000 um from 4998.000 to 4996.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:56:40] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:40] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=4996.000 um
+[Z FEEDBACK] Applying -2.000 um from 4996.000 to 4994.000 for high_move_down
+[MOVE 1] Completed. Position: X=10499.6, Y=10020.0, Z=4996.0
+[MOVE 2] Target coordinates: X=10498.4, Y=10040.0, flag=0
+[Z FEEDBACK] Move complete, Z=4994.000 um
+[Z FEEDBACK] Applying -2.000 um from 4994.000 to 4992.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:56:41] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=4992.000 um
+[Z FEEDBACK] Applying -2.000 um from 4992.000 to 4990.000 for high_move_down
+[Z FEEDBACK] Move complete, Z=4990.000 um
+[MOVE 2] Completed. Position: X=10498.4, Y=10040.0, Z=4990.0
+[MOVE 3] Target coordinates: X=10496.4, Y=10059.9, flag=0
+[Z FEEDBACK] Applying -2.000 um from 4990.000 to 4988.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:56:41] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=4988.000 um
+[Z FEEDBACK] Applying -2.000 um from 4988.000 to 4986.000 for high_move_down
+[SMU SAMPLE] V=-0.0006 V, I=2.9998e-07 A, direction=high_move_down
+[Z FEEDBACK] Move complete, Z=4986.000 um
+[Z FEEDBACK] Applying -2.000 um from 4986.000 to 4984.000 for high_move_down
+[MOVE 3] Completed. Position: X=10496.4, Y=10059.8, Z=4986.0
+[MOVE 4] Target coordinates: X=10493.6, Y=10079.7, flag=0
+[Z FEEDBACK] Move complete, Z=4984.000 um
+[Z FEEDBACK] Applying -2.000 um from 4984.000 to 4982.000 for high_move_down
+[Z FEEDBACK] Move complete, Z=4982.000 um
+127.0.0.1 - - [01/Jul/2026 15:56:41] "GET /api/status HTTP/1.1" 200 -
+[SMU SAMPLE] V=5.0000 V, I=2.3403e-08 A, direction=low_lift_up
+[Z FEEDBACK] Applying +2.000 um from 4982.000 to 4984.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=4984.000 um
+[Z FEEDBACK] Applying +2.000 um from 4984.000 to 4986.000 for low_lift_up
+[MOVE 4] Completed. Position: X=10493.6, Y=10079.6, Z=4984.0
+[MOVE 5] Target coordinates: X=10490.0, Y=10099.4, flag=0
+127.0.0.1 - - [01/Jul/2026 15:56:42] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=4986.000 um
+127.0.0.1 - - [01/Jul/2026 15:56:42] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 4986.000 to 4988.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=4988.000 um
+[Z FEEDBACK] Applying +2.000 um from 4988.000 to 4990.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:42] "GET /api/status HTTP/1.1" 200 -
+[MOVE 5] Completed. Position: X=10490.0, Y=10099.4, Z=4988.0
+[MOVE 6] Target coordinates: X=10485.7, Y=10118.9, flag=0
+127.0.0.1 - - [01/Jul/2026 15:56:42] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=4990.000 um
+[Z FEEDBACK] Applying +2.000 um from 4990.000 to 4992.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=4992.000 um
+[Z FEEDBACK] Applying +2.000 um from 4992.000 to 4994.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:42] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=4994.000 um
+[Z FEEDBACK] Applying +2.000 um from 4994.000 to 4996.000 for low_lift_up
+[MOVE 6] Completed. Position: X=10485.6, Y=10119.0, Z=4994.0
+[MOVE 7] Target coordinates: X=10480.5, Y=10138.2, flag=0
+[SMU SAMPLE] V=5.0000 V, I=9.5670e-09 A, direction=low_lift_up
+[Z FEEDBACK] Move complete, Z=4996.000 um
+[Z FEEDBACK] Applying +2.000 um from 4996.000 to 4998.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=4998.000 um
+[Z FEEDBACK] Applying +2.000 um from 4998.000 to 5000.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5000.000 um
+[Z FEEDBACK] Applying +2.000 um from 5000.000 to 5002.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:43] "GET /api/status HTTP/1.1" 200 -
+[MOVE 7] Completed. Position: X=10480.6, Y=10138.2, Z=5000.0
+[MOVE 8] Target coordinates: X=10474.6, Y=10157.4, flag=0
+[Z FEEDBACK] Move complete, Z=5002.000 um
+[Z FEEDBACK] Applying +2.000 um from 5002.000 to 5004.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:43] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5004.000 um
+127.0.0.1 - - [01/Jul/2026 15:56:43] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5004.000 to 5006.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5006.000 um
+[Z FEEDBACK] Applying +2.000 um from 5006.000 to 5008.000 for low_lift_up
+[MOVE 8] Completed. Position: X=10474.6, Y=10157.4, Z=5006.0
+[MOVE 9] Target coordinates: X=10467.9, Y=10176.2, flag=0
+[SMU SAMPLE] V=5.0000 V, I=1.5180e-09 A, direction=low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:44] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5008.000 um
+127.0.0.1 - - [01/Jul/2026 15:56:44] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5008.000 to 5010.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5010.000 um
+[Z FEEDBACK] Applying +2.000 um from 5010.000 to 5012.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:44] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5012.000 um
+[Z FEEDBACK] Applying +2.000 um from 5012.000 to 5014.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5014.000 um
+[MOVE 9] Completed. Position: X=10468.0, Y=10176.2, Z=5014.0
+[MOVE 10] Target coordinates: X=10460.5, Y=10194.8, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5014.000 to 5016.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:44] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5016.000 um
+[Z FEEDBACK] Applying +2.000 um from 5016.000 to 5018.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5018.000 um
+[Z FEEDBACK] Applying +2.000 um from 5018.000 to 5020.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:44] "GET /api/status HTTP/1.1" 200 -
+[MOVE 10] Completed. Position: X=10460.4, Y=10194.8, Z=5018.0
+[MOVE 11] Target coordinates: X=10452.3, Y=10213.1, flag=0
+[Z FEEDBACK] Move complete, Z=5020.000 um
+[SMU SAMPLE] V=5.0001 V, I=-1.0049e-08 A, direction=low_lift_up
+[Z FEEDBACK] Applying +2.000 um from 5020.000 to 5022.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:45] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5022.000 um
+[Z FEEDBACK] Applying +2.000 um from 5022.000 to 5024.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:45] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5024.000 um
+[MOVE 11] Completed. Position: X=10452.4, Y=10213.0, Z=5024.0
+[MOVE 12] Target coordinates: X=10443.4, Y=10231.0, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5024.000 to 5026.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5026.000 um
+127.0.0.1 - - [01/Jul/2026 15:56:45] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5026.000 to 5028.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5028.000 um
+[Z FEEDBACK] Applying +2.000 um from 5028.000 to 5030.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:45] "GET /api/status HTTP/1.1" 200 -
+[MOVE 12] Completed. Position: X=10443.4, Y=10231.0, Z=5028.0
+[MOVE 13] Target coordinates: X=10433.8, Y=10248.6, flag=0
+[Z FEEDBACK] Move complete, Z=5030.000 um
+[Z FEEDBACK] Applying +2.000 um from 5030.000 to 5032.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5032.000 um
+[Z FEEDBACK] Applying +2.000 um from 5032.000 to 5034.000 for low_lift_up
+[SMU SAMPLE] V=5.0000 V, I=-1.2585e-08 A, direction=low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:46] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5034.000 um
+[SMU SAMPLE] V=0.5930 V, I=2.8806e-07 A, direction=high_move_down
+[Z FEEDBACK] Applying -2.000 um from 5034.000 to 5032.000 for high_move_down
+[MOVE 13] Completed. Position: X=10433.8, Y=10248.6, Z=5034.0
+[MOVE 14] Target coordinates: X=10423.6, Y=10265.7, flag=0
+[Z FEEDBACK] Move complete, Z=5032.000 um
+[Z FEEDBACK] Applying -2.000 um from 5032.000 to 5030.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:56:46] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5030.000 um
+[Z FEEDBACK] Applying -2.000 um from 5030.000 to 5028.000 for high_move_down
+[MOVE 14] Completed. Position: X=10423.6, Y=10265.8, Z=5030.0
+[MOVE 15] Target coordinates: X=10412.6, Y=10282.4, flag=0
+127.0.0.1 - - [01/Jul/2026 15:56:46] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5028.000 um
+[Z FEEDBACK] Applying -2.000 um from 5028.000 to 5026.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:56:46] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5026.000 um
+[Z FEEDBACK] Applying -2.000 um from 5026.000 to 5024.000 for high_move_down
+[MOVE 15] Completed. Position: X=10412.6, Y=10282.4, Z=5026.0
+[MOVE 16] Target coordinates: X=10401.0, Y=10298.7, flag=0
+[Z FEEDBACK] Move complete, Z=5024.000 um
+[Z FEEDBACK] Applying -2.000 um from 5024.000 to 5022.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:56:47] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5022.000 um
+[Z FEEDBACK] Applying -2.000 um from 5022.000 to 5020.000 for high_move_down
+[SMU SAMPLE] V=-0.0005 V, I=2.9998e-07 A, direction=high_move_down
+127.0.0.1 - - [01/Jul/2026 15:56:47] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5020.000 um
+[MOVE 16] Completed. Position: X=10401.0, Y=10298.8, Z=5020.0
+[MOVE 17] Target coordinates: X=10388.7, Y=10314.5, flag=0
+[Z FEEDBACK] Applying -2.000 um from 5020.000 to 5018.000 for high_move_down
+[Z FEEDBACK] Move complete, Z=5018.000 um
+[Z FEEDBACK] Applying -2.000 um from 5018.000 to 5016.000 for high_move_down
+127.0.0.1 - - [01/Jul/2026 15:56:47] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5016.000 um
+[MOVE 17] Completed. Position: X=10388.6, Y=10314.6, Z=5016.0
+[MOVE 18] Target coordinates: X=10375.8, Y=10329.8, flag=0
+[Z FEEDBACK] Applying -2.000 um from 5016.000 to 5014.000 for high_move_down
+[Z FEEDBACK] Move complete, Z=5014.000 um
+[Z FEEDBACK] Applying -2.000 um from 5014.000 to 5012.000 for high_move_down
+[Z FEEDBACK] Move complete, Z=5012.000 um
+[Z FEEDBACK] Applying -2.000 um from 5012.000 to 5010.000 for high_move_down
+[MOVE 18] Completed. Position: X=10375.8, Y=10329.8, Z=5012.0
+[MOVE 19] Target coordinates: X=10362.3, Y=10344.6, flag=0
+[Z FEEDBACK] Move complete, Z=5010.000 um
+127.0.0.1 - - [01/Jul/2026 15:56:48] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying -2.000 um from 5010.000 to 5008.000 for high_move_down
+[SMU SAMPLE] V=5.0000 V, I=1.9121e-08 A, direction=low_lift_up
+[Z FEEDBACK] Move complete, Z=5008.000 um
+[Z FEEDBACK] Applying +2.000 um from 5008.000 to 5010.000 for low_lift_up
+[MOVE 19] Completed. Position: X=10362.2, Y=10344.6, Z=5008.0
+[MOVE 20] Target coordinates: X=10348.2, Y=10358.8, flag=0
+127.0.0.1 - - [01/Jul/2026 15:56:48] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5010.000 um
+127.0.0.1 - - [01/Jul/2026 15:56:48] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5010.000 to 5012.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5012.000 um
+[Z FEEDBACK] Applying +2.000 um from 5012.000 to 5014.000 for low_lift_up
+[MOVE 20] Completed. Position: X=10348.2, Y=10358.8, Z=5012.0
+[MOVE 21] Target coordinates: X=10333.6, Y=10372.5, flag=0
+127.0.0.1 - - [01/Jul/2026 15:56:48] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5014.000 um
+127.0.0.1 - - [01/Jul/2026 15:56:48] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5014.000 to 5016.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5016.000 um
+[Z FEEDBACK] Applying +2.000 um from 5016.000 to 5018.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5018.000 um
+[MOVE 21] Completed. Position: X=10333.6, Y=10372.4, Z=5018.0
+[MOVE 22] Target coordinates: X=10318.4, Y=10385.5, flag=0
+127.0.0.1 - - [01/Jul/2026 15:56:49] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5018.000 to 5020.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5020.000 um
+[SMU SAMPLE] V=5.0001 V, I=5.4160e-09 A, direction=low_lift_up
+[Z FEEDBACK] Applying +2.000 um from 5020.000 to 5022.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:49] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5022.000 um
+[MOVE 22] Completed. Position: X=10318.4, Y=10385.6, Z=5022.0
+[MOVE 23] Target coordinates: X=10302.7, Y=10397.9, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5022.000 to 5024.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5024.000 um
+[Z FEEDBACK] Applying +2.000 um from 5024.000 to 5026.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:49] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5026.000 um
+[Z FEEDBACK] Applying +2.000 um from 5026.000 to 5028.000 for low_lift_up
+[MOVE 23] Completed. Position: X=10302.8, Y=10398.0, Z=5026.0
+[MOVE 24] Target coordinates: X=10286.6, Y=10409.7, flag=0
+[Z FEEDBACK] Move complete, Z=5028.000 um
+[Z FEEDBACK] Applying +2.000 um from 5028.000 to 5030.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:50] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5030.000 um
+[Z FEEDBACK] Applying +2.000 um from 5030.000 to 5032.000 for low_lift_up
+[MOVE 24] Completed. Position: X=10286.6, Y=10409.8, Z=5030.0
+[MOVE 25] Target coordinates: X=10269.9, Y=10420.9, flag=0
+[Z FEEDBACK] Move complete, Z=5032.000 um
+[Z FEEDBACK] Applying +2.000 um from 5032.000 to 5034.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:50] "GET /api/status HTTP/1.1" 200 -
+[SMU SAMPLE] V=5.0000 V, I=7.7400e-10 A, direction=low_lift_up
+[Z FEEDBACK] Move complete, Z=5034.000 um
+[Z FEEDBACK] Applying +2.000 um from 5034.000 to 5036.000 for low_lift_up
+[MOVE 25] Completed. Position: X=10270.0, Y=10420.8, Z=5034.0
+[MOVE 26] Target coordinates: X=10252.9, Y=10431.3, flag=0
+[Z FEEDBACK] Move complete, Z=5036.000 um
+127.0.0.1 - - [01/Jul/2026 15:56:50] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5036.000 to 5038.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5038.000 um
+[Z FEEDBACK] Applying +2.000 um from 5038.000 to 5040.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5040.000 um
+127.0.0.1 - - [01/Jul/2026 15:56:50] "GET /api/status HTTP/1.1" 200 -
+[MOVE 26] Completed. Position: X=10252.8, Y=10431.4, Z=5040.0
+[MOVE 27] Target coordinates: X=10235.4, Y=10441.1, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5040.000 to 5042.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5042.000 um
+[Z FEEDBACK] Applying +2.000 um from 5042.000 to 5044.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:51] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5044.000 um
+[Z FEEDBACK] Applying +2.000 um from 5044.000 to 5046.000 for low_lift_up
+[MOVE 27] Completed. Position: X=10235.4, Y=10441.2, Z=5044.0
+[MOVE 28] Target coordinates: X=10217.6, Y=10450.2, flag=0
+[SMU SAMPLE] V=5.0002 V, I=-9.6310e-09 A, direction=low_lift_up
+[Z FEEDBACK] Move complete, Z=5046.000 um
+[Z FEEDBACK] Applying +2.000 um from 5046.000 to 5048.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:51] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5048.000 um
+[Z FEEDBACK] Applying +2.000 um from 5048.000 to 5050.000 for low_lift_up
+[MOVE 28] Completed. Position: X=10217.6, Y=10450.2, Z=5048.0
+[MOVE 29] Target coordinates: X=10199.4, Y=10458.5, flag=0
+[Z FEEDBACK] Move complete, Z=5050.000 um
+[Z FEEDBACK] Applying +2.000 um from 5050.000 to 5052.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:51] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5052.000 um
+[Z FEEDBACK] Applying +2.000 um from 5052.000 to 5054.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5054.000 um
+[MOVE 29] Completed. Position: X=10199.4, Y=10458.6, Z=5054.0
+[MOVE 30] Target coordinates: X=10180.9, Y=10466.1, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5054.000 to 5056.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5056.000 um
+[Z FEEDBACK] Applying +2.000 um from 5056.000 to 5058.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5058.000 um
+127.0.0.1 - - [01/Jul/2026 15:56:52] "GET /api/status HTTP/1.1" 200 -
+[SMU SAMPLE] V=5.0000 V, I=-1.1394e-08 A, direction=low_lift_up
+[Z FEEDBACK] Applying +2.000 um from 5058.000 to 5060.000 for low_lift_up
+[MOVE 30] Completed. Position: X=10180.8, Y=10466.2, Z=5058.0
+[MOVE 31] Target coordinates: X=10162.1, Y=10473.0, flag=0
+[Z FEEDBACK] Move complete, Z=5060.000 um
+[Z FEEDBACK] Applying +2.000 um from 5060.000 to 5062.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:52] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5062.000 um
+127.0.0.1 - - [01/Jul/2026 15:56:52] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5062.000 to 5064.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5064.000 um
+[Z FEEDBACK] Applying +2.000 um from 5064.000 to 5066.000 for low_lift_up
+[MOVE 31] Completed. Position: X=10162.2, Y=10473.0, Z=5064.0
+[MOVE 32] Target coordinates: X=10143.0, Y=10479.1, flag=0
+127.0.0.1 - - [01/Jul/2026 15:56:53] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5066.000 um
+127.0.0.1 - - [01/Jul/2026 15:56:53] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5066.000 to 5068.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5068.000 um
+[Z FEEDBACK] Applying +2.000 um from 5068.000 to 5070.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:53] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5070.000 um
+[Z FEEDBACK] Applying +2.000 um from 5070.000 to 5072.000 for low_lift_up
+[SMU SAMPLE] V=4.9998 V, I=-1.3053e-08 A, direction=low_lift_up
+[MOVE 32] Completed. Position: X=10143.0, Y=10479.2, Z=5070.0
+[MOVE 33] Target coordinates: X=10123.8, Y=10484.4, flag=0
+[Z FEEDBACK] Move complete, Z=5072.000 um
+[Z FEEDBACK] Applying +2.000 um from 5072.000 to 5074.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:53] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5074.000 um
+[Z FEEDBACK] Applying +2.000 um from 5074.000 to 5076.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5076.000 um
+[Z FEEDBACK] Applying +2.000 um from 5076.000 to 5078.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:53] "GET /api/status HTTP/1.1" 200 -
+[MOVE 33] Completed. Position: X=10123.8, Y=10484.4, Z=5076.0
+[MOVE 34] Target coordinates: X=10104.3, Y=10489.0, flag=0
+[Z FEEDBACK] Move complete, Z=5078.000 um
+[Z FEEDBACK] Applying +2.000 um from 5078.000 to 5080.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:54] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5080.000 um
+127.0.0.1 - - [01/Jul/2026 15:56:54] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5080.000 to 5082.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5082.000 um
+[Z FEEDBACK] Applying +2.000 um from 5082.000 to 5084.000 for low_lift_up
+[MOVE 34] Completed. Position: X=10104.2, Y=10489.0, Z=5082.0
+[MOVE 35] Target coordinates: X=10084.6, Y=10492.8, flag=0
+[SMU SAMPLE] V=4.9997 V, I=-8.3350e-09 A, direction=low_lift_up
+[Z FEEDBACK] Move complete, Z=5084.000 um
+127.0.0.1 - - [01/Jul/2026 15:56:54] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5084.000 to 5086.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5086.000 um
+[Z FEEDBACK] Applying +2.000 um from 5086.000 to 5088.000 for low_lift_up
+[MOVE 35] Completed. Position: X=10084.6, Y=10492.8, Z=5086.0
+[MOVE 36] Target coordinates: X=10064.9, Y=10495.8, flag=0
+127.0.0.1 - - [01/Jul/2026 15:56:54] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5088.000 um
+[Z FEEDBACK] Applying +2.000 um from 5088.000 to 5090.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5090.000 um
+[Z FEEDBACK] Applying +2.000 um from 5090.000 to 5092.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:55] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5092.000 um
+[MOVE 36] Completed. Position: X=10064.8, Y=10495.8, Z=5092.0
+[MOVE 37] Target coordinates: X=10045.0, Y=10498.0, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5092.000 to 5094.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5094.000 um
+[Z FEEDBACK] Applying +2.000 um from 5094.000 to 5096.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:55] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5096.000 um
+[SMU SAMPLE] V=4.9995 V, I=-7.3500e-10 A, direction=low_lift_up
+[Z FEEDBACK] Applying +2.000 um from 5096.000 to 5098.000 for low_lift_up
+[MOVE 37] Completed. Position: X=10045.0, Y=10498.0, Z=5096.0
+[MOVE 38] Target coordinates: X=10025.0, Y=10499.4, flag=0
+127.0.0.1 - - [01/Jul/2026 15:56:55] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5098.000 um
+[Z FEEDBACK] Applying +2.000 um from 5098.000 to 5100.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:55] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5100.000 um
+[Z FEEDBACK] Applying +2.000 um from 5100.000 to 5102.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5102.000 um
+[MOVE 38] Completed. Position: X=10025.0, Y=10499.4, Z=5102.0
+[MOVE 39] Target coordinates: X=10005.0, Y=10500.0, flag=0
+127.0.0.1 - - [01/Jul/2026 15:56:56] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5102.000 to 5104.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5104.000 um
+[Z FEEDBACK] Applying +2.000 um from 5104.000 to 5106.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:56] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5106.000 um
+[Z FEEDBACK] Applying +2.000 um from 5106.000 to 5108.000 for low_lift_up
+[MOVE 39] Completed. Position: X=10005.0, Y=10500.0, Z=5106.0
+[MOVE 40] Target coordinates: X=9985.0, Y=10499.8, flag=0
+[Z FEEDBACK] Move complete, Z=5108.000 um
+[Z FEEDBACK] Applying +2.000 um from 5108.000 to 5110.000 for low_lift_up
+[SMU SAMPLE] V=5.0000 V, I=-1.1220e-09 A, direction=low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:56] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5110.000 um
+[Z FEEDBACK] Applying +2.000 um from 5110.000 to 5112.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5112.000 um
+[MOVE 40] Completed. Position: X=9985.0, Y=10499.8, Z=5112.0
+[MOVE 41] Target coordinates: X=9965.0, Y=10498.8, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5112.000 to 5114.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:56] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5114.000 um
+[Z FEEDBACK] Applying +2.000 um from 5114.000 to 5116.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5116.000 um
+127.0.0.1 - - [01/Jul/2026 15:56:57] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5116.000 to 5118.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:57] "GET /api/status HTTP/1.1" 200 -
+[MOVE 41] Completed. Position: X=9965.0, Y=10498.8, Z=5116.0
+[MOVE 42] Target coordinates: X=9945.1, Y=10497.0, flag=0
+[Z FEEDBACK] Move complete, Z=5118.000 um
+[Z FEEDBACK] Applying +2.000 um from 5118.000 to 5120.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5120.000 um
+[Z FEEDBACK] Applying +2.000 um from 5120.000 to 5122.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:57] "GET /api/status HTTP/1.1" 200 -
+[SMU SAMPLE] V=4.9999 V, I=9.5470e-09 A, direction=low_lift_up
+[Z FEEDBACK] Move complete, Z=5122.000 um
+[Z FEEDBACK] Applying +2.000 um from 5122.000 to 5124.000 for low_lift_up
+[MOVE 42] Completed. Position: X=9945.0, Y=10497.0, Z=5122.0
+[MOVE 43] Target coordinates: X=9925.2, Y=10494.4, flag=0
+[Z FEEDBACK] Move complete, Z=5124.000 um
+127.0.0.1 - - [01/Jul/2026 15:56:57] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5124.000 to 5126.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5126.000 um
+[Z FEEDBACK] Applying +2.000 um from 5126.000 to 5128.000 for low_lift_up
+[MOVE 43] Completed. Position: X=9925.2, Y=10494.4, Z=5126.0
+[MOVE 44] Target coordinates: X=9905.5, Y=10491.0, flag=0
+127.0.0.1 - - [01/Jul/2026 15:56:58] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5128.000 um
+[Z FEEDBACK] Applying +2.000 um from 5128.000 to 5130.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5130.000 um
+[Z FEEDBACK] Applying +2.000 um from 5130.000 to 5132.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:58] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5132.000 um
+[MOVE 44] Completed. Position: X=9905.6, Y=10491.0, Z=5132.0
+[MOVE 45] Target coordinates: X=9886.0, Y=10486.8, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5132.000 to 5134.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5134.000 um
+[SMU SAMPLE] V=4.9996 V, I=9.6410e-09 A, direction=low_lift_up
+[Z FEEDBACK] Applying +2.000 um from 5134.000 to 5136.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:56:58] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5136.000 um
+[Z FEEDBACK] Applying +2.000 um from 5136.000 to 5138.000 for low_lift_up
+[MOVE 45] Completed. Position: X=9886.0, Y=10486.8, Z=5136.0
+[MOVE 46] Target coordinates: X=9866.6, Y=10481.9, flag=0
+[Z FEEDBACK] Move complete, Z=5138.000 um
+[Z FEEDBACK] Applying +2.000 um from 5138.000 to 5140.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:59] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5140.000 um
+[Z FEEDBACK] Applying +2.000 um from 5140.000 to 5142.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5142.000 um
+127.0.0.1 - - [01/Jul/2026 15:56:59] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5142.000 to 5144.000 for low_lift_up
+[MOVE 46] Completed. Position: X=9866.6, Y=10481.8, Z=5142.0
+[MOVE 47] Target coordinates: X=9847.4, Y=10476.1, flag=0
+[Z FEEDBACK] Move complete, Z=5144.000 um
+[Z FEEDBACK] Applying +2.000 um from 5144.000 to 5146.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5146.000 um
+127.0.0.1 - - [01/Jul/2026 15:56:59] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5146.000 to 5148.000 for low_lift_up
+[SMU SAMPLE] V=5.0000 V, I=1.5164e-08 A, direction=low_lift_up
+[Z FEEDBACK] Move complete, Z=5148.000 um
+[MOVE 47] Completed. Position: X=9847.4, Y=10476.2, Z=5148.0
+[MOVE 48] Target coordinates: X=9828.5, Y=10469.7, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5148.000 to 5150.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:56:59] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5150.000 um
+[Z FEEDBACK] Applying +2.000 um from 5150.000 to 5152.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5152.000 um
+[Z FEEDBACK] Applying +2.000 um from 5152.000 to 5154.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:00] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5154.000 um
+[MOVE 48] Completed. Position: X=9828.4, Y=10469.6, Z=5154.0
+[MOVE 49] Target coordinates: X=9809.8, Y=10462.4, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5154.000 to 5156.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5156.000 um
+[Z FEEDBACK] Applying +2.000 um from 5156.000 to 5158.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:00] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5158.000 um
+[Z FEEDBACK] Applying +2.000 um from 5158.000 to 5160.000 for low_lift_up
+[MOVE 49] Completed. Position: X=9809.8, Y=10462.4, Z=5158.0
+[MOVE 50] Target coordinates: X=9791.5, Y=10454.4, flag=0
+[SMU SAMPLE] V=5.0000 V, I=9.7900e-09 A, direction=low_lift_up
+[Z FEEDBACK] Move complete, Z=5160.000 um
+[Z FEEDBACK] Applying +2.000 um from 5160.000 to 5162.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:00] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5162.000 um
+[Z FEEDBACK] Applying +2.000 um from 5162.000 to 5164.000 for low_lift_up
+[MOVE 50] Completed. Position: X=9791.4, Y=10454.4, Z=5162.0
+[MOVE 51] Target coordinates: X=9773.5, Y=10445.7, flag=0
+[Z FEEDBACK] Move complete, Z=5164.000 um
+[Z FEEDBACK] Applying +2.000 um from 5164.000 to 5166.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:01] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5166.000 um
+[Z FEEDBACK] Applying +2.000 um from 5166.000 to 5168.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5168.000 um
+127.0.0.1 - - [01/Jul/2026 15:57:01] "GET /api/status HTTP/1.1" 200 -
+[MOVE 51] Completed. Position: X=9773.4, Y=10445.8, Z=5168.0
+[MOVE 52] Target coordinates: X=9755.8, Y=10436.3, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5168.000 to 5170.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5170.000 um
+[Z FEEDBACK] Applying +2.000 um from 5170.000 to 5172.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:01] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5172.000 um127.0.0.1 - - [01/Jul/2026 15:57:01] "GET /api/status HTTP/1.1" 200 -
+
+[SMU SAMPLE] V=5.0001 V, I=2.9120e-09 A, direction=low_lift_up
+[Z FEEDBACK] Applying +2.000 um from 5172.000 to 5174.000 for low_lift_up
+[MOVE 52] Completed. Position: X=9755.8, Y=10436.4, Z=5172.0
+[MOVE 53] Target coordinates: X=9738.5, Y=10426.2, flag=0
+[Z FEEDBACK] Move complete, Z=5174.000 um
+[Z FEEDBACK] Applying +2.000 um from 5174.000 to 5176.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:02] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5176.000 um
+[Z FEEDBACK] Applying +2.000 um from 5176.000 to 5178.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5178.000 um
+[MOVE 53] Completed. Position: X=9738.6, Y=10426.2, Z=5178.0
+[MOVE 54] Target coordinates: X=9721.7, Y=10415.4, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5178.000 to 5180.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:02] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5180.000 um
+[Z FEEDBACK] Applying +2.000 um from 5180.000 to 5182.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5182.000 um
+[Z FEEDBACK] Applying +2.000 um from 5182.000 to 5184.000 for low_lift_up
+[MOVE 54] Completed. Position: X=9721.6, Y=10415.4, Z=5182.0
+[MOVE 55] Target coordinates: X=9705.3, Y=10403.9, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:02] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5184.000 um
+[Z FEEDBACK] Applying +2.000 um from 5184.000 to 5186.000 for low_lift_up
+[SMU SAMPLE] V=5.0003 V, I=-4.5780e-09 A, direction=low_lift_up
+[Z FEEDBACK] Move complete, Z=5186.000 um
+[Z FEEDBACK] Applying +2.000 um from 5186.000 to 5188.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:02] "GET /api/status HTTP/1.1" 200 -
+[MOVE 55] Completed. Position: X=9705.2, Y=10404.0, Z=5186.0
+[MOVE 56] Target coordinates: X=9689.4, Y=10391.8, flag=0
+[Z FEEDBACK] Move complete, Z=5188.000 um
+[Z FEEDBACK] Applying +2.000 um from 5188.000 to 5190.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:03] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5190.000 um
+127.0.0.1 - - [01/Jul/2026 15:57:03] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5190.000 to 5192.000 for low_lift_up
+[MOVE 56] Completed. Position: X=9689.4, Y=10391.8, Z=5190.0
+[MOVE 57] Target coordinates: X=9673.9, Y=10379.1, flag=0
+[Z FEEDBACK] Move complete, Z=5192.000 um
+[Z FEEDBACK] Applying +2.000 um from 5192.000 to 5194.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:03] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5194.000 um
+[Z FEEDBACK] Applying +2.000 um from 5194.000 to 5196.000 for low_lift_up
+[MOVE 57] Completed. Position: X=9674.0, Y=10379.0, Z=5194.0
+[MOVE 58] Target coordinates: X=9659.0, Y=10365.7, flag=0
+[Z FEEDBACK] Move complete, Z=5196.000 um
+[Z FEEDBACK] Applying +2.000 um from 5196.000 to 5198.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:03] "GET /api/status HTTP/1.1" 200 -
+[SMU SAMPLE] V=5.0000 V, I=-9.9790e-09 A, direction=low_lift_up
+[Z FEEDBACK] Move complete, Z=5198.000 um
+[Z FEEDBACK] Applying +2.000 um from 5198.000 to 5200.000 for low_lift_up
+[MOVE 58] Completed. Position: X=9659.0, Y=10365.8, Z=5198.0
+[MOVE 59] Target coordinates: X=9644.7, Y=10351.8, flag=0
+[Z FEEDBACK] Move complete, Z=5200.000 um
+[Z FEEDBACK] Applying +2.000 um from 5200.000 to 5202.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:04] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5202.000 um
+[Z FEEDBACK] Applying +2.000 um from 5202.000 to 5204.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5204.000 um
+[MOVE 59] Completed. Position: X=9644.6, Y=10351.8, Z=5204.0
+[MOVE 60] Target coordinates: X=9630.9, Y=10337.3, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5204.000 to 5206.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:04] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5206.000 um
+[Z FEEDBACK] Applying +2.000 um from 5206.000 to 5208.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:04] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5208.000 um
+[Z FEEDBACK] Applying +2.000 um from 5208.000 to 5210.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:04] "GET /api/status HTTP/1.1" 200 -
+[MOVE 60] Completed. Position: X=9630.8, Y=10337.2, Z=5208.0
+[MOVE 61] Target coordinates: X=9617.7, Y=10322.2, flag=0
+[Z FEEDBACK] Move complete, Z=5210.000 um
+[SMU SAMPLE] V=5.0003 V, I=-1.2646e-07 A, direction=low_lift_up
+[Z FEEDBACK] Applying +2.000 um from 5210.000 to 5212.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5212.000 um
+127.0.0.1 - - [01/Jul/2026 15:57:05] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5212.000 to 5214.000 for low_lift_up
+[MOVE 61] Completed. Position: X=9617.6, Y=10322.2, Z=5212.0
+[MOVE 62] Target coordinates: X=9605.1, Y=10306.7, flag=0
+[Z FEEDBACK] Move complete, Z=5214.000 um
+[Z FEEDBACK] Applying +2.000 um from 5214.000 to 5216.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:05] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5216.000 um
+[Z FEEDBACK] Applying +2.000 um from 5216.000 to 5218.000 for low_lift_up
+[MOVE 62] Completed. Position: X=9605.2, Y=10306.6, Z=5216.0
+[MOVE 63] Target coordinates: X=9593.2, Y=10290.6, flag=0
+[Z FEEDBACK] Move complete, Z=5218.000 um
+[Z FEEDBACK] Applying +2.000 um from 5218.000 to 5220.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:05] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5220.000 um
+[Z FEEDBACK] Applying +2.000 um from 5220.000 to 5222.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5222.000 um
+[MOVE 63] Completed. Position: X=9593.2, Y=10290.6, Z=5222.0
+[MOVE 64] Target coordinates: X=9581.8, Y=10274.1, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5222.000 to 5224.000 for low_lift_up
+[SMU SAMPLE] V=4.9997 V, I=-3.7953e-08 A, direction=low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:05] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5224.000 um
+[Z FEEDBACK] Applying +2.000 um from 5224.000 to 5226.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5226.000 um
+127.0.0.1 - - [01/Jul/2026 15:57:06] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5226.000 to 5228.000 for low_lift_up
+[MOVE 64] Completed. Position: X=9581.8, Y=10274.2, Z=5226.0
+[MOVE 65] Target coordinates: X=9571.2, Y=10257.2, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:06] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5228.000 um
+[Z FEEDBACK] Applying +2.000 um from 5228.000 to 5230.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5230.000 um
+127.0.0.1 - - [01/Jul/2026 15:57:06] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5230.000 to 5232.000 for low_lift_up
+[MOVE 65] Completed. Position: X=9571.2, Y=10257.2, Z=5230.0
+[MOVE 66] Target coordinates: X=9561.3, Y=10239.8, flag=0
+[Z FEEDBACK] Move complete, Z=5232.000 um
+[Z FEEDBACK] Applying +2.000 um from 5232.000 to 5234.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5234.000 um
+127.0.0.1 - - [01/Jul/2026 15:57:06] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5234.000 to 5236.000 for low_lift_up
+[MOVE 66] Completed. Position: X=9561.2, Y=10239.8, Z=5234.0
+[MOVE 67] Target coordinates: X=9552.0, Y=10222.1, flag=0[SMU SAMPLE] V=4.9993 V, I=-2.8861e-08 A, direction=low_lift_up
+
+[Z FEEDBACK] Move complete, Z=5236.000 um
+[Z FEEDBACK] Applying +2.000 um from 5236.000 to 5238.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:07] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5238.000 um
+[Z FEEDBACK] Applying +2.000 um from 5238.000 to 5240.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5240.000 um
+[MOVE 67] Completed. Position: X=9552.0, Y=10222.0, Z=5240.0
+[MOVE 68] Target coordinates: X=9543.5, Y=10204.0, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5240.000 to 5242.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:07] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5242.000 um
+[Z FEEDBACK] Applying +2.000 um from 5242.000 to 5244.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5244.000 um
+127.0.0.1 - - [01/Jul/2026 15:57:07] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5244.000 to 5246.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:07] "GET /api/status HTTP/1.1" 200 -
+[MOVE 68] Completed. Position: X=9543.4, Y=10204.0, Z=5244.0
+[MOVE 69] Target coordinates: X=9535.7, Y=10185.5, flag=0
+[Z FEEDBACK] Move complete, Z=5246.000 um
+[Z FEEDBACK] Applying +2.000 um from 5246.000 to 5248.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5248.000 um
+[SMU SAMPLE] V=4.9995 V, I=-1.2561e-08 A, direction=low_lift_up
+[Z FEEDBACK] Applying +2.000 um from 5248.000 to 5250.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:08] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5250.000 um
+[MOVE 69] Completed. Position: X=9535.8, Y=10185.6, Z=5250.0
+[MOVE 70] Target coordinates: X=9528.7, Y=10166.8, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5250.000 to 5252.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5252.000 um
+[Z FEEDBACK] Applying +2.000 um from 5252.000 to 5254.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5254.000 um
+[Z FEEDBACK] Applying +2.000 um from 5254.000 to 5256.000 for low_lift_up
+[MOVE 70] Completed. Position: X=9528.6, Y=10166.8, Z=5254.0
+[MOVE 71] Target coordinates: X=9522.4, Y=10147.8, flag=0
+[Z FEEDBACK] Move complete, Z=5256.000 um
+127.0.0.1 - - [01/Jul/2026 15:57:08] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5256.000 to 5258.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5258.000 um
+[Z FEEDBACK] Applying +2.000 um from 5258.000 to 5260.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:08] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:08] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5260.000 um
+[Z FEEDBACK] Applying +2.000 um from 5260.000 to 5262.000 for low_lift_up
+[MOVE 71] Completed. Position: X=9522.4, Y=10147.8, Z=5260.0
+[MOVE 72] Target coordinates: X=9516.8, Y=10128.6, flag=0
+[SMU SAMPLE] V=4.9993 V, I=3.3850e-09 A, direction=low_lift_up
+[Z FEEDBACK] Move complete, Z=5262.000 um
+[Z FEEDBACK] Applying +2.000 um from 5262.000 to 5264.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:09] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:09] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5264.000 um
+[Z FEEDBACK] Applying +2.000 um from 5264.000 to 5266.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5266.000 um
+[MOVE 72] Completed. Position: X=9516.8, Y=10128.6, Z=5266.0
+[MOVE 73] Target coordinates: X=9512.1, Y=10109.2, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5266.000 to 5268.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:09] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5268.000 um
+[Z FEEDBACK] Applying +2.000 um from 5268.000 to 5270.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5270.000 um
+[Z FEEDBACK] Applying +2.000 um from 5270.000 to 5272.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:09] "GET /api/status HTTP/1.1" 200 -
+[MOVE 73] Completed. Position: X=9512.0, Y=10109.2, Z=5270.0
+[MOVE 74] Target coordinates: X=9508.1, Y=10089.6, flag=0
+[Z FEEDBACK] Move complete, Z=5272.000 um
+[Z FEEDBACK] Applying +2.000 um from 5272.000 to 5274.000 for low_lift_up
+[SMU SAMPLE] V=4.9997 V, I=1.9906e-08 A, direction=low_lift_up
+[Z FEEDBACK] Move complete, Z=5274.000 um
+127.0.0.1 - - [01/Jul/2026 15:57:10] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5274.000 to 5276.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5276.000 um
+[Z FEEDBACK] Applying +2.000 um from 5276.000 to 5278.000 for low_lift_up
+[MOVE 74] Completed. Position: X=9508.0, Y=10089.6, Z=5276.0
+[MOVE 75] Target coordinates: X=9504.9, Y=10069.8, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:10] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5278.000 um
+[Z FEEDBACK] Applying +2.000 um from 5278.000 to 5280.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5280.000 um
+[Z FEEDBACK] Applying +2.000 um from 5280.000 to 5282.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:10] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:10] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5282.000 um
+[MOVE 75] Completed. Position: X=9504.8, Y=10069.8, Z=5282.0
+[MOVE 76] Target coordinates: X=9502.5, Y=10049.9, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5282.000 to 5284.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5284.000 um
+[Z FEEDBACK] Applying +2.000 um from 5284.000 to 5286.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:11] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5286.000 um
+[SMU SAMPLE] V=4.9996 V, I=3.6098e-08 A, direction=low_lift_up
+[Z FEEDBACK] Applying +2.000 um from 5286.000 to 5288.000 for low_lift_up
+[MOVE 76] Completed. Position: X=9502.6, Y=10050.0, Z=5286.0
+[MOVE 77] Target coordinates: X=9500.9, Y=10030.0, flag=0
+[Z FEEDBACK] Move complete, Z=5288.000 um
+[Z FEEDBACK] Applying +2.000 um from 5288.000 to 5290.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:11] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5290.000 um
+[Z FEEDBACK] Applying +2.000 um from 5290.000 to 5292.000 for low_lift_up
+[MOVE 77] Completed. Position: X=9501.0, Y=10030.0, Z=5290.0
+[MOVE 78] Target coordinates: X=9500.1, Y=10010.0, flag=0
+[Z FEEDBACK] Move complete, Z=5292.000 um
+[Z FEEDBACK] Applying +2.000 um from 5292.000 to 5294.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:11] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5294.000 um
+[Z FEEDBACK] Applying +2.000 um from 5294.000 to 5296.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5296.000 um
+[Z FEEDBACK] Applying +2.000 um from 5296.000 to 5298.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5298.000 um
+[MOVE 78] Completed. Position: X=9500.2, Y=10010.0, Z=5298.0
+[MOVE 79] Target coordinates: X=9500.1, Y=9990.0, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5298.000 to 5300.000 for low_lift_up
+[SMU SAMPLE] V=5.0002 V, I=3.5092e-08 A, direction=low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:12] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5300.000 um
+[Z FEEDBACK] Applying +2.000 um from 5300.000 to 5302.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5302.000 um
+127.0.0.1 - - [01/Jul/2026 15:57:12] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5302.000 to 5304.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:12] "GET /api/status HTTP/1.1" 200 -
+[MOVE 79] Completed. Position: X=9500.2, Y=9990.0, Z=5302.0
+[MOVE 80] Target coordinates: X=9500.9, Y=9970.0, flag=0
+[Z FEEDBACK] Move complete, Z=5304.000 um
+[Z FEEDBACK] Applying +2.000 um from 5304.000 to 5306.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5306.000 um
+127.0.0.1 - - [01/Jul/2026 15:57:12] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5306.000 to 5308.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:12] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5308.000 um
+[Z FEEDBACK] Applying +2.000 um from 5308.000 to 5310.000 for low_lift_up
+[MOVE 80] Completed. Position: X=9501.0, Y=9970.0, Z=5308.0
+[MOVE 81] Target coordinates: X=9502.5, Y=9950.1, flag=0
+[Z FEEDBACK] Move complete, Z=5310.000 um
+[Z FEEDBACK] Applying +2.000 um from 5310.000 to 5312.000 for low_lift_up
+[SMU SAMPLE] V=5.0003 V, I=1.8186e-08 A, direction=low_lift_up
+[Z FEEDBACK] Move complete, Z=5312.000 um
+[Z FEEDBACK] Applying +2.000 um from 5312.000 to 5314.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5314.000 um
+[Z FEEDBACK] Applying +2.000 um from 5314.000 to 5316.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:13] "GET /api/status HTTP/1.1" 200 -
+[MOVE 81] Completed. Position: X=9502.6, Y=9950.0, Z=5314.0
+[MOVE 82] Target coordinates: X=9504.9, Y=9930.2, flag=0
+[Z FEEDBACK] Move complete, Z=5316.000 um
+[Z FEEDBACK] Applying +2.000 um from 5316.000 to 5318.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5318.000 um
+127.0.0.1 - - [01/Jul/2026 15:57:13] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5318.000 to 5320.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:13] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5320.000 um[MOVE 82] Completed. Position: X=9504.8, Y=9930.2, Z=5320.0
+
+[MOVE 83] Target coordinates: X=9508.1, Y=9910.4, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5320.000 to 5322.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:14] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5322.000 um
+127.0.0.1 - - [01/Jul/2026 15:57:14] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5322.000 to 5324.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5324.000 um
+[SMU SAMPLE] V=5.0002 V, I=2.0630e-09 A, direction=low_lift_up
+[Z FEEDBACK] Applying +2.000 um from 5324.000 to 5326.000 for low_lift_up
+[MOVE 83] Completed. Position: X=9508.0, Y=9910.4, Z=5324.0
+[MOVE 84] Target coordinates: X=9512.1, Y=9890.8, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:14] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5326.000 um
+[Z FEEDBACK] Applying +2.000 um from 5326.000 to 5328.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5328.000 um
+[Z FEEDBACK] Applying +2.000 um from 5328.000 to 5330.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:14] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5330.000 um
+[MOVE 84] Completed. Position: X=9512.0, Y=9890.8, Z=5330.0
+[MOVE 85] Target coordinates: X=9516.8, Y=9871.4, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5330.000 to 5332.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5332.000 um
+[Z FEEDBACK] Applying +2.000 um from 5332.000 to 5334.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:14] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5334.000 um
+[Z FEEDBACK] Applying +2.000 um from 5334.000 to 5336.000 for low_lift_up
+[MOVE 85] Completed. Position: X=9516.8, Y=9871.4, Z=5334.0
+[MOVE 86] Target coordinates: X=9522.4, Y=9852.2, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:15] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5336.000 um
+[Z FEEDBACK] Applying +2.000 um from 5336.000 to 5338.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:15] "GET /api/status HTTP/1.1" 200 -
+[SMU SAMPLE] V=5.0002 V, I=-2.4730e-08 A, direction=low_lift_up
+[Z FEEDBACK] Move complete, Z=5338.000 um
+[Z FEEDBACK] Applying +2.000 um from 5338.000 to 5340.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5340.000 um
+127.0.0.1 - - [01/Jul/2026 15:57:15] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5340.000 to 5342.000 for low_lift_up
+[MOVE 86] Completed. Position: X=9522.4, Y=9852.2, Z=5340.0
+[MOVE 87] Target coordinates: X=9528.7, Y=9833.2, flag=0
+[Z FEEDBACK] Move complete, Z=5342.000 um
+[Z FEEDBACK] Applying +2.000 um from 5342.000 to 5344.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:15] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5344.000 um
+[Z FEEDBACK] Applying +2.000 um from 5344.000 to 5346.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5346.000 um
+[Z FEEDBACK] Applying +2.000 um from 5346.000 to 5348.000 for low_lift_up
+[MOVE 87] Completed. Position: X=9528.6, Y=9833.2, Z=5346.0
+[MOVE 88] Target coordinates: X=9535.7, Y=9814.5, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:16] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5348.000 um
+[Z FEEDBACK] Applying +2.000 um from 5348.000 to 5350.000 for low_lift_up
+[SMU SAMPLE] V=4.9998 V, I=-3.1536e-08 A, direction=low_lift_up
+[Z FEEDBACK] Move complete, Z=5350.000 um
+[Z FEEDBACK] Applying +2.000 um from 5350.000 to 5352.000 for low_lift_up
+[MOVE 88] Completed. Position: X=9535.8, Y=9814.4, Z=5350.0
+[MOVE 89] Target coordinates: X=9543.5, Y=9796.0, flag=0
+[Z FEEDBACK] Move complete, Z=5352.000 um
+[Z FEEDBACK] Applying +2.000 um from 5352.000 to 5354.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5354.000 um
+127.0.0.1 - - [01/Jul/2026 15:57:16] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5354.000 to 5356.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5356.000 um
+[MOVE 89] Completed. Position: X=9543.4, Y=9796.0, Z=5356.0
+[MOVE 90] Target coordinates: X=9552.0, Y=9777.9, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5356.000 to 5358.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:16] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5358.000 um
+127.0.0.1 - - [01/Jul/2026 15:57:17] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5358.000 to 5360.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5360.000 um
+[Z FEEDBACK] Applying +2.000 um from 5360.000 to 5362.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:17] "GET /api/status HTTP/1.1" 200 -
+[MOVE 90] Completed. Position: X=9552.0, Y=9778.0, Z=5360.0
+[MOVE 91] Target coordinates: X=9561.3, Y=9760.2, flag=0
+[Z FEEDBACK] Move complete, Z=5362.000 um
+127.0.0.1 - - [01/Jul/2026 15:57:17] "GET /api/status HTTP/1.1" 200 -
+[SMU SAMPLE] V=4.9998 V, I=-3.0184e-08 A, direction=low_lift_up
+[Z FEEDBACK] Applying +2.000 um from 5362.000 to 5364.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5364.000 um
+[Z FEEDBACK] Applying +2.000 um from 5364.000 to 5366.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:17] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5366.000 um
+[MOVE 91] Completed. Position: X=9561.2, Y=9760.2, Z=5366.0
+[MOVE 92] Target coordinates: X=9571.2, Y=9742.8, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5366.000 to 5368.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5368.000 um
+[Z FEEDBACK] Applying +2.000 um from 5368.000 to 5370.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5370.000 um
+[Z FEEDBACK] Applying +2.000 um from 5370.000 to 5372.000 for low_lift_up
+[MOVE 92] Completed. Position: X=9571.2, Y=9742.8, Z=5370.0
+[MOVE 93] Target coordinates: X=9581.8, Y=9725.9, flag=0
+[Z FEEDBACK] Move complete, Z=5372.000 um
+127.0.0.1 - - [01/Jul/2026 15:57:18] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5372.000 to 5374.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5374.000 um
+[Z FEEDBACK] Applying +2.000 um from 5374.000 to 5376.000 for low_lift_up
+[SMU SAMPLE] V=4.9995 V, I=-1.8211e-08 A, direction=low_lift_up
+[MOVE 93] Completed. Position: X=9581.8, Y=9725.8, Z=5374.0
+[MOVE 94] Target coordinates: X=9593.2, Y=9709.4, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:18] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5376.000 um
+127.0.0.1 - - [01/Jul/2026 15:57:18] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5376.000 to 5378.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5378.000 um
+[Z FEEDBACK] Applying +2.000 um from 5378.000 to 5380.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:18] "GET /api/status HTTP/1.1" 200 -
+[MOVE 94] Completed. Position: X=9593.2, Y=9709.4, Z=5378.0
+[MOVE 95] Target coordinates: X=9605.1, Y=9693.3, flag=0
+[Z FEEDBACK] Move complete, Z=5380.000 um
+[Z FEEDBACK] Applying +2.000 um from 5380.000 to 5382.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:18] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5382.000 um
+[Z FEEDBACK] Applying +2.000 um from 5382.000 to 5384.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5384.000 um
+127.0.0.1 - - [01/Jul/2026 15:57:19] "GET /api/status HTTP/1.1" 200 -
+[MOVE 95] Completed. Position: X=9605.2, Y=9693.4, Z=5384.0
+[MOVE 96] Target coordinates: X=9617.7, Y=9677.8, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5384.000 to 5386.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5386.000 um
+[Z FEEDBACK] Applying +2.000 um from 5386.000 to 5388.000 for low_lift_up
+[SMU SAMPLE] V=4.9995 V, I=1.7160e-09 A, direction=low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:19] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5388.000 um
+[Z FEEDBACK] Applying +2.000 um from 5388.000 to 5390.000 for low_lift_up
+[MOVE 96] Completed. Position: X=9617.6, Y=9677.8, Z=5388.0
+[MOVE 97] Target coordinates: X=9630.9, Y=9662.7, flag=0
+[Z FEEDBACK] Move complete, Z=5390.000 um
+[Z FEEDBACK] Applying +2.000 um from 5390.000 to 5392.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:19] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5392.000 um
+127.0.0.1 - - [01/Jul/2026 15:57:19] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5392.000 to 5394.000 for low_lift_up
+[MOVE 97] Completed. Position: X=9630.8, Y=9662.8, Z=5392.0
+[MOVE 98] Target coordinates: X=9644.7, Y=9648.2, flag=0
+[Z FEEDBACK] Move complete, Z=5394.000 um
+[Z FEEDBACK] Applying +2.000 um from 5394.000 to 5396.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5396.000 um
+127.0.0.1 - - [01/Jul/2026 15:57:20] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Applying +2.000 um from 5396.000 to 5398.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5398.000 um[MOVE 98] Completed. Position: X=9644.6, Y=9648.2, Z=5398.0
+
+[MOVE 99] Target coordinates: X=9659.0, Y=9634.3, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5398.000 to 5400.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:20] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5400.000 um
+[Z FEEDBACK] Applying +2.000 um from 5400.000 to 5402.000 for low_lift_up
+[SMU SAMPLE] V=4.9996 V, I=1.5377e-08 A, direction=low_lift_up
+[Z FEEDBACK] Move complete, Z=5402.000 um
+[Z FEEDBACK] Applying +2.000 um from 5402.000 to 5404.000 for low_lift_up
+[MOVE 99] Completed. Position: X=9659.0, Y=9634.2, Z=5402.0
+[MOVE 100] Target coordinates: X=9673.9, Y=9620.9, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:20] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5404.000 um
+[Z FEEDBACK] Applying +2.000 um from 5404.000 to 5406.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5406.000 um
+[Z FEEDBACK] Applying +2.000 um from 5406.000 to 5408.000 for low_lift_up
+[MOVE 100] Completed. Position: X=9674.0, Y=9621.0, Z=5406.0
+[MOVE 101] Target coordinates: X=9689.4, Y=9608.2, flag=0
+[Z FEEDBACK] Move complete, Z=5408.000 um
+[Z FEEDBACK] Applying +2.000 um from 5408.000 to 5410.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:21] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5410.000 um
+[Z FEEDBACK] Applying +2.000 um from 5410.000 to 5412.000 for low_lift_up
+[MOVE 101] Completed. Position: X=9689.4, Y=9608.2, Z=5410.0
+[MOVE 102] Target coordinates: X=9705.3, Y=9596.1, flag=0
+[Z FEEDBACK] Move complete, Z=5412.000 um
+[Z FEEDBACK] Applying +2.000 um from 5412.000 to 5414.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:21] "GET /api/status HTTP/1.1" 200 -
+[SMU SAMPLE] V=4.9995 V, I=3.2268e-08 A, direction=low_lift_up
+[Z FEEDBACK] Move complete, Z=5414.000 um
+[Z FEEDBACK] Applying +2.000 um from 5414.000 to 5416.000 for low_lift_up
+[MOVE 102] Completed. Position: X=9705.2, Y=9596.0, Z=5414.0
+[MOVE 103] Target coordinates: X=9721.7, Y=9584.6, flag=0
+[Z FEEDBACK] Move complete, Z=5416.000 um
+[Z FEEDBACK] Applying +2.000 um from 5416.000 to 5418.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:21] "GET /api/status HTTP/1.1" 200 -
+[Z FEEDBACK] Move complete, Z=5418.000 um
+[Z FEEDBACK] Applying +2.000 um from 5418.000 to 5420.000 for low_lift_up
+[Z FEEDBACK] Move complete, Z=5420.000 um
+[MOVE 103] Completed. Position: X=9721.6, Y=9584.6, Z=5420.0
+[MOVE 104] Target coordinates: X=9738.5, Y=9573.8, flag=0
+[Z FEEDBACK] Applying +2.000 um from 5420.000 to 5422.000 for low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:22] "GET /api/status HTTP/1.1" 200 -
+[SMU SAMPLE] V=5.0002 V, I=-2.1094e-08 A, direction=low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:22] "GET /api/status HTTP/1.1" 200 -
+[MOVE 104] Completed. Position: X=9738.6, Y=9573.8, Z=5420.0
+[MOVE 105] Target coordinates: X=9755.8, Y=9563.7, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:23] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:23] "GET /api/status HTTP/1.1" 200 -
+[MOVE 105] Completed. Position: X=9755.8, Y=9563.6, Z=5420.0
+[MOVE 106] Target coordinates: X=9773.5, Y=9554.3, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:23] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:23] "GET /api/status HTTP/1.1" 200 -
+[SMU SAMPLE] V=4.9996 V, I=2.9285e-08 A, direction=low_lift_up
+[MOVE 106] Completed. Position: X=9773.4, Y=9554.2, Z=5420.0
+[MOVE 107] Target coordinates: X=9791.5, Y=9545.6, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:23] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:23] "GET /api/status HTTP/1.1" 200 -
+[MOVE 107] Completed. Position: X=9791.4, Y=9545.6, Z=5420.0
+[MOVE 108] Target coordinates: X=9809.8, Y=9537.6, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:24] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:24] "GET /api/status HTTP/1.1" 200 -
+[MOVE 108] Completed. Position: X=9809.8, Y=9537.6, Z=5420.0
+[MOVE 109] Target coordinates: X=9828.5, Y=9530.3, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:24] "GET /api/status HTTP/1.1" 200 -
+[SMU SAMPLE] V=5.0001 V, I=2.9251e-08 A, direction=low_lift_up
+[MOVE 109] Completed. Position: X=9828.4, Y=9530.4, Z=5420.0
+[MOVE 110] Target coordinates: X=9847.4, Y=9523.9, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:24] "GET /api/status HTTP/1.1" 200 -
+[MOVE 110] Completed. Position: X=9847.4, Y=9523.8, Z=5420.0
+[MOVE 111] Target coordinates: X=9866.6, Y=9518.1, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:25] "GET /api/status HTTP/1.1" 200 -
+[SMU SAMPLE] V=5.0003 V, I=1.6079e-08 A, direction=low_lift_up
+127.0.0.1 - - [01/Jul/2026 15:57:25] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:25] "GET /api/status HTTP/1.1" 200 -
+[MOVE 111] Completed. Position: X=9866.6, Y=9518.2, Z=5420.0
+[MOVE 112] Target coordinates: X=9886.0, Y=9513.2, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:26] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:26] "GET /api/status HTTP/1.1" 200 -
+[MOVE 112] Completed. Position: X=9886.0, Y=9513.2, Z=5420.0
+[MOVE 113] Target coordinates: X=9905.5, Y=9509.0, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:26] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:26] "GET /api/status HTTP/1.1" 200 -
+[WARN] Z feedback move failed: Timed out waiting for Ack 164
+[MOVE 113] Completed. Position: X=9905.6, Y=9509.0, Z=5420.0
+[MOVE 114] Target coordinates: X=9925.2, Y=9505.6, flag=0
+[MOVE 114] Completed. Position: X=9925.2, Y=9505.6, Z=5420.0
+[MOVE 115] Target coordinates: X=9945.1, Y=9503.0, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:27] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:27] "GET /api/status HTTP/1.1" 200 -
+[MOVE 115] Completed. Position: X=9945.0, Y=9503.0, Z=5420.0
+[MOVE 116] Target coordinates: X=9965.0, Y=9501.2, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:27] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:27] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:27] "GET /api/status HTTP/1.1" 200 -
+[MOVE 116] Completed. Position: X=9965.0, Y=9501.2, Z=5420.0
+[MOVE 117] Target coordinates: X=9985.0, Y=9500.2, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:28] "GET /api/status HTTP/1.1" 200 -
+[MOVE 117] Completed. Position: X=9985.0, Y=9500.2, Z=5420.0
+[MOVE 118] Target coordinates: X=10005.0, Y=9500.0, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:28] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:28] "GET /api/status HTTP/1.1" 200 -
+[MOVE 118] Completed. Position: X=10005.0, Y=9500.0, Z=5420.0
+[MOVE 119] Target coordinates: X=10025.0, Y=9500.6, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:28] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:29] "GET /api/status HTTP/1.1" 200 -
+[MOVE 119] Completed. Position: X=10025.0, Y=9500.6, Z=5420.0
+[MOVE 120] Target coordinates: X=10045.0, Y=9502.0, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:29] "GET /api/status HTTP/1.1" 200 -
+[MOVE 120] Completed. Position: X=10045.0, Y=9502.0, Z=5420.0
+[MOVE 121] Target coordinates: X=10064.9, Y=9504.2, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:29] "GET /api/status HTTP/1.1" 200 -
+[MOVE 121] Completed. Position: X=10064.8, Y=9504.2, Z=5420.0
+[MOVE 122] Target coordinates: X=10084.6, Y=9507.2, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:29] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:30] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:30] "GET /api/status HTTP/1.1" 200 -
+[MOVE 122] Completed. Position: X=10084.6, Y=9507.2, Z=5420.0
+[MOVE 123] Target coordinates: X=10104.3, Y=9511.0, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:30] "GET /api/status HTTP/1.1" 200 -
+[MOVE 123] Completed. Position: X=10104.2, Y=9511.0, Z=5420.0
+[MOVE 124] Target coordinates: X=10123.8, Y=9515.6, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:30] "GET /api/status HTTP/1.1" 200 -
+[MOVE 124] Completed. Position: X=10123.8, Y=9515.6, Z=5420.0
+[MOVE 125] Target coordinates: X=10143.0, Y=9520.9, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:31] "GET /api/status HTTP/1.1" 200 -
+[MOVE 125] Completed. Position: X=10143.0, Y=9520.8, Z=5420.0
+[MOVE 126] Target coordinates: X=10162.1, Y=9527.0, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:32] "GET /api/status HTTP/1.1" 200 -
+[MOVE 126] Completed. Position: X=10162.2, Y=9527.0, Z=5420.0
+[MOVE 127] Target coordinates: X=10180.9, Y=9533.9, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:32] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:32] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:32] "GET /api/status HTTP/1.1" 200 -
+[MOVE 127] Completed. Position: X=10180.8, Y=9533.8, Z=5420.0
+[MOVE 128] Target coordinates: X=10199.4, Y=9541.5, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:32] "GET /api/status HTTP/1.1" 200 -
+[MOVE 128] Completed. Position: X=10199.4, Y=9541.4, Z=5420.0
+[MOVE 129] Target coordinates: X=10217.6, Y=9549.8, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:33] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:33] "GET /api/status HTTP/1.1" 200 -
+[MOVE 129] Completed. Position: X=10217.6, Y=9549.8, Z=5420.0
+[MOVE 130] Target coordinates: X=10235.4, Y=9558.9, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:33] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:33] "GET /api/status HTTP/1.1" 200 -
+[MOVE 130] Completed. Position: X=10235.4, Y=9558.8, Z=5420.0
+[MOVE 131] Target coordinates: X=10252.9, Y=9568.7, flag=0
+[MOVE 131] Completed. Position: X=10252.8, Y=9568.6, Z=5420.0
+[MOVE 132] Target coordinates: X=10269.9, Y=9579.1, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:34] "GET /api/status HTTP/1.1" 200 -
+[MOVE 132] Completed. Position: X=10270.0, Y=9579.2, Z=5420.0
+[MOVE 133] Target coordinates: X=10286.6, Y=9590.3, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:34] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:34] "GET /api/status HTTP/1.1" 200 -
+[MOVE 133] Completed. Position: X=10286.6, Y=9590.2, Z=5420.0
+[MOVE 134] Target coordinates: X=10302.7, Y=9602.1, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:35] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:35] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:35] "GET /api/status HTTP/1.1" 200 -
+[MOVE 134] Completed. Position: X=10302.8, Y=9602.0, Z=5420.0
+[MOVE 135] Target coordinates: X=10318.4, Y=9614.5, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:35] "GET /api/status HTTP/1.1" 200 -
+[MOVE 135] Completed. Position: X=10318.4, Y=9614.4, Z=5420.0
+[MOVE 136] Target coordinates: X=10333.6, Y=9627.5, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:35] "GET /api/status HTTP/1.1" 200 -
+[MOVE 136] Completed. Position: X=10333.6, Y=9627.6, Z=5420.0
+[MOVE 137] Target coordinates: X=10348.2, Y=9641.2, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:36] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:36] "GET /api/status HTTP/1.1" 200 -
+[MOVE 137] Completed. Position: X=10348.2, Y=9641.2, Z=5420.0
+[MOVE 138] Target coordinates: X=10362.3, Y=9655.4, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:36] "GET /api/status HTTP/1.1" 200 -
+[MOVE 138] Completed. Position: X=10362.2, Y=9655.4, Z=5420.0
+[MOVE 139] Target coordinates: X=10375.8, Y=9670.2, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:36] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:37] "GET /api/status HTTP/1.1" 200 -
+[MOVE 139] Completed. Position: X=10375.8, Y=9670.2, Z=5420.0
+[MOVE 140] Target coordinates: X=10388.7, Y=9685.5, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:37] "GET /api/status HTTP/1.1" 200 -
+[MOVE 140] Completed. Position: X=10388.6, Y=9685.4, Z=5420.0
+[MOVE 141] Target coordinates: X=10401.0, Y=9701.3, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:37] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:37] "GET /api/status HTTP/1.1" 200 -
+[MOVE 141] Completed. Position: X=10401.0, Y=9701.2, Z=5420.0
+[MOVE 142] Target coordinates: X=10412.6, Y=9717.6, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:38] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:38] "GET /api/status HTTP/1.1" 200 -
+[MOVE 142] Completed. Position: X=10412.6, Y=9717.6, Z=5420.0
+[MOVE 143] Target coordinates: X=10423.6, Y=9734.3, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:38] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:38] "GET /api/status HTTP/1.1" 200 -
+[MOVE 143] Completed. Position: X=10423.6, Y=9734.2, Z=5420.0
+[MOVE 144] Target coordinates: X=10433.8, Y=9751.4, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:39] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:39] "GET /api/status HTTP/1.1" 200 -
+[MOVE 144] Completed. Position: X=10433.8, Y=9751.4, Z=5420.0
+[MOVE 145] Target coordinates: X=10443.4, Y=9769.0, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:39] "GET /api/status HTTP/1.1" 200 -
+[MOVE 145] Completed. Position: X=10443.4, Y=9769.0, Z=5420.0
+[MOVE 146] Target coordinates: X=10452.3, Y=9786.9, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:39] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:40] "GET /api/status HTTP/1.1" 200 -
+[MOVE 146] Completed. Position: X=10452.4, Y=9787.0, Z=5420.0
+[MOVE 147] Target coordinates: X=10460.5, Y=9805.2, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:40] "GET /api/status HTTP/1.1" 200 -
+[MOVE 147] Completed. Position: X=10460.4, Y=9805.2, Z=5420.0
+[MOVE 148] Target coordinates: X=10467.9, Y=9823.8, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:40] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:40] "GET /api/status HTTP/1.1" 200 -
+[MOVE 148] Completed. Position: X=10468.0, Y=9823.8, Z=5420.0
+[MOVE 149] Target coordinates: X=10474.6, Y=9842.6, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:41] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:41] "GET /api/status HTTP/1.1" 200 -
+[MOVE 149] Completed. Position: X=10474.6, Y=9842.6, Z=5420.0
+[MOVE 150] Target coordinates: X=10480.5, Y=9861.8, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:41] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:41] "GET /api/status HTTP/1.1" 200 -
+[MOVE 150] Completed. Position: X=10480.6, Y=9861.8, Z=5420.0
+[MOVE 151] Target coordinates: X=10485.7, Y=9881.1, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:42] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:42] "GET /api/status HTTP/1.1" 200 -
+[MOVE 151] Completed. Position: X=10485.6, Y=9881.0, Z=5420.0
+[MOVE 152] Target coordinates: X=10490.0, Y=9900.6, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:42] "GET /api/status HTTP/1.1" 200 -
+[MOVE 152] Completed. Position: X=10490.0, Y=9900.6, Z=5420.0
+[MOVE 153] Target coordinates: X=10493.6, Y=9920.3, flag=0127.0.0.1 - - [01/Jul/2026 15:57:42] "GET /api/status HTTP/1.1" 200 -
+
+[MOVE 153] Completed. Position: X=10493.6, Y=9920.4, Z=5420.0
+[MOVE 154] Target coordinates: X=10496.4, Y=9940.1, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:43] "GET /api/status HTTP/1.1" 200 -
+[MOVE 154] Completed. Position: X=10496.4, Y=9940.2, Z=5420.0
+[MOVE 155] Target coordinates: X=10498.4, Y=9960.0, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:43] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:43] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:44] "GET /api/status HTTP/1.1" 200 -
+[MOVE 155] Completed. Position: X=10498.4, Y=9960.0, Z=5420.0
+[MOVE 156] Target coordinates: X=10499.6, Y=9980.0, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:44] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:44] "GET /api/status HTTP/1.1" 200 -
+[MOVE 156] Completed. Position: X=10499.6, Y=9980.0, Z=5420.0
+[MOVE 157] Target coordinates: X=10500.0, Y=10000.0, flag=0
+127.0.0.1 - - [01/Jul/2026 15:57:44] "GET /api/status HTTP/1.1" 200 -
+[MOVE 157] Completed. Position: X=10500.0, Y=10000.0, Z=5420.0
+[MOVE 158] Target coordinates: X=10500.0, Y=10000.0, flag=1
+[INFO] liftoff Initiated
+127.0.0.1 - - [01/Jul/2026 15:57:44] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:46] "GET /api/status HTTP/1.1" 200 -
+[WARN] Liftoff Z move failed: Timed out waiting for Ack 10
+127.0.0.1 - - [01/Jul/2026 15:57:47] "GET /api/status HTTP/1.1" 200 -
+[MOVE 158] Completed. Position: X=10500.0, Y=10000.0, Z=5420.0
+[MOVE 159] Target coordinates: X=11000.0, Y=10000.0, flag=1
+127.0.0.1 - - [01/Jul/2026 15:57:47] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:47] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:50] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:50] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:50] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:50] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:52] "GET /api/status HTTP/1.1" 200 -
+[MOVE 159] Completed. Position: X=11000.0, Y=10000.0, Z=5420.0
+[MOVE 160] Target coordinates: X=11000.0, Y=10000.0, flag=0
+[INFO] Finding new contact point...
+[INFO] SMU Reset complete.
+[INFO] Voltage set to 5.0 V, Compliance Current: 0.3 micro A
+[Z PROBE] Starting with 950.0 µm step, then 1 µm steps.
+127.0.0.1 - - [01/Jul/2026 15:57:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:54] "GET /api/status HTTP/1.1" 200 -
+[EXCEPTION] Device Not Connected 0
+127.0.0.1 - - [01/Jul/2026 15:57:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:56] "GET /api/status HTTP/1.1" 200 -
+[EXCEPTION] Device Not Connected 0
+127.0.0.1 - - [01/Jul/2026 15:57:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:58] "GET /api/status HTTP/1.1" 200 -
+[EXCEPTION] Device Not Connected 0
+127.0.0.1 - - [01/Jul/2026 15:57:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:01] "GET /api/status HTTP/1.1" 200 -
+[EXCEPTION] Device Not Connected 0
+127.0.0.1 - - [01/Jul/2026 15:58:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:01] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:02] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:02] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:02] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:03] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:03] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:03] "GET /api/status HTTP/1.1" 200 -
+[EXCEPTION] Device Not Connected 0
+127.0.0.1 - - [01/Jul/2026 15:58:03] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:03] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:04] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:04] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:04] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:04] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:05] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:05] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:05] "GET /api/status HTTP/1.1" 200 -
+[EXCEPTION] Device Not Connected 0
+127.0.0.1 - - [01/Jul/2026 15:58:05] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:07] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:07] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:07] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:07] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:08] "GET /api/status HTTP/1.1" 200 -
+[EXCEPTION] Device Not Connected 0
+127.0.0.1 - - [01/Jul/2026 15:58:08] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:08] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:08] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:09] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:09] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:09] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:09] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:10] "GET /api/status HTTP/1.1" 200 -
+[EXCEPTION] Device Not Connected 0
+127.0.0.1 - - [01/Jul/2026 15:58:10] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:10] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:10] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:11] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:11] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:11] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:11] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:12] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:12] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:12] "GET /api/status HTTP/1.1" 200 -
+[EXCEPTION] Device Not Connected 0
+127.0.0.1 - - [01/Jul/2026 15:58:13] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:13] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:13] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:13] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:13] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:14] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:14] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:14] "GET /api/status HTTP/1.1" 200 -
+[EXCEPTION] Device Not Connected 0
+[CONTACT] Contact at 6379.0 µm
+[SAFETY] Updated max_safe_z: 46379.0 um
+[INFO] SMU Reset complete.
+[INFO] SMU Reset complete.
+127.0.0.1 - - [01/Jul/2026 15:58:14] "GET /api/status HTTP/1.1" 200 -
+Voltage set as 5.0 V, Current set as 0.3 micro A 
+[MOVE 160] Completed. Position: X=11000.0, Y=10000.0, Z=6379.0
+[ABORT] Async patterning run aborted mid-way by user!
+[WARN] Failed to restore ramps: Invalid Ack 20 given ack 10
+[TIMER] Patterning completed in 1m 34.62s.
+[TIMER] X/Y movement time: 57.26s across 158 moves.
+[TIMER] Commanded XY distance: 3641.48 µm
+[TIMER] Estimated pure XY travel at 100.0 µm/s: 36.41s
+[TIMER] Average XY distance per move: 23.05 µm
+[TIMER] Detailed timing summary:
+[TIMER] motion.start_thread: 0.20s
+[TIMER] motion.wait_for_completion: 1m 21.46s
+[TIMER] smu.check_current: 0.59s
+[TIMER] smu.init_smu: 0.13s
+[TIMER] smu.reset_smu: 0.19s
+[TIMER] smu.use_case_1: 0.05s
+[TIMER] smu.use_case_2: 0.14s
+[TIMER] Moves executed: 160
+[TIMER] X/Y moves counted in movement timer: 158
+[INFO] Threaded straight-line feedback run complete.
+Final Z Position: 6379.0
+Sending Z to bottom home
+127.0.0.1 - - [01/Jul/2026 15:58:15] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:16] "GET /api/status HTTP/1.1" 200 -
+Exception in patterning worker thread: Timed out waiting for Ack 10
+127.0.0.1 - - [01/Jul/2026 15:58:18] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:19] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:22] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:24] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:25] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:27] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:28] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:30] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:31] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:33] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:34] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:36] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:37] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:39] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:40] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:42] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:43] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:52] "POST /api/run_pattern HTTP/1.1" 200 -
+Sending Z to bottom home
+127.0.0.1 - - [01/Jul/2026 15:58:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:54] "GET /api/status HTTP/1.1" 200 -
+Homing failed: Timed out waiting for Ack 10
+Homing failed before pattern start: Timed out waiting for Ack 10
+127.0.0.1 - - [01/Jul/2026 15:58:54] "POST /api/stop HTTP/1.1" 200 -
+Emergency stop triggered.
+127.0.0.1 - - [01/Jul/2026 15:58:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:02] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:03] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:05] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:06] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:08] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:09] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:10] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:12] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:14] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:15] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:17] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:18] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:20] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:21] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:23] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:24] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:26] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:27] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:29] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:30] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:32] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:33] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:35] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:36] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:38] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:39] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:41] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:42] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:44] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:47] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:50] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:59:54] "GET /api/status HTTP/1.1" 200 -

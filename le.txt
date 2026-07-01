@@ -1,29 +1,80 @@
-[STEP 3] Moving Z down by 1000.0 µm...
-[VOLTAGE] 5.0003 V, [CURRENT] 2.2647e-08 A
-[STEP 4] Moving Z down by 1000.0 µm...
-[VOLTAGE] 5.0003 V, [CURRENT] -1.8986e-08 A
-[STEP 5] Moving Z down by 1000.0 µm...
-[VOLTAGE] -0.0005 V, [CURRENT] 2.9998e-07 A
- current reached the right spot !!
-[CONTACT] Probe contact confirmed by current.
-[SAFETY] Patterning will abort if Z exceeds 45000.0 um.
+[INFO] liftoff Initiated
+127.0.0.1 - - [01/Jul/2026 15:57:44] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:45] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:46] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:46] "GET /api/status HTTP/1.1" 200 -
+[WARN] Liftoff Z move failed: Timed out waiting for Ack 10
+127.0.0.1 - - [01/Jul/2026 15:57:47] "GET /api/status HTTP/1.1" 200 -
+[MOVE 158] Completed. Position: X=10500.0, Y=10000.0, Z=5420.0
+[MOVE 159] Target coordinates: X=11000.0, Y=10000.0, flag=1
+127.0.0.1 - - [01/Jul/2026 15:57:47] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:47] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:48] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:49] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:50] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:50] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:50] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:50] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:51] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:52] "GET /api/status HTTP/1.1" 200 -
+[MOVE 159] Completed. Position: X=11000.0, Y=10000.0, Z=5420.0
+[MOVE 160] Target coordinates: X=11000.0, Y=10000.0, flag=0
+[INFO] Finding new contact point...
 [INFO] SMU Reset complete.
-[INFO] SMU Reset complete.
-Voltage set as 5.0 V, Current set as 0.3 micro A
-[SMU SAMPLE] Sampler started, interval=2.0 ms
-[Z FEEDBACK] Worker started, step=2.0 um, speed=1000.0 um/s
-[WARN] Failed to disable ramps: Invalid Ack 0 given ack 10
-[MOVE 1] Target coordinates: X=10499.6, Y=10020.0, flag=0
-[WARN] Failed to restore ramps: Invalid Ack 20 given ack 10
-[SMU SAMPLE] V=-0.0006 V, I=2.9998e-07 A, direction=high_move_down
-Traceback (most recent call last):
-  File "D:\Mask Writing System\python codes\main.py", line 200, in <module>
-    main()
-  File "D:\Mask Writing System\python codes\main.py", line 196, in main
-    mode_async_litho.run(app, x_hmc, y_hmc, z_hmc, reset_all_serial, set_all_speed, startup_all)
-  File "D:\Mask Writing System\python codes\modes\mode_async_litho.py", line 252, in run
-    direction = feedback_state.direction
-                ^^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'VoltageFeedbackState' object has no attribute 'direction'
-
-D:\Mask Writing System\python codes>
+[INFO] Voltage set to 5.0 V, Compliance Current: 0.3 micro A
+[Z PROBE] Starting with 950.0 µm step, then 1 µm steps.
+127.0.0.1 - - [01/Jul/2026 15:57:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:52] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:53] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:54] "GET /api/status HTTP/1.1" 200 -
+[EXCEPTION] Device Not Connected 0
+127.0.0.1 - - [01/Jul/2026 15:57:54] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:55] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:56] "GET /api/status HTTP/1.1" 200 -
+[EXCEPTION] Device Not Connected 0
+127.0.0.1 - - [01/Jul/2026 15:57:56] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:57] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:58] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:58] "GET /api/status HTTP/1.1" 200 -
+[EXCEPTION] Device Not Connected 0
+127.0.0.1 - - [01/Jul/2026 15:57:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:57:59] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:00] "GET /api/status HTTP/1.1" 200 -
+127.0.0.1 - - [01/Jul/2026 15:58:01] "GET /api/status HTTP/1.1" 200 -
+[EXCEPTION] Device Not Connected 0
