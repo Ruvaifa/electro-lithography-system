@@ -232,6 +232,11 @@ btnConnect.addEventListener("click", async () => {
             if (data.success) {
                 isConnected = true;
                 logToConsole("[SYSTEM] Successfully connected to controller axes!");
+                // Refresh camera feed
+                const cameraFeed = document.getElementById("camera-feed");
+                if (cameraFeed) {
+                    cameraFeed.src = `${API_BASE}/api/camera/stream?t=${Date.now()}`;
+                }
             } else {
                 logToConsole(`[ERROR] Connection failed: ${data.error}`, true);
             }
@@ -709,4 +714,29 @@ function logToConsole(message, isError = false) {
         statusMsg.textContent = message;
         statusMsg.style.color = isError ? "#fca5a5" : "#9ca3af";
     }
+}
+
+// Reconnect Camera Feed Button Handler
+const btnReconnectCamera = document.getElementById("btn-reconnect-camera");
+if (btnReconnectCamera) {
+    btnReconnectCamera.addEventListener("click", async () => {
+        btnReconnectCamera.disabled = true;
+        logToConsole("[SYSTEM] Resetting and reconnecting Basler camera...");
+        try {
+            const res = await fetch(`${API_BASE}/api/camera/reconnect`, { method: "POST" });
+            const data = await res.json();
+            if (data.success) {
+                logToConsole("[SYSTEM] Camera reconnection triggered successfully.");
+                const cameraFeed = document.getElementById("camera-feed");
+                if (cameraFeed) {
+                    cameraFeed.src = `${API_BASE}/api/camera/stream?t=${Date.now()}`;
+                }
+            } else {
+                logToConsole(`[ERROR] Camera reconnect failed: ${data.error}`, true);
+            }
+        } catch (err) {
+            logToConsole(`[ERROR] Camera reconnect error: ${err.message}`, true);
+        }
+        btnReconnectCamera.disabled = false;
+    });
 }

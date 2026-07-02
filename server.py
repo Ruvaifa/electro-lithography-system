@@ -217,6 +217,17 @@ class APIHandler(http.server.SimpleHTTPRequestHandler):
             x_port = payload.get("x_port", "")
             y_port = payload.get("y_port", "")
             z_port = payload.get("z_port", "")
+            
+            # Reset camera state to attempt reconnection when connecting ports
+            global camera_instance, camera_failed
+            if camera_instance:
+                try:
+                    camera_instance.close()
+                except Exception:
+                    pass
+            camera_instance = None
+            camera_failed = False
+            
             res = system.connect(x_port, y_port, z_port)
         elif endpoint == "home":
             res = system.home_all()
@@ -232,6 +243,16 @@ class APIHandler(http.server.SimpleHTTPRequestHandler):
             res = system.stop()
         elif endpoint == "disconnect":
             res = system.disconnect()
+        elif endpoint == "camera/reconnect":
+            global camera_instance, camera_failed
+            if camera_instance:
+                try:
+                    camera_instance.close()
+                except Exception:
+                    pass
+            camera_instance = None
+            camera_failed = False
+            res = {"success": True, "message": "Camera reset triggered successfully."}
 
         self.wfile.write(json.dumps(res).encode())
 
