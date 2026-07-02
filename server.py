@@ -4,6 +4,7 @@ import os
 import sys
 import collections
 import time
+import threading
 from socketserver import ThreadingMixIn
 from api import LithographySystem
 
@@ -33,11 +34,13 @@ log_buffer = LogBuffer()
 sys.stdout = log_buffer
 sys.stderr = log_buffer
 
+
 system = LithographySystem()
 
 # --- Basler camera globals ---
 camera_instance = None
 camera_failed = False
+camera_lock = threading.Lock()
 
 def get_camera_frames():
     """MJPEG frame generator. Yields raw JPEG bytes from the Basler camera,
@@ -61,43 +64,54 @@ def get_camera_frames():
             time.sleep(1.0)
             yield mock_jpeg
 
-    # Try to open the physical Basler camera once
-    if not camera_instance and not camera_failed:
-        try:
-            from pypylon import pylon
-            from basler_camera import BaslerCamera
-            camera_instance = BaslerCamera()
-            camera_instance.open()  # _apply_settings() sets ExposureAuto=Continuous via NodeMap
-            camera_instance.camera.StartGrabbing(pylon.GrabStrategy_LatestImageOnly)
-            print("[CAMERA] Basler Camera initialized successfully.")
-        except Exception as e:
-            print(f"[CAMERA] Physical camera initialization failed: {e}. Using simulated camera.")
-            camera_failed = True
+    # Try to open the physical Basler camera once under lock
+    with camera_lock:
+        if not camera_instance and not camera_failed:
+            try:
+                from pypylon import pylon
+                from basler_camera import BaslerCamera
+                camera_instance = BaslerCamera()
+                camera_instance.open()  # _apply_settings() sets ExposureAuto=Continuous via NodeMap
+                camera_instance.camera.StartGrabbing(pylon.GrabStrategy_LatestImageOnly)
+                print("[CAMERA] Basler Camera initialized successfully.")
+            except Exception as e:
+                print(f"[CAMERA] Physical camera initialization failed: {e}. Using simulated camera.")
+                camera_failed = True
 
     while True:
         frame = None
-        if camera_instance and not camera_failed:
+        cam = None
+        with camera_lock:
+            if not camera_failed:
+                cam = camera_instance
+
+        if cam:
             try:
                 from pypylon import pylon
-                if camera_instance.camera.IsGrabbing():
-                    grab_result = camera_instance.camera.RetrieveResult(
-                        3000,                          # 3 s — enough for camera to warm up
+                if cam.camera and cam.camera.IsOpen() and cam.camera.IsGrabbing():
+                    grab_result = cam.camera.RetrieveResult(
+                        1000,                          # 1 s is plenty for active stream grab
                         pylon.TimeoutHandling_Return,  # return None instead of throwing on timeout
                     )
                     try:
                         if grab_result and grab_result.GrabSucceeded():
-                            frame = camera_instance.converter.Convert(grab_result).GetArray()
+                            frame = cam.converter.Convert(grab_result).GetArray()
                     finally:
                         if grab_result:
                             grab_result.Release()
             except Exception as e:
-                print(f"[CAMERA] Failed to grab physical frame: {e}. Switching to simulated.")
-                camera_failed = True
-                try:
-                    camera_instance.close()
-                except Exception:
-                    pass
-                camera_instance = None
+                with camera_lock:
+                    # Only treat as a real failure if the global instance is still this one
+                    if camera_instance is cam:
+                        print(f"[CAMERA] Failed to grab physical frame: {e}. Switching to simulated.")
+                        camera_failed = True
+                        try:
+                            cam.close()
+                        except Exception:
+                            pass
+                        camera_instance = None
+                    else:
+                        print(f"[CAMERA] Grab exception on obsolete camera instance (expected during reconnect/reset): {e}")
 
         if frame is None:
             # Simulated crosshair/probe view
@@ -220,13 +234,14 @@ class APIHandler(http.server.SimpleHTTPRequestHandler):
             z_port = payload.get("z_port", "")
             
             # Reset camera state to attempt reconnection when connecting ports
-            if camera_instance:
-                try:
-                    camera_instance.close()
-                except Exception:
-                    pass
-            camera_instance = None
-            camera_failed = False
+            with camera_lock:
+                if camera_instance:
+                    try:
+                        camera_instance.close()
+                    except Exception:
+                        pass
+                camera_instance = None
+                camera_failed = False
             
             res = system.connect(x_port, y_port, z_port)
         elif endpoint == "home":
@@ -244,13 +259,14 @@ class APIHandler(http.server.SimpleHTTPRequestHandler):
         elif endpoint == "disconnect":
             res = system.disconnect()
         elif endpoint == "camera/reconnect":
-            if camera_instance:
-                try:
-                    camera_instance.close()
-                except Exception:
-                    pass
-            camera_instance = None
-            camera_failed = False
+            with camera_lock:
+                if camera_instance:
+                    try:
+                        camera_instance.close()
+                    except Exception:
+                        pass
+                camera_instance = None
+                camera_failed = False
             res = {"success": True, "message": "Camera reset triggered successfully."}
 
         self.wfile.write(json.dumps(res).encode())
@@ -281,9 +297,10 @@ def run_server(port=8080):
         except Exception:
             pass
         try:
-            if camera_instance:
-                print("[SYSTEM] Releasing Basler camera...")
-                camera_instance.close()
+            with camera_lock:
+                if camera_instance:
+                    print("[SYSTEM] Releasing Basler camera...")
+                    camera_instance.close()
         except Exception:
             pass
         print("[SYSTEM] Server shutdown completed successfully.")

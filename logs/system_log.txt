@@ -199,3 +199,35 @@ Electro-Lithography Web Dashboard running at http://localhost:9000/
 [CAMERA] Reset to factory defaults (UserSetLoad=Default).
 [CAMERA] ExposureAuto = Continuous.
 [CAMERA] Physical camera initialization failed: 'NoneType' object has no attribute 'camera'. Using simulated camera.
+Traceback (most recent call last):
+  File "D:\Python codes\hmccontroller\server.py", line 316, in <module>
+    run_server(port)
+    ~~~~~~~~~~^^^^^^
+  File "D:\Python codes\hmccontroller\server.py", line 276, in run_server
+    httpd = ThreadingHTTPServer(server_address, APIHandler)
+  File "C:\Users\HP\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\AppData\Local\Programs\Python\Python313\Lib\http\server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\HP\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions
+Traceback (most recent call last):
+  File "D:\Python codes\hmccontroller\server.py", line 316, in <module>
+    run_server(port)
+    ~~~~~~~~~~^^^^^^
+  File "D:\Python codes\hmccontroller\server.py", line 276, in run_server
+    httpd = ThreadingHTTPServer(server_address, APIHandler)
+  File "C:\Users\HP\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\AppData\Local\Programs\Python\Python313\Lib\http\server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\HP\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions

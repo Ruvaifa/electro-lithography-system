@@ -370,11 +370,24 @@ def run(app, x_hmc, y_hmc, z_hmc, reset_all_serial_fn, set_all_speed_fn, startup
                 pass
             sys.stdout.pattern_log_file = None
         if disable_ramps:
-            x_hmc.acceleration_and_deceleration(True, True)
-            y_hmc.acceleration_and_deceleration(True, True)
-            z_hmc.acceleration_and_deceleration(True, True)
+            try:
+                x_hmc.acceleration_and_deceleration(True, True)
+                y_hmc.acceleration_and_deceleration(True, True)
+                z_hmc.acceleration_and_deceleration(True, True)
+            except Exception as e:
+                print(f"[WARN] Failed to restore ramps: {e}")
 
         for h in [x_hmc, y_hmc, z_hmc]:
             h.fast_mode = False
 
-        startup_all_fn()
+        is_aborted = (
+            getattr(app, "stop", False)
+            or getattr(x_hmc, "stop_thread", False)
+            or getattr(y_hmc, "stop_thread", False)
+            or getattr(z_hmc, "stop_thread", False)
+        )
+        if is_aborted:
+            print("[INFO] Run was aborted. Resetting serial ports to clear buffers...")
+            reset_all_serial_fn()
+        else:
+            startup_all_fn()

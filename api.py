@@ -26,10 +26,13 @@ class LithographySystem:
                 self.app.stop = False
             if self.x_hmc:
                 self.x_hmc.stop_thread = False
+                self.x_hmc.force_stop_thread = False
             if self.y_hmc:
                 self.y_hmc.stop_thread = False
+                self.y_hmc.force_stop_thread = False
             if self.z_hmc:
                 self.z_hmc.stop_thread = False
+                self.z_hmc.force_stop_thread = False
 
     def list_ports(self) -> list[dict]:
         """Return available COM ports as list of dicts."""
