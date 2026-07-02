@@ -218,15 +218,18 @@ class BaslerCamera:
         # --- Step 1: Reset to factory defaults ---
         # This clears any bad state left by a previous crashed session.
         try:
-            user_set_sel = genicam.CEnumerationPtr(node_map.GetNode("UserSetSelector"))
-            user_set_load = genicam.CCommandPtr(node_map.GetNode("UserSetLoad"))
-            if (genicam.IsAvailable(user_set_sel) and genicam.IsWritable(user_set_sel)
-                    and genicam.IsAvailable(user_set_load)):
-                default_entry = user_set_sel.GetEntryByName("Default")
-                if default_entry and genicam.IsAvailable(default_entry):
-                    user_set_sel.SetIntValue(default_entry.GetValue())
-                    user_set_load.Execute()
-                    print("[CAMERA] Reset to factory defaults (UserSetLoad=Default).")
+            user_set_sel = node_map.GetNode("UserSetSelector")
+            user_set_load = node_map.GetNode("UserSetLoad")
+            if (user_set_sel and genicam.IsAvailable(user_set_sel) and genicam.IsWritable(user_set_sel)
+                    and user_set_load and genicam.IsAvailable(user_set_load)):
+                try:
+                    user_set_sel.SetValue("Default")
+                except Exception:
+                    entry = user_set_sel.GetEntryByName("Default")
+                    if entry and genicam.IsAvailable(entry):
+                        user_set_sel.SetIntValue(entry.GetValue())
+                user_set_load.Execute()
+                print("[CAMERA] Reset to factory defaults (UserSetLoad=Default).")
         except Exception as e:
             print(f"[CAMERA] UserSetLoad reset skipped: {e}")
 
@@ -234,16 +237,17 @@ class BaslerCamera:
         # Do NOT set ExposureMode=Timed first — it can lock cameras in
         # hardware-trigger modes. Let the factory default set it.
         try:
-            exp_auto = genicam.CEnumerationPtr(node_map.GetNode("ExposureAuto"))
-            if genicam.IsAvailable(exp_auto) and genicam.IsWritable(exp_auto):
-                entry = exp_auto.GetEntryByName("Continuous")
-                if entry and genicam.IsAvailable(entry):
-                    exp_auto.SetIntValue(entry.GetValue())
-                    print("[CAMERA] ExposureAuto = Continuous.")
-                else:
-                    print("[CAMERA] ExposureAuto 'Continuous' entry not available on this model.")
+            exp_auto = node_map.GetNode("ExposureAuto")
+            if exp_auto and genicam.IsAvailable(exp_auto) and genicam.IsWritable(exp_auto):
+                try:
+                    exp_auto.SetValue("Continuous")
+                except Exception:
+                    entry = exp_auto.GetEntryByName("Continuous")
+                    if entry and genicam.IsAvailable(entry):
+                        exp_auto.SetIntValue(entry.GetValue())
+                print("[CAMERA] ExposureAuto = Continuous.")
             else:
-                print("[CAMERA] ExposureAuto node not writable — camera may use fixed exposure.")
+                print("[CAMERA] ExposureAuto node not writable or available.")
         except Exception as e:
             print(f"[CAMERA] ExposureAuto=Continuous failed: {e}")
 
@@ -253,13 +257,17 @@ class BaslerCamera:
         try:
             exp_auto_val = ""
             try:
-                exp_auto_node = genicam.CEnumerationPtr(node_map.GetNode("ExposureAuto"))
-                exp_auto_val = exp_auto_node.GetCurrentEntry().GetSymbolic()
+                exp_auto_node = node_map.GetNode("ExposureAuto")
+                if exp_auto_node:
+                    try:
+                        exp_auto_val = exp_auto_node.GetValue()
+                    except AttributeError:
+                        exp_auto_val = exp_auto_node.GetCurrentEntry().GetSymbolic()
             except Exception:
                 pass
             if exp_auto_val != "Continuous":
-                exp_time = genicam.CFloatPtr(node_map.GetNode("ExposureTime"))
-                if genicam.IsWritable(exp_time):
+                exp_time = node_map.GetNode("ExposureTime")
+                if exp_time and genicam.IsWritable(exp_time):
                     fallback = max(exp_time.GetMin(), min(exp_time.GetMax(), 20000.0))
                     exp_time.SetValue(fallback)
                     print(f"[CAMERA] Fallback ExposureTime = {fallback:.0f} µs.")
@@ -267,6 +275,10 @@ class BaslerCamera:
             print(f"[CAMERA] Fallback ExposureTime skipped: {e}")
 
         # --- Step 4: Apply explicit user overrides ---
+        if self.settings.center_x is not None:
+            self._nm_set_bool(node_map, "CenterX", self.settings.center_x)
+        if self.settings.center_y is not None:
+            self._nm_set_bool(node_map, "CenterY", self.settings.center_y)
         if self.settings.width is not None:
             self._nm_set_int(node_map, "Width", self.settings.width)
         if self.settings.height is not None:
@@ -280,7 +292,6 @@ class BaslerCamera:
             self._nm_set_float(node_map, "Gain", self.settings.gain)
             print(f"[CAMERA] Gain = {self.settings.gain}.")
 
-
     # ------------------------------------------------------------------
     # NodeMap helpers — use genicam.IsWritable() (correct pypylon API)
     # ------------------------------------------------------------------
@@ -290,10 +301,12 @@ class BaslerCamera:
         try:
             node = node_map.GetNode(node_name)
             if node and genicam.IsWritable(node):
-                enum_node = genicam.CEnumerationPtr(node)
-                entry = enum_node.GetEntryByName(value)
-                if entry and genicam.IsAvailable(entry):
-                    enum_node.SetIntValue(entry.GetValue())
+                try:
+                    node.SetValue(value)
+                except Exception:
+                    entry = node.GetEntryByName(value)
+                    if entry and genicam.IsAvailable(entry):
+                        node.SetIntValue(entry.GetValue())
         except Exception as e:
             print(f"[CAMERA] Could not set {node_name}={value}: {e}")
 
@@ -302,7 +315,7 @@ class BaslerCamera:
         try:
             node = node_map.GetNode(node_name)
             if node and genicam.IsWritable(node):
-                genicam.CBooleanPtr(node).SetValue(value)
+                node.SetValue(value)
         except Exception as e:
             print(f"[CAMERA] Could not set {node_name}={value}: {e}")
 
@@ -311,13 +324,12 @@ class BaslerCamera:
         try:
             node = node_map.GetNode(node_name)
             if node and genicam.IsWritable(node):
-                int_node = genicam.CIntegerPtr(node)
-                minimum = int_node.GetMin()
-                maximum = int_node.GetMax()
-                increment = int_node.GetInc() if int_node.GetInc() > 0 else 1
+                minimum = node.GetMin()
+                maximum = node.GetMax()
+                increment = node.GetInc() if node.GetInc() > 0 else 1
                 clamped = max(minimum, min(maximum, int(value)))
                 aligned = minimum + ((clamped - minimum) // increment) * increment
-                int_node.SetValue(aligned)
+                node.SetValue(aligned)
         except Exception as e:
             print(f"[CAMERA] Could not set {node_name}={value}: {e}")
 
@@ -326,10 +338,9 @@ class BaslerCamera:
         try:
             node = node_map.GetNode(node_name)
             if node and genicam.IsWritable(node):
-                float_node = genicam.CFloatPtr(node)
-                minimum = float_node.GetMin()
-                maximum = float_node.GetMax()
-                float_node.SetValue(max(minimum, min(maximum, float(value))))
+                minimum = node.GetMin()
+                maximum = node.GetMax()
+                node.SetValue(max(minimum, min(maximum, float(value))))
         except Exception as e:
             print(f"[CAMERA] Could not set {node_name}={value}: {e}")
 
