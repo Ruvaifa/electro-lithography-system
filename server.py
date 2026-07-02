@@ -41,51 +41,42 @@ system = LithographySystem()
 camera_instance = None
 camera_failed = False
 camera_lock = threading.Lock()
+latest_jpeg_frame = None
 
-def get_camera_frames():
-    """MJPEG frame generator. Yields raw JPEG bytes from the Basler camera,
-    or from a simulated crosshair view if the camera is unavailable."""
-    global camera_instance, camera_failed
+def camera_grabber_thread_func():
+    """Background thread that continuously grabs frames from the Basler camera
+    and stores them in latest_jpeg_frame. This prevents thread conflicts
+    on the physical camera device."""
+    global camera_instance, camera_failed, latest_jpeg_frame
 
     try:
         import cv2
         import numpy as np
     except ImportError:
-        # Absolute fallback: 1x1 black JPEG if OpenCV is missing
-        mock_jpeg = (
-            b'\xff\xd8\xff\xe0\x00\x10JFIF\x00\x01\x01\x01\x00`\x00`\x00\x00\xff\xdb\x00C\x00\x08\x06\x06'
-            b'\x07\x06\x05\x08\x07\x07\x07\t\t\x08\n\x0c\x14\r\x0c\x0b\x0b\x0c\x19\x12\x13\x0f\x14\x1d\x1a'
-            b'\x1f\x1e\x1d\x1a\x1c\x1c $.\'  ",#\x1c\x1c(7),01444\x1f\'9=82<.342\xff\xc0\x00\x0b\x08\x00'
-            b'\x01\x00\x01\x01\x01\x11\x01\xff\xc4\x00\x1f\x00\x00\x01\x05\x01\x01\x01\x01\x01\x01\x00\x00'
-            b'\x00\x00\x00\x00\x00\x00\x01\x02\x03\x04\x05\x06\x07\x08\t\n\x0b\xff\xda\x00\x08\x01\x01\x00'
-            b'\x00?\x007\xff\xd9'
-        )
-        while True:
-            time.sleep(1.0)
-            yield mock_jpeg
-
-    # Try to open the physical Basler camera once under lock
-    with camera_lock:
-        if not camera_instance and not camera_failed:
-            try:
-                from pypylon import pylon
-                from basler_camera import BaslerCamera
-                camera_instance = BaslerCamera()
-                camera_instance.open()  # _apply_settings() sets ExposureAuto=Continuous via NodeMap
-                camera_instance.camera.StartGrabbing(pylon.GrabStrategy_LatestImageOnly)
-                print("[CAMERA] Basler Camera initialized successfully.")
-            except Exception as e:
-                print(f"[CAMERA] Physical camera initialization failed: {e}. Using simulated camera.")
-                camera_failed = True
+        print("[CAMERA] OpenCV or Numpy missing. Background grabber thread exiting.")
+        return
 
     while True:
-        frame = None
+        # Check if we need to initialize or re-initialize the camera under lock
         cam = None
         with camera_lock:
-            if not camera_failed:
-                cam = camera_instance
+            if not camera_instance and not camera_failed:
+                try:
+                    from pypylon import pylon
+                    from basler_camera import BaslerCamera
+                    camera_instance = BaslerCamera()
+                    camera_instance.open()  # _apply_settings() sets ExposureAuto=Continuous via NodeMap
+                    camera_instance.camera.StartGrabbing(pylon.GrabStrategy_LatestImageOnly)
+                    print("[CAMERA] Basler Camera initialized successfully in background thread.")
+                except Exception as e:
+                    print(f"[CAMERA] Physical camera initialization failed: {e}. Using simulated camera.")
+                    camera_failed = True
+            
+            cam = camera_instance
+            is_failed = camera_failed
 
-        if cam:
+        frame = None
+        if cam and not is_failed:
             try:
                 from pypylon import pylon
                 if cam.camera and cam.camera.IsOpen() and cam.camera.IsGrabbing():
@@ -128,9 +119,40 @@ def get_camera_frames():
             cv2.putText(frame, f"FPS: 15 | TIME: {time.strftime('%H:%M:%S')}", (15, 55), cv2.FONT_HERSHEY_SIMPLEX, 0.38, (120, 120, 120), 1, cv2.LINE_AA)
             cv2.putText(frame, "SIMULATED VIEW: NO PHYSICAL HARDWARE DETECTED", (15, 455), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 100, 255), 1, cv2.LINE_AA)
             time.sleep(0.066)
+        else:
+            # Control CPU usage slightly if camera is yielding frames very fast
+            time.sleep(0.01)
 
-        _, jpeg = cv2.imencode('.jpg', frame)
-        yield jpeg.tobytes()
+        try:
+            _, jpeg = cv2.imencode('.jpg', frame)
+            latest_jpeg_frame = jpeg.tobytes()
+        except Exception:
+            pass
+
+def get_camera_frames():
+    """MJPEG frame generator. Yields raw JPEG bytes from the background grabber thread."""
+    global latest_jpeg_frame
+
+    # Fallback black 1x1 JPEG if no frames have been captured yet
+    mock_jpeg = (
+        b'\xff\xd8\xff\xe0\x00\x10JFIF\x00\x01\x01\x01\x00`\x00`\x00\x00\xff\xdb\x00C\x00\x08\x06\x06'
+        b'\x07\x06\x05\x08\x07\x07\x07\t\t\x08\n\x0c\x14\r\x0c\x0b\x0b\x0c\x19\x12\x13\x0f\x14\x1d\x1a'
+        b'\x1f\x1e\x1d\x1a\x1c\x1c $.\'  ",#\x1c\x1c(7),01444\x1f\'9=82<.342\xff\xc0\x00\x0b\x08\x00'
+        b'\x01\x00\x01\x01\x01\x11\x01\xff\xc4\x00\x1f\x00\x00\x01\x05\x01\x01\x01\x01\x01\x01\x00\x00'
+        b'\x00\x00\x00\x00\x00\x00\x01\x02\x03\x04\x05\x06\x07\x08\t\n\x0b\xff\xda\x00\x08\x01\x01\x00'
+        b'\x00?\x007\xff\xd9'
+    )
+
+    last_yielded_time = time.time()
+    while True:
+        # Throttle stream output to ~30 FPS
+        elapsed = time.time() - last_yielded_time
+        if elapsed < 0.033:
+            time.sleep(0.033 - elapsed)
+        
+        frame_bytes = latest_jpeg_frame or mock_jpeg
+        yield frame_bytes
+        last_yielded_time = time.time()
 
 class APIHandler(http.server.SimpleHTTPRequestHandler):
     def end_headers(self):
@@ -272,6 +294,10 @@ class APIHandler(http.server.SimpleHTTPRequestHandler):
         self.wfile.write(json.dumps(res).encode())
 
 def run_server(port=8080):
+    # Start background camera grabber thread
+    grabber_thread = threading.Thread(target=camera_grabber_thread_func, name="CameraGrabber", daemon=True)
+    grabber_thread.start()
+
     server_address = ('', port)
     httpd = ThreadingHTTPServer(server_address, APIHandler)
     httpd.timeout = 0.5
