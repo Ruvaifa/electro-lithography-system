@@ -232,16 +232,19 @@ Traceback (most recent call last):
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
 PermissionError: [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions
 Electro-Lithography Web Dashboard running at http://localhost:9000/
-127.0.0.1 - - [02/Jul/2026 12:00:50] "GET / HTTP/1.1" 304 -
-127.0.0.1 - - [02/Jul/2026 12:00:50] "GET /api/camera/stream HTTP/1.1" 200 -
-127.0.0.1 - - [02/Jul/2026 12:00:50] "GET /app.js?v=2.0 HTTP/1.1" 304 -
-127.0.0.1 - - [02/Jul/2026 12:00:50] "GET /api/ports HTTP/1.1" 200 -
-[CAMERA] Reset to factory defaults (UserSetLoad=Default).
-[CAMERA] ExposureAuto = Continuous.
-[CAMERA] Basler Camera initialized successfully.
-127.0.0.1 - - [02/Jul/2026 12:01:04] "POST /api/camera/reconnect HTTP/1.1" 200 -
-127.0.0.1 - - [02/Jul/2026 12:01:05] "GET /api/camera/stream?t=1782973864907 HTTP/1.1" 200 -
-[CAMERA] Reset to factory defaults (UserSetLoad=Default).
-[CAMERA] ExposureAuto = Continuous.
-[CAMERA] Basler Camera initialized successfully.
-[CAMERA] Failed to grab physical frame: There is already a thread waiting for a result. : RuntimeException thrown (file 'InstantCameraImpl.h', line 1090). Switching to simulated.
+Traceback (most recent call last):
+  File "D:\Python codes\hmccontroller\server.py", line 342, in <module>
+    run_server(port)
+    ~~~~~~~~~~^^^^^^
+  File "D:\Python codes\hmccontroller\server.py", line 302, in run_server
+    httpd = ThreadingHTTPServer(server_address, APIHandler)
+  File "C:\Users\HP\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\HP\AppData\Local\Programs\Python\Python313\Lib\http\server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\HP\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions
