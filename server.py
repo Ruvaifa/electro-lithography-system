@@ -196,6 +196,7 @@ class APIHandler(http.server.SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps({"error": f"Unknown endpoint {endpoint}"}).encode())
 
     def handle_api_post(self, clean_path):
+        global camera_instance, camera_failed
         endpoint = clean_path[len("/api/"):]
         
         content_length = int(self.headers.get('Content-Length', 0))
@@ -219,7 +220,6 @@ class APIHandler(http.server.SimpleHTTPRequestHandler):
             z_port = payload.get("z_port", "")
             
             # Reset camera state to attempt reconnection when connecting ports
-            global camera_instance, camera_failed
             if camera_instance:
                 try:
                     camera_instance.close()
@@ -244,7 +244,6 @@ class APIHandler(http.server.SimpleHTTPRequestHandler):
         elif endpoint == "disconnect":
             res = system.disconnect()
         elif endpoint == "camera/reconnect":
-            global camera_instance, camera_failed
             if camera_instance:
                 try:
                     camera_instance.close()
