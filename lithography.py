@@ -273,6 +273,22 @@ class SmuVoltageSampler(Thread):
                 setattr(self.smu, "latest_current", current)
                 direction = classify_voltage(voltage, self.threshold_voltage_1, self.threshold_voltage_2)
                 self.state.update(voltage, current, direction)
+
+                if self.app:
+                    self.app.smu_voltage = voltage
+                    self.app.smu_current = current
+                    
+                    # Update Z feedback direction if not overridden by liftoff/finding contact state
+                    current_dir = getattr(self.app, "z_feedback_direction", "inactive")
+                    if current_dir not in ("liftoff", "finding_contact"):
+                        if direction == 2:
+                            self.app.z_feedback_direction = "voltage_low"
+                        elif direction == 3:
+                            self.app.z_feedback_direction = "voltage_high"
+                        elif direction == 1:
+                            self.app.z_feedback_direction = "aligned"
+                        else:
+                            self.app.z_feedback_direction = "aligned"
                 
                 # Log to app's CSV logger if available
                 if self.app and getattr(self.app, "csv_logger", None):
