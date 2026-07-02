@@ -1,4 +1,30 @@
-D:\Mask Writing System\python codes>python basler_camera.py
-[CAMERA] UserSetLoad reset skipped: module 'pypylon.genicam' has no attribute 'CEnumerationPtr'
-[CAMERA] ExposureAuto=Continuous failed: module 'pypylon.genicam' has no attribute 'CEnumerationPtr'
-[CAMERA] Fallback ExposureTime skipped: module 'pypylon.genicam' has no attribute 'CFloatPtr'
+D:\Mask Writing System\python codes>python server.py 9000
+Electro-Lithography Web Dashboard running at http://localhost:9000/
+127.0.0.1 - - [02/Jul/2026 11:50:51] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [02/Jul/2026 11:50:51] "GET /api/camera/stream HTTP/1.1" 200 -
+127.0.0.1 - - [02/Jul/2026 11:50:51] "GET /style.css?v=2.0 HTTP/1.1" 304 -
+127.0.0.1 - - [02/Jul/2026 11:50:51] "GET /app.js?v=2.0 HTTP/1.1" 200 -
+[CAMERA] Reset to factory defaults (UserSetLoad=Default).
+[CAMERA] ExposureAuto = Continuous.
+[CAMERA] Basler Camera initialized successfully.
+127.0.0.1 - - [02/Jul/2026 11:50:51] "GET /api/ports HTTP/1.1" 200 -
+127.0.0.1 - - [02/Jul/2026 11:50:52] code 404, message File not found
+127.0.0.1 - - [02/Jul/2026 11:50:52] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [02/Jul/2026 11:51:06] "POST /api/camera/reconnect HTTP/1.1" 200 -
+127.0.0.1 - - [02/Jul/2026 11:51:06] "GET /api/camera/stream?t=1782973266639 HTTP/1.1" 200 -
+[CAMERA] Failed to grab physical frame: 'NoneType' object has no attribute 'IsGrabbing'. Switching to simulated.
+[CAMERA] Reset to factory defaults (UserSetLoad=Default).
+[CAMERA] ExposureAuto = Continuous.
+[CAMERA] Physical camera initialization failed: 'NoneType' object has no attribute 'camera'. Using simulated camera.
+127.0.0.1 - - [02/Jul/2026 11:51:15] "POST /api/camera/reconnect HTTP/1.1" 200 -
+127.0.0.1 - - [02/Jul/2026 11:51:15] "GET /api/camera/stream?t=1782973275226 HTTP/1.1" 200 -
+[CAMERA] Failed to grab physical frame: 'NoneType' object has no attribute 'IsGrabbing'. Switching to simulated.
+[CAMERA] Reset to factory defaults (UserSetLoad=Default).
+[CAMERA] ExposureAuto = Continuous.
+[CAMERA] Physical camera initialization failed: 'NoneType' object has no attribute 'camera'. Using simulated camera.
+127.0.0.1 - - [02/Jul/2026 11:51:16] "POST /api/camera/reconnect HTTP/1.1" 200 -
+127.0.0.1 - - [02/Jul/2026 11:51:16] "GET /api/camera/stream?t=1782973276408 HTTP/1.1" 200 -
+[CAMERA] Failed to grab physical frame: 'NoneType' object has no attribute 'IsGrabbing'. Switching to simulated.
+[CAMERA] Reset to factory defaults (UserSetLoad=Default).
+[CAMERA] ExposureAuto = Continuous.
+[CAMERA] Physical camera initialization failed: 'NoneType' object has no attribute 'camera'. Using simulated camera.
