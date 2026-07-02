@@ -231,3 +231,4 @@ Traceback (most recent call last):
     self.socket.bind(self.server_address)
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
 PermissionError: [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions
+Electro-Lithography Web Dashboard running at http://localhost:9000/
